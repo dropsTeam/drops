@@ -7,10 +7,14 @@ function App() {
   const isSeller = false;
   const authorised = true;
 
+
   return (
     <React.Fragment>
-      
-      <nav>This is a Nav Bar only visible for large devices</nav>
+
+      <nav>
+        This is a Nav Bar only visible for large devices
+        { !authorised && <div className='g-signin2'> </div> }
+      </nav>
 
       <sidebar>This is sidebar only visible for mobile</sidebar>
 
@@ -27,9 +31,9 @@ function App() {
           <PrivateRoute access={isSeller} path='/s/seller' exact component={(props) => <h1>This is Seller page if it exist</h1>} />
 
           <Route path="/:id" exact render={() => <h1>This is Customer's Store </h1>} />
-          
+
           {/* and so on .........  */}
-        
+
         </Switch>
       </Router>
     </React.Fragment>

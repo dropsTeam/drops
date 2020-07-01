@@ -8,7 +8,7 @@ const config = require('./config');
 // ******* setup ********
 
 var corsOptions = {
-    origin: 'http://localhost:4200',
+    origin: 'http://localhost:3000',
     optionsSuccessStatus: 200 
 }
 
@@ -22,7 +22,7 @@ app.use(cors(corsOptions));
 
 
 // ************ Listen **************
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, () => {
     console.log(`listening to the port ${PORT}`);
