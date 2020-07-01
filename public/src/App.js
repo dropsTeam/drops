@@ -9,7 +9,10 @@ function App() {
 
   return (
     <React.Fragment>
-      <nav>This is a Nav Bar</nav>
+      
+      <nav>This is a Nav Bar only visible for large devices</nav>
+
+      <sidebar>This is sidebar only visible for mobile</sidebar>
 
       {/* Please replace render with component down below */}
       <Router>
@@ -18,13 +21,15 @@ function App() {
           <Route path="/" exact render={() => <h1>This is Home page</h1>} />
           <Route path="/s/cart" exact render={() => <h1>This is Home's cart </h1>} />
 
+          {/* Use PrivateRoute to protect a route */}
           <PrivateRoute access={authorised} path='/s/orders' exact component={(props) => <h1>This is Orders page</h1>} />
           <PrivateRoute access={authorised} path='/s/account' exact component={(props) => <h1>This is Account page</h1>} />
-          
           <PrivateRoute access={isSeller} path='/s/seller' exact component={(props) => <h1>This is Seller page if it exist</h1>} />
 
           <Route path="/:id" exact render={() => <h1>This is Customer's Store </h1>} />
-
+          
+          {/* and so on .........  */}
+        
         </Switch>
       </Router>
     </React.Fragment>
