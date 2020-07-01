@@ -7,7 +7,7 @@ export function PrivateRoute({ component: Component, access, ...rest }) {
             {...rest}
             render={(props) => access === true
                 ? <Component {...props} />
-                : <Redirect to={{ pathname: '/', state: { from: props.location } }} />}
+                :  <Redirect to={{ pathname: props.history.goBack() , state: { from: props.location } }} />}
         />
     )
 }

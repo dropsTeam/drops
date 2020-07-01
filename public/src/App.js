@@ -4,12 +4,12 @@ import { PrivateRoute } from './utils';
 
 function App() {
 
-  const isSeller = true;
+  const isSeller = false;
   const authorised = true;
 
   return (
     <React.Fragment>
-      <nav>This is a Nav Barr</nav>
+      <nav>This is a Nav Bar</nav>
 
       {/* Please replace render with component down below */}
       <Router>
