@@ -1,25 +1,33 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { PrivateRoute } from './utils';
 
 function App() {
+
+  const isSeller = true;
+  const authorised = true;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <nav>This is a Nav Barr</nav>
+
+      {/* Please replace render with component down below */}
+      <Router>
+        <Switch>
+
+          <Route path="/" exact render={() => <h1>This is Home page</h1>} />
+          <Route path="/s/cart" exact render={() => <h1>This is Home's cart </h1>} />
+
+          <PrivateRoute access={authorised} path='/s/orders' exact component={(props) => <h1>This is Orders page</h1>} />
+          <PrivateRoute access={authorised} path='/s/account' exact component={(props) => <h1>This is Account page</h1>} />
+          
+          <PrivateRoute access={isSeller} path='/s/seller' exact component={(props) => <h1>This is Seller page if it exist</h1>} />
+
+          <Route path="/:id" exact render={() => <h1>This is Customer's Store </h1>} />
+
+        </Switch>
+      </Router>
+    </React.Fragment>
   );
 }
 
