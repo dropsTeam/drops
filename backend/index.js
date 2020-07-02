@@ -25,7 +25,7 @@ config.connectMongo();
 app.use(helmet());
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 app.use(cookie());
 
 
