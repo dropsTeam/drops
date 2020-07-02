@@ -1,5 +1,6 @@
 const mongo = require('mongoose');
 
+
 module.exports = {
     connectMongo: () => {
 
@@ -9,5 +10,6 @@ module.exports = {
             }, err => {
                 console.log(err);
             })
-    }
+    },
+
 }
