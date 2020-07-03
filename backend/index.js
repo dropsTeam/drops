@@ -20,17 +20,28 @@ config.connectMongo();
 
 
 
+
+
+
+
 // ********** Middlewares ***********
 
 app.use(helmet());
+app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
+app.use(cookie());
 app.use(morgan('dev'));
 app.use(cookie());
 
 
+
+
+
+
 // ************ ROUTE MIDDLEWARES *********
 
+app.use('/auth', require('./src/routes/auth.route'))
 
 
 

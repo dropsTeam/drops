@@ -1,5 +1,7 @@
 import React from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import axios from 'axios';
+
 
 const CLIENT_ID = '1092942175302-0ibod3kvsqd9861k4q88epeaa2q2t587.apps.googleusercontent.com';
 
@@ -23,13 +25,22 @@ export default class GoogleBtn extends React.Component {
 
     login(response) {
 
-        console.log(response.getAuthResponse().id_token);
+        const params = new URLSearchParams();
+        params.set('token', response.getAuthResponse().id_token);
+
+        axios.post('http://localhost:8080/auth/verify', params)
+            .then(res => {
+                console.log(res);
+            })
+
         if (response.wc.access_token) {
             this.setState(state => ({
                 isLogined: true,
                 accessToken: response.getAuthResponse().id_token
             }));
         }
+
+
     }
 
     logout(response) {
