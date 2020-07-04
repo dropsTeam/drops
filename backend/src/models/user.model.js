@@ -1,9 +1,11 @@
 const mongo = require('mongoose');
+const types = mongo.Schema.Types;
 
 const schema = new mongo.Schema({
-    profilePic: { type: mongo.Schema.Types.String },
-    email: { type: mongo.Schema.Types.String },
-    password: { type: mongo.Schema.Types.String, maxlength: 200 }
+    gId: {type: types.String},
+    profilePic: { type: types.String },
+    email: { type: types.String },
+    fullName: { type: types.String }
 });
 
 module.exports = mongo.model('users', schema);

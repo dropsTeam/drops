@@ -28,7 +28,7 @@ export default class GoogleBtn extends React.Component {
         const params = new URLSearchParams();
         params.set('token', response.getAuthResponse().id_token);
 
-        axios.post('http://localhost:8080/auth/verify', params)
+        axios.post('http://localhost:8080/auth/log', params)
             .then(res => {
                 console.log(res);
             })

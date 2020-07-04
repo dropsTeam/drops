@@ -6,8 +6,8 @@ const bodyParser = require('body-parser');
 const morgan = require('morgan');
 const cookie = require('cookie-parser');
 
-const config = require('./config');
 
+const config = require('./config');
 
 // ******* setup ********
 
