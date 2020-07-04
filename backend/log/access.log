@@ -1,0 +1,1 @@
+::1 - - [04/Jul/2020:05:29:57 +0000] "POST /auth/log HTTP/1.1" 200 201 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"

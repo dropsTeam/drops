@@ -1,12 +1,12 @@
-import {ADD_TOKEN, LOGOUT} from './ActionType';
+import ActionType from './ActionType';
 
-function addToken(token) {
-    return { type: ADD_TOKEN, payload: {token}}
+function login(user) {
+    return { type: ActionType.LOGIN, payload: user }
 }
 
 function logout() {
-    return { type: LOGOUT, payload: {} }
+    return { type: ActionType.LOGOUT, payload: {} }
 }
 
 
-export {addToken, logout}
+export { login, logout }

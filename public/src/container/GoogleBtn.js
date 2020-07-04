@@ -1,53 +1,53 @@
 import React from 'react';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import axios from 'axios';
-
+import { connect } from 'react-redux';
+import * as authActions from '../Redux/Actions/AuthActions';
 
 const CLIENT_ID = '1092942175302-0ibod3kvsqd9861k4q88epeaa2q2t587.apps.googleusercontent.com';
 
-export default class GoogleBtn extends React.Component {
+
+class GoogleBtn extends React.Component {
 
     constructor(props) {
         super(props);
 
         // Convert it into 
         this.state = {
-            isLogined: false,
-            accessToken: ''
+            isAuthorised: false
         };
 
         this.login = this.login.bind(this);
-        this.handleLoginFailure = this.handleLoginFailure.bind(this);
         this.logout = this.logout.bind(this);
+        this.handleLoginFailure = this.handleLoginFailure.bind(this);
         this.handleLogoutFailure = this.handleLogoutFailure.bind(this);
 
     }
 
     login(response) {
 
+        // this.props.$login('yo');
+
         const params = new URLSearchParams();
         params.set('token', response.getAuthResponse().id_token);
 
         axios.post('http://localhost:8080/auth/log', params)
-            .then(res => {
-                console.log(res);
+            .then(user => {
+                this.props.$login(user.data);
+                // console.log(user.data);
+
             })
-
-        if (response.wc.access_token) {
-            this.setState(state => ({
-                isLogined: true,
-                accessToken: response.getAuthResponse().id_token
-            }));
-        }
-
+            .catch(err => {
+                console.log(err);
+                alert('Error Occured');
+            })
 
     }
 
+
     logout(response) {
-        this.setState(state => ({
-            isLogined: false,
-            accessToken: ''
-        }));
+        console.log('called');
+        this.props.$logout();
     }
 
     handleLoginFailure(response) {
@@ -64,25 +64,40 @@ export default class GoogleBtn extends React.Component {
 
     render() {
         return (
-            <div>
-                {this.state.isLogined ?
-                    <GoogleLogout
-                        clientId={CLIENT_ID}
-                        buttonText='Logout'
-                        onLogoutSuccess={this.logout}
-                        onFailure={this.handleLogoutFailure}
-                    /> : <GoogleLogin
-                        clientId={CLIENT_ID}
-                        buttonText='Login'
-                        onSuccess={this.login}
-                        onFailure={this.handleLoginFailure}
-                        cookiePolicy={'single_host_origin'}
-                        responseType='code,token'
-                    />
-                }
-                {this.state.accessToken ? <h5>Your Access Token: <br /><br /> {this.state.accessToken}</h5> : null}
-
-            </div>
+            (this.props.visible) ?
+                <div>
+                    {this.props.isAuthorised ?
+                        <GoogleLogout
+                            clientId={CLIENT_ID}
+                            buttonText='Logout'
+                            onLogoutSuccess={this.logout}
+                            onFailure={this.handleLogoutFailure}
+                        /> : <GoogleLogin
+                            clientId={CLIENT_ID}
+                            buttonText='Login'
+                            onSuccess={this.login}
+                            onFailure={this.handleLoginFailure}
+                            cookiePolicy={'single_host_origin'}
+                            responseType='code,token'
+                        />
+                    }
+                </div>
+                : null
         )
     }
 }
+
+const mapStateToPeops = (store) => {
+    return {
+        isAuthorised: store.isAuthorised
+    }
+}
+
+const mapDispachToProps = (dispach) => {
+    return {
+        $login: (user) => dispach(authActions.login(user)),
+        $logout: () => dispach(authActions.logout())
+    }
+}
+
+export default connect(mapStateToPeops, mapDispachToProps)(GoogleBtn);

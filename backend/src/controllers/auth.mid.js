@@ -20,6 +20,7 @@ const log = async (req, res, next) => {
 
         const { token } = req.body;
         const { user } = req.app.locals;
+        console.log(user)
 
 
         const isUser = await userModel.findOne({ gId: user.gId });
@@ -61,7 +62,6 @@ const googleVerify = async (req, res, next) => {
         });
         const payload = ticket.getPayload();
 
-        console.log(req.app.locals);
 
         req.app.locals.user = {
             gId: payload['sub'],

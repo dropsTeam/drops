@@ -1,5 +1,7 @@
 
-const ADD_TOKEN = 'ADD_TOKEN';
-const LOGOUT = 'LOGOUT';
+const ActionType = {
+    LOGIN: 'LOGIN',
+    LOGOUT: 'LOGOUT'
+}
 
-export {ADD_TOKEN, LOGOUT};
+export default ActionType;
