@@ -6,6 +6,21 @@ function login(user) {
     return { type: ActionType.LOGIN, payload: user }
 }
 
+function setUser() {
+    return async dispatch => {
+        try {
+
+            const user = await mainHttp.get('/user');
+            return dispatch(login(user.data));
+
+        } catch (err) {
+            alert('Error Occured Setting the user');
+            return;
+        }
+
+    }
+}
+
 function logout() {
     return dispatch => {
         mainHttp
@@ -16,9 +31,8 @@ function logout() {
             .catch(err => {
                 alert('Error Occured Loging out');
             });
-
     }
 }
 
 
-export { login, logout }
+export { login, logout, setUser }

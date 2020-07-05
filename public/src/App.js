@@ -2,14 +2,20 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from './utils';
 import GoogleBtn from './container/GoogleBtn';
+import * as authActions from './Redux/Actions/AuthActions';
 
 import { connect } from 'react-redux';
 
 class App extends React.Component {
 
-  
+
+
   isSeller = false;
 
+
+  componentDidMount() {
+    this.props.$setUser();
+  }
 
   render() {
    
@@ -55,4 +61,10 @@ const mapStateToProps = store => {
   }
 }
 
-export default connect(mapStateToProps, null)(App);
+const mapDispatchToProps = dispatch => {
+  return {
+    $setUser: () =>  dispatch(authActions.setUser())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
