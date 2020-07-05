@@ -31,7 +31,7 @@ class GoogleBtn extends React.Component {
         const params = new URLSearchParams();
         params.set('token', response.getAuthResponse().id_token);
 
-        axios.post('http://localhost:8080/auth/log', params)
+        axios.post('/api/auth/log', params)
             .then(user => {
                 this.props.$login(user.data);
                 // console.log(user.data);
@@ -59,7 +59,7 @@ class GoogleBtn extends React.Component {
     }
 
     componentDidMount() {
-        console.log(sessionStorage.getItem('myUserEntity'))
+        console.log(window.sessionStorage.getItem('oauth2_cs::http://localhost:3000::1092942175302-0ibod3kvsqd9861k4q88epeaa2q2t587.apps.googleusercontent.com'))
     }
 
     render() {
@@ -93,10 +93,10 @@ const mapStateToPeops = (store) => {
     }
 }
 
-const mapDispachToProps = (dispach) => {
+const mapDispachToProps = (dispatch) => {
     return {
-        $login: (user) => dispach(authActions.login(user)),
-        $logout: () => dispach(authActions.logout())
+        $login: (user) => dispatch(authActions.login(user)),
+        $logout: () => dispatch(authActions.logout())
     }
 }
 

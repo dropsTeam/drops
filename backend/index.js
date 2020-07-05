@@ -1,21 +1,19 @@
 const express = require('express');
-const app = express();
 const cors = require('cors');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const cookie = require('cookie-parser');
 var path = require('path')
 var rfs = require('rotating-file-stream') // version 2.x
-
 const config = require('./config');
+const cookie = require('cookie-parser');
 
 // ******* setup ********
 
-var corsOptions = {
-    origin: 'http://localhost:3000',
-    optionsSuccessStatus: 200
-}
+const app = express();
+app.set('trust proxy', 1) // trust first proxy
+app.disable('x-powered-by')
+
 
 config.connectMongo();
 
@@ -25,6 +23,10 @@ var accessLogStream = rfs.createStream('access.log', {
     path: path.join(__dirname, 'log')
 })
 
+// var corsOptions = {
+//     origin: 'http://localhost:3000',
+//     optionsSuccessStatus: 200
+// }
 
 
 
@@ -32,10 +34,9 @@ var accessLogStream = rfs.createStream('access.log', {
 // ********** Middlewares ***********
 
 app.use(helmet());
+app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(cors(corsOptions));
-app.use(cookie());
 app.use(morgan('combined', { stream: accessLogStream }));
 app.use(cookie());
 
@@ -44,10 +45,12 @@ app.use(cookie());
 
 
 
+
 // ************ ROUTE MIDDLEWARES *********
 
-app.use('/auth', require('./src/routes/auth.route'))
 
+app.use('/api/auth', require('./src/routes/auth.route'));
+app.use('/api/user', require('./src/routes/user.route'));
 
 
 // ************ Listen **************

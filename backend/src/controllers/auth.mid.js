@@ -1,26 +1,19 @@
+
 const { OAuth2Client } = require('google-auth-library');
 const config = require('../../config');
-const { validationResult } = require('express-validator');
+const userModel = require('../models/user.model');
 
 const client = new OAuth2Client(config.auth.GOOGLE_CLIENT_ID);
-
-
-const userModel = require('../models/user.model');
 
 
 
 const log = async (req, res, next) => {
 
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(422).json({ errors: errors.array() });
-    }
-
     try {
 
-        const { token } = req.body;
+        const { token } = req.app.locals;
         const { user } = req.app.locals;
-        console.log(user)
+
 
 
         const isUser = await userModel.findOne({ gId: user.gId });
@@ -34,9 +27,10 @@ const log = async (req, res, next) => {
         res.cookie('auth-token', token, {
             expires: expireDate,
             secure: false,
-            httpOnly: false,
-            domain: 'localhost'
+            httpOnly: true,
+            sameSite: true
         }).send(user);
+
 
     } catch (err) {
         res.status(400).send({ msg: 'Error Occured' });
@@ -45,39 +39,51 @@ const log = async (req, res, next) => {
 
 
 
-
-const googleVerify = async (req, res, next) => {
-
+const logout = async (req, res, next) => {
     try {
+        res.clearCookie('auth-token').send('ok');
 
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(422).json({ errors: errors.array() });
-        }
-
-
-        const ticket = await client.verifyIdToken({
-            idToken: req.body.token + '',
-            audience: config.auth.GOOGLE_CLIENT_ID,
-        });
-        const payload = ticket.getPayload();
-
-
-        req.app.locals.user = {
-            gId: payload['sub'],
-            email: payload.email,
-            fullName: payload.name,
-            profilePic: payload.picture
-        }
-
-        next();
-
-    }
-    catch (err) {
-        console.log(err);
-        res.status(401).send({ msg: 'Token Unverified' });
+    } catch (err) {
+        res.status(400).send({ message: err })
     }
 }
 
 
-module.exports = { googleVerify, log };
+
+function googleVerify(fromCookie) {
+    return async (req, res, next) => {
+
+        try {
+            console.log(req)
+            const token = (fromCookie) ? req.cookies['auth-token'] : req.body.token;
+
+
+            const ticket = await client.verifyIdToken({
+                idToken: token,
+                audience: config.auth.GOOGLE_CLIENT_ID,
+            });
+            const payload = ticket.getPayload();
+
+
+            req.app.locals.user = {
+                gId: payload['sub'],
+                email: payload.email,
+                fullName: payload.name,
+                profilePic: payload.picture
+            }
+
+            req.app.locals.token = token;
+
+            next();
+
+        }
+        catch (err) {
+            console.log(err);
+            res.status(401).send({ msg: 'Token Unverified' });
+        }
+    }
+}
+
+
+
+module.exports = { googleVerify, log, logout };

@@ -1,11 +1,23 @@
 import ActionType from './ActionType';
+import { mainHttp } from '../../Axios/Axios';
+
 
 function login(user) {
     return { type: ActionType.LOGIN, payload: user }
 }
 
 function logout() {
-    return { type: ActionType.LOGOUT, payload: {} }
+    return dispatch => {
+        mainHttp
+            .post('/auth/logout', {}, { withCredentials: true })
+            .then(_ => {
+                dispatch({ type: ActionType.LOGOUT, payload: {} })
+            })
+            .catch(err => {
+                alert('Error Occured Loging out');
+            });
+
+    }
 }
 
 

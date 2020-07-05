@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from './utils';
 import GoogleBtn from './container/GoogleBtn';
@@ -12,6 +12,7 @@ class App extends React.Component {
 
 
   render() {
+   
     return (
       <React.Fragment>
 
@@ -27,15 +28,15 @@ class App extends React.Component {
         <Router>
           <Switch>
 
-            <Route path="/" exact render={() => <h1>This is Home page</h1>} />
-            <Route path="/s/cart" exact render={() => <h1>This is Home's cart </h1>} />
+            <Route path="/" exact render={(props) => <h1>This is Home page</h1>} />
+            <Route path="/s/cart" exact render={(props) => <h1>This is Home's cart </h1>} />
 
             {/* Use PrivateRoute to protect a route */}
             <PrivateRoute access={this.props.authorised} path='/s/orders' exact component={(props) => <h1>This is Orders page</h1>} />
             <PrivateRoute access={this.props.authorised} path='/s/account' exact component={(props) => <h1>This is Account page</h1>} />
             <PrivateRoute access={this.isSeller} path='/s/seller' exact component={(props) => <h1>This is Seller page if it exist</h1>} />
 
-            <Route path="/:id" exact render={() => <h1>This is Customer's Store </h1>} />
+            <Route path="/:id" exact render={(props) => <h1>This is Customer's Store </h1>} />
 
             {/* and so on .........  */}
 

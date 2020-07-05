@@ -1,9 +1,8 @@
 const route = require('express').Router();
-const { googleVerify, log } = require('../controllers/auth.mid');
-const { body } = require('express-validator');
+const { googleVerify, log, logout } = require('../controllers/auth.mid');
 
 
-route.post('/log', [body('token').exists().isString().escape().trim()], googleVerify, log)
-
+route.post('/log', googleVerify(false) , log)
+route.post('/logout', googleVerify(true), logout);
 
 module.exports = route;
