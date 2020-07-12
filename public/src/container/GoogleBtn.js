@@ -51,7 +51,7 @@ class GoogleBtn extends React.Component {
     }
 
     handleLoginFailure(response) {
-        alert('Failed to log in')
+        console.log('Failed to log in')
     }
 
     handleLogoutFailure(response) {
