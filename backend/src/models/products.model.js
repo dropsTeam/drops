@@ -22,6 +22,7 @@ const mediaSchema = mongo.Schema({
         maxlength: 500,
         required: true
     },
+
     kind: {
         type: typ.String,
         enum: ['image', 'video']
@@ -76,9 +77,11 @@ const schema = mongo.Schema({
         type: typ.Date,
         default: Data.now
     },
+
     media: [mediaSchema],
 
     dropdown: [dropdown],
+
     varients: [varients],
 
     totalReview: {
@@ -95,6 +98,12 @@ const schema = mongo.Schema({
         type: typ.String,
         required,
         maxlength: 50
+    },
+    category: {
+        type: typ.String,
+        required: true,
+        maxlength: 50,
+        enum: ['Men Clothing','Men Clothing' , 'Men Shoes', 'Women Shoes', 'Camera, Photo & Video', 'Headphones & Speakers', 'Cellphone, Tablets & Accessories', 'Computers, Monitors & Laptops']
     }
 
 });
