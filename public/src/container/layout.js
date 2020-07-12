@@ -14,39 +14,51 @@ const NavBarInstance = ({ onSelect, activeKey, ...props }) => {
             <Avatar  size="md" src={amazonlogo} className="amazonlogo" >
                 
             </Avatar>
-        </Navbar.Header>
-        <Navbar.Body className="navdirect">
-          <Nav onSelect={onSelect} activeKey={activeKey} className="navbottom" >
-            <InputGroup size="xs" inside style={{ width: 750 }} className="searchbox">
+            <InputGroup size="xs" inside style={{ width: 700 }} className="searchbox">
                 <Input placeholder="Default Input"  />
                 <InputGroup.Button>
                 <Icon icon="search" />
                 </InputGroup.Button>
             </InputGroup>
-            <Nav.Item eventKey="1" icon={<Icon icon="home" />}>
-              Home
-            </Nav.Item>
-            <Nav.Item eventKey="2">News</Nav.Item>
-            <Nav.Item eventKey="3">Products</Nav.Item>
-            <Dropdown title="About">
-              <Dropdown.Item eventKey="4">Company</Dropdown.Item>
-              <Dropdown.Item eventKey="5">Team</Dropdown.Item>
-              <Dropdown.Item eventKey="6">Contact</Dropdown.Item>
-            </Dropdown>
-          </Nav>
-          <Nav pullRight>
-            <Nav.Item className="item-nav" icon={<Icon icon="cog" />} >Cart</Nav.Item>
-          </Nav>
-          <Nav pullRight>
-            <Nav.Item className="item-nav" ><h6>You'r</h6> prime</Nav.Item>
-          </Nav>
-          <Nav pullRight>
-            <Nav.Item className="item-nav" ><h6>Returns</h6> & Orders</Nav.Item>
-          </Nav>
-          <Nav pullRight>
-            <Nav.Item  className="item-nav"><h6>Accounts</h6> & Lists</Nav.Item>
-          </Nav>
+        </Navbar.Header>
+        <Navbar.Body className="navdirect">
+            
           
+            <Nav pullRight>
+                <Nav.Item className="item-nav" icon={<Icon size="2x" icon="shopping-cart" />} >Cart</Nav.Item>
+            </Nav>
+            <Nav pullRight>
+                <Nav.Item className="item-nav" ><h6>You'r</h6> prime</Nav.Item>
+            </Nav>
+            <Nav pullRight>
+                <Nav.Item className="item-nav" ><h6>Returns</h6>  & Orders</Nav.Item>
+            </Nav>
+            <Nav pullRight>
+                <Nav.Item  className="item-nav"><h6>Accounts</h6>& Lists</Nav.Item>
+            </Nav>
+            <Nav stacked="True" onSelect={onSelect} activeKey={activeKey} className="navbottom" >
+                
+                <Nav.Item className="list-small" eventKey="1" icon={<Icon icon="home" />}>
+                Navjot Store
+                </Nav.Item>
+                <Nav.Item className="list-small" eventKey="2">Best Sellers</Nav.Item>
+                <Nav.Item className="list-small" eventKey="3">Electronics</Nav.Item>
+                <Nav.Item className="list-small" eventKey="4">Deals Store</Nav.Item>
+                <Nav.Item className="list-small" eventKey="5">Buy Again</Nav.Item>
+                <Nav.Item className="list-small" eventKey="6">Help</Nav.Item>
+                <Nav.Item className="list-small" eventKey="7">Gift Ideas</Nav.Item>
+                <Nav.Item className="list-small" eventKey="8">New Releases</Nav.Item>
+                <Nav.Item className="list-small" eventKey="9">Home</Nav.Item>
+                <Nav.Item className="list-small" eventKey="10">Gift Cards</Nav.Item>
+                <Nav.Item className="list-small" eventKey="11">Coupons</Nav.Item>
+                <Nav.Item className="list-small" eventKey="11">Coupons</Nav.Item>
+                <Nav.Item className="list-small" eventKey="11">Coupons</Nav.Item>
+                <Dropdown title="About">
+                <Dropdown.Item eventKey="12">Company</Dropdown.Item>
+                <Dropdown.Item eventKey="13">Team</Dropdown.Item>
+                <Dropdown.Item eventKey="14">Contact</Dropdown.Item>
+                </Dropdown>
+            </Nav>
         </Navbar.Body>
       </Navbar>
     );
