@@ -14,7 +14,7 @@ function setUser() {
             return dispatch(login(user.data));
 
         } catch (err) {
-            alert('Error Occured Setting the user');
+            console.log('Error Occured Setting the user');
             return;
         }
 

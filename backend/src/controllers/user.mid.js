@@ -89,28 +89,38 @@ const deleteCartItem = async (req, res, next) => {
         const cartData = await userModel.findById(user._id).select('cart').lean();
 
 
-        if(index < 0) {
+        if (index < 0) {
             cartData.cart = []
-        }else {
-            if(index >= cartData.cart.length) {throw `No such element with index ${index} found in cart`};
-            cartData.cart.splice(index,1);
+        } else {
+            if (index >= cartData.cart.length) { throw `No such element with index ${index} found in cart` };
+            cartData.cart.splice(index, 1);
         }
-        
+
         const update = {
             cart: cartData.cart
         }
 
         await userModel.findByIdAndUpdate(user._id, update);
-        res.status(200).send({cart: cartData.cart})
+        res.status(200).send({ cart: cartData.cart })
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured while deleting the cart.' })
+        res.status(500).send({ msg: 'Error Occured while deleting the cart.', err })
     }
 }
 
 
 
+const editCart = async (req, res, next) => {
+    try {
 
+        const { user, product } = req.app.locals;
+        const {quantity, dropdown, varient} = re
 
-module.exports = { get, getCart, postCart, deleteCartItem };
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ msg: 'Error Occured while editing the cart.', err })
+    }
+}
+
+module.exports = { get, getCart, postCart, deleteCartItem, editCart };

@@ -10,5 +10,6 @@ route
     .get('/cart', authC.googleVerify(true), userC.getCart)
     .post('/cart', authC.googleVerify(true), productC.basicProductInfo, userC.postCart)
     .delete('/cart/:index', authC.googleVerify(true), userC.deleteCartItem)
+    .put('/cart/:index', authC.googleVerify(true), userC.editCart)
 
 module.exports = route;
