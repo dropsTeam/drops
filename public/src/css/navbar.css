@@ -4,10 +4,33 @@
 .searchbox{
     margin: 15px 0px 10px 10px;
     height: 28px;
+    position: relative;
+    top: -60px;
+    right: -60px;
     
 }
-.item-nav{
+.item-nav h6{
+    font-size: 10px;
+    
+}
+.rs-nav-item-content{
+    padding: 0px;
+    margin: 0px;
+    
+}
+
+.list-small{
+    padding: 0px;
+    margin: 0px;
     font-size: 2px;
+
+}
+.item-nav{
+    padding: 0px;
+    margin: 0px;
+    position: relative;
+    left: 0px;
+    top: -8px; 
 }
 
 .navmain{
