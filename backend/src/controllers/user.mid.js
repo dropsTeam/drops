@@ -12,19 +12,22 @@ const get = async (req, res, next) => {
 };
 
 const getCart = async (req, res, next) => {
-    
-    try {
-        
-        const {_id} = req.app.locals.user;
 
-        const cart = await await userModel.findOne({_id: _id}).select('cart').lean();
+    try {
+
+        const { _id } = req.app.locals.user;
+
+        const cart = await await userModel.findById(_id).select('cart').lean();
 
         res.status(200).send(cart);
 
-    } catch (err) {
+    }
+    catch (err) {
         console.log(err);
         res.status(400).send({ msg: 'Error Occured in fetching user' });
     }
 };
+
+
 
 module.exports = { get, getCart };
