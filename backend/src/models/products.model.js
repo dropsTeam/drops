@@ -85,6 +85,16 @@ const schema = mongo.Schema({
         type: typ.Number,
         min: 0,
         default: 0
+    },
+    price: {
+        type: typ.Number,
+        min: 0,
+        required: true
+    },
+    seller: {
+        type: typ.String,
+        required,
+        maxlength: 50
     }
 
 });

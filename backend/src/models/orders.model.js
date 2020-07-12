@@ -16,6 +16,11 @@ const schema = mongo.Schema({
         min: 1,
         default: 1
     },
+    price: {
+        type: typ.Number,
+        min: 0,
+        required: true
+    },
     varient: {
         type: types.String,
         maxlength: 50
@@ -26,6 +31,7 @@ const schema = mongo.Schema({
         default: Date.now
     },
     phoneNumber: typ.Number,
+
     address: {
         location: {
             type: typ.String,
