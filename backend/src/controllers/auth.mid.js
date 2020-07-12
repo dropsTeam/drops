@@ -54,7 +54,8 @@ function googleVerify(fromCookie) {
     return async (req, res, next) => {
 
         try {
-            console.log(req)
+            
+            console.log(' JAS ');
             const token = (fromCookie) ? req.cookies['auth-token'] : req.body.token;
 
 
