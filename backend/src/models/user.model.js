@@ -6,12 +6,7 @@ const cartSchema = mongo.Schema({
         type: types.ObjectId,
         required: true
     },
-    productName: {
-        productId: types.String,
-        type: types.String,
-        maxlength: 50,
-        required: true,
-    },
+
     quantity: {
         type: types.Number,
         max: 100,
@@ -19,10 +14,21 @@ const cartSchema = mongo.Schema({
         default: 1
     },
     varient: {
-        type: types.String,
-        maxlength: 50
+        type: types.Number,
+        min: 0
     },
-    dropdown: [types.String],
+    dropdown: {
+        title: {
+            type: typ.String,
+            maxlength: 50,
+            required: true
+        },
+        option: {
+            type: typ.String,
+            maxlength: 50,
+            required: true
+        }
+    },
     timeStamp: {
         type: types.Date,
         default: Date.now

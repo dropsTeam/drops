@@ -38,15 +38,6 @@ const varients = mongo.Schema({
     media: [mediaSchema]
 });
 
-const dropdown = mongo.Schema({
-    title: {
-        type: typ.String,
-        maxlength: 50,
-        required: true
-    },
-    options: [typ.String]
-});
-
 
 
 const schema = mongo.Schema({
@@ -80,7 +71,18 @@ const schema = mongo.Schema({
 
     media: [mediaSchema],
 
-    dropdown: [dropdown],
+    dropdown: {
+        title: {
+            type: typ.String,
+            maxlength: 50,
+            required: true
+        },
+        options: [{
+            type: typ.String,
+            maxlength: 50,
+            required: true
+        }]
+    },
 
     varients: [varients],
 
@@ -103,7 +105,7 @@ const schema = mongo.Schema({
         type: typ.String,
         required: true,
         maxlength: 50,
-        enum: ['Men Clothing','Men Clothing' , 'Men Shoes', 'Women Shoes', 'Camera, Photo & Video', 'Headphones & Speakers', 'Cellphone, Tablets & Accessories', 'Computers, Monitors & Laptops']
+        enum: ['Men Clothing', 'Men Clothing', 'Men Shoes', 'Women Shoes', 'Camera, Photo & Video', 'Headphones & Speakers', 'Cellphone, Tablets & Accessories', 'Computers, Monitors & Laptops']
     }
 
 });
