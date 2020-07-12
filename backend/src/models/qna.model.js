@@ -21,7 +21,7 @@ const schema = mongo.Schema({
     }
 });
 
-schema.index({ timeStamp: 1 });
+schema.index({ timeStamp: 1 }, { unique: false });
 
 
 module.export = mongo.model('qna', schema);

@@ -36,7 +36,7 @@ const schema = mongo.Schema({
 });
 
 
-schema.index({ helpful: 1, rating: 1, timeStamp: 1 });
+schema.index({ helpful: 1, rating: 1, timeStamp: 1 }, { unique: false });
 
 
 module.export = mongo.model('review', schema);

@@ -28,6 +28,23 @@ const mediaSchema = mongo.Schema({
     }
 });
 
+const varients = mongo.Schema({
+    title: {
+        type: typ.String,
+        maxlength: 50,
+        required: true
+    },
+    media: [mediaSchema]
+});
+
+const dropdown = mongo.Schema({
+    title: {
+        type: typ.String,
+        maxlength: 50,
+        required: true
+    },
+    options: [typ.String]
+});
 
 
 
@@ -61,9 +78,8 @@ const schema = mongo.Schema({
     },
     media: [mediaSchema],
 
-    dropdown: [
-        { type: typ.String, maxlength: [50, '{PATH} exceeds the max length'], required: true }
-    ],
+    dropdown: [dropdown],
+    varients: [varients],
 
     totalReview: {
         type: typ.Number,
@@ -73,6 +89,6 @@ const schema = mongo.Schema({
 
 });
 
-schema.index({ totalReview: 1, title: 1 });
+schema.index({ totalReview: 1, title: 1 }, { unique: false });
 
 module.exports = mongo.model('products', schema);
