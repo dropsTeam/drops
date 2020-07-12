@@ -28,10 +28,10 @@ const basicProductInfo = async (req, res, next) => {
 
 /*          MIDDLEWARES       */
 
-const getbasicProductInfo = async (res, res, next) => {
+const getbasicProductInfo = async (req, res, next) => {
     try {
         const { product } = req.app.locals;
-        
+        res.status(200).send('working...')
 
     } catch (err) {
         console.log(err);

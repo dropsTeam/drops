@@ -78,4 +78,39 @@ const postCart = async (req, res, next) => {
     }
 };
 
-module.exports = { get, getCart, postCart };
+
+
+const deleteCartItem = async (req, res, next) => {
+    try {
+
+        const { user } = req.app.locals;
+        const { index } = req.params;
+
+        const cartData = await userModel.findById(user._id).select('cart').lean();
+
+
+        if(index < 0) {
+            cartData.cart = []
+        }else {
+            if(index >= cartData.cart.length) {throw `No such element with index ${index} found in cart`};
+            cartData.cart.splice(index,1);
+        }
+        
+        const update = {
+            cart: cartData.cart
+        }
+
+        await userModel.findByIdAndUpdate(user._id, update);
+        res.status(200).send({cart: cartData.cart})
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ msg: 'Error Occured while deleting the cart.' })
+    }
+}
+
+
+
+
+
+module.exports = { get, getCart, postCart, deleteCartItem };

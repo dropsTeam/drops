@@ -66,7 +66,7 @@ const schema = mongo.Schema({
 
     timeStamp: {
         type: typ.Date,
-        default: Data.now
+        default: Date.now
     },
 
     media: [mediaSchema],
@@ -98,7 +98,7 @@ const schema = mongo.Schema({
     },
     seller: {
         type: typ.String,
-        required,
+        required: true,
         maxlength: 50
     },
     category: {

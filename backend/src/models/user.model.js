@@ -19,12 +19,12 @@ const cartSchema = mongo.Schema({
     },
     dropdown: {
         title: {
-            type: typ.String,
+            type: types.String,
             maxlength: 50,
             required: true
         },
         option: {
-            type: typ.String,
+            type: types.String,
             maxlength: 50,
             required: true
         }
