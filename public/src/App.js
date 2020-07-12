@@ -8,14 +8,12 @@ import { connect } from 'react-redux';
 
 class App extends React.Component {
 
-
-
   isSeller = false;
-
 
   componentDidMount() {
     this.props.$setUser();
   }
+
 
   render() {
    
@@ -51,8 +49,7 @@ class App extends React.Component {
       </React.Fragment >
     );
   }
-
-
+  
 }
 
 const mapStateToProps = store => {
