@@ -115,25 +115,13 @@ const editCart = async (req, res, next) => {
     try {
 
         const { user } = req.app.locals;
-        const {quantity, dropdown, varient, index} = req.body;
+        const {quantity, index} = req.body;
 
         const cartData = await userModel.findById(user._id).select('cart').lean();
         if(index >= cartData.cart.length || index < 0) throw `No such element with index ${index} found in cart`;
 
-        const product = await productModel.findById(cartData.cart[index]._id).select('dropdown varients ').lean();
-        if(!!!product) {throw 'Server Error!'}
-
-        let isVarientValid = false;
-        for (const _varient of product.varient) {
-            if (varient.title === _varient.title) { isVarientValid = true; break; };
-        }
-
-        if (!isVarientValid && quantity < 0 ) { throw 'Not a valid varient' };
-        if (dropdown.title !== product.dropdown.title || !product.dropdown.options.includes(dropdown.option)) { throw 'Not a valid dropdown value' };        
-
-        cartData.cart[index] = {quantity, dropdown, varient, timeStamp: Date.now};
-
-        userModel.findByIdAndUpdate(user._id, {cart: cartData.cart});
+        const key = 'cart.'+index+'.quantiry';
+        userModel.findByIdAndUpdate(user._id, {$set: { [key]: quantity}});
 
 
     } catch (err) {
