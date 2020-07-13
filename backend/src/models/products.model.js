@@ -33,7 +33,7 @@ const varients = mongo.Schema({
     title: {
         type: typ.String,
         maxlength: 50,
-        required: true
+        required: false
     },
     media: [mediaSchema]
 });
@@ -44,12 +44,12 @@ const schema = mongo.Schema({
     title: {
         type: typ.String,
         required: true,
-        maxlength: [50, '{PATH} exceeds the max length']
+        maxlength: [200, '{PATH} exceeds the max length']
     },
     discription: {
         type: typ.String,
         required: true,
-        maxlength: [30000, '{PATH} exceeds the max length']
+        maxlength: [10000, '{PATH} exceeds the max length']
     },
     summary: {
         type: typ.String,
@@ -74,13 +74,13 @@ const schema = mongo.Schema({
     dropdown: {
         title: {
             type: typ.String,
-            maxlength: 50,
-            required: true
+            required: true,
+            maxlength: 50
         },
         options: [{
             type: typ.String,
-            maxlength: 50,
-            required: true
+            required: true,
+            maxlength: 50
         }]
     },
 
@@ -97,7 +97,7 @@ const schema = mongo.Schema({
         required: true
     },
     seller: {
-        type: typ.String,
+        type: typ.ObjectId,
         required: true,
         maxlength: 50
     },
@@ -105,7 +105,7 @@ const schema = mongo.Schema({
         type: typ.String,
         required: true,
         maxlength: 50,
-        enum: ['Men Clothing', 'Men Clothing', 'Men Shoes', 'Women Shoes', 'Camera, Photo & Video', 'Headphones & Speakers', 'Cellphone, Tablets & Accessories', 'Computers, Monitors & Laptops']
+        enum: ['Men Clothing', 'Women Clothing', 'Men Shoes', 'Women Shoes', 'Camera, Photo & Video', 'Headphones & Speakers', 'Cellphone, Tablets & Accessories', 'Computers, Monitors & Laptops']
     }
 
 });
