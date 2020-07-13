@@ -42,10 +42,10 @@ const getbasicProductInfo = async (req, res, next) => {
 
 const postProduct = async (req, res, next) => {
     try {
-        const {user} = req.app.locals;
-        const {title, discription, summary, tags, details, media, dropdown, varients, price, category} = req.body;
-        
-        if(tags.length > 20 || details.length > 20 ||  media.length != 5 || dropdown.options.length > 10 || varients.length > 10  ) throw 'Validation Error.';
+        const { user } = req.app.locals;
+        const { title, discription, summary, tags, details, media, dropdown, varients, price, category } = req.body;
+
+        if (tags.length > 20 || details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
 
 
         const payload = {
@@ -67,5 +67,16 @@ const postProduct = async (req, res, next) => {
     }
 }
 
+const editProduct = async (req, res, next) => {
+    try {
 
-module.exports = { basicProductInfo, getbasicProductInfo, postProduct };
+        const 
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ msg: 'Error Occured Editing the product.', err });
+    }
+}
+
+
+module.exports = { basicProductInfo, getbasicProductInfo, postProduct, editProduct };
