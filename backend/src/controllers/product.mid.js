@@ -43,8 +43,24 @@ const getbasicProductInfo = async (req, res, next) => {
 
 const postProduct = async (req, res, next) => {
     try {
+        const {user} = req.app.locals;
         const {title, discription, summary, tags, details, media, dropdown, varients, price, category} = req.body;
         
+        if(tags.length > 20 || details.length > 20 ||  media.length != 5 || dropdown.options.length > 10 || varients.length > 10  ) throw 'Validation Error.';
+
+
+        const payload = {
+            seller: user._id,
+            title,
+            discription,
+            summary,
+            tags,
+            details, media, dropdown, varients, price, category
+        }
+        const product = await productModel.create(payload);
+
+        res.status(200).send(product);
+
     } catch (err) {
         console.log(err);
         res.status(500).send({ msg: 'Error Occured Posting the product info' });
