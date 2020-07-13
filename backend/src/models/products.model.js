@@ -33,7 +33,7 @@ const varients = mongo.Schema({
     title: {
         type: typ.String,
         maxlength: 50,
-        required: true
+        required: false
     },
     media: [mediaSchema]
 });
@@ -49,7 +49,7 @@ const schema = mongo.Schema({
     discription: {
         type: typ.String,
         required: true,
-        maxlength: [30000, '{PATH} exceeds the max length']
+        maxlength: [10000, '{PATH} exceeds the max length']
     },
     summary: {
         type: typ.String,

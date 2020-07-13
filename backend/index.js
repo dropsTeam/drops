@@ -51,7 +51,7 @@ app.use(cookie());
 
 app.use('/api/auth', require('./src/routes/auth.route'));
 app.use('/api/user', require('./src/routes/user.route'));
-
+app.use('/api/products', require('./src/routes/product.route'));
 
 // ************ Listen **************
 const PORT = process.env.PORT || 8080;
