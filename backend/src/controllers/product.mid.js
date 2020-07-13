@@ -96,8 +96,8 @@ const search = async (req, res, next) => {
 
 
         let page = 1;
-        let sortby = aveageRaing;
-        let sortorder;
+        let sortby = 'aveageRaing';
+        let sortorder = 1;
 
         const payload = {
             $text: {
@@ -121,7 +121,7 @@ const search = async (req, res, next) => {
                 ['INC', 'DEC'].includes(req.query.sortorder)
             ) {
                 sortby = req.query.sortby;
-                sortorder = req.query.sortorder;
+                sortorder = (req.query.sortorder === 'INC')? 1: -1;
             }
         }
 
@@ -141,8 +141,9 @@ const search = async (req, res, next) => {
         // if(category !== 'all') {payload.category = category};
 
 
+        // ((Overall Rating * Total Rating) + new Rating) / (Total Rating + 1);
 
-        const search = await productModel.find(payload).select('title media totalReview price').skip(page * 20).limit(20).lean();
+        const search = await productModel.find(payload).select('title media totalReview price').sort({ totalReview: 1 ,[sortby]:[sortorder] }).skip(page * 20).limit(20).lean();
         res.status(200).send(search);
 
     } catch (err) {

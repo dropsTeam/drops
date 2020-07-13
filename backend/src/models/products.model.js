@@ -90,6 +90,11 @@ const schema = mongo.Schema({
         max: 5,
         default: 0
     },
+    totalReview: {
+        type: typ.Number,
+        min: 0,
+        default: 0
+    },
     price: {
         type: typ.Number,
         min: 0,
