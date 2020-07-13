@@ -14,6 +14,8 @@ const log = async (req, res, next) => {
         const { token } = req.app.locals;
         const { user } = req.app.locals;
 
+        console.log(token);
+
 
 
         const isUser = await userModel.findOne({ gId: user.gId });
@@ -23,6 +25,7 @@ const log = async (req, res, next) => {
 
         var expireDate = new Date();
         expireDate.setDate(expireDate.getDate() + 2);
+        
 
         res.cookie('auth-token', token, {
             expires: expireDate,
@@ -33,6 +36,7 @@ const log = async (req, res, next) => {
 
 
     } catch (err) {
+        console.log(err)
         res.status(400).send({ msg: 'Error Occured' });
     }
 }
@@ -54,8 +58,7 @@ function googleVerify(fromCookie) {
     return async (req, res, next) => {
 
         try {
-            
-            console.log(' JAS ');
+
             const token = (fromCookie) ? req.cookies['auth-token'] : req.body.token;
 
 
@@ -85,6 +88,20 @@ function googleVerify(fromCookie) {
     }
 }
 
+const isSeller = async (req, res, next) => {
+    try {
+        const { user } = req.app.locals;
+
+        const userData = await userModel.findOne({gId: user.gId}).select('seller').lean();
+        if(!!!userData.seller) throw 'Unauthorised';
+        req.app.locals.user._id = userData._id;
+        next();
+
+    } catch (err) {
+        console.log(err);
+        res.status(401).send({ msg: 'Error Occured.', err })
+    }
+}
 
 
-module.exports = { googleVerify, log, logout };
+module.exports = { googleVerify, log, logout, isSeller };
