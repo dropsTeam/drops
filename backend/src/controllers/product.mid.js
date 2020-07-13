@@ -94,16 +94,28 @@ const editProduct = async (req, res, next) => {
 const search = async (req, res, next) => {
     try {
 
-        if(!req.query.hasOwnProperty('text')) throw 'Text is required';
-        if(req.query.text.trim().length === 0) throw 'Text is required';
-        if(!req.query.hasOwnProperty('category')) throw 'Text is required';
-        if(!req.query.hasOwnProperty('page')) throw 'Text is required';
+        let category='';
+        let page = 1;
         
         const payload = {
             $text: {
                 $search: req.query.text
             }
         }
+
+        if(!req.query.hasOwnProperty('text')) throw 'Text is required';
+        if(req.query.text.trim().length === 0) throw 'Text is required';
+
+        if(!req.query.hasOwnProperty('category')) {
+            category = 'all';
+        }
+        if(!req.query.hasOwnProperty('page')) {
+            page = 1;
+        }
+        
+        if(category !== 'all') {payload.category = category};
+        
+        
         const search = await productModel.find(payload).select('title media totalReview price').skip(1).limit(1).lean();
         res.status(200).send(search);
 

@@ -8,7 +8,7 @@ route
     .put('/:productId', authC.googleVerify(true), productC.editProduct);
 
 route
-    .get('/search/?text=""&category="all"&page=1', authC.googleVerify(true), productC.search)
+    .get('/search/?text=""&category="all"&page=1', productC.search)
 
 
 module.exports = route;
