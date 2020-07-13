@@ -94,28 +94,55 @@ const editProduct = async (req, res, next) => {
 const search = async (req, res, next) => {
     try {
 
-        let category = '';
+
         let page = 1;
+        let sortby = aveageRaing;
+        let sortorder;
 
-
-        if (!req.query.hasOwnProperty('text')) throw 'Text is required';
-        if (req.query.text.trim().length === 0) throw 'Text is required';
-
-        if (!req.query.hasOwnProperty('category')) {
-            category = 'all';
-        }
-        if (!req.query.hasOwnProperty('page')) {
-            page = 1;
-        }
-        // if(category !== 'all') {payload.category = category};
-        
         const payload = {
             $text: {
-                $search: req.query.text
+                $search: ''
+            },
+            price: { $gt: 0, $lt: 10000000 }
+        }
+
+
+        if (req.query.hasOwnProperty('text')) {
+            if (req.query.text.trim().length === 0) {
+                payload.$text.$search = req.query.text;
+            } else throw 'Text is required';
+        } else {
+            throw 'Text is required';
+        }
+
+        if (req.query.hasOwnProperty('sortby') && req.query.hasOwnProperty('sortorder')) {
+            if (
+                ['aveageRaing', 'date', 'price'].includes(req.query.sortby),
+                ['INC', 'DEC'].includes(req.query.sortorder)
+            ) {
+                sortby = req.query.sortby;
+                sortorder = req.query.sortorder;
             }
         }
 
-        const search = await productModel.find(payload).select('title media totalReview price').skip(page*20).limit(20).lean();
+
+        if (req.query.hasOwnProperty('category')) {
+            payload.category = req.query.category;
+        }
+
+        if (req.query.hasOwnProperty('page')) {
+            page = req.query.page;
+        }
+
+        if (req.query.hasOwnProperty('range')) {
+            payload.price.$gt, payload.price.$lt = req.query.range.split("-");
+        }
+
+        // if(category !== 'all') {payload.category = category};
+
+
+
+        const search = await productModel.find(payload).select('title media totalReview price').skip(page * 20).limit(20).lean();
         res.status(200).send(search);
 
     } catch (err) {

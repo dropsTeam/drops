@@ -84,9 +84,10 @@ const schema = mongo.Schema({
 
     varients: [varients],
 
-    totalReview: {
+    aveageRaing: {
         type: typ.Number,
         min: 0,
+        max: 5,
         default: 0
     },
     price: {
@@ -111,6 +112,6 @@ const schema = mongo.Schema({
 
 schema.index({ summary: 'text'});
 
-schema.index({ totalReview: 1 });
+schema.index({ aveageRaing: 1, price: 1, timeStamp: 1 });
 
 module.exports = mongo.model('products', schema);
