@@ -56,7 +56,8 @@ const postProduct = async (req, res, next) => {
             summary,
             tags,
             details, media, dropdown, varients, price, category
-        }
+        };
+
         const product = await productModel.create(payload);
 
         res.status(200).send(product);

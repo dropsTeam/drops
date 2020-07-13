@@ -92,10 +92,9 @@ const isSeller = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
 
-        const userData = await userModel.findById(user._id).select('seller').lean();
-        console.log(userData);
-        if(!!!userData) throw 'Unauthorised';
-
+        const userData = await userModel.findOne({gId: user.gId}).select('seller').lean();
+        if(!!!userData.seller) throw 'Unauthorised';
+        req.app.locals.user._id = userData._id;
         next();
 
     } catch (err) {

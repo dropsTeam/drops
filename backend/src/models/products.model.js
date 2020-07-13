@@ -44,7 +44,7 @@ const schema = mongo.Schema({
     title: {
         type: typ.String,
         required: true,
-        maxlength: [50, '{PATH} exceeds the max length']
+        maxlength: [200, '{PATH} exceeds the max length']
     },
     discription: {
         type: typ.String,
@@ -74,13 +74,13 @@ const schema = mongo.Schema({
     dropdown: {
         title: {
             type: typ.String,
-            maxlength: 50,
-            required: true
+            required: true,
+            maxlength: 50
         },
         options: [{
             type: typ.String,
-            maxlength: 50,
-            required: true
+            required: true,
+            maxlength: 50
         }]
     },
 

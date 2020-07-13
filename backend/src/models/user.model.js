@@ -45,7 +45,7 @@ const schema = mongo.Schema({
     seller: {
         name: {
             type: types.String,
-            required: true,
+            required: false,
             maxlength: 50,
             unique: true
         },
@@ -57,7 +57,7 @@ const schema = mongo.Schema({
     }
 });
 
-cartSchema.index({ timeStamp: 1 }, { unique: false });
+cartSchema.index({ timeStamp: 1, gId: 1 }, { unique: false });
 
 
 module.exports = mongo.model('users', schema);
