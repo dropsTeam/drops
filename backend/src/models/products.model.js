@@ -105,7 +105,7 @@ const schema = mongo.Schema({
         type: typ.String,
         required: true,
         maxlength: 50,
-        enum: ['Men Clothing', 'Men Clothing', 'Men Shoes', 'Women Shoes', 'Camera, Photo & Video', 'Headphones & Speakers', 'Cellphone, Tablets & Accessories', 'Computers, Monitors & Laptops']
+        enum: ['Men Clothing', 'Women Clothing', 'Men Shoes', 'Women Shoes', 'Camera, Photo & Video', 'Headphones & Speakers', 'Cellphone, Tablets & Accessories', 'Computers, Monitors & Laptops']
     }
 
 });

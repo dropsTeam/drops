@@ -54,8 +54,7 @@ function googleVerify(fromCookie) {
     return async (req, res, next) => {
 
         try {
-            
-            console.log(' JAS ');
+
             const token = (fromCookie) ? req.cookies['auth-token'] : req.body.token;
 
 
@@ -85,6 +84,20 @@ function googleVerify(fromCookie) {
     }
 }
 
+const isSeller = async (req, res, next) => {
+    try {
+        const { user } = req.app.locals;
+
+        const userData = await userModel.findById(user._id).select('seller').lean();
+        if(!!!userData.seller) throw 'Unauthorised';
+
+        next();
+
+    } catch (err) {
+        console.log(err);
+        res.status(401).send({ msg: 'Error Occured.', err })
+    }
+}
 
 
-module.exports = { googleVerify, log, logout };
+module.exports = { googleVerify, log, logout, isSeller };

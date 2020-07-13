@@ -1,5 +1,5 @@
 const userModel = require('../models/user.model');
-const productModel = require('../models/products.model');
+
 
 const get = async (req, res, next) => {
     try {
