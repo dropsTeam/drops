@@ -2,9 +2,10 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from './utils';
 import GoogleBtn from './container/GoogleBtn';
-import Demo from './container/layout';
+import 'antd/dist/antd.css';
+import '../src/css/App.css';
 import * as authActions from './Redux/Actions/AuthActions';
-
+import Navbar from '../src/components/Navigationbar.js';
 import { connect } from 'react-redux';
 
 class App extends React.Component {
@@ -24,12 +25,12 @@ class App extends React.Component {
         <nav>
           This is a Nav Bar only visible for large devices
           <GoogleBtn visible={true} />
+          <Navbar />
           
           
           
           {/* {!authorised && <div className='g-signin2' data-onsuccess={onSignIn}> </div>} */}
         </nav>
-        <Demo />
 
         <div>This is sidebar only visible for mobile</div>
 
