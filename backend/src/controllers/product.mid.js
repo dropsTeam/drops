@@ -26,7 +26,6 @@ const basicProductInfo = async (req, res, next) => {
 
 
 
-
 /*          MIDDLEWARES       */
 
 const getbasicProductInfo = async (req, res, next) => {
