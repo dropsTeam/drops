@@ -5,7 +5,10 @@ const productC = require('../controllers/product.mid');
 
 route
     .post('/', authC.googleVerify(true), authC.isSeller, productC.postProduct)
-    .put('/:productId', authC.googleVerify(true), authC.isSeller, productC.editProduct);
+    .put('/:productId', authC.googleVerify(true), productC.editProduct);
+
+route
+    .get('/search/?text=""&category="all"&page=1', authC.googleVerify(true), productC.search)
 
 
 module.exports = route;

@@ -57,11 +57,6 @@ const schema = mongo.Schema({
         maxlength: [2000, '{PATH} exceeds the max length']
     },
 
-    tags: [{
-        type: typ.String,
-        maxlength: 20
-    }],
-
     details: [detailsSchema],
 
     timeStamp: {
@@ -109,7 +104,7 @@ const schema = mongo.Schema({
     }
 
 });
-
-schema.index({ totalReview: 1, title: 1 }, { unique: false });
+schema.index({category: 'text', title: 'text', discription: 'text'  });
+schema.index({ totalReview: 1 }, { unique: false });
 
 module.exports = mongo.model('products', schema);

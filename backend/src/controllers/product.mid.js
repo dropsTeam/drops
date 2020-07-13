@@ -43,9 +43,9 @@ const getbasicProductInfo = async (req, res, next) => {
 const postProduct = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
-        const { title, discription, summary, tags, details, media, dropdown, varients, price, category } = req.body;
+        const { title, discription, summary, details, media, dropdown, varients, price, category } = req.body;
 
-        if (tags.length > 20 || details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
+        if ( details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
 
 
         const payload = {
@@ -53,7 +53,6 @@ const postProduct = async (req, res, next) => {
             title,
             discription,
             summary,
-            tags,
             details, media, dropdown, varients, price, category
         };
 
@@ -69,8 +68,21 @@ const postProduct = async (req, res, next) => {
 
 const editProduct = async (req, res, next) => {
     try {
+        const { user } = req.app.locals;
+        const { productId, title, discription, summary, details, media, dropdown, varients, price, category } = req.body;
 
-        const 
+        if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
+
+
+        const payload = {
+            title,
+            discription,
+            summary,
+            details, media, dropdown, varients, price, category
+        };
+
+        const product = await productModel.findByIdAndUpdate({ _id: productId, seller: user.gId }, payload);
+        req.status(200).send(product);
 
     } catch (err) {
         console.log(err);
@@ -79,4 +91,27 @@ const editProduct = async (req, res, next) => {
 }
 
 
-module.exports = { basicProductInfo, getbasicProductInfo, postProduct, editProduct };
+const search = async (req, res, next) => {
+    try {
+
+        if(!req.query.hasOwnProperty('text')) throw 'Text is required';
+        if(req.query.text.trim().length === 0) throw 'Text is required';
+        if(!req.query.hasOwnProperty('category')) throw 'Text is required';
+        if(!req.query.hasOwnProperty('page')) throw 'Text is required';
+        
+        const payload = {
+            $text: {
+                $search: req.query.text
+            }
+        }
+        const search = await productModel.find(payload).select('title media totalReview price').skip(1).limit(1).lean();
+        res.status(200).send(search);
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ msg: 'Error Occured searching for products', err });
+    }
+}
+
+
+module.exports = { basicProductInfo, getbasicProductInfo, postProduct, editProduct, search };
