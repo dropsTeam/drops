@@ -29,7 +29,6 @@ class App extends React.Component {
           
           {/* {!authorised && <div className='g-signin2' data-onsuccess={onSignIn}> </div>} */}
         </nav>
-        <Demo />
 
         <div>This is sidebar only visible for mobile</div>
 
