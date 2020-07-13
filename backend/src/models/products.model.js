@@ -44,17 +44,20 @@ const schema = mongo.Schema({
     title: {
         type: typ.String,
         required: true,
-        maxlength: [200, '{PATH} exceeds the max length']
+        maxlength: [200, '{PATH} exceeds the max length'],
+        text: true
     },
     discription: {
         type: typ.String,
         required: true,
-        maxlength: [10000, '{PATH} exceeds the max length']
+        maxlength: [10000, '{PATH} exceeds the max length'],
+        text: true
     },
     summary: {
         type: typ.String,
         required: true,
-        maxlength: [2000, '{PATH} exceeds the max length']
+        maxlength: [2000, '{PATH} exceeds the max length'],
+        text: true
     },
 
     details: [detailsSchema],
@@ -100,11 +103,14 @@ const schema = mongo.Schema({
         type: typ.String,
         required: true,
         maxlength: 50,
-        enum: ['Men Clothing', 'Women Clothing', 'Men Shoes', 'Women Shoes', 'Camera, Photo & Video', 'Headphones & Speakers', 'Cellphone, Tablets & Accessories', 'Computers, Monitors & Laptops']
+        enum: ['Men Clothing', 'Women Clothing', 'Men Shoes', 'Women Shoes', 'Camera, Photo & Video', 'Headphones & Speakers', 'Cellphone, Tablets & Accessories', 'Computers, Monitors & Laptops'],
+        text: true
     }
 
 });
-schema.index({category: 'text', title: 'text', discription: 'text'  });
-schema.index({ totalReview: 1 }, { unique: false });
+
+schema.index({ summary: 'text'});
+
+schema.index({ totalReview: 1 });
 
 module.exports = mongo.model('products', schema);

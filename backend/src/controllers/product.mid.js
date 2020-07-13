@@ -45,7 +45,7 @@ const postProduct = async (req, res, next) => {
         const { user } = req.app.locals;
         const { title, discription, summary, details, media, dropdown, varients, price, category } = req.body;
 
-        if ( details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
+        if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
 
 
         const payload = {
@@ -94,8 +94,20 @@ const editProduct = async (req, res, next) => {
 const search = async (req, res, next) => {
     try {
 
-        let category='';
+        let category = '';
         let page = 1;
+
+
+        if (!req.query.hasOwnProperty('text')) throw 'Text is required';
+        if (req.query.text.trim().length === 0) throw 'Text is required';
+
+        if (!req.query.hasOwnProperty('category')) {
+            category = 'all';
+        }
+        if (!req.query.hasOwnProperty('page')) {
+            page = 1;
+        }
+        // if(category !== 'all') {payload.category = category};
         
         const payload = {
             $text: {
@@ -103,20 +115,7 @@ const search = async (req, res, next) => {
             }
         }
 
-        if(!req.query.hasOwnProperty('text')) throw 'Text is required';
-        if(req.query.text.trim().length === 0) throw 'Text is required';
-
-        if(!req.query.hasOwnProperty('category')) {
-            category = 'all';
-        }
-        if(!req.query.hasOwnProperty('page')) {
-            page = 1;
-        }
-        
-        if(category !== 'all') {payload.category = category};
-        
-        
-        const search = await productModel.find(payload).select('title media totalReview price').skip(1).limit(1).lean();
+        const search = await productModel.find(payload).select('title media totalReview price').skip(page*20).limit(20).lean();
         res.status(200).send(search);
 
     } catch (err) {
