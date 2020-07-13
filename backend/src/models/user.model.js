@@ -41,10 +41,23 @@ const schema = mongo.Schema({
     profilePic: { type: types.String },
     email: { type: types.String },
     fullName: { type: types.String },
-    cart: [cartSchema]
+    cart: [cartSchema],
+    seller: {
+        name: {
+            type: types.String,
+            required: false,
+            maxlength: 50,
+            unique: true
+        },
+        discription: {
+            type: types.String,
+            maxlength: 1000,
+            default: 'No Discription'
+        }
+    }
 });
 
-cartSchema.index({ timeStamp: 1 }, { unique: false });
+cartSchema.index({ timeStamp: 1, gId: 1 }, { unique: false });
 
 
 module.exports = mongo.model('users', schema);
