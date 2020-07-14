@@ -591,3 +591,4 @@
 ::1 - - [13/Jul/2020:15:55:14 +0000] "GET /api/products/search?text=Computer&page=1&category=all HTTP/1.1" 500 291 "-" "PostmanRuntime/7.26.1"
 ::1 - - [13/Jul/2020:15:57:05 +0000] "POST /api/products HTTP/1.1" 200 1538 "-" "PostmanRuntime/7.26.1"
 ::1 - - [13/Jul/2020:15:57:11 +0000] "GET /api/products/search?text=Computer&page=1&category=all HTTP/1.1" 200 491 "-" "PostmanRuntime/7.26.1"
+127.0.0.1 - - [14/Jul/2020:06:30:41 +0000] "GET /api/user HTTP/1.1" 401 26 "http://localhost:3000/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36"
