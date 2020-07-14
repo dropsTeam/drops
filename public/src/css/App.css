@@ -1,10 +1,13 @@
 @import '~antd/dist/antd.css';
+/* @import '~antd/lib/style/core/index.less'; */
 
 .menuBar{
   padding: 0 20px;
-  border-bottom: solid 1px #e8e8e8;
+  /* border-bottom: solid 1px #e8e8e8; */
+  height: 55px;
   overflow: auto;
   box-shadow: 0 0 30px #f3f1f1;
+  background-color: #2874F0;
 }
 .logo{
   width: 150px;
@@ -12,10 +15,11 @@
 }
 
 .searchbox{
-    margin: 20px;
+    margin: 8px;
 }
 .rightymenu{
-    margin: 16px;
+    margin: 4px;
+    background-color:#2874F0 ;
 
 }
 .logo a{
@@ -24,37 +28,55 @@
   padding: 19px 20px;
   text-transform: capitalize;
 }
-.menuCon{
+/* .menuCon{
   width: calc(100% - 150px);
   float: left;
 }
 .menuCon .ant-menu-item{
   padding: 0px 5px;
-}
-.menuCon .ant-menu-submenu-title{
+} */
+/* .menuCon .ant-menu-submenu-title{
   padding: 10px 20px;
 }
 .menuCon .ant-menu-item a, .menuCon .ant-menu-submenu-title a{
   padding: 10px 15px;
-}
+} */
 .menuCon .ant-menu-horizontal{
   border-bottom: none;
 }
+
+.logbtn{
+  width: 120px;
+  height: 32px;
+  position: relative;
+  /* left: 15px; */
+  font-size: 20px;
+  letter-spacing: 1px;
+  padding: 0px 50px 35px 30px;
+  font-weight: 600;
+  color: #357CF1;
+  text-decoration: none;
+}
+
+
+
+
+
 .menuCon .leftMenu{
   float: left;
 }
 .menuCon .rightMenu{
   float: right;
 }
-.barsMenu{
+/* .barsMenu{
   float: right;
   height: 32px;
   padding: 6px;
   margin-top: 8px;
   display: none;
   background: none;
-}
-.barsBtn{
+} */
+/* .barsBtn{
   display: block;
   width: 20px;
   height: 2px;
@@ -69,23 +91,40 @@
   left: 0;
   height: 2px;
   background: #1890ff;
-}
-.barsBtn:after{
+} */
+/* .barsBtn:after{
   top: auto;
   bottom: -6px;
 }
 .ant-drawer-body{
   padding: 0;
-}
-.ant-drawer-body .ant-menu-horizontal > .ant-menu-item, .ant-drawer-body .ant-menu-horizontal > .ant-menu-submenu{
+} */
+/* .ant-drawer-body .ant-menu-horizontal > .ant-menu-item, .ant-drawer-body .ant-menu-horizontal > .ant-menu-submenu{
   display: inline-block;
   width: 100%;
 }
 .ant-drawer-body .ant-menu-horizontal{
   border-bottom: none;
-}
-.ant-drawer-body .ant-menu-horizontal > .ant-menu-item:hover{
+} */
+/* .ant-drawer-body .ant-menu-horizontal > .ant-menu-item:hover{
   border-bottom-color: transparent;
+} */
+@media(min-width: 1281px){
+  .searchbox{
+    width: 650px;
+    height: 35px;
+    position: absolute;
+    left: 25%;
+    
+  }
+}
+
+@media(max-width: 991.98px){
+  .searchbox{
+    width: 520px;
+  }
+
+
 }
 
 
@@ -93,9 +132,8 @@
   .barsMenu{
     display: inline-block;
   }
-  .ant-Input{
-      width: 200px;
-  }
+
+ 
   .rightMenu{
     position: fixed;
   } 
