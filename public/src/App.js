@@ -6,7 +6,7 @@ import 'antd/dist/antd.css';
 // import '~antd/lib/style/core/index.less';
 import '../src/css/App.css';
 import * as authActions from './Redux/Actions/AuthActions';
-import Navbar from '../src/components/Navigationbar.js';
+import Navbar from './container/navbar/NavBar';
 import { connect } from 'react-redux';
 
 class App extends React.Component {
