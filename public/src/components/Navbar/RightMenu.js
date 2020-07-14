@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
-import { Menu, Icon } from 'antd';
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
+import { Menu,Button,Dropdown} from 'antd';
+import { DownOutlined } from '@ant-design/icons';
+
+
+
 
 class RightMenu extends Component {
   render() {
-    return (
-		<Menu mode="horizontal" className="rightymenu">
-        <Menu.Item key="mail">
-          <a href="">accounts & lists</a>
+    
+    return (      
+      <Menu mode="horizontal" className="rightymenu">
+        <Button className="logbtn">
+        Login 
+        </Button>
+        <Menu.Item key="0">
+          <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+              More
+          </a>
         </Menu.Item>
-        <Menu.Item key="maily">
-          <a href="">returns & orders</a>
+        <Menu.Item key="1">
+          <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+            2nd menu item
+          </a>
         </Menu.Item>
-        <Menu.Item key="mailo">
-          <a href="">you're prime</a>
-        </Menu.Item>
-        <Menu.Item key="appa">
-          <a href="">cart</a>
-        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key="3">
+          3rd menu item（disabled）
+        </Menu.Item>        
       </Menu>
+
     );
   }
 }
