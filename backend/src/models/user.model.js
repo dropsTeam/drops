@@ -32,7 +32,8 @@ const cartSchema = mongo.Schema({
     timeStamp: {
         type: types.Date,
         default: Date.now
-    }
+    },
+    searchHistory: [mongo.Schema({ type: types.String })]
 });
 
 

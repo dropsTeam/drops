@@ -1,5 +1,5 @@
 const productModel = require('../models/products.model');
-
+const userModel = require('../models/user.model');
 
 /*          HELPERS MIDDLEWARES      */
 
@@ -43,7 +43,7 @@ const getbasicProductInfo = async (req, res, next) => {
 const postProduct = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
-        const { title, discription, summary, details, media, dropdown, varients, price, category } = req.body;
+        const { title, discription, details, highlights, media, dropdown, varients, price, category } = req.body;
 
         if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
 
@@ -52,7 +52,7 @@ const postProduct = async (req, res, next) => {
             seller: user._id,
             title,
             discription,
-            summary,
+            highlights,
             details, media, dropdown, varients, price, category
         };
 
@@ -69,7 +69,7 @@ const postProduct = async (req, res, next) => {
 const editProduct = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
-        const { productId, title, discription, summary, details, media, dropdown, varients, price, category } = req.body;
+        const { productId, title, discription, highlights, details, media, dropdown, varients, price, category } = req.body;
 
         if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
 
@@ -77,8 +77,7 @@ const editProduct = async (req, res, next) => {
         const payload = {
             title,
             discription,
-            summary,
-            details, media, dropdown, varients, price, category
+            details, media, dropdown, highlights, varients, price, category
         };
 
         const product = await productModel.findByIdAndUpdate({ _id: productId, seller: user.gId }, payload);
@@ -115,13 +114,14 @@ const search = async (req, res, next) => {
             throw 'Text is required';
         }
 
+
         if (req.query.hasOwnProperty('sortby') && req.query.hasOwnProperty('sortorder')) {
             if (
-                ['aveageRaing', 'date', 'price'].includes(req.query.sortby),
+                ['aveageRaing', 'timeStamp', 'price'].includes(req.query.sortby),
                 ['INC', 'DEC'].includes(req.query.sortorder)
             ) {
                 sortby = req.query.sortby;
-                sortorder = (req.query.sortorder === 'INC')? 1: -1;
+                sortorder = (req.query.sortorder === 'INC') ? 1 : -1;
             }
         }
 
@@ -143,7 +143,9 @@ const search = async (req, res, next) => {
 
         // ((Overall Rating * Total Rating) + new Rating) / (Total Rating + 1);
 
-        const search = await productModel.find(payload).select('title media totalReview price').sort({ totalReview: 1 ,[sortby]:[sortorder] }).skip(page * 20).limit(20).lean();
+        const search = await productModel.find(payload).select('title media totalReview price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
+        await userModel.findOneAndUpdate({ gId: user.gId }, { $push: { searchHistory: req.query.text } });
+
         res.status(200).send(search);
 
     } catch (err) {

@@ -12,4 +12,6 @@ route
     .delete('/cart/:index', authC.googleVerify(true), userC.deleteCartItem)
     .put('/cart', authC.googleVerify(true), userC.editCart)
 
+route.get('/searchHistory', authC.googleVerify(true), userC.getSearchHistory);
+
 module.exports = route;

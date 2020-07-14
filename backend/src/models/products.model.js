@@ -11,7 +11,7 @@ const detailsSchema = mongo.Schema({
     },
     value: {
         type: typ.String,
-        maxlength: 100,
+        maxlength: 300,
         required: true
     }
 });
@@ -35,7 +35,11 @@ const varients = mongo.Schema({
         maxlength: 50,
         required: false
     },
-    media: [mediaSchema]
+    media: {
+        type: typ.String,
+        maxlength: 100,
+        required: false
+    }
 });
 
 
@@ -44,7 +48,7 @@ const schema = mongo.Schema({
     title: {
         type: typ.String,
         required: true,
-        maxlength: [200, '{PATH} exceeds the max length'],
+        maxlength: [300, '{PATH} exceeds the max length'],
         text: true
     },
     discription: {
@@ -53,12 +57,8 @@ const schema = mongo.Schema({
         maxlength: [10000, '{PATH} exceeds the max length'],
         text: true
     },
-    summary: {
-        type: typ.String,
-        required: true,
-        maxlength: [2000, '{PATH} exceeds the max length'],
-        text: true
-    },
+
+    highlights: [mongo.Schema({ type: typ.String, maxlength: 200 })],
 
     details: [detailsSchema],
 
@@ -115,7 +115,7 @@ const schema = mongo.Schema({
 
 });
 
-schema.index({ summary: 'text'});
+schema.index({ discription: 'text' });
 
 schema.index({ aveageRaing: 1, price: 1, timeStamp: 1 });
 

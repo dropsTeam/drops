@@ -115,13 +115,13 @@ const editCart = async (req, res, next) => {
     try {
 
         const { user } = req.app.locals;
-        const {quantity, index} = req.body;
+        const { quantity, index } = req.body;
 
         const cartData = await userModel.findById(user._id).select('cart').lean();
-        if(index >= cartData.cart.length || index < 0) throw `No such element with index ${index} found in cart`;
+        if (index >= cartData.cart.length || index < 0) throw `No such element with index ${index} found in cart`;
 
-        const key = 'cart.'+index+'.quantiry';
-        userModel.findByIdAndUpdate(user._id, {$set: { [key]: quantity}});
+        const key = 'cart.' + index + '.quantiry';
+        userModel.findByIdAndUpdate(user._id, { $set: { [key]: quantity } });
 
 
     } catch (err) {
@@ -130,4 +130,18 @@ const editCart = async (req, res, next) => {
     }
 }
 
-module.exports = { get, getCart, postCart, deleteCartItem, editCart };
+
+const getSearchHistory = async (req, res, next) => {
+    try {
+        const { user } = req.app.locals;
+
+        const history = await userModel.findOne({ gId: user.gId }).select('searchHistory').slice('searchHistory', -10).lean();
+        res.status(200).send(history.searchHistory);
+        
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ msg: 'Error Occured fetching the search history', err });
+    }
+}
+
+module.exports = { get, getCart, postCart, deleteCartItem, editCart, getSearchHistory };
