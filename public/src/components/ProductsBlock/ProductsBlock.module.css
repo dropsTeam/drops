@@ -1,0 +1,24 @@
+
+.container{
+ background-color: rgb(241, 241, 241);
+}
+
+.wrapper{
+ display: flex;
+ flex-direction: row;
+ flex-wrap: wrap; 
+}
+
+
+.image__carousel{
+ height: 400px;
+}
+
+
+@media screen and (max-width:700px){
+ .wrapper{
+   display: flex;
+   flex-direction: row;
+   flex-wrap: wrap; 
+ }
+}
