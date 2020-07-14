@@ -6,7 +6,7 @@ const MenuItemGroup = Menu.ItemGroup;
 class RightMenu extends Component {
   render() {
     return (
-			<Menu mode="horizontal">
+		<Menu mode="horizontal" className="rightymenu">
         <Menu.Item key="mail">
           <a href="">accounts & lists</a>
         </Menu.Item>
