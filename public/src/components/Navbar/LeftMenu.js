@@ -6,11 +6,11 @@ const MenuItemGroup = Menu.ItemGroup;
 class LeftMenu extends Component {
   render() {
     return (
-        <Input
+        <Input className="searchbox"
       placeholder="input search text"
       onSearch={value => console.log(value)}
-      style={{ width: 200 }}
-    />
+      style={{ width: 500 }}    />
+    
 	// 	<Menu mode="horizontal">
     //   	<Menu.Item key="mail">
     //       <a href="">Home</a>
