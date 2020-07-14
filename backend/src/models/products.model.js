@@ -11,7 +11,7 @@ const detailsSchema = mongo.Schema({
     },
     value: {
         type: typ.String,
-        maxlength: 100,
+        maxlength: 300,
         required: true
     }
 });
@@ -35,7 +35,11 @@ const varients = mongo.Schema({
         maxlength: 50,
         required: false
     },
-    media: [mediaSchema]
+    media: {
+        type: typ.String,
+        maxlength: 100,
+        required: false
+    }
 });
 
 
@@ -44,23 +48,17 @@ const schema = mongo.Schema({
     title: {
         type: typ.String,
         required: true,
-        maxlength: [200, '{PATH} exceeds the max length']
+        maxlength: [300, '{PATH} exceeds the max length'],
+        text: true
     },
     discription: {
         type: typ.String,
         required: true,
-        maxlength: [10000, '{PATH} exceeds the max length']
-    },
-    summary: {
-        type: typ.String,
-        required: true,
-        maxlength: [2000, '{PATH} exceeds the max length']
+        maxlength: [10000, '{PATH} exceeds the max length'],
+        text: true
     },
 
-    tags: [{
-        type: typ.String,
-        maxlength: 20
-    }],
+    highlights: [mongo.Schema({ type: typ.String, maxlength: 200 })],
 
     details: [detailsSchema],
 
@@ -86,6 +84,12 @@ const schema = mongo.Schema({
 
     varients: [varients],
 
+    aveageRaing: {
+        type: typ.Number,
+        min: 0,
+        max: 5,
+        default: 0
+    },
     totalReview: {
         type: typ.Number,
         min: 0,
@@ -105,11 +109,14 @@ const schema = mongo.Schema({
         type: typ.String,
         required: true,
         maxlength: 50,
-        enum: ['Men Clothing', 'Women Clothing', 'Men Shoes', 'Women Shoes', 'Camera, Photo & Video', 'Headphones & Speakers', 'Cellphone, Tablets & Accessories', 'Computers, Monitors & Laptops']
+        enum: ['Men Clothing', 'Women Clothing', 'Men Shoes', 'Women Shoes', 'Camera, Photo & Video', 'Headphones & Speakers', 'Cellphone, Tablets & Accessories', 'Computers, Monitors & Laptops'],
+        text: true
     }
 
 });
 
-schema.index({ totalReview: 1, title: 1 }, { unique: false });
+schema.index({ discription: 'text' });
+
+schema.index({ aveageRaing: 1, price: 1, timeStamp: 1 });
 
 module.exports = mongo.model('products', schema);

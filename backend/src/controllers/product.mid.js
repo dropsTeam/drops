@@ -1,5 +1,5 @@
 const productModel = require('../models/products.model');
-
+const userModel = require('../models/user.model');
 
 /*          HELPERS MIDDLEWARES      */
 
@@ -42,18 +42,17 @@ const getbasicProductInfo = async (req, res, next) => {
 
 const postProduct = async (req, res, next) => {
     try {
-        const {user} = req.app.locals;
-        const {title, discription, summary, tags, details, media, dropdown, varients, price, category} = req.body;
-        
-        if(tags.length > 20 || details.length > 20 ||  media.length != 5 || dropdown.options.length > 10 || varients.length > 10  ) throw 'Validation Error.';
+        const { user } = req.app.locals;
+        const { title, discription, details, highlights, media, dropdown, varients, price, category } = req.body;
+
+        if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
 
 
         const payload = {
             seller: user._id,
             title,
             discription,
-            summary,
-            tags,
+            highlights,
             details, media, dropdown, varients, price, category
         };
 
@@ -67,5 +66,93 @@ const postProduct = async (req, res, next) => {
     }
 }
 
+const editProduct = async (req, res, next) => {
+    try {
+        const { user } = req.app.locals;
+        const { productId, title, discription, highlights, details, media, dropdown, varients, price, category } = req.body;
 
-module.exports = { basicProductInfo, getbasicProductInfo, postProduct };
+        if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
+
+
+        const payload = {
+            title,
+            discription,
+            details, media, dropdown, highlights, varients, price, category
+        };
+
+        const product = await productModel.findByIdAndUpdate({ _id: productId, seller: user.gId }, payload);
+        req.status(200).send(product);
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ msg: 'Error Occured Editing the product.', err });
+    }
+}
+
+
+const search = async (req, res, next) => {
+    try {
+
+
+        let page = 1;
+        let sortby = 'aveageRaing';
+        let sortorder = 1;
+
+        const payload = {
+            $text: {
+                $search: ''
+            },
+            price: { $gt: 0, $lt: 10000000 }
+        }
+
+
+        if (req.query.hasOwnProperty('text')) {
+            if (req.query.text.trim().length === 0) {
+                payload.$text.$search = req.query.text;
+            } else throw 'Text is required';
+        } else {
+            throw 'Text is required';
+        }
+
+
+        if (req.query.hasOwnProperty('sortby') && req.query.hasOwnProperty('sortorder')) {
+            if (
+                ['aveageRaing', 'timeStamp', 'price'].includes(req.query.sortby),
+                ['INC', 'DEC'].includes(req.query.sortorder)
+            ) {
+                sortby = req.query.sortby;
+                sortorder = (req.query.sortorder === 'INC') ? 1 : -1;
+            }
+        }
+
+
+        if (req.query.hasOwnProperty('category')) {
+            payload.category = req.query.category;
+        }
+
+        if (req.query.hasOwnProperty('page')) {
+            page = req.query.page;
+        }
+
+        if (req.query.hasOwnProperty('range')) {
+            payload.price.$gt, payload.price.$lt = req.query.range.split("-");
+        }
+
+        // if(category !== 'all') {payload.category = category};
+
+
+        // ((Overall Rating * Total Rating) + new Rating) / (Total Rating + 1);
+
+        const search = await productModel.find(payload).select('title media totalReview price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
+        await userModel.findOneAndUpdate({ gId: user.gId }, { $push: { searchHistory: req.query.text } });
+
+        res.status(200).send(search);
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ msg: 'Error Occured searching for products', err });
+    }
+}
+
+
+module.exports = { basicProductInfo, getbasicProductInfo, postProduct, editProduct, search };
