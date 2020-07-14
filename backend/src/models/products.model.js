@@ -58,7 +58,7 @@ const schema = mongo.Schema({
         text: true
     },
 
-    highlights: [mongo.Schema({ type: typ.String, maxlength: 200 })],
+    highlights: [typ.String],
 
     details: [detailsSchema],
 
