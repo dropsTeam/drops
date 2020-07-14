@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import LeftMenu from './Navbar/LeftMenu'
 import RightMenu from './Navbar/RightMenu'
-import { Drawer, Button } from 'antd';
+import { Drawer, Button, Avatar } from 'antd';
+import amazon from '../media/amazon.png';
 
 class Navbar extends Component {
 	state = {
@@ -24,7 +25,7 @@ class Navbar extends Component {
     return (
         <nav className="menuBar">
         	<div className="logo">
-        		<a href="">logo</a>
+        		<a href=""><Avatar style={{ width: 100, height: 40 }} shape="square" src={amazon}></Avatar></a>
         	</div>
         	<div className="menuCon">
         		<div className="leftMenu">
