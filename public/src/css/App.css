@@ -10,6 +10,14 @@
   width: 150px;
   float: left;
 }
+
+.searchbox{
+    margin: 20px;
+}
+.rightymenu{
+    margin: 16px;
+
+}
 .logo a{
   display: inline-block;
   font-size: 20px;
@@ -80,13 +88,17 @@
   border-bottom-color: transparent;
 }
 
+
 @media(max-width: 767px){
   .barsMenu{
     display: inline-block;
   }
-  .leftMenu,.rightMenu{
-    display: none;
+  .ant-Input{
+      width: 200px;
   }
+  .rightMenu{
+    position: fixed;
+  } 
   .logo a{
     margin-left: -20px;
   }
