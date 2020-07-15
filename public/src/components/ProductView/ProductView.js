@@ -2,6 +2,7 @@ import React from 'react';
 
 import './ProductView.css';
 
+
 export default class ProductView extends React.Component {
 
     render() {

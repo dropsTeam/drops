@@ -7,6 +7,7 @@ import GoogleBtn from './container/GoogleBtn';
 import NavBar from './components/Navigationbar'
 import * as authActions from './Redux/Actions/AuthActions';
 
+
 // import '~antd/lib/style/core/index.less';
 import 'antd/dist/antd.css';
 import '../src/css/App.css';
@@ -31,6 +32,7 @@ class App extends React.Component {
 
           {/* <GoogleBtn visible={true} /> */}
         </nav>
+
 
 
         {/* Please replace render with component down below */}
