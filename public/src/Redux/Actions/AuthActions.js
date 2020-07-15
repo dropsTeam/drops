@@ -34,5 +34,8 @@ function logout() {
     }
 }
 
+function loading(isActivate) {
+    return {type: ActionType.LOADING, payload: isActivate}
+}
 
 export { login, logout, setUser }

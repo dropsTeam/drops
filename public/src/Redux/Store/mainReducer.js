@@ -9,6 +9,9 @@ const init = {
         fullName: '',
         email: '',
         profilePic: ''
+    },
+    view: {
+        loading: false
     }
 }
 
@@ -23,7 +26,9 @@ export default function mainReducer(state = init, action) {
         case ActionType.LOGOUT:
             let nState = { ...state, isAuthorised: false, user: {} };
             return nState;
-            
+
+        case ActionType.LOADING:
+            return {...state, view: {...state.view, loading: action.payload} }
 
         default:
             return state;

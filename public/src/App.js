@@ -11,6 +11,7 @@ import GoogleBtn from './container/GoogleBtn';
 import NavBar from './components/Navbar/Navigationbar';
 import SubNav from './components/Navbar/subnav';
 import Loading from './components/Loading/Loading';
+import { Skeleton } from 'antd';
 const ProductView = React.lazy(() => import('./components/ProductView/ProductView'));
 
 
@@ -33,9 +34,11 @@ class App extends React.Component {
         <SubNav />
         {/* <GoogleBtn visible={true} /> */}
 
+        <Loading/>
 
 
-        <React.Suspense fallback={<Loading />}>
+
+        <React.Suspense fallback={<div><Skeleton active /> <br /> <Skeleton active /> <br /> <Skeleton active /> <br /><Skeleton active /> </div>}>
           <Router>
             <Switch>
 
