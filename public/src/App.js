@@ -2,17 +2,15 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from './utils';
 import GoogleBtn from './container/GoogleBtn';
-<<<<<<< HEAD
-=======
-import NavBar from './components/Navigationbar'
-
->>>>>>> 6832b97bc1f1806701f84d23ca4f1f99bc856ab9
+import NavBar from './components/Navbar/Navigationbar';
+import SubNav from './components/Navbar/subnav';
 import 'antd/dist/antd.css';
 // import '~antd/lib/style/core/index.less';
-import '../src/css/App.css';
+import '../src/css/Navbar.css';
 import * as authActions from './Redux/Actions/AuthActions';
-import Navbar from '../src/components/Navigationbar.js';
+
 import { connect } from 'react-redux';
+
 
 class App extends React.Component {
 
@@ -29,27 +27,25 @@ class App extends React.Component {
       <React.Fragment>
 
         <nav>
-<<<<<<< HEAD
-          <Navbar />
-=======
           <NavBar />
->>>>>>> 6832b97bc1f1806701f84d23ca4f1f99bc856ab9
-          This is a Nav Bar only visible for large devices
-          <GoogleBtn visible={true} />
-          
-          
-          
-          
+          <div>
+            <SubNav />
+        </div>
+          {/* This is a Nav Bar only visible for large devices
+          <GoogleBtn visible={true} /> */}
           {/* {!authorised && <div className='g-signin2' data-onsuccess={onSignIn}> </div>} */}
         </nav>
+        
+        {/* <div>This is sidebar only visible for mobile</div><br /> */}
+        
+        
 
-        <div>This is sidebar only visible for mobile</div>
 
         {/* Please replace render with component down below */}
         <Router>
             <Switch>
 
-              <Route path="/" exact render={(props) => <h1>This is Home page</h1>} />
+              {/* <Route path="/" exact render={(props) => <h1>This is Home page</h1>} /> */}
               <Route path="/s/cart" exact render={(props) => <h1>This is Home's cart </h1>} />
 
               {/* Use PrivateRoute to protect a route */}
