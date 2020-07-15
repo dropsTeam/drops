@@ -31,12 +31,12 @@ class App extends React.Component {
           <div>
             <SubNav />
         </div>
-          {/* This is a Nav Bar only visible for large devices
-          <GoogleBtn visible={true} /> */}
+          This is a Nav Bar only visible for large devices
+          <GoogleBtn visible={true} />
           {/* {!authorised && <div className='g-signin2' data-onsuccess={onSignIn}> </div>} */}
         </nav>
         
-        {/* <div>This is sidebar only visible for mobile</div><br /> */}
+        <div>This is sidebar only visible for mobile</div><br />
         
         
 
@@ -45,7 +45,7 @@ class App extends React.Component {
         <Router>
             <Switch>
 
-              {/* <Route path="/" exact render={(props) => <h1>This is Home page</h1>} /> */}
+              <Route path="/" exact render={(props) => <h1>This is Home page</h1>} />
               <Route path="/s/cart" exact render={(props) => <h1>This is Home's cart </h1>} />
 
               {/* Use PrivateRoute to protect a route */}
