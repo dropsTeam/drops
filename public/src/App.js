@@ -1,15 +1,16 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from './utils';
+import { connect } from 'react-redux';
 
 import GoogleBtn from './container/GoogleBtn';
 import NavBar from './components/Navigationbar'
-
-import 'antd/dist/antd.css';
-// import '~antd/lib/style/core/index.less';
-import '../src/css/App.css';
 import * as authActions from './Redux/Actions/AuthActions';
-import { connect } from 'react-redux';
+
+// import '~antd/lib/style/core/index.less';
+import 'antd/dist/antd.css';
+import '../src/css/App.css';
+
 
 class App extends React.Component {
 
