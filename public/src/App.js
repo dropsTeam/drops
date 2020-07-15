@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from './utils';
 
 import GoogleBtn from './container/GoogleBtn';
-import AppNavBar from './container/navBar/Navbar'
+import NavBar from './components/Navigationbar'
 
 import 'antd/dist/antd.css';
 // import '~antd/lib/style/core/index.less';
@@ -26,7 +26,7 @@ class App extends React.Component {
       <React.Fragment>
 
         <nav>
-          <AppNavBar />
+          <NavBar />
           This is a Nav Bar only visible for large devices
           <GoogleBtn visible={true} />
           
@@ -56,7 +56,7 @@ class App extends React.Component {
 
             </Switch>
         </Router>
-      </React.Fragment >
+      </React.Fragment>
     );
   }
   
