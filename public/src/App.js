@@ -4,13 +4,13 @@ import { PrivateRoute } from './utils';
 import { connect } from 'react-redux';
 
 import GoogleBtn from './container/GoogleBtn';
-import NavBar from './components/Navigationbar'
+import NavBar from './components/Navbar/Navigationbar';
 import * as authActions from './Redux/Actions/AuthActions';
 
 
 // import '~antd/lib/style/core/index.less';
 import 'antd/dist/antd.css';
-import '../src/css/App.css';
+import '../src/css/Navbar.css';
 
 
 class App extends React.Component {
@@ -29,6 +29,7 @@ class App extends React.Component {
 
         <nav>
           <NavBar />
+          <SubNav />
 
           {/* <GoogleBtn visible={true} /> */}
         </nav>
