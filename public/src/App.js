@@ -1,16 +1,32 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from './utils';
+<<<<<<< HEAD
 import { connect } from 'react-redux';
 
+=======
+>>>>>>> c6db5283377cd7fc7c2b4ab4e666a17fe1fc3b95
 import GoogleBtn from './container/GoogleBtn';
+<<<<<<< HEAD
+=======
 import NavBar from './components/Navigationbar'
 import * as authActions from './Redux/Actions/AuthActions';
 
+<<<<<<< HEAD
+=======
+>>>>>>> 6832b97bc1f1806701f84d23ca4f1f99bc856ab9
+import 'antd/dist/antd.css';
+>>>>>>> c6db5283377cd7fc7c2b4ab4e666a17fe1fc3b95
 // import '~antd/lib/style/core/index.less';
 import 'antd/dist/antd.css';
 import '../src/css/App.css';
+<<<<<<< HEAD
 
+=======
+import * as authActions from './Redux/Actions/AuthActions';
+import Navbar from '../src/components/Navigationbar.js';
+import { connect } from 'react-redux';
+>>>>>>> c6db5283377cd7fc7c2b4ab4e666a17fe1fc3b95
 
 class App extends React.Component {
 
@@ -27,7 +43,11 @@ class App extends React.Component {
       <React.Fragment>
 
         <nav>
+<<<<<<< HEAD
+          <Navbar />
+=======
           <NavBar />
+>>>>>>> 6832b97bc1f1806701f84d23ca4f1f99bc856ab9
           This is a Nav Bar only visible for large devices
           <GoogleBtn visible={true} />
           
