@@ -1,14 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from './utils';
-
 import GoogleBtn from './container/GoogleBtn';
-import AppNavBar from './container/navBar/Navbar'
-
 import 'antd/dist/antd.css';
 // import '~antd/lib/style/core/index.less';
 import '../src/css/App.css';
 import * as authActions from './Redux/Actions/AuthActions';
+import Navbar from '../src/components/Navigationbar.js';
 import { connect } from 'react-redux';
 
 class App extends React.Component {
@@ -26,7 +24,7 @@ class App extends React.Component {
       <React.Fragment>
 
         <nav>
-          <AppNavBar />
+          <Navbar />
           This is a Nav Bar only visible for large devices
           <GoogleBtn visible={true} />
           
