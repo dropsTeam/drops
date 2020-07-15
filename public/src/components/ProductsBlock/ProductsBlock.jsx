@@ -3,6 +3,11 @@ import ProductCard from "../ProductCards/ProductCard/ProductCard";
 import ProductCategories from "../ProductCards/ProductCategories/ProductCategories";
 import ProductScrollBars from "../ProductCards/ProductScrollBars/ProductScrollBars";
 
+import image1 from "../../media/car1.jpg";
+import image2 from "../../media/car2.jpg";
+import image3 from "../../media/car3.jpg";
+import image4 from "../../media/car4.jpg";
+
 import styles from "./ProductsBlock.module.css";
 import { Carousel } from 'antd';
 import 'antd/dist/antd.css';
@@ -38,18 +43,21 @@ class ProductBlock extends React.Component {
 
        <Carousel >
           <div className={styles.image__carousel}>
-            <img src="https://rukminim1.flixcart.com/flap/50/50/image/0cfe1ee59e277ede.jpg?q=50" ></img>
+            {/* <img src={image1}></img>/ */}
+            <img src="https://rukminim1.flixcart.com/flap/3376/560/image/7c8b92479310ea67.jpg?q=50"></img>
           </div>
           <div className={styles.image__carousel}>
-            <img src="https://images.unsplash.com/photo-1547833604-dd82cc8805ed?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80" ></img>
+            <img src={image2} ></img>
           </div>
           <div className={styles.image__carousel}>
-          <img src="https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" ></img>
+          <img src={image3} ></img>
           </div>
           <div className={styles.image__carousel}>
-          <img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1024&q=80" ></img>
+          <img src={image4} ></img>
           </div>
       </Carousel>
+
+      
 
       <div className={styles.container}>
         <div className={styles.wrapper}>

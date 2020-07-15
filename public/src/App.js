@@ -6,7 +6,8 @@ import 'antd/dist/antd.css';
 // import '~antd/lib/style/core/index.less';
 import '../src/css/App.css';
 import * as authActions from './Redux/Actions/AuthActions';
-import Navbar from './container/navbar/NavBar';
+import Navbar from './components/Navigationbar';
+import ProductBlock from "./components/ProductsBlock/ProductsBlock";
 import { connect } from 'react-redux';
 
 class App extends React.Component {
@@ -42,6 +43,8 @@ class App extends React.Component {
 
               <Route path="/" exact render={(props) => <h1>This is Home page</h1>} />
               <Route path="/s/cart" exact render={(props) => <h1>This is Home's cart </h1>} />
+              <Route path="/card" exact component={ProductBlock} />
+
 
               {/* Use PrivateRoute to protect a route */}
               <PrivateRoute access={this.props.authorised} path='/s/orders' exact component={(props) => <h1>This is Orders page</h1>} />
