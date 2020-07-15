@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input} from 'antd';
+import { Input, Dropdown} from 'antd';
 
 
 const { Search } = Input;
@@ -7,10 +7,13 @@ const { Search } = Input;
 class LeftMenu extends Component {
   render() {
     return (
+      
 
       <Search className="searchbox"
-      placeholder="input search text"
+      placeholder="Search for products, brands and more"
       onSearch={value => console.log(value)}    />
+
+      
 			
     );
   }
