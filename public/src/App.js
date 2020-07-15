@@ -1,15 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import * as authActions from './Redux/Actions/AuthActions';
+import { connect } from 'react-redux';
+
+import 'antd/dist/antd.css';
+import '../src/css/Navbar.css';
+
 import { PrivateRoute } from './utils';
 import GoogleBtn from './container/GoogleBtn';
 import NavBar from './components/Navbar/Navigationbar';
 import SubNav from './components/Navbar/subnav';
-import 'antd/dist/antd.css';
-// import '~antd/lib/style/core/index.less';
-import '../src/css/Navbar.css';
-import * as authActions from './Redux/Actions/AuthActions';
+import Loading from './components/Loading/Loading';
+const ProductView = React.lazy(() => import('./components/ProductView/ProductView'));
 
-import { connect } from 'react-redux';
 
 
 class App extends React.Component {
@@ -22,47 +25,38 @@ class App extends React.Component {
 
 
   render() {
-   
+
     return (
       <React.Fragment>
 
-        <nav>
-          <NavBar />
-          <div>
-            <SubNav />
-        </div>
-          This is a Nav Bar only visible for large devices
-          <GoogleBtn visible={true} />
-          {/* {!authorised && <div className='g-signin2' data-onsuccess={onSignIn}> </div>} */}
-        </nav>
-        
-        <div>This is sidebar only visible for mobile</div><br />
-        
-        
+        <NavBar />
+        <SubNav />
+        {/* <GoogleBtn visible={true} /> */}
 
 
-        {/* Please replace render with component down below */}
-        <Router>
+
+        <React.Suspense fallback={<Loading />}>
+          <Router>
             <Switch>
 
               <Route path="/" exact render={(props) => <h1>This is Home page</h1>} />
+              <Route path="/:id" exact render={() => <ProductView />} />
               <Route path="/s/cart" exact render={(props) => <h1>This is Home's cart </h1>} />
 
-              {/* Use PrivateRoute to protect a route */}
+
               <PrivateRoute access={this.props.authorised} path='/s/orders' exact component={(props) => <h1>This is Orders page</h1>} />
               <PrivateRoute access={this.props.authorised} path='/s/account' exact component={(props) => <h1>This is Account page</h1>} />
               <PrivateRoute access={this.isSeller} path='/s/seller' exact component={(props) => <h1>This is Seller page if it exist</h1>} />
 
-              <Route path="/:id" exact render={(props) => <h1>This is Customer's Store </h1>} />
-
-              {/* and so on .........  */}
 
             </Switch>
-        </Router>
+          </Router>
+        </React.Suspense>
+
       </React.Fragment>
     );
   }
-  
+
 }
 
 const mapStateToProps = store => {
@@ -73,7 +67,7 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    $setUser: () =>  dispatch(authActions.setUser())
+    $setUser: () => dispatch(authActions.setUser())
   }
 }
 

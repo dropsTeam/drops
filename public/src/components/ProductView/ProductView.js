@@ -8,7 +8,7 @@ export default class ProductView extends React.Component {
     render() {
 
         let toRender = (
-            <div>
+
 
                 <section>
                     <div className="container-fluid">
@@ -219,7 +219,7 @@ The display, with new techniques and technology, follows the curves and its eleg
                         </div>
                     </div>
                 </section>
-            </div>
+
         );
 
         return (toRender);
