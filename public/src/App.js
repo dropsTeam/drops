@@ -2,6 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from './utils';
 import GoogleBtn from './container/GoogleBtn';
+<<<<<<< HEAD
+=======
+import NavBar from './components/Navigationbar'
+
+>>>>>>> 6832b97bc1f1806701f84d23ca4f1f99bc856ab9
 import 'antd/dist/antd.css';
 // import '~antd/lib/style/core/index.less';
 import '../src/css/App.css';
@@ -24,7 +29,11 @@ class App extends React.Component {
       <React.Fragment>
 
         <nav>
+<<<<<<< HEAD
           <Navbar />
+=======
+          <NavBar />
+>>>>>>> 6832b97bc1f1806701f84d23ca4f1f99bc856ab9
           This is a Nav Bar only visible for large devices
           <GoogleBtn visible={true} />
           
@@ -54,7 +63,7 @@ class App extends React.Component {
 
             </Switch>
         </Router>
-      </React.Fragment >
+      </React.Fragment>
     );
   }
   
