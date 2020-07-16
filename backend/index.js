@@ -4,7 +4,7 @@ const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 var path = require('path')
-var rfs = require('rotating-file-stream') // version 2.x
+var rfs = require('rotating-file-stream') 
 const config = require('./config');
 const cookie = require('cookie-parser');
 
@@ -18,10 +18,10 @@ app.disable('x-powered-by')
 config.connectMongo();
 
 
-var accessLogStream = rfs.createStream('access.log', {
-    interval: '1d', // rotate daily
-    path: path.join(__dirname, 'log')
-})
+// var accessLogStream = rfs.createStream('access.log', {
+//     interval: '1d', // rotate daily
+//     path: path.join(__dirname, 'log')
+// })
 
 // var corsOptions = {
 //     origin: 'http://localhost:3000',
@@ -37,7 +37,7 @@ app.use(helmet());
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(morgan('combined', { stream: accessLogStream }));
+// app.use(morgan('combined', { stream: accessLogStream }));
 app.use(cookie());
 
 
