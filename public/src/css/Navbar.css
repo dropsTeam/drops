@@ -100,14 +100,9 @@
 /* .ant-drawer-body .ant-menu-horizontal > .ant-menu-item:hover{
   border-bottom-color: transparent;
 } */
-@media(min-width: 1281px){
-  .searchbox{
-    width: 650px;
-    height: 35px;
-    position: absolute;
-    left: 25%;
-    
-  }
+@media(max-width: 1281px){
+  
+  
 
   .logbtn{
     width: 120px;
