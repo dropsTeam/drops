@@ -4,7 +4,6 @@ import * as authActions from './Redux/Actions/AuthActions';
 // import Navbar from './components/Navigationbar';
 import ProductBlock from "./components/ProductsBlock/ProductsBlock";
 import { connect } from 'react-redux';
-import Cart from './container/cart';
 import 'antd/dist/antd.css';
 import '../src/css/Navbar.css';
 import '../src/css/cart.css';
@@ -16,6 +15,7 @@ import SubNav from './components/Navbar/subnav';
 import Loading from './components/Loading/Loading';
 import { Skeleton } from 'antd';
 const ProductView = React.lazy(() => import('./components/ProductView/ProductView'));
+const Cart = React.lazy(() => import('./container/cart/cart'));
 
 
 
@@ -37,11 +37,7 @@ class App extends React.Component {
         <SubNav />
         {/* <GoogleBtn visible={true} /> */}
         
-
         <Loading/>
-        <Cart />
-        
-
 
 
         <React.Suspense fallback={<div><Skeleton active /> <br /> <Skeleton active /> <br /> <Skeleton active /> <br /><Skeleton active /> </div>}>
@@ -51,7 +47,9 @@ class App extends React.Component {
               <Route path="/card" exact component={ProductBlock} />
               {/* <Route path="/" exact render={(props) => <h1>This is Home page</h1>} /> */}
               
+              <Route path="/cart" exact render={() => <Cart />} />
               <Route path="/:id" exact render={() => <ProductView />} />
+
               <Route path="/s/cart" exact render={(props) => <h1>This is Home's cart </h1>} />
               
 

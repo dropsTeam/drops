@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Input,Row, Col, Card,Form, Button} from 'antd';
-import watch from '../media/watch.jpeg';
-import PlusMinusCart from '../container/Cart-plus-minus';
+import watch from '../../media/watch.jpeg';
+import PlusMinusCart from './Cart-plus-minus';
 
 
 // style={{ width: 600 }}
