@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Menu,Button,Dropdown, Badge} from 'antd';
-import { DownOutlined,ShoppingCartOutlined } from '@ant-design/icons';
+import { Menu,Button,Badge} from 'antd';
+import {ShoppingCartOutlined } from '@ant-design/icons';
 import DropDown from '../Navbar/dropdown';
 
 

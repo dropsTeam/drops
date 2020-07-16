@@ -1,0 +1,228 @@
+@import '~antd/dist/antd.css';
+
+.cart-right {
+    width: 820px;
+    margin: 20px;
+    
+    
+}
+
+.cart-left {
+    width: 400px;
+    margin: 20px;
+    
+}
+
+.p-details {
+    position: relative;
+    float: right;
+}
+
+/* .desc-cart-left {
+    color:hsl(0, 0%, 13%);
+    font-size:14px;
+    gap:normal;
+    line-height:19.6px;
+    padding:0px 24px 12px;
+} */
+
+.desc-cart-left h1 {
+    color: hsl(0, 0%, 13%);
+    display: inline;
+    gap: normal;
+    line-height: 16px;
+    font-size: 14px;
+
+    line-height: 19.6px;
+    padding: 0px 24px 12px;
+}
+
+.desc-cart-left h2 {
+    color:hsl(0, 0%, 53%);
+    font-size:14px;
+    gap:normal;
+    line-height:19.6px;
+    padding: 0px 24px 0px;
+}
+
+.desc-cart-left h3 {
+    color:hsl(0, 0%, 53%);
+    font-size:14px;
+    gap:normal;
+    line-height:19.6px;
+    margin:8px 0px 0px;
+    padding: 0px 24px 8px;
+}
+
+
+.desc-cart-left .rate-1-x {
+    color:hsl(0, 0%, 13%);
+    display:inline-block;
+    font-size:18px;
+    font-weight:500;
+    gap:normal;
+    line-height:25.2px;
+    margin:0px 8px 0px 0px;
+}
+
+.desc-cart-left .rate-2-x{
+    color:hsl(0, 0%, 53%);
+    display:inline-block;
+    font-size:14px;
+    gap:normal;
+    line-height:19.6px;
+    margin:0px 10px 0px 0px;
+    text-decoration: line-through;
+
+}
+.desc-cart-left .rate-3-x{
+    color:hsl(123, 43%, 39%);
+    display:inline;
+    font-size:14px;
+    font-weight:500;
+    gap:normal;
+    line-height:19.6px;
+    margin:0px 10px 0px 0px;
+
+}
+
+.desc-cart-right h1{
+    color:hsl(0, 0%, 13%);
+    font-size:14px;
+    gap:normal;
+    line-height:19.6px;
+    text-align:left;
+    flex-basis: 242px;
+}
+
+.desc-cart-right h2{
+    color:#878787;
+    display:inline;
+    font-size:12px;
+    gap:normal;
+    line-height:16.8px;
+    text-align:left;
+}
+
+.row-desc{
+    background-color:hsl(0, 0%, 100%);
+    border-color:hsl(0, 0%, 94%);
+    /* border-style:solid none none; */
+    /* border-width:1px 0px 0px; */
+    color:hsl(0, 0%, 13%);
+    font-size:14px;
+    gap:normal;
+    /* line-height:19.6px; */
+    /* padding:24px; */
+    margin: 20px;
+}
+
+.row-desc-2{
+    background-color:hsl(0, 0%, 100%);
+    border-color:hsl(0, 0%, 94%);
+    border-style:solid none none;
+    border-width:1px 0px 0px;
+    box-shadow:hsla(0, 0%, 0%, 0.1) 0px -2px 10px 0px;
+    color:hsl(0, 0%, 13%);
+    font-size:14px;
+    gap:normal;
+    line-height:19.6px;
+    padding:16px 22px;
+    text-align:right;    
+}
+.row-desc-2 form{
+    color:hsl(0, 0%, 13%);
+font-size:14px;
+gap:normal;
+line-height:19.6px;
+text-align:right;
+float: left;
+}
+
+.fitem00{
+    
+background-color:hsl(20, 97%, 55%);
+border-radius:2px;
+/* box-shadow:hsla(0, 0%, 0%, 0.2) 0px 1px 2px 0px; */
+color:hsl(0, 0%, 100%);
+display:inline-block;
+font-weight:500;
+gap:normal;
+padding:16px 30px 35px 30px;
+text-align:center;
+text-transform:uppercase;
+
+
+
+}
+
+
+
+.row-desc .pd-img{
+    color:hsl(0, 0%, 13%);
+    font-size:14px;
+    gap:normal;
+    line-height:19.6px;
+}
+
+.b-row-plusminus{
+    color:hsl(0, 0%, 13%);
+    font-size:14px;
+    gap:normal;
+    line-height:19.6px;
+    padding:14px 0px 0px 0px ;
+    position: relative;
+    left: -10px;
+    margin-top: 14px;
+}
+
+.plusminus-btn-1-x{
+    border: none;
+    border-style: none;
+    background: none;
+    font-size: 20px;
+    float: left;
+    text-align: center;
+    text-align: center;
+    /* padding: 10px; */
+    margin: 0px;
+    bottom: 8px;
+}
+
+.rbsv{
+    color:hsl(0, 0%, 13%);
+    display:inline-block;
+    font-size:14px;
+    gap:normal;
+    line-height:19.6px;
+    padding:0px 0px 0px 24px;
+    margin: 0px;
+    
+
+}
+
+.rbsvu {
+    /* color:hsl(217, 87%, 55%); */
+    display:inline-block;
+    font-weight:500;
+    gap:normal;
+    text-align: center;
+    line-height:22.4px;
+    margin:0px 25px 0px 0px;
+    text-transform:uppercase;
+}
+.rbsvu a{
+    color:hsl(0, 0%, 13%);
+    
+}
+@media(min-width: 1281px){
+    .cart-right{
+        float: right;
+        margin-right: 200px;
+    }
+    .cart-left{
+        right: 200px;
+
+    }
+  
+  }

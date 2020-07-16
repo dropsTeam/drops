@@ -4,12 +4,13 @@ import * as authActions from './Redux/Actions/AuthActions';
 // import Navbar from './components/Navigationbar';
 import ProductBlock from "./components/ProductsBlock/ProductsBlock";
 import { connect } from 'react-redux';
-
+import Cart from './container/cart';
 import 'antd/dist/antd.css';
 import '../src/css/Navbar.css';
+import '../src/css/cart.css';
 
 import { PrivateRoute } from './utils';
-import GoogleBtn from './container/GoogleBtn';
+// import GoogleBtn from './container/GoogleBtn';
 import NavBar from './components/Navbar/Navigationbar';
 import SubNav from './components/Navbar/subnav';
 import Loading from './components/Loading/Loading';
@@ -35,8 +36,11 @@ class App extends React.Component {
         <NavBar />
         <SubNav />
         {/* <GoogleBtn visible={true} /> */}
+        
 
         <Loading/>
+        <Cart />
+        
 
 
 
@@ -45,7 +49,8 @@ class App extends React.Component {
             <Switch>
 
               <Route path="/card" exact component={ProductBlock} />
-              <Route path="/" exact render={(props) => <h1>This is Home page</h1>} />
+              {/* <Route path="/" exact render={(props) => <h1>This is Home page</h1>} /> */}
+              
               <Route path="/:id" exact render={() => <ProductView />} />
               <Route path="/s/cart" exact render={(props) => <h1>This is Home's cart </h1>} />
               
