@@ -14,9 +14,11 @@
     "immutability-helper": "^3.1.1",
     "less": "^3.11.3",
     "less-loader": "^6.2.0",
+    "node-sass": "^4.14.1",
     "react": "^16.13.1",
     "react-app-rewired": "^2.1.6",
     "react-dom": "^16.13.1",
+    "react-fontawesome": "^1.7.1",
     "react-google-login": "^5.1.20",
     "react-redux": "^7.2.0",
     "react-router": "^5.2.0",
@@ -24,8 +26,7 @@
     "react-scripts": "3.4.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0",
-    "rsuite": "^4.8.0"
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-app-rewired start",

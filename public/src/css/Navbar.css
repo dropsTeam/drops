@@ -2,10 +2,10 @@
 /* @import '~antd/lib/style/core/index.less'; */
 
 .menuBar{
-  padding: 0 20px;
+  padding: 0px 20px;
   /* border-bottom: solid 1px #e8e8e8; */
   height: 55px;
-  overflow: auto;
+  overflow: hidden;
   box-shadow: 0 0 30px #f3f1f1;
   background-color: #2874F0;
 }
@@ -28,6 +28,8 @@
   padding: 19px 20px;
   text-transform: capitalize;
 }
+
+
 /* .menuCon{
   width: calc(100% - 150px);
   float: left;
@@ -45,18 +47,7 @@
   border-bottom: none;
 }
 
-.logbtn{
-  width: 120px;
-  height: 32px;
-  position: relative;
-  /* left: 15px; */
-  font-size: 20px;
-  letter-spacing: 1px;
-  padding: 0px 50px 35px 30px;
-  font-weight: 600;
-  color: #357CF1;
-  text-decoration: none;
-}
+
 
 
 
@@ -117,12 +108,76 @@
     left: 25%;
     
   }
+
+  .logbtn{
+    width: 120px;
+    height: 32px;
+    position: relative;
+    /* left: 15px; */
+    font-size: 20px;
+    letter-spacing: 1px;
+    padding: 0px 50px 35px 30px;
+    font-weight: 600;
+    color: #357CF1;
+    text-decoration: none;
+  }
 }
 
-@media(max-width: 991.98px){
+@media(min-width: 991.98px){
   .searchbox{
     width: 520px;
+    margin: 12px;
+    height: 35px;
+    left: 15%;
+    border: none;
+    box-shadow: black ;
   }
+  
+
+  .logbtn{
+   
+    /* position: relative;
+    left: -90%; */
+    height: 30px;
+    width: 95px;
+    border: none;
+    font-size: 16px;
+    letter-spacing: 1px;
+    margin-top: 10px;
+    margin-right: 50px;
+    /* padding: 10px; */
+    font-weight: 600;
+    color: #357CF1;
+    text-decoration: none;
+  }
+  .modified-dropdown{
+    color: white;
+
+  }
+
+  .rightymenu{
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    
+
+}
+
+
+
+.ant-dropdown-link{
+    color: white;
+    font-size: 16px;
+    margin-right: 50px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    /* position: relative;
+    left: -50%; */
+
+  }
+
+
 
 
 }
@@ -132,6 +187,8 @@
   .barsMenu{
     display: inline-block;
   }
+
+  
 
  
   .rightMenu{

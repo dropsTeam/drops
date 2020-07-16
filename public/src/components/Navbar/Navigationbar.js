@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import LeftMenu from './Navbar/LeftMenu'
-import RightMenu from './Navbar/RightMenu'
+import LeftMenu from './LeftMenu';
+
+import RightMenu from './RightMenu';
 import {Avatar } from 'antd';
-import amazon from '../media/amazon.png';
+import flipkart from '../../media/flipkart3.png';
+// import SubNav from './subnav';
 
 class Navbar extends Component {
 	state = {
@@ -25,8 +27,10 @@ class Navbar extends Component {
     return (
         <nav className="menuBar">
         	<div className="logo">
-        		<a><Avatar style={{ width: 100, height: 40 }} shape="square" src={amazon}></Avatar></a>
+        		<a><Avatar style={{ width: 130, height: 40, top:-10, left:30 }} shape="square" src={flipkart}></Avatar></a>
+          
         	</div>
+
         	<div className="menuCon">
         		<div className="leftMenu">
 	        		<LeftMenu />
@@ -35,6 +39,7 @@ class Navbar extends Component {
 	        			<RightMenu />
 				    </div>
         	</div>
+          
         </nav>
     );
   }
