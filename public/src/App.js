@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as authActions from './Redux/Actions/AuthActions';
+// import Navbar from './components/Navigationbar';
+import ProductBlock from "./components/ProductsBlock/ProductsBlock";
 import { connect } from 'react-redux';
 
 import 'antd/dist/antd.css';
@@ -42,9 +44,12 @@ class App extends React.Component {
           <Router>
             <Switch>
 
+              <Route path="/card" exact component={ProductBlock} />
               <Route path="/" exact render={(props) => <h1>This is Home page</h1>} />
               <Route path="/:id" exact render={() => <ProductView />} />
               <Route path="/s/cart" exact render={(props) => <h1>This is Home's cart </h1>} />
+              
+
 
 
               <PrivateRoute access={this.props.authorised} path='/s/orders' exact component={(props) => <h1>This is Orders page</h1>} />
@@ -75,3 +80,6 @@ const mapDispatchToProps = dispatch => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
+
+
+
