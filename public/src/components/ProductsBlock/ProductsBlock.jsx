@@ -1,7 +1,5 @@
 import React,{Component} from 'react';
-import ProductCard from "../ProductCards/ProductCard/ProductCard";
-import ProductCategories from "../ProductCards/ProductCategories/ProductCategories";
-import ProductScrollBars from "../ProductCards/ProductScrollBars/ProductScrollBars";
+import ProductScrollBars from "../ProductCards/ProductScrollBars/ProductScrollBars.js";
 
 import image1 from "../../media/car1.jpg";
 import image2 from "../../media/car2.jpg";
@@ -57,7 +55,7 @@ class CarouselSlide extends Component {
         }
         
       >
-        <img  class="carousal__image"  src={this.props.slide.img} ></img>
+        <img  className="carousal__image"  src={this.props.slide.img} ></img>
       </li>
     );
   }
@@ -159,14 +157,6 @@ class ProductBlock extends Component {
       <div className="main__container">
         <Carousel  slides={carouselSlidesData}/>
 
-       <div className="container">
-        <div className="wrapper">
-          {productArr.map((item,i)=>(
-            <ProductCard item={item}  key={i}/>
-          ))}
-        </div>
-        </div>
-        <ProductCategories />
         <ProductScrollBars /> 
       </div>
      </>
@@ -179,29 +169,6 @@ class ProductBlock extends Component {
 
 export default ProductBlock;
 
-
-const productArr = [
- {
-   id:1,
-   title : "Electronics",
-   img : "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
- },
- {
-  id:2,
-  title : "Deals ",
-  img : "https://images.unsplash.com/photo-1547833604-dd82cc8805ed?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=967&q=80"
- },
- {
-  id:3,
-  title : "Shirts",
-  img : "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-  },
-  {
-  id:4,
-  title : "Buy Gifts",
-  img : "https://images.unsplash.com/photo-1549465220-1a8b9238cd48?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1024&q=80"
-  }
-]
 
 
 
