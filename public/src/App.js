@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as authActions from './Redux/Actions/AuthActions';
 // import Navbar from './components/Navigationbar';
-import ProductBlock from "./components/ProductsBlock/ProductsBlock";
+import ProductBlock from "./components/ProductsBlock/ProductsBlock.js";
 import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
 import '../src/css/Navbar.css';
