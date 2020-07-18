@@ -1,8 +1,8 @@
-import React from 'react';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import axios from 'axios';
-import { connect } from 'react-redux';
-import * as authActions from '../Redux/Actions/AuthActions';
+import React from './node_modules/react';
+import { GoogleLogin, GoogleLogout } from './node_modules/react-google-login';
+import axios from './node_modules/axios';
+import { connect } from './node_modules/react-redux';
+import * as authActions from '../../Redux/Actions/AuthActions';
 
 const CLIENT_ID = '1092942175302-0ibod3kvsqd9861k4q88epeaa2q2t587.apps.googleusercontent.com';
 

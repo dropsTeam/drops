@@ -2,19 +2,20 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as authActions from './Redux/Actions/AuthActions';
 // import Navbar from './components/Navigationbar';
-import ProductBlock from "./components/ProductsBlock/ProductsBlock.js";
 import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
 import '../src/css/Navbar.css';
 import '../src/css/cart.css';
 
+
+import ProductBlock from "./components/ProductsBlock/ProductsBlock.js";
 import { PrivateRoute } from './utils';
 // import GoogleBtn from './container/GoogleBtn';
 import NavBar from './components/Navbar/Navigationbar';
 import SubNav from './components/Navbar/subnav';
 import Loading from './components/Loading/Loading';
 import { Skeleton } from 'antd';
-const ProductView = React.lazy(() => import('./components/ProductView/ProductView'));
+const ProductView = React.lazy(() => import('./container/ProductView/ProductView'));
 const Cart = React.lazy(() => import('./container/cart/cart'));
 
 
