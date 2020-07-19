@@ -1,0 +1,57 @@
+.title__container {
+  display: inline;
+  font-family: 'Roboto', sans-serif;
+}
+
+.title__content {
+  margin: 1.7rem  0rem;
+  padding: 0.5rem 1rem;
+  color: black;
+  font-size: 2.5rem;
+  font-weight: 500;
+  border-bottom: 1px solid #d1d1d1;
+}
+
+.scroll__container {
+  width: 100%;
+  padding-bottom: 0.8rem;
+}
+
+.scroll__wrapper {
+  width: auto;
+  border: 1px solid #e0e0e0;
+  -webkit-box-shadow: 0px 0px 4px #dbdbdb;
+          box-shadow: 0px 0px 4px #dbdbdb;
+  margin: 0 0.8rem;
+}
+
+.scroll {
+  white-space: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  margin: -0.5rem 0rem;
+}
+
+.nav-item {
+  color: #030303;
+}
+
+.nav-item {
+  padding: 2rem 0.3rem;
+}
+
+.nav-item,
+.vertical-align-middle {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.product__container {
+  display: inline;
+}
+/*# sourceMappingURL=ProductScrollBars.css.map */

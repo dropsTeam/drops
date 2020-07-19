@@ -56,7 +56,7 @@ class ProductScrollBars extends React.Component {
    <div className="scroll__container"> 
     <div className="scroll__wrapper">
      <TitleBar />
-     <Scroll />
+     <Scroll p />
     </div>
     </div> 
    )
