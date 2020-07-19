@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import ProductScrollBars from "../ProductCards/ProductScrollBars/ProductScrollBars.js";
 import ProductCategories from "../ProductCards/ProductCategories/ProductCategories.js"
+import ProductAds from "../ProductCards/ProductsAds/ProductAds.js"
 
 import image1 from "../../media/car1.jpg";
 import image2 from "../../media/car2.jpg";
@@ -28,6 +29,7 @@ class CarouselLeftArrow extends Component {
     );
   }
 }
+
 
 class CarouselRightArrow extends Component {
   render() {
@@ -156,8 +158,9 @@ class ProductBlock extends Component {
     return (
       <>
       <div className="main__container">
+        {/* carousal  */}
         <Carousel  slides={carouselSlidesData}/>
-
+        {/* categories wrapper */}
         <div className="categoryWrapper__container">
           <div className="wrapper">
             {productArr.map((item,i)=>(
@@ -165,8 +168,11 @@ class ProductBlock extends Component {
             ))}
           </div>
         </div>
-
+        {/* product scroll bars */}
         <ProductScrollBars /> 
+
+        {/* product ads */}
+        <ProductAds />
       </div>
      </>
 
