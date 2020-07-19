@@ -356,6 +356,8 @@ export default class ProductView extends React.Component {
             </div>
         );
 
+        
+
         return (toRender);
     }
 }
