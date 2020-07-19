@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Input,Row, Col, Card,Form, Button} from 'antd';
+import { Input,Row, Col, Card,Form, Button, Divider} from 'antd';
 import watch from '../../media/watch.jpeg';
 import PlusMinusCart from './Cart-plus-minus';
 
@@ -10,10 +10,11 @@ const { Search } = Input;
 
 class Cart extends Component {
   render() {
+
     return (
         <Row style={{backgroundColor:'#F1F3F6'}}>
             <Col className="col-left-cart" xs={24} sm={24} md={24} lg={24} xl={16}>
-                <Card title="MY SHOPPING BAG" className="cart-right">
+                <Card title="MY SHOPPING BAG" className="cart-right-check">
                     <Row className="row-desc">
                         <Col span={4}><img className="pd-img" src={watch} style={{width:104, heigth:112}}></img></Col>
                         <Col span={12} className="desc-cart-left">
@@ -37,7 +38,6 @@ class Cart extends Component {
                         </Form>                          
                     </Row>
                 </Card>
-                
             </Col>
             <Col className="col-right-cart" xl={8}>
                 <Card title="PRICE DETAILS" className="cart-left" headStyle={{color:'#878787'}} >
