@@ -1,0 +1,56 @@
+.cart-right-check {
+    width: 820px;
+    margin: 20px; 
+}
+
+.row-check-1{
+    align-items:
+flex-start;
+color:
+hsl(0, 0%, 13%);
+display:
+flex;
+font-size:
+14px;
+gap:
+normal;
+line-height:
+19.6px;
+    
+}
+
+.row-check-1 h3{
+    background-color:
+hsl(217, 87%, 55%);
+border-radius:
+2px 2px 0px 0px;
+color:
+hsl(0, 0%, 100%);
+font-weight:
+500;
+gap:
+normal;
+line-height:
+22.4px;
+padding:
+14px 24px;
+text-transform:
+uppercase;
+}
+
+.row-sub-check-1{
+    color:
+hsl(0, 0%, 13%);
+display:
+flex;
+flex-wrap:
+wrap;
+font-size:
+14px;
+gap:
+normal;
+line-height:
+19.6px;
+padding:
+26px 20px 18px 50px;
+}
