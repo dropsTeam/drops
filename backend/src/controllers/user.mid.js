@@ -137,11 +137,22 @@ const getSearchHistory = async (req, res, next) => {
 
         const history = await userModel.findOne({ gId: user.gId }).select('searchHistory').slice('searchHistory', -10).lean();
         res.status(200).send(history.searchHistory);
-        
+
     } catch (err) {
         console.log(err);
         res.status(500).send({ msg: 'Error Occured fetching the search history', err });
     }
 }
 
-module.exports = { get, getCart, postCart, deleteCartItem, editCart, getSearchHistory };
+const getRecommendedItems = async (req, res, next) => {
+    try {
+        const { user } = req.app.locals;
+
+        const recommendations = await userModel.findOne({ gId: user.gId }).select('recommendations').splice('recommendations', -8).populate({ path: 'recommendations', ref: 'products', select: 'title price totalReview seller aveageRaing media' });
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ msg: 'Error Occured getting the recommendations .' })
+    }
+}
+
+module.exports = { get, getCart, postCart, deleteCartItem, editCart, getSearchHistory, getRecommendedItems };

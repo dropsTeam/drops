@@ -33,7 +33,8 @@ const cartSchema = mongo.Schema({
         type: types.Date,
         default: Date.now
     },
-    searchHistory: [mongo.Schema({ type: types.String })]
+    searchHistory: [mongo.Schema({ type: types.String })],
+    recommendations: [mongo.Schema({ type: types.ObjectId })]
 });
 
 
