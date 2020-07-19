@@ -39,6 +39,24 @@ const getbasicProductInfo = async (req, res, next) => {
     }
 }
 
+const get = async (req, res, next) => {
+    try {
+        const { productId } = req.params;
+
+        const product = await productModel.findOne({ _id: productId }).lean();
+
+        if (req.app.locals.hasOwnProperty('user') && !!product) {
+            await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $push: { recommendations: productId } });
+        }
+
+        res.status(200).send(product);
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ msg: 'Error Occured fetching the product data.', err });
+    }
+}
+
 
 const postProduct = async (req, res, next) => {
     try {
@@ -144,7 +162,10 @@ const search = async (req, res, next) => {
         // ((Overall Rating * Total Rating) + new Rating) / (Total Rating + 1);
 
         const search = await productModel.find(payload).select('title media totalReview price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
-        await userModel.findOneAndUpdate({ gId: user.gId }, { $push: { searchHistory: req.query.text } });
+
+        if (req.app.locals.hasOwnProperty('user') && search.length !== 0) {
+            await userModel.findOneAndUpdate({ gId: user.gId }, { $push: { searchHistory: req.query.text } });
+        }
 
         res.status(200).send(search);
 
@@ -155,4 +176,4 @@ const search = async (req, res, next) => {
 }
 
 
-module.exports = { basicProductInfo, getbasicProductInfo, postProduct, editProduct, search };
+module.exports = { basicProductInfo, getbasicProductInfo, postProduct, editProduct, search, get };
