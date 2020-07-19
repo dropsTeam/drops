@@ -14,9 +14,6 @@ const log = async (req, res, next) => {
         const { token } = req.app.locals;
         const { user } = req.app.locals;
 
-        console.log(token);
-
-
 
         const isUser = await userModel.findOne({ gId: user.gId });
         if (!!!isUser) {
@@ -54,7 +51,7 @@ const logout = async (req, res, next) => {
 
 
 
-function googleVerify(fromCookie) {
+function googleVerify(fromCookie, terminateIfError = true) {
     return async (req, res, next) => {
 
         try {
@@ -83,7 +80,11 @@ function googleVerify(fromCookie) {
         }
         catch (err) {
             console.log(err);
-            res.status(401).send({ msg: 'Token Unverified' });
+            if(terminateIfError){
+                res.status(401).send({ msg: 'Token Unverified' });
+            }else {
+                next();
+            }
         }
     }
 }

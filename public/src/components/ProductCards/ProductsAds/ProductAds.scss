@@ -1,0 +1,29 @@
+
+.ads__container{
+ // border:1px solid grey;
+ margin:0 0.5rem;
+}
+
+.ads__wrapper{
+ display: flex;
+ a{
+  flex:1 0 30%;
+   margin:0 0.3rem;
+ }
+}
+
+
+@media screen and (max-width:500px){
+ .ads__wrapper{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  a{
+   flex:1 0 100% ;
+    margin:0.3rem 0.3rem;
+  }
+ }
+}
+
+
+
