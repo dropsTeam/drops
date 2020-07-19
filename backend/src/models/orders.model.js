@@ -4,14 +4,14 @@ const typ = mongo.Schema.Types;
 const schema = mongo.Schema({
 
     user: typ.ObjectId,
-    productName: {
-        productId: types.ObjectId,
-        type: types.String,
-        maxlength: 50,
+    productId: typ.ObjectId,
+    title: {
+        type: typ.String,
+        maxlength: 300,
         required: true,
     },
     quantity: {
-        type: types.Number,
+        type: typ.Number,
         max: 100,
         min: 1,
         default: 1
@@ -22,15 +22,17 @@ const schema = mongo.Schema({
         required: true
     },
     varient: {
-        type: types.String,
-        maxlength: 50
+        type: typ.Mixed
     },
-    dropdown: [types.String],
+    dropdown: {
+        type: typ.Mixed
+    },
     timeStamp: {
-        type: types.Date,
+        type: typ.Date,
         default: Date.now
     },
     phoneNumber: typ.Number,
+    media: typ.String,
 
     address: {
         location: {
@@ -59,4 +61,4 @@ const schema = mongo.Schema({
 
 schema.index({ timeStamp: 1 }, { unique: false });
 
-module.exports = mongo.Schema('orders', schema);
+module.exports = mongo.model('orders', schema);
