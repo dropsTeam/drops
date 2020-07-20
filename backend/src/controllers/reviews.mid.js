@@ -6,7 +6,7 @@ const get = async (req, res, next) => {
     try {
         const { productId, page } = req.query;
 
-        const reviews = await reviewModel.find({ productId }).skip(page * 10).limit(10).lean();
+        const reviews = await reviewModel.find({ productId }).select('-helpfulMembers').sort('helpful').skip(page * 10).limit(10).lean();
 
         res.status(200).send(reviews);
 
@@ -66,7 +66,7 @@ const helpfulPOST = async (req, res, next) => {
 
         const { user } = req.app.locals;
         const { reviewId } = req.body;
-        await ordersModel.findOneAndUpdate({ _id: reviewId }, { $addToSet: { helpfulMembers: user.gId } });
+        await ordersModel.findOneAndUpdate({ _id: reviewId }, { $addToSet: { helpfulMembers: user.gId }, $inc: { helpful: 1 } });
 
         res.status(200).send('ok');
 
@@ -97,16 +97,6 @@ const amIInhelpful = async (req, res, next) => {
     }
 }
 
-const getHelpfuls = async (req, res, next) => {
-    try {
 
-        const count = await reviewModel.aggregate({$project: {count: {$size: '$helpfulMembers'}}});
-        res.status(200).send(count)
 
-    } catch (err) {
-        console.log(err);
-        res.status(400).send({ msg: 'Error Occured getting all helpfuls.', err });
-    }
-}
-
-module.exports = { get, post, getMyReview, helpfulPOST, amIInhelpful, getHelpfuls }
+module.exports = { get, post, getMyReview, helpfulPOST, amIInhelpful }

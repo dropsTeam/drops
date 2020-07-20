@@ -20,6 +20,5 @@ route
 route
     .post('/review/helpful', authC.googleVerify(true, true), reviewC.helpfulPOST)
     .get('/review/helpful', authC.googleVerify(true, true), reviewC.amIInhelpful)
-    .get('/review/helpfuls', reviewC.getHelpfuls)
 
 module.exports = route;
