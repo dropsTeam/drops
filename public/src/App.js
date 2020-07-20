@@ -11,7 +11,7 @@ import '../src/css/checkout.css';
 
 import ProductBlock from "./components/ProductsBlock/ProductsBlock.js";
 import { PrivateRoute } from './utils';
-// import GoogleBtn from './container/GoogleBtn';
+
 import NavBar from './components/Navbar/Navigationbar';
 import SubNav from './components/Navbar/subnav';
 import Cartcheckout from './container/checkout/checkout';
@@ -37,9 +37,10 @@ class App extends React.Component {
     return (
       <React.Fragment>
 
+
         <NavBar />
         <SubNav />
-        {/* <GoogleBtn visible={true} /> */}
+        
 
         
         <Loading/>

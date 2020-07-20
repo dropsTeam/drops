@@ -3,42 +3,7 @@
     margin: 20px; 
 }
 
-.row-check-1{
-    align-items:
-flex-start;
-color:
-hsl(0, 0%, 13%);
-display:
-flex;
-font-size:
-14px;
-gap:
-normal;
-line-height:
-19.6px;
-    
-}
-
-.row-check-1 h3{
-    background-color:
-hsl(217, 87%, 55%);
-border-radius:
-2px 2px 0px 0px;
-color:
-hsl(0, 0%, 100%);
-font-weight:
-500;
-gap:
-normal;
-line-height:
-22.4px;
-padding:
-14px 24px;
-text-transform:
-uppercase;
-}
-
-.row-sub-check-1{
+.row-check-login{
     color:
 hsl(0, 0%, 13%);
 display:
@@ -54,3 +19,91 @@ line-height:
 padding:
 26px 20px 18px 50px;
 }
+
+
+
+
+
+
+
+
+
+
+.right-desc-check{
+    color:
+hsl(0, 0%, 13%);
+font-size:
+14px;
+gap:
+normal;
+line-height:
+19.6px;
+padding:
+0px 0px 0px 100px;
+}
+
+.advt-change{
+    color:
+hsl(0, 0%, 53%);
+display:
+inline;
+font-size:
+14px;
+gap:
+normal;
+line-height:
+19.6px;
+}
+
+.list-check-ul{
+    color:
+hsl(0, 0%, 53%);
+font-size:
+14px;
+gap:
+normal;
+line-height:
+19.6px;
+text-decoration: none;
+border: none;
+}
+
+.list-item-check{
+    color:
+hsl(0, 0%, 13%);
+display:
+list-item;
+font-size:
+14px;
+text-decoration: none;
+border: none;
+border-style: none;
+gap:
+normal;
+line-height:
+19.6px;
+margin:
+16px 0px;
+text-align:
+left;
+}
+
+.advt-desc{
+    color:
+hsl(0, 0%, 13%);
+text-decoration: none;
+border: none;
+border-style: none;
+display:
+inline;
+font-size:
+14px;
+gap:
+normal;
+line-height:
+19.6px;
+text-align:
+left;
+
+}
+

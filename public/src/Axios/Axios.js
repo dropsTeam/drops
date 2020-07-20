@@ -1,4 +1,4 @@
-import axios from 'axios';
+import * as axios from 'axios';
 
 const mainHttp = axios.create({
     baseURL: '/api',
