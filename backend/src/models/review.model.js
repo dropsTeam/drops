@@ -34,9 +34,9 @@ const schema = new mongo.Schema({
         default: 0
     },
     
-    helpfulMembers: [typ.ObjectId],
+    helpfulMembers: [typ.String],
 
-    user: typ.ObjectId
+    user: typ.String
 });
 
 

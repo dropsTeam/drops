@@ -3,7 +3,7 @@ const typ = mongo.Schema.Types;
 
 const schema = mongo.Schema({
 
-    user: typ.ObjectId,
+    user: typ.String,
     productId: typ.ObjectId,
     title: {
         type: typ.String,

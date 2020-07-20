@@ -67,7 +67,7 @@ const postProduct = async (req, res, next) => {
 
 
         const payload = {
-            seller: user._id,
+            seller: user.gId,
             title,
             discription,
             highlights,

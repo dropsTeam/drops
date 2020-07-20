@@ -45,7 +45,7 @@ const postCart = async (req, res, next) => {
         if (!isVarientValid) { throw 'Not a valid varient' };
         if (dropdown.title !== product.dropdown.title || !product.dropdown.options.includes(dropdown.option)) { throw 'Not a valid dropdown value' };
 
-        const userData = await userModel.findById(user._id).select('cart').lean();
+        const userData = await userModel.findById(user.gId).select('cart').lean();
 
         if (userData.cart.length >= 10) {
             throw 'Your cart is already full, You cannot put more than 10 items.'
@@ -69,7 +69,7 @@ const postCart = async (req, res, next) => {
             timeStamp: Date.now()
         });
 
-        await userModel.findByIdAndUpdate(user._id, update);
+        await userModel.findByIdAndUpdate(user.gId, update);
         res.status(200).send({ cart: userData.cart });
 
     } catch (err) {
@@ -86,7 +86,7 @@ const deleteCartItem = async (req, res, next) => {
         const { user } = req.app.locals;
         const { index } = req.params;
 
-        const cartData = await userModel.findById(user._id).select('cart').lean();
+        const cartData = await userModel.findById(user.gId).select('cart').lean();
 
 
         if (index < 0) {
@@ -100,7 +100,7 @@ const deleteCartItem = async (req, res, next) => {
             cart: cartData.cart
         }
 
-        await userModel.findByIdAndUpdate(user._id, update);
+        await userModel.findByIdAndUpdate(user.gId, update);
         res.status(200).send({ cart: cartData.cart })
 
     } catch (err) {
@@ -117,11 +117,11 @@ const editCart = async (req, res, next) => {
         const { user } = req.app.locals;
         const { quantity, index } = req.body;
 
-        const cartData = await userModel.findById(user._id).select('cart').lean();
+        const cartData = await userModel.findById(user.gId).select('cart').lean();
         if (index >= cartData.cart.length || index < 0) throw `No such element with index ${index} found in cart`;
 
         const key = 'cart.' + index + '.quantiry';
-        userModel.findByIdAndUpdate(user._id, { $set: { [key]: quantity } });
+        userModel.findByIdAndUpdate(user.gId, { $set: { [key]: quantity } });
 
 
     } catch (err) {
