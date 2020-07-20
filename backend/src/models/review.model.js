@@ -3,7 +3,11 @@ const typ = mongo.Schema.Types;
 
 mongo.set('runValidators', true);
 
-const schema = mongo.Schema({
+const schema = new mongo.Schema({
+    projectId: {
+        type: typ.ObjectId,
+        required: true
+    },
     rating: {
         type: typ.Number,
         max: [5, 'Maximum rating is 5'],
@@ -36,7 +40,7 @@ const schema = mongo.Schema({
 });
 
 
-schema.index({ helpful: 1, rating: 1, timeStamp: 1 }, { unique: false });
+schema.index({ projectId: 1, helpful: 1, rating: 1, timeStamp: 1 }, { unique: false });
 
 
-module.export = mongo.model('review', schema);
+module.exports = mongo.model('review', schema);

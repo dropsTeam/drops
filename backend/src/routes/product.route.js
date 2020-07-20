@@ -2,6 +2,7 @@ const route = require('express').Router();
 const userC = require('../controllers/user.mid');
 const authC = require('../controllers/auth.mid');
 const productC = require('../controllers/product.mid');
+const reviewC = require('../controllers/reviews.mid');
 
 route
     .get('/search', authC.googleVerify(true, false), productC.search)
@@ -11,6 +12,8 @@ route
     .put('/:productId', authC.googleVerify(true, true), productC.editProduct)
     .get('/:productId', authC.googleVerify(true, false), productC.get);
 
-
+route
+    .get('/review', reviewC.get)
+    .post('/review', authC.googleVerify(true, true), productC.basicProductInfo, reviewC.post)
 
 module.exports = route;

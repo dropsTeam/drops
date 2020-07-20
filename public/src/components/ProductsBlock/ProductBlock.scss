@@ -8,6 +8,8 @@
  padding:0;
 }
 
+
+// categories container---------------------------------------------
 .categoryWrapper__container{
   background-color:white;
   border:1px solid rgb(224, 224, 224);
@@ -23,7 +25,23 @@
  padding:0;
 }
 
+@media screen and (max-width:900px){
+  .categoryWrapper__container{
+    margin:0rem 0.4rem;
+    margin-bottom:1rem;
+  }
+}
 
+
+@media screen and (max-width:500px){
+  .categoryWrapper__container{
+    margin:0rem 0.2rem;
+    margin-bottom:1rem;
+  } 
+}
+
+
+// carousal styles----------------------------------------------
 .image__carousel{
  height: 400px;
 }
@@ -59,6 +77,7 @@ ul {
   width:100%;
 }
 
+//? main styling component for the carousal slides -------
 // Carousel slides
 .carousel__slide {
   margin-right: auto;
@@ -66,15 +85,10 @@ ul {
   display: none;
   max-width:100%;
   height:300px;
-  margin:1rem;
+  margin:0.8rem;
   list-style-type: none;
   text-align: center;
   box-shadow:0px 0px 4px rgb(170, 170, 170);
-
-  @media (max-width: 991px) {
-    padding-right: 60px;
-    padding-left: 60px;
-  }
 
   &--active {
     display: block;
@@ -82,7 +96,72 @@ ul {
 }
 
 
+.carousel__arrow span{
+  color:black;
+  background-color: rgb(255, 255, 255);
+  padding:1rem;
+  border-radius: 5px;;
+ }
+
+
+@media screen and (max-width:800px){
+  .carousel__slide {
+    margin-right: auto;
+    margin-left: auto;
+    display: none;
+    max-width:100%;
+    height:200px;
+    margin:0.5rem;
+    list-style-type: none;
+    text-align: center;
+    box-shadow:0px 0px 4px rgb(170, 170, 170);
+  
+    &--active {
+      display: block;
+    }
+  }
+
+
+  .carousel__arrow span{
+    color:black;
+    background-color: rgb(255, 255, 255);
+    padding:0.8rem;
+    border-radius: 5px;;
+   }
+}
+
+@media screen and (max-width:500px){
+  .carousel__slide {
+    margin-right: auto;
+    margin-left: auto;
+    display: none;
+    max-width:100%;
+    height:150px;
+    margin:0.2rem;
+    list-style-type: none;
+    text-align: center;
+    box-shadow:0px 0px 4px rgb(170, 170, 170);
+  
+    &--active {
+      display: block;
+    }
+  }
+
+
+  .carousel__arrow span{
+    color:black;
+    background-color: rgb(255, 255, 255);
+    padding:0.8rem;
+    border-radius: 5px;;
+   }
+}
+
+
+
 // content of the slides
+.carousel__slide img{
+ width:100%;
+}
 
 
 // Carousel arrows
@@ -108,20 +187,15 @@ ul {
   }
 
   &--left {
-    left: 32px;
+    left: 25px;
   }
 
   &--right {
-    right: 32px;
+    right: 25px;
   }
 }
 
 
 
-.carousel__arrow span{
- color:black;
- background-color: rgb(255, 255, 255);
- padding:2rem;
- border-radius: 5px;;
-}
+
 
