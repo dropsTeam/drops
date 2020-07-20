@@ -14,8 +14,8 @@ import 'antd/dist/antd.css';
 
 
 
-// const carouselContainer = document.querySelector(".carousel-container");
 
+// left arrow of carousal
 class CarouselLeftArrow extends Component {
   render() {
     return (
@@ -30,7 +30,7 @@ class CarouselLeftArrow extends Component {
   }
 }
 
-
+// right arrow of carousal
 class CarouselRightArrow extends Component {
   render() {
     return (
@@ -46,7 +46,7 @@ class CarouselRightArrow extends Component {
 }
 
 
-
+// hte slides (li) in carousal
 class CarouselSlide extends Component {
   render() {
     return (
@@ -58,13 +58,11 @@ class CarouselSlide extends Component {
         }
         
       >
-        <img  className="carousal__image"  src={this.props.slide.img} ></img>
+        <img  className="carousal__image"  src={this.props.slide.imgLarge} ></img>
       </li>
     );
   }
 }
-
-
 
 
 
@@ -147,8 +145,8 @@ class Carousel extends Component {
 }
 
 
-// main rendering block
 
+// main rendering block that combines all the blocks and cards----
 class ProductBlock extends Component {
   constructor(props) {
     super(props);
@@ -160,19 +158,29 @@ class ProductBlock extends Component {
       <div className="main__container">
         {/* carousal  */}
         <Carousel  slides={carouselSlidesData}/>
+        
         {/* categories wrapper */}
         <div className="categoryWrapper__container">
           <div className="wrapper">
-            {productArr.map((item,i)=>(
+            {categoriesArr.map((item,i)=>(
               <ProductCategories item={item}  key={i}/>
             ))}
           </div>
         </div>
+
         {/* product scroll bars */}
-        <ProductScrollBars /> 
+        <ProductScrollBars title={"Deals of the Day"} arr={scrollArr} /> 
 
         {/* product ads */}
-        <ProductAds />
+        <ProductAds arr={adsArr1} />
+
+         {/* product scroll bars */}
+        <ProductScrollBars title={"Electronics"} arr={scrollArr} /> 
+        <ProductScrollBars title={"Home"} arr={scrollArr} /> 
+        <ProductScrollBars title={"New offers"} arr={scrollArr} /> 
+
+        {/* product ads */}
+        <ProductAds arr={adsArr2} />
       </div>
      </>
 
@@ -185,8 +193,10 @@ class ProductBlock extends Component {
 export default ProductBlock;
 
 
+
+
 // product array for categories---
-const productArr = [
+const categoriesArr = [
   {
     id:1,
     title : "Electronics",
@@ -214,15 +224,127 @@ const productArr = [
 // Data for carousel
 const carouselSlidesData = [
   {
-    img  : image1
+    imgLarge  : image1
   },
   {
-    img : image2
+    imgLarge : image2
   },
   {
-    img  : image3
+    imgLarge : image3
   },
   {
-    img : image4
+    imgLarge : image4
   }
 ];
+
+
+
+// ads arr
+const adsArr1 = [
+  {
+   id:1,
+   img : "https://rukminim1.flixcart.com/flap/480/480/image/14350e3cddda3144.jpg?q=50"
+  },
+  {
+   id:1,
+   img : "https://rukminim1.flixcart.com/flap/480/480/image/28c7953638cece8c.jpg?q=50"
+  },
+  {
+   id:1,
+   img : "https://rukminim1.flixcart.com/flap/480/480/image/d000b651db9b444d.jpg?q=50"
+  }
+ ]
+
+
+ const adsArr2 = [
+  {
+   id:1,
+   img : "https://rukminim1.flixcart.com/flap/480/480/image/b567777004923c82.jpg?q=50"
+  },
+  {
+   id:1,
+   img : "https://rukminim1.flixcart.com/flap/480/480/image/c309954070bd36c6.jpg?q=50"
+  },
+  {
+   id:1,
+   img : "https://rukminim1.flixcart.com/flap/480/480/image/962454c05f209a33.jpg?q=50"
+  }
+ ]
+
+
+
+
+const scrollArr = [
+  {
+    id:1,
+    title : "Thermometer",
+    tag : 'Sale 80%',
+    brands: " JBL, Sony and more",
+    price: "$200",
+    img : "https://rukminim1.flixcart.com/image/150/150/k9pynww0/digital-thermometer/2/q/w/four-star-tg818c-infrared-thermometer-original-imafrgd98nqdudax.jpeg?q=70"
+  },
+  {
+   id:2,
+   title : "HeadPhones",
+   tag : 'Sale 80%',
+   brands: " JBL, Sony and more",
+   price: "$200",
+   img : "https://rukminim1.flixcart.com/image/150/150/jucz98w0/headphone/8/c/m/boult-audio-boult-audio-curve-wireless-neckband-magnetic-original-imaff5t9dj9hhjx3.jpeg?q=70"
+  },
+  {
+   id:3,
+   title : "Speakers",
+   tag : 'Sale 80%',
+   brands: " JBL, Sony and more",
+   price: "$200",
+   img : "https://rukminim1.flixcart.com/image/150/150/k3ncakw0pkrrdj/speaker/mobile-tablet-speaker/h/h/y/jbl-jblgo2blk-original-imafh4b8hadqj8s2.jpeg?q=70"
+  },
+  {
+   id:4,
+   title : "Phone Cover",
+   tag : 'Sale 80%',
+   brands: " JBL, Sony and more",
+   price: "$200",
+   img : "https://rukminim1.flixcart.com/image/150/150/kbqu4cw0/screen-guard/edge-to-edge-tempered-glass/a/v/t/flipkart-smartbuy-rn8pro-sg-in-original-imaftyk3sg3urhgy.jpeg?q=70"
+  },
+  {
+    id:3,
+    title : "Phones",
+    tag : 'Sale 80%',
+    brands: " JBL, Sony and more",
+    price: "$200",
+    img : "https://rukminim1.flixcart.com/image/150/150/kar44280/computer/m/g/3/asus-na-thin-and-light-laptop-original-imafs92skhtaehcq.jpeg?q=70"
+   },
+   {
+    id:3,
+    title : "Egg cooker",
+    tag : 'Sale 80%',
+    brands: " JBL, Sony and more",
+    price: "$200",
+    img : "https://rukminim1.flixcart.com/image/150/150/k4lmv0w0/egg-poacher/h/u/q/electric-egg-boiler-doodle-original-imafmm9qyfpkqpbh.jpeg?q=70"
+   },
+   {
+    id:3,
+    title : "HeadPhones",
+    tag : 'Sale 80%',
+    brands: " JBL, Sony and more",
+    price: "$200",
+    img : "https://rukminim1.flixcart.com/image/150/150/k9pynww0/digital-thermometer/2/q/w/four-star-tg818c-infrared-thermometer-original-imafrgd98nqdudax.jpeg?q=70"
+   },
+   {
+    id:3,
+    title : "HeadPhones",
+    tag : 'Sale 80%',
+    brands: " JBL, Sony and more",
+    price: "$200",
+    img : "https://rukminim1.flixcart.com/image/150/150/k9pynww0/digital-thermometer/2/q/w/four-star-tg818c-infrared-thermometer-original-imafrgd98nqdudax.jpeg?q=70"
+   },
+   {
+    id:3,
+    title : "HeadPhones",
+    tag : 'Sale 80%',
+    brands: " JBL, Sony and more",
+    price: "$200",
+    img : "https://rukminim1.flixcart.com/image/150/150/k9pynww0/digital-thermometer/2/q/w/four-star-tg818c-infrared-thermometer-original-imafrgd98nqdudax.jpeg?q=70"
+   }
+ ]

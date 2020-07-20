@@ -13,13 +13,13 @@ class ProductCategories extends React.Component {
    return  (
  
      <div className="categories__container">
-       <a>
-       <div className="categories__wrapper">
-         <h1 className="categories__title">{this.props.item.title}</h1>
-         <div className="imageCategories__container">
-           <img src={this.props.item.img} alt="Logo" />
-         </div>
-       </div>
+       <a className="categories__link">
+        <div className="categories__wrapper">
+          <h1 className="categories__title">{this.props.item.title}</h1>
+          <div className="imageCategories__container">
+            <img src={this.props.item.img} alt="Logo" />
+          </div>
+        </div>
        </a>
      </div>
 
