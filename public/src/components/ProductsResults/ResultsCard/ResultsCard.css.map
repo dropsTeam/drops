@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,uBAAuB,CAAA;EACtB,MAAM,EAAC,eAAe;EACtB,MAAM,EAAC,MAAM;EACb,IAAI,EAAC,OAAO;CACZ;;AAGD,AAAA,gBAAgB,CAAA;EACf,KAAK,EAAC,KAAK;EACX,WAAW,EAAE,MAAM;EACnB,WAAW,EAAC,GAAG;CACf;;AAGD,AAAA,aAAa,CAAA;EACZ,MAAM,EAAC,aAAa;CACpB;;AAED,AAAA,aAAa,CAAA;EACZ,MAAM,EAAC,QAAQ;EACf,KAAK,EAAC,KAAK;EACX,WAAW,EAAC,GAAG;CACf",
+    "sources": [
+        "ResultsCard.scss"
+    ],
+    "names": [],
+    "file": "ResultsCard.css"
+}

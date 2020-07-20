@@ -8,9 +8,10 @@ import '../src/css/Navbar.css';
 import '../src/css/cart.css';
 import '../src/css/checkout.css';
 
+import { PrivateRoute } from './utils';
 
 import ProductBlock from "./components/ProductsBlock/ProductsBlock.js";
-import { PrivateRoute } from './utils';
+import ProductResults from "./components/ProductsResults/ProductsResults.js"
 
 import NavBar from './components/Navbar/Navigationbar';
 import SubNav from './components/Navbar/subnav';
@@ -51,6 +52,7 @@ class App extends React.Component {
             <Switch>
 
               <Route path="/card" exact component={ProductBlock} />
+              <Route path="/results" exact component={ProductResults} />
               {/* <Route path="/" exact render={(props) => <h1>This is Home page</h1>} /> */}
               
               <Route path="/cart" exact render={() => <Cart />} />

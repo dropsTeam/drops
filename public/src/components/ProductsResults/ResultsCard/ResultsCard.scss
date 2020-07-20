@@ -1,0 +1,25 @@
+
+
+.resultsCard__container{
+ border:1px solid black;
+ margin:0.4rem;
+ flex:1 0 20%;
+}
+
+
+.filters__option{
+ color:black;
+ font-family: Roboto;
+ font-weight:500;
+}
+
+// radio input fields
+.radio__input{
+ margin:0.5rem 1.5rem;
+}
+
+.radio__label{
+ margin:0 0.7rem;
+ color:black;
+ font-weight:400;
+}
