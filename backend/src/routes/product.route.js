@@ -13,7 +13,8 @@ route
     .get('/:productId', authC.googleVerify(true, false), productC.get);
 
 route
-    .get('/review', reviewC.get)
+    .get('/reviews', reviewC.get)
+    .get('/review', authC.googleVerify(true, true), reviewC.getMyReview)
     .post('/review', authC.googleVerify(true, true), productC.basicProductInfo, reviewC.post)
 
 module.exports = route;
