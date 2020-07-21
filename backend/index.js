@@ -4,9 +4,10 @@ const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
 var path = require('path')
-var rfs = require('rotating-file-stream') 
+var rfs = require('rotating-file-stream')
 const config = require('./config');
 const cookie = require('cookie-parser');
+
 
 // ******* setup ********
 
@@ -56,8 +57,26 @@ app.use('/api/products', require('./src/routes/product.route'));
 
 
 // ************ Listen **************
+
+const cluster = require('cluster');
+const numCPU = require('os').cpus().length;
 const PORT = process.env.PORT || 8080;
+
+if (cluster.isMaster) {
+    console.log('this is a master process: ', process.pid);
+    for (let i = 0; i < numCPU; i++) {
+        cluster.fork();
+    }
+    cluster.on('exit', worker => {
+        console.log(`worker ${process.pid} had died`);
+        cluster.fork();
+    })
+} else {
+    console.log('this is a worker process: ', process.pid);
+}
 
 app.listen(PORT, () => {
     console.log(`listening to the port ${PORT}`);
 });
+
+
