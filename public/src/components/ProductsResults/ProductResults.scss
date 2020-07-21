@@ -1,0 +1,67 @@
+
+.resultsView__container{
+
+}
+
+.resultsView__wrapper{
+ display: flex;
+ margin:0.3rem;
+}
+
+
+/* filters block styles */
+.filters__container{
+  flex:1 0 18%;
+  margin:0.3rem;
+  border:1px solid rgb(230, 230, 230);
+  box-shadow:0px 0px 4px rgb(211, 211, 211);
+}
+
+
+.filters__wrapper{
+  .filters__title{
+    border-bottom:1px solid rgb(236, 236, 236);
+    margin:0rem;
+    padding:0.5rem;
+  }
+
+  .filters__block{
+    margin:0rem;
+  }
+}
+
+
+
+
+
+/* results block styles */
+.results__container{
+  flex:1 0 78%;
+  margin:0.3rem;
+  border:1px solid rgb(224, 224, 224);
+  box-shadow:0px 0px 4px rgb(211, 211, 211);
+}
+
+.results__wrapper{
+  .results__title{
+    border:1px solid grey;
+    margin:0.5rem;
+  }
+
+  .results__filterNavbar{
+    border:1px solid grey;
+    margin:0.5rem;
+  }
+
+  .results__block{
+    border:1px solid grey;
+    margin:0.5rem;
+  }
+
+  .results__block--inner{
+    display: flex;
+    flex-direction: row;
+    flex-wrap:wrap;
+  }
+}
+
