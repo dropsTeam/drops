@@ -1,25 +1,71 @@
 
 
 .resultsCard__container{
- border:1px solid black;
  margin:0.4rem;
  flex:1 0 20%;
+ transition: 0.2s all ease;
+ &:hover{
+  box-shadow: 0px 0px 5px rgb(218, 218, 218);
+  padding:0 0.1rem;
+ }
 }
 
 
-.filters__option{
- color:black;
+@media screen and (max-width:900px){
+ .resultsCard__container{
+  margin:0.4rem;
+  flex:1 0 30%;
+ }
+}
+
+
+
+.image__container{
+margin:0 auto;
+ margin-bottom:0.5rem;
+ height: 230px;
+ width:95%;
+ .image__wrapper{
+  img{
+   height:220px;
+  }
+ }
+}
+
+
+
+
+// card content styles
+.resultsCard__content{
+ margin:0.5rem 1.3rem;
  font-family: Roboto;
- font-weight:500;
-}
+ .resultsCard__title{
+  color:black;
+  font-weight: 400;
+ }
 
-// radio input fields
-.radio__input{
- margin:0.5rem 1.5rem;
-}
+ .resultsCard__price{
+  color:black;
+  font-weight: 500;
+  .price{
+   margin-right:0.5rem;
+  }
+  .resultsCard__dPrice{
+   
+  }
+  .resultsCard__aPrice{
+    text-decoration: line-through;;
+    color:rgb(172, 172, 172);
+  }
 
-.radio__label{
- margin:0 0.7rem;
- color:black;
- font-weight:400;
+  .resultsCard__dPercent{
+   color:rgb(9, 168, 9);
+  }
+ }
+
+
+ .resultsCard__sizes{
+  margin: 0.5rem 0;;
+  font-weight: 500;
+ }
 }
