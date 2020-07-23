@@ -22,7 +22,7 @@ const log = async (req, res, next) => {
 
         var expireDate = new Date();
         expireDate.setDate(expireDate.getDate() + 2);
-        
+
 
         res.cookie('auth-token', token, {
             expires: expireDate,
@@ -80,9 +80,9 @@ function googleVerify(fromCookie, terminateIfError = true) {
         }
         catch (err) {
             console.log(err);
-            if(terminateIfError){
+            if (terminateIfError) {
                 res.status(401).send({ msg: 'Token Unverified' });
-            }else {
+            } else {
                 next();
             }
         }
@@ -93,8 +93,8 @@ const isSeller = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
 
-        const userData = await userModel.findOne({gId: user.gId}).select('seller').lean();
-        if(!!!userData.seller) throw 'Unauthorised';
+        const userData = await userModel.findOne({ gId: user.gId }).select('isSeller').lean();
+        if (!userData.isSeller) throw 'Unauthorised';
         req.app.locals.user._id = userData._id;
         next();
 
@@ -104,5 +104,21 @@ const isSeller = async (req, res, next) => {
     }
 }
 
+const signUpAsSeller = async (req, res, next) => {
+    try {
 
-module.exports = { googleVerify, log, logout, isSeller };
+        const { name, bio } = req.body;
+        const { user } = req.app.locals;
+
+        const update = { 'seller.name': name, 'seller.bio':bio, 'seller.profilePic': (!!!req.profilePic)? 'default': req.profilePic, isSeller: true }
+        
+        await userModel.findOneAndUpdate({gId: user.gId }, update);
+        res.status(200).send(update);
+
+    } catch (err) {
+        res.status(400).send({ msg: 'Error Occured signing up as seller', err });
+    }
+}
+
+
+module.exports = { googleVerify, log, logout, isSeller, signUpAsSeller };

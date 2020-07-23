@@ -13,6 +13,8 @@ route
     .put('/cart', authC.googleVerify(true, true), userC.editCart)
 
 route.get('/searchHistory', authC.googleVerify(true, true), userC.getSearchHistory)
-     .get('/recommendation', authC.googleVerify(true, true), userC.getRecommendedItems);
+    .get('/recommendation', authC.googleVerify(true, true), userC.getRecommendedItems);
+
+route.post('/seller', authC.googleVerify(true, true), authC.signUpAsSeller)
 
 module.exports = route;

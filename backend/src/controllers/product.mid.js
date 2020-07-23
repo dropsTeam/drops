@@ -66,6 +66,7 @@ const postProduct = async (req, res, next) => {
         if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
 
 
+        
         const payload = {
             seller: user.gId,
             title,

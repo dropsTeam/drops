@@ -1,7 +1,8 @@
 const mongo = require('mongoose');
 const types = mongo.Schema.Types;
 
-const cartSchema = mongo.Schema({
+
+const cartSchema = new mongo.Schema({
     productId: {
         type: types.ObjectId,
         required: true
@@ -49,12 +50,19 @@ const schema = mongo.Schema({
             type: types.String,
             required: false,
             maxlength: 50,
+            trim: true,
             unique: true
         },
-        discription: {
+        bio: {
             type: types.String,
             maxlength: 1000,
-            default: 'No Discription'
+            trim: true,
+            default: 'No Discription',
+            required: false
+        },
+        profleImg: {
+            type: types.String,
+            default: 'Default'
         }
     }
 });
