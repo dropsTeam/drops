@@ -19,16 +19,18 @@ render() {
   let dPrice = aPrice-this.multiply(discountPercent,aPrice);
   
   return  (
-   <div className="resultsCard__container">
-    <div className="resultsCard__wrapper">
-      <div className="image__container">
-       <div className="image__wrapper">
+   // <div className="resultsCard__container">
+    // <div className="resultsCard__wrapper">
+     <div class="p-2 flex-fill bd-highlight resultsCard__container ">
+      <div className="resultsImage__container">
+       {/* <div className="resultsImage__wrapper"> */}
         <a><img src={this.props.img}></img></a>
-       </div>
+       {/* </div> */}
       </div>
       <div className="resultsCard__content">
        <div className="resultsCard__title">
-        <span>{this.props.title}</span>
+        <span className="resultsCard__heading" >{this.props.title}</span>
+        <p><img className="assured__tag" src={this.props.flipkartImg} ></img></p>
        </div>
        <div className="resultsCard__price">
          <span className="resultsCard__dPrice price">${dPrice}</span>
@@ -40,7 +42,7 @@ render() {
        </div>
       </div>
     </div>
-   </div>
+   // </div>
   )
  }
 }
