@@ -45,6 +45,10 @@ const schema = mongo.Schema({
     email: { type: types.String },
     fullName: { type: types.String },
     cart: [cartSchema],
+    isSeller: {
+        type: types.Boolean,
+        default: false
+    },
     seller: {
         name: {
             type: types.String,
