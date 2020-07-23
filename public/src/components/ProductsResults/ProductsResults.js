@@ -125,6 +125,89 @@ class Sider extends React.Component {
 
 
 
+class App extends React.Component {
+  state = {
+    current: 'mail',
+  };
+
+  handleClick = e => {
+    console.log('click ', e);
+    this.setState({ current: e.key });
+  };
+
+  render() {
+    const { current } = this.state;
+    return (
+      <Menu onClick={this.handleClick} selectedKeys={[current]} mode="inline">
+        
+        <SubMenu
+          key="sub1"
+          title={
+            <span >
+              <span className="filters__option" >COLORS</span>
+            </span>
+          }
+        >
+          <p className="radio__input">
+           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+           <label for="vehicle1" className="radio__label">Red</label><br></br>
+          </p>
+          <p className="radio__input">
+           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+           <label for="vehicle1" className="radio__label"> Blue</label><br></br>
+          </p>
+          <p className="radio__input">
+           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+           <label for="vehicle1" className="radio__label"> green</label><br></br>
+          </p>
+          <p className="radio__input">
+           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+           <label for="vehicle1" className="radio__label"> purple</label><br></br>
+          </p>
+          
+        </SubMenu>
+        <SubMenu key="sub2" className="filters__option"  title="CUSTOMER RATINGS">
+          <p className="radio__input">
+           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+           <label for="vehicle1" className="radio__label"> 4* Rating</label><br></br>
+          </p>
+          <p className="radio__input">
+           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+           <label for="vehicle1" className="radio__label"> 3* Rating</label><br></br>
+          </p>
+        </SubMenu>
+        <SubMenu key="sub4" className="filters__option"  title="PRICES">
+          <p className="radio__input">
+           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+           <label for="vehicle1" className="radio__label"> I have a bike</label><br></br>
+          </p>
+          <p className="radio__input">
+           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+           <label for="vehicle1" className="radio__label"> I have a bike</label><br></br>
+          </p>
+          <p className="radio__input">
+           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+           <label for="vehicle1" className="radio__label"> I have a bike</label><br></br>
+          </p>
+          <p className="radio__input">
+           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+           <label for="vehicle1" className="radio__label"> I have a bike</label><br></br>
+          </p>
+        </SubMenu>
+      </Menu>
+    );
+  }
+}
+
+
+
+
+
+
+
+
+
+
 class Filters extends Component {
  render() {
    return (
@@ -134,7 +217,12 @@ class Filters extends Component {
          <h6>Filters</h6>
         </div>
         <div className="filters__block">
-          <Sider />
+          <div className="filters__block--vertical">
+            <Sider />
+          </div>
+          <div className="filters__block--horizontal">
+            <App />
+          </div>
         </div>
       </div>
      </div>
@@ -152,21 +240,23 @@ class Results extends Component {
           <h6>Results</h6>
         </div>
         <div className="results__filterNavbar">
-          <Demo />
+          {/* <Demo /> */}
         </div>
-        <div className="results__block">
-         <div className="results__block--inner">
-              {numbers.map((item,index)=>
+        
+
+        <div class="d-flex bd-highlight flex-row flex-wrap  align-content-end">
+           {numbers.map((item,index)=>
                 <ResultsCard 
                    id={item.id} 
                    title={item.title}
                    price={item.price} 
                    img={item.img}  
                    key={index} 
+                   flipkartImg="http://img1a.flixcart.com/www/linchpin/fk-cp-zion/img/fa_8b4b59.png"
                  />
               )}
-         </div>
-        </div>
+       </div>
+
       </div>
      </div>
    );
