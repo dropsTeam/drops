@@ -1,13 +1,11 @@
 import React from 'react';
 import styles from './Loading.module.css';
 
-import { connect } from 'react-redux';
-
 class Loading extends React.Component {
 
 
     render() {
-        let toRender = this.props.isLoading && (
+        let toRender = (
             <div className={styles.card}>
                 <div className={styles.wifiLoader}>
                     <svg className={styles.circleOuter} viewBox="0 0 86 86">
@@ -33,11 +31,11 @@ class Loading extends React.Component {
     }
 }
 
-const mapStateToProps = store => {
-    return {
-        isLoading: store.view.loading
-    }
-}
+// const mapStateToProps = store => {
+//     return {
+//         isLoading: store.view.loading
+//     }
+// }
 
 
-export default connect(mapStateToProps, null)(Loading);
+export default Loading;

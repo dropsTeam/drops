@@ -21,7 +21,7 @@ import { Skeleton } from 'antd';
 const ProductView = React.lazy(() => import('./container/ProductView/ProductView'));
 const Cart = React.lazy(() => import('./container/cart/cart'));
 const Checkout = React.lazy(() => import('./container/checkout/checkout'));
-const SellerPortal = React.lazy( () => import('./container/sellerPortal/sellerPortal') );
+const SellerPortal = React.lazy(() => import('./container/sellerPortal/sellerPortal'));
 
 
 class App extends React.Component {
@@ -41,7 +41,8 @@ class App extends React.Component {
         <NavBar />
         <SubNav />
 
-        <Loading/>
+        { this.props.view.loading && <Loading /> }
+
 
         <React.Suspense fallback={<div><Skeleton active /> <br /> <Skeleton active /> <br /> <Skeleton active /> <br /><Skeleton active /> </div>}>
           <Router>
@@ -49,7 +50,7 @@ class App extends React.Component {
 
               <Route path="/card" exact component={ProductBlock} />
               <Route path="/results" exact component={ProductResults} />
-              
+
               <Route path="/cart" exact render={() => <Cart />} />
               <PrivateRoute access={true} path='/checkout' exact component={Cartcheckout} />
 
@@ -70,7 +71,8 @@ class App extends React.Component {
 
 const mapStateToProps = store => {
   return {
-    isAuthorised: store.isAuthorised
+    isAuthorised: store.isAuthorised,
+    view: store.view
   }
 }
 
