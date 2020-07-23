@@ -45,15 +45,12 @@ app.use(cookie());
 
 
 
-
-
 // ************ ROUTE MIDDLEWARES *********
 
 
 app.use('/api/auth', require('./src/routes/auth.route'));
 app.use('/api/user', require('./src/routes/user.route'));
 app.use('/api/products', require('./src/routes/product.route'));
-
 
 
 // ************ Listen **************
