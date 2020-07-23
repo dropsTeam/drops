@@ -21,7 +21,7 @@ import { Skeleton } from 'antd';
 const ProductView = React.lazy(() => import('./container/ProductView/ProductView'));
 const Cart = React.lazy(() => import('./container/cart/cart'));
 const Checkout = React.lazy(() => import('./container/checkout/checkout'));
-
+const SellerPortal = React.lazy( () => import('./container/sellerPortal/sellerPortal') );
 
 
 class App extends React.Component {
@@ -38,14 +38,10 @@ class App extends React.Component {
     return (
       <React.Fragment>
 
-
         <NavBar />
         <SubNav />
-        
 
-        
         <Loading/>
-
 
         <React.Suspense fallback={<div><Skeleton active /> <br /> <Skeleton active /> <br /> <Skeleton active /> <br /><Skeleton active /> </div>}>
           <Router>
@@ -53,20 +49,13 @@ class App extends React.Component {
 
               <Route path="/card" exact component={ProductBlock} />
               <Route path="/results" exact component={ProductResults} />
-              {/* <Route path="/" exact render={(props) => <h1>This is Home page</h1>} /> */}
               
               <Route path="/cart" exact render={() => <Cart />} />
-              <Route path="/Checkout" exact render={() => <Cartcheckout />} />
+              <PrivateRoute access={true} path='/checkout' exact component={Cartcheckout} />
+
               <Route path="/:id" exact render={() => <ProductView />} />
 
-              <Route path="/s/cart" exact render={(props) => <h1>This is Home's cart </h1>} />
-              
-
-
-
-              <PrivateRoute access={this.props.authorised} path='/s/orders' exact component={(props) => <h1>This is Orders page</h1>} />
-              <PrivateRoute access={this.props.authorised} path='/s/account' exact component={(props) => <h1>This is Account page</h1>} />
-              <PrivateRoute access={this.isSeller} path='/s/seller' exact component={(props) => <h1>This is Seller page if it exist</h1>} />
+              <PrivateRoute access={true} path='/s/seller' exact component={SellerPortal} />
 
 
             </Switch>
