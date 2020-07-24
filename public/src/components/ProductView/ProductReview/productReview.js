@@ -16,7 +16,7 @@ class ProductReviews extends React.PureComponent {
     render() {
         return (
             <React.Fragment>
-                <h3> Ratings & Reviews <button className='btn btn-primary btn-sm float-right' > Rate Product</button> </h3>
+                <h3> Ratings & Reviews <button className='btn btn-primary btn-sm float-right' onClick={() => this.props.$viewModel('reviewModel', true)} > Rate Product</button> </h3>
                 <hr />
 
                 <div className='row' >

@@ -14,6 +14,7 @@ const postQ = async (req, res, next) => {
         console.log(err);
         res.status(400).send({ msg: 'Error Occured while posting question', err });
     }
+
 }
 
 const postA = async (req, res, next) => {

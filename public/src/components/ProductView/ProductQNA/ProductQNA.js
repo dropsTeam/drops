@@ -33,7 +33,7 @@ class ProductQNA extends React.PureComponent {
 
         return (
             <React.Fragment>
-                <h3>Questions and Answers <button className='btn btn-primary btn-sm float-right' >Ask A Question</button> </h3>
+                <h3>Questions and Answers <button className='btn btn-primary btn-sm float-right' onClick={() => this.props.$viewModel('qnaModel', true)} >Ask A Question</button> </h3>
                 <hr />
 
                 {this.mapedQuestion(this.qna)}
