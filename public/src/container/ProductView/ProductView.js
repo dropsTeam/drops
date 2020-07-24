@@ -1,5 +1,5 @@
 import React from 'react';
-
+import ProductQNA from '../../components/ProductQNA/ProductQNA';
 import styles from './productView.module.css';
 
 export default class ProductView extends React.Component {
@@ -7,7 +7,16 @@ export default class ProductView extends React.Component {
 
     clearSrc;
     zoomLevel = 2;
-
+    qna = [
+        {
+            question: 'for gaming we can buy this',
+            answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
+        },
+        {
+            question: 'for gaming we can buy this',
+            answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
+        },
+    ]
 
 
     constructor(props) {
@@ -80,7 +89,7 @@ export default class ProductView extends React.Component {
 
         }
 
-        
+
 
         this.zoom.current.style.top = `${posY - this.zoom.current.offsetHeight / 1}px`;
         this.zoom.current.style.left = `${posX - this.zoom.current.offsetWidth / 2}px`;
@@ -141,10 +150,10 @@ export default class ProductView extends React.Component {
 
 
                             <div className="row my-3" >
-                                <button className="col my-3 mx-1 py-3 " style={{ backgroundColor: '#FF9F00', borderRadius: '4px', border: 'none', textAlign: 'center', fontWeight: 500, color: 'white' }}>
+                                <button className="col my-3 mx-1 py-3 " style={{ backgroundColor: '#FF9F00', borderRadius: '4px', border: 'none', textAlign: 'center', fontWeight: 700, color: 'white' }}>
                                     ADD TO CART
                             </button>
-                                <button className="col my-3 mx-1 py-3 " style={{ backgroundColor: '#FB641B', borderRadius: '4px', border: 'none', textAlign: 'center', fontWeight: 500, color: 'white' }}>
+                                <button className="col my-3 mx-1 py-3 " style={{ backgroundColor: '#FB641B', borderRadius: '4px', border: 'none', textAlign: 'center', fontWeight: 700, color: 'white' }}>
                                     BUY NOW
                             </button>
                             </div>
@@ -292,9 +301,7 @@ export default class ProductView extends React.Component {
 
 
                         <div className="row" style={{ marginTop: '20px' }}>
-                            <div className="col-2" style={{ fontWeight: 600, color: 'gray', fontSize: '14px' }}>
-                                Seller
-            </div>
+                            <div className="col-2" style={{ fontWeight: 600, color: 'gray', fontSize: '14px' }}>Seller</div>
                             <div className="col-10">
                                 <span className="pl-6" style={{ textAlign: 'left', color: '#2874F0', fontSize: '14px', fontWeight: 'bold' }}>
                                     SuperComNet
@@ -350,13 +357,18 @@ export default class ProductView extends React.Component {
                             </div>
                         </div>
 
+                        <div style={{ border: '1px solid #dadada', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
+                            
+                            <ProductQNA qna={this.qna} />
+                        </div>
+
 
                     </div>
                 </div>
             </div>
         );
 
-        
+
 
         return (toRender);
     }

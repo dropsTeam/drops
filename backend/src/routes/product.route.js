@@ -3,6 +3,7 @@ const userC = require('../controllers/user.mid');
 const authC = require('../controllers/auth.mid');
 const productC = require('../controllers/product.mid');
 const reviewC = require('../controllers/reviews.mid');
+const qnaC =  require('../controllers/qna.mid');
 
 route
     .get('/search', authC.googleVerify(true, false), productC.search)
@@ -20,5 +21,6 @@ route
 route
     .post('/review/helpful', authC.googleVerify(true, true), reviewC.helpfulPOST)
     .get('/review/helpful', authC.googleVerify(true, true), reviewC.amIInhelpful)
+
 
 module.exports = route;

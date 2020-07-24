@@ -3,8 +3,13 @@ const typ = mongo.Schema.Types;
 
 mongo.set('runValidators', true);
 
-const schema = mongo.Schema({
+const schema = new mongo.Schema({
 
+    productId: {
+        type: typ.ObjectId,
+        ref:'products',
+        required: true
+    },
     question: {
         type: typ.String,
         maxlength: [100, '{PATH} exceeds the max length'],
@@ -13,11 +18,15 @@ const schema = mongo.Schema({
     answer: {
         type: typ.String,
         maxlength: [2000, '{PATH} exceeds the max length'],
-        required: true
+        required: false
     },
     timeStamp: {
         type: typ.Date,
         default: Date.now
+    },
+    user: {
+        type: typ.String,
+        required: true
     }
 });
 
