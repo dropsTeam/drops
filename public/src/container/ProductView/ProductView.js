@@ -16,6 +16,7 @@ class ProductView extends React.Component {
 
     constructor(props) {
         super(props);
+        this.changeModelView.bind(this);
 
 
         this.state = {
@@ -30,9 +31,25 @@ class ProductView extends React.Component {
             },
             qnaForm: {
                 question: ''
+            },
+            qna: [
+                {
+                    question: 'for gaming we can buy this',
+                    answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
+                },
+                {
+                    question: 'for gaming we can buy this',
+                    answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
+                },
+            ],
+
+            reviews: {
+                totalReviews: 11843,
+                averageRating: 4.5,
+                ratings: [60, 20, 5, 4, 10]
             }
         }
-        this.changeModelView.bind(this);
+
     }
 
 
@@ -51,7 +68,9 @@ class ProductView extends React.Component {
 
     submitQNA = () => {
         alert(this.state.qnaForm.question);
-        this.changeModelView('qnaModel', false)
+        this.changeModelView('qnaModel', false);
+        const newState = { ...this.state, ...this.state.qna };
+        newState.qna.push({ question: this.state.qnaForm.question, answer: '' });
     }
 
 
@@ -270,6 +289,7 @@ class ProductView extends React.Component {
                             <ProductQNA
                                 user={this.props.user}
                                 $viewModel={(modelName, isVisible) => this.changeModelView(modelName, isVisible)}
+                                qna={this.state.qna}
                                 isAuthorised={this.props.isAuthorised} />
                         </div>
 
@@ -277,6 +297,7 @@ class ProductView extends React.Component {
                             <ProductReviews
                                 $viewModel={(modelName, isVisible) => this.changeModelView(modelName, isVisible)}
                                 user={this.props.user}
+                                reviews={this.state.reviews}
                                 isAuthorised={this.props.isAuthorised} />
                         </div>
 
