@@ -1,6 +1,20 @@
 import React from 'react';
 
+import QNA from './QNA/QNA';
+
+
 class ProductQNA extends React.PureComponent {
+
+    qna = [
+        {
+            question: 'for gaming we can buy this',
+            answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
+        },
+        {
+            question: 'for gaming we can buy this',
+            answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
+        },
+    ]
 
     constructor(props) {
         super(props);
@@ -10,12 +24,7 @@ class ProductQNA extends React.PureComponent {
     mapedQuestion(arrOfQNA) {
         return arrOfQNA.map((item, index) => {
             return (
-                <React.Fragment key={index}>
-                    <div style={{ fontWeight: 700, padding: ' 0 0 20px 0' }}>Q: {item.question}</div>
-                    <div >A: {item.answer}</div>
-                    <div className='pb-2' style={{ color: 'grey', fontSize: 12, fontWeight: 'bold' }}>{item.timeStamp}</div>
-                    <hr />
-                </React.Fragment>
+                <QNA key={Math.random()} question={item.question} answer={item.answer} />
             )
         })
     }
@@ -27,7 +36,7 @@ class ProductQNA extends React.PureComponent {
                 <h3>Questions and Answers <button className='btn btn-primary btn-sm float-right' >Ask A Question</button> </h3>
                 <hr />
 
-                {this.mapedQuestion(this.props.qna)}
+                {this.mapedQuestion(this.qna)}
 
                 <a style={{ fontWeight: 600, textDecoration: 'none', padding: '30px 0px', color: 'blue', fontSize: '17px' }}>Load More</a>
 

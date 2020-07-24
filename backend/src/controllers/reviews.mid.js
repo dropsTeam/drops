@@ -36,6 +36,8 @@ const post = async (req, res, next) => {
         const { productId, rating, title, discription } = req.body;
         const { user, product } = req.app.locals;
 
+        rating = Math.ceil(rating);
+
         if (rating < 0 || rating > 5) throw 'Validation Error';
 
         const userOrder = await ordersModel.findOne({ user: user.gId }).lean();
@@ -76,6 +78,21 @@ const helpfulPOST = async (req, res, next) => {
     }
 }
 
+const helpfulDELETE = async (req, res, next) => {
+    try {
+
+        const { user } = req.app.locals;
+        const { reviewId } = req.body;
+        await ordersModel.findOneAndUpdate({ _id: reviewId }, { $pull: { helpfulMembers: user.gId }, $dec: { helpful: 1 } });
+
+        res.status(200).send('ok');
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).send({ msg: 'Error Occured POSTING the Job', err });
+    }
+}
+
 const amIInhelpful = async (req, res, next) => {
     try {
 
@@ -99,4 +116,4 @@ const amIInhelpful = async (req, res, next) => {
 
 
 
-module.exports = { get, post, getMyReview, helpfulPOST, amIInhelpful }
+module.exports = { get, post, getMyReview, helpfulPOST, helpfulDELETE, amIInhelpful }

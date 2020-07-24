@@ -101,9 +101,8 @@ const schema = mongo.Schema({
         required: true
     },
     seller: {
-        type: typ.ObjectId,
-        required: true,
-        maxlength: 50
+        type: typ.String,
+        required: true
     },
     category: {
         type: typ.String,

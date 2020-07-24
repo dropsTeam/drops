@@ -18,9 +18,10 @@ route
     .post('/review', authC.googleVerify(true, true), productC.basicProductInfo, reviewC.post)
     .get('/reviews', reviewC.get)
     
-route
-    .post('/review/helpful', authC.googleVerify(true, true), reviewC.helpfulPOST)
+    route
     .get('/review/helpful', authC.googleVerify(true, true), reviewC.amIInhelpful)
+    .post('/review/helpful', authC.googleVerify(true, true), reviewC.helpfulPOST)
+    .delete('/review/helpful', authC.googleVerify(true, true), reviewC.helpfulDELETE)
 
 
 module.exports = route;

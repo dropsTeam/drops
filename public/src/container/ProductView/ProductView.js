@@ -1,5 +1,6 @@
 import React from 'react';
 import ProductQNA from '../../components/ProductQNA/ProductQNA';
+import ProductReviews from '../../components/ProductReview/productReview';
 import styles from './productView.module.css';
 
 export default class ProductView extends React.Component {
@@ -7,16 +8,7 @@ export default class ProductView extends React.Component {
 
     clearSrc;
     zoomLevel = 2;
-    qna = [
-        {
-            question: 'for gaming we can buy this',
-            answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
-        },
-        {
-            question: 'for gaming we can buy this',
-            answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
-        },
-    ]
+    
 
 
     constructor(props) {
@@ -358,8 +350,11 @@ export default class ProductView extends React.Component {
                         </div>
 
                         <div style={{ border: '1px solid #dadada', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
-                            
-                            <ProductQNA qna={this.qna} />
+                            <ProductQNA />
+                        </div>
+                        
+                        <div style={{ border: '1px solid #dadada', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
+                            <ProductReviews />
                         </div>
 
 

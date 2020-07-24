@@ -66,7 +66,7 @@ const postProduct = async (req, res, next) => {
         if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
 
 
-        
+
         const payload = {
             seller: user.gId,
             title,
@@ -156,11 +156,6 @@ const search = async (req, res, next) => {
         if (req.query.hasOwnProperty('range')) {
             payload.price.$gt, payload.price.$lt = req.query.range.split("-");
         }
-
-        // if(category !== 'all') {payload.category = category};
-
-
-        // ((Overall Rating * Total Rating) + new Rating) / (Total Rating + 1);
 
         const search = await productModel.find(payload).select('title media totalReview price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
 

@@ -2,7 +2,7 @@
 const { OAuth2Client } = require('google-auth-library');
 const config = require('../../config');
 const userModel = require('../models/user.model');
-
+const productModel = require('../models/products.model');
 const client = new OAuth2Client(config.auth.GOOGLE_CLIENT_ID);
 
 
@@ -89,20 +89,31 @@ function googleVerify(fromCookie, terminateIfError = true) {
     }
 }
 
-const isSeller = async (req, res, next) => {
-    try {
-        const { user } = req.app.locals;
+function isSeller(checkOwnership = false) {
+    return async (req, res, next) => {
+        try {
+            const { user } = req.app.locals;
 
-        const userData = await userModel.findOne({ gId: user.gId }).select('isSeller').lean();
-        if (!userData.isSeller) throw 'Unauthorised';
-        req.app.locals.user._id = userData._id;
-        next();
+            const userData = await userModel.findOne({ gId: user.gId }).select('isSeller').lean();
+            if (!userData.isSeller) throw 'Unauthorised';
 
-    } catch (err) {
-        console.log(err);
-        res.status(401).send({ msg: 'Error Occured.', err })
+            if (checkOwnership) {
+                const { productId } = (req.methods === 'GET') ? req.params : req.body;
+                const ownerShip = productModel.findOne({ _id: productId, seller: user.gId })
+                if (!!!ownerShip) throw 'You are unauthorised to ao any operations on this product';
+            }
+
+            req.app.locals.user._id = userData._id;
+
+            next();
+
+        } catch (err) {
+            console.log(err);
+            res.status(401).send({ msg: 'Error Occured.', err })
+        }
     }
 }
+
 
 const signUpAsSeller = async (req, res, next) => {
     try {
@@ -110,9 +121,9 @@ const signUpAsSeller = async (req, res, next) => {
         const { name, bio } = req.body;
         const { user } = req.app.locals;
 
-        const update = { 'seller.name': name, 'seller.bio':bio, 'seller.profilePic': (!!!req.profilePic)? 'default': req.profilePic, isSeller: true }
-        
-        await userModel.findOneAndUpdate({gId: user.gId }, update);
+        const update = { 'seller.name': name, 'seller.bio': bio, 'seller.profilePic': (!!!req.profilePic) ? 'default' : req.profilePic, isSeller: true }
+
+        await userModel.findOneAndUpdate({ gId: user.gId }, update);
         res.status(200).send(update);
 
     } catch (err) {
