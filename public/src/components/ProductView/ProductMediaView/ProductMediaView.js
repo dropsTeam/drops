@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './productMediaView.module.css'
-
+import { connect } from 'react-redux';
 
 class ProductMediaView extends React.PureComponent {
 
@@ -127,16 +127,16 @@ class ProductMediaView extends React.PureComponent {
 
 
                 <div className="row my-3" >
-                    <button className="col my-3 mx-1 py-3 " style={{ backgroundColor: '#FF9F00', borderRadius: '4px', border: 'none', textAlign: 'center', fontWeight: 700, color: 'white' }}>
-                        ADD TO CART
-            </button>
-                    <button className="col my-3 mx-1 py-3 " style={{ backgroundColor: '#FB641B', borderRadius: '4px', border: 'none', textAlign: 'center', fontWeight: 700, color: 'white' }}>
-                        BUY NOW
-            </button>
+                    <button className="col my-3 mx-1 py-3 " style={{ backgroundColor: '#FF9F00', borderRadius: '4px', border: 'none', textAlign: 'center', fontWeight: 700, color: 'white' }}>ADD TO CART</button>
+                    <button className="col my-3 mx-1 py-3 " style={{ backgroundColor: '#FB641B', borderRadius: '4px', border: 'none', textAlign: 'center', fontWeight: 700, color: 'white' }}>BUY NOW</button>
                 </div>
             </div>
         )
     }
 }
 
-export default ProductMediaView;
+const mapPropsByState = (store) => {
+    
+}
+
+export default connect(mapPropsByState)(ProductMediaView);
