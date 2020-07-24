@@ -31,12 +31,16 @@ export default function mainReducer(state = init, action) {
         // ************* AUTH ACTIONS **********
 
         case ActionType.LOGIN:
-            const newState = { ...state, isAuthorised: true, user: { ...action.payload } }
-            return newState;
+            {
+                let newState = { ...state, isAuthorised: true, user: { ...action.payload } }
+                return newState;
+            }
 
         case ActionType.LOGOUT:
-            let nState = { ...state, isAuthorised: false, user: {} };
-            return nState;
+            {
+                let nState = { ...state, isAuthorised: false, user: {} };
+                return nState;
+            }
 
 
 
@@ -52,20 +56,26 @@ export default function mainReducer(state = init, action) {
         // **********  CART ACTIONS  **********
 
         case ActionType.ADD_TO_CART:
-            if (this.state.cartItems.length >= 10) { alert('Your Cart is full, (10 items)'); return }
-            const newState = { ...state, ...state.cartItems };
-            newState.cartItems.push(action.payload.item);
-            return newState;
+            {
+                if (this.state.cartItems.length >= 10) { alert('Your Cart is full, (10 items)'); return }
+                const nwState = { ...state, ...state.cartItems };
+                nwState.cartItems.push(action.payload.item);
+                return nwState;
+            }
 
         case ActionType.EDIT_CART:
-            const newState = { ...state, ...state.cartItems };
-            newState.cartItems[action.payload.index] = action.payload.item;
-            return newState
+            {
+                const newState = { ...state, ...state.cartItems };
+                newState.cartItems[action.payload.index] = action.payload.item;
+                return newState
+            }
 
         case ActionType.DELETE_CART_ITEM:
-            const newState = { ...state, ...state.cartItems };
-            newState.cartItems.splice(action.payload.index, 1);
-            return newState;
+            {
+                const newState = { ...state, ...state.cartItems };
+                newState.cartItems.splice(action.payload.index, 1);
+                return newState;
+            }
 
         default:
             return state;
