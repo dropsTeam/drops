@@ -59,7 +59,6 @@ class ProductView extends React.Component {
         const newState = { ...this.state, ...this.state.view };
         newState.view[modelName] = isVisible;
         this.setState(newState);
-
     }
 
     submitReview = () => {
@@ -73,11 +72,18 @@ class ProductView extends React.Component {
         newState.qna.unshift({ question: this.state.qnaForm.question, answer: '' });
     }
 
+    addToCart = _ => {
+        this.props.$addToCart({
+            productId: '',
+            quantity: 1,
+            varient: '',
+            dropdown: ''
+        }, this.props.isAuthoised);
+    }
 
 
 
     render() {
-
 
 
         let toRender = (
@@ -86,7 +92,7 @@ class ProductView extends React.Component {
                 <div className="row">
                     <div className="col-md-4 col-sm-12 " style={{ textAlign: 'center', position: 'relative' }} >
 
-                        <ProductMediaView />
+                        <ProductMediaView addToCart={this.addToCart} />
 
                     </div>
 
@@ -341,8 +347,6 @@ class ProductView extends React.Component {
             </div>
         );
 
-
-
         return (toRender);
     }
 }
@@ -356,7 +360,7 @@ const mapPropsByState = (store) => {
 
 const mapPropsByDispatch = dispatch => {
     return {
-        $addToCart: (item ,isAuthoised) => dispatch(cartActions.addToCart(item, isAuthoised))
+        $addToCart: (item, isAuthoised) => dispatch(cartActions.addToCart(item, isAuthoised))
     }
 }
 

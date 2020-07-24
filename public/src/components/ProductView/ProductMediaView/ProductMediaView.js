@@ -127,7 +127,7 @@ class ProductMediaView extends React.PureComponent {
 
 
                 <div className="row my-3" >
-                    <button className="col my-3 mx-1 py-3 " style={{ backgroundColor: '#FF9F00', borderRadius: '4px', border: 'none', textAlign: 'center', fontWeight: 700, color: 'white' }}>ADD TO CART</button>
+                    <button className="col my-3 mx-1 py-3 " onClick={this.props.addToCart} style={{ backgroundColor: '#FF9F00', borderRadius: '4px', border: 'none', textAlign: 'center', fontWeight: 700, color: 'white' }}>ADD TO CART</button>
                     <button className="col my-3 mx-1 py-3 " style={{ backgroundColor: '#FB641B', borderRadius: '4px', border: 'none', textAlign: 'center', fontWeight: 700, color: 'white' }}>BUY NOW</button>
                 </div>
             </div>

@@ -1,23 +1,26 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import * as authActions from './Redux/Actions/AuthActions';
+import * as cartActions from './Redux/Actions/CartActions';
+
 // import Navbar from './components/Navigationbar';
-import { connect } from 'react-redux';
 import 'antd/dist/antd.css';
 import '../src/css/Navbar.css';
 import '../src/css/cart.css';
 import '../src/css/checkout.css';
 
 import { PrivateRoute } from './utils';
+import { Skeleton } from 'antd';
+import { connect } from 'react-redux';
 
 import ProductBlock from "./components/ProductsBlock/ProductsBlock.js";
 import ProductResults from "./components/ProductsResults/ProductsResults.js"
 
 import NavBar from './components/Navbar/Navigationbar';
 import SubNav from './components/Navbar/subnav';
-import Cartcheckout from './container/checkout/checkout';
+
 import Loading from './components/Loading/Loading';
-import { Skeleton } from 'antd';
+
 const ProductView = React.lazy(() => import('./container/ProductView/ProductView'));
 const Cart = React.lazy(() => import('./container/cart/cart'));
 const Checkout = React.lazy(() => import('./container/checkout/checkout'));
@@ -34,6 +37,8 @@ class App extends React.Component {
 
 
   render() {
+
+    this.props.$loadCart(this.props.isAuthorised)
 
     return (
       <React.Fragment>
@@ -52,7 +57,7 @@ class App extends React.Component {
               <Route path="/results" exact component={ProductResults} />
 
               <Route path="/cart" exact render={() => <Cart />} />
-              <PrivateRoute access={true} path='/checkout' exact component={Cartcheckout} />
+              <PrivateRoute access={true} path='/checkout' exact component={Checkout} />
 
               <Route path="/:id" exact render={() => <ProductView />} />
 
@@ -78,7 +83,8 @@ const mapStateToProps = store => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    $setUser: () => dispatch(authActions.setUser())
+    $setUser: () => dispatch(authActions.setUser()),
+    $loadCart: (isAuthorised) => dispatch(cartActions.loadCart(isAuthorised))
   }
 }
 

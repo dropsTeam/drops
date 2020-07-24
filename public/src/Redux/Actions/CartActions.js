@@ -51,4 +51,21 @@ function deleteCartItem(index, isAuthorised) {
 
 }
 
-export { addToCart, editCart, deleteCartItem }
+
+function loadCart(isAuthorised) {
+    return dispatch => {
+        if (!isAuthorised) {
+            if (!!!localStorage.getItem('cart')) {
+                localStorage.setItem('cart', JSON.stringify([]));
+            }
+            const cart = JSON.parse(localStorage.getItem('cart'));
+            dispatch({ type: ActionType.LOAD_CART, payload: { cart } })
+        } else {
+            // Fetch
+            dispatch({ type: ActionType.LOAD_CART, paylaod: { cart: [] } })
+
+        }
+    }
+}
+
+export { addToCart, editCart, deleteCartItem, loadCart }

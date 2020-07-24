@@ -44,7 +44,6 @@ export default function mainReducer(state = init, action) {
 
 
 
-
         //  *********** VIEW ACTIONS **********
 
         case ActionType.LOADING:
@@ -55,27 +54,32 @@ export default function mainReducer(state = init, action) {
 
         // **********  CART ACTIONS  **********
 
-        case ActionType.ADD_TO_CART:
-            {
-                if (this.state.cartItems.length >= 10) { alert('Your Cart is full, (10 items)'); return }
+        case ActionType.ADD_TO_CART: {
+                console.log('Called')
+                if (state.cartItems.length >= 10) { alert('Your Cart is full, (10 items)'); return }
                 const nwState = { ...state, ...state.cartItems };
                 nwState.cartItems.push(action.payload.item);
                 return nwState;
             }
 
-        case ActionType.EDIT_CART:
-            {
+        case ActionType.EDIT_CART: {
                 const newState = { ...state, ...state.cartItems };
                 newState.cartItems[action.payload.index] = action.payload.item;
                 return newState
             }
 
-        case ActionType.DELETE_CART_ITEM:
-            {
+        case ActionType.DELETE_CART_ITEM: {
                 const newState = { ...state, ...state.cartItems };
                 newState.cartItems.splice(action.payload.index, 1);
                 return newState;
             }
+
+        case ActionType.LOAD_CART: {
+            const newState = {...state, ...state.cartItems};
+            newState.cartItems = action.payload.cart;
+            return newState
+        }
+
 
         default:
             return state;
