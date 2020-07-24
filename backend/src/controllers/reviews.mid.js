@@ -6,7 +6,7 @@ const get = async (req, res, next) => {
     try {
         const { productId, page } = req.query;
 
-        const reviews = await reviewModel.find({ productId }).select('-helpfulMembers').sort('helpful').skip(page * 10).limit(10).lean();
+        const reviews = await reviewModel.find({ productId }).sort('helpful').skip(page * 10).limit(10).lean();
 
         res.status(200).send(reviews);
 
@@ -18,7 +18,6 @@ const get = async (req, res, next) => {
 
 const getMyReview = async (req, res, next) => {
     try {
-
         const { productId } = req.query;
         const myReview = await reviewModel.findOne({ user: app.locals.user.gId, productId }).lean();
 
@@ -44,13 +43,13 @@ const post = async (req, res, next) => {
 
         if (!!!userOrder) throw 'Cannot post review hence this product have not been bought by this user.';
 
-        const myReview = await ordersModel.findOne({ user: user.gId, productId }).lean();
+        const myReview = await reviewModel.findOne({ 'user.gId': user.gId, productId }).lean();
 
         if (!!myReview) throw 'You have already posted a review';
 
         const newRating = ((product.aveageRaing * product.totalReview) + rating) / (product.totalReview + 1);
 
-        const newReview = reviewModel.create({ productId, rating, title, discription, user: user.gId })
+        const newReview = reviewModel.create({ productId, rating, title, discription, user: {gId: user.gId, fullName: user.fullName} })
 
         await productModel.findOneAndUpdate({ _id: productId }, { aveageRaing: newRating, totalReview: product.totalReview + 1 });
 
@@ -68,7 +67,7 @@ const helpfulPOST = async (req, res, next) => {
 
         const { user } = req.app.locals;
         const { reviewId } = req.body;
-        await ordersModel.findOneAndUpdate({ _id: reviewId }, { $addToSet: { helpfulMembers: user.gId }, $inc: { helpful: 1 } });
+        await reviewModel.findOneAndUpdate({ _id: reviewId }, { $addToSet: { helpfulMembers: user.gId }, $inc: { helpful: 1 } });
 
         res.status(200).send('ok');
 
@@ -83,7 +82,7 @@ const helpfulDELETE = async (req, res, next) => {
 
         const { user } = req.app.locals;
         const { reviewId } = req.body;
-        await ordersModel.findOneAndUpdate({ _id: reviewId }, { $pull: { helpfulMembers: user.gId }, $dec: { helpful: 1 } });
+        await reviewModel.findOneAndUpdate({ _id: reviewId }, { $pull: { helpfulMembers: user.gId }, $dec: { helpful: 1 } });
 
         res.status(200).send('ok');
 
@@ -99,7 +98,7 @@ const amIInhelpful = async (req, res, next) => {
         const { user } = req.app.locals;
         const { reviewId } = req.body;
 
-        const isHelpful = ordersModel.findOne({ _id: reviewId, helpfulMembers: user.gId });
+        const isHelpful = reviewModel.findOne({ _id: reviewId, helpfulMembers: user.gId });
 
         if (!!isHelpful) {
             res.status(200).send({ helpful: true });

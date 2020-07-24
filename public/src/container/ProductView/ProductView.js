@@ -2,13 +2,14 @@ import React from 'react';
 import ProductQNA from '../../components/ProductQNA/ProductQNA';
 import ProductReviews from '../../components/ProductReview/productReview';
 import styles from './productView.module.css';
+import { connect } from 'react-redux';
 
-export default class ProductView extends React.Component {
+class ProductView extends React.Component {
 
 
     clearSrc;
     zoomLevel = 2;
-    
+
 
 
     constructor(props) {
@@ -350,11 +351,11 @@ export default class ProductView extends React.Component {
                         </div>
 
                         <div style={{ border: '1px solid #dadada', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
-                            <ProductQNA />
+                            <ProductQNA user={this.props.user} isAuthorised={this.props.isAuthorised} />
                         </div>
-                        
+
                         <div style={{ border: '1px solid #dadada', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
-                            <ProductReviews />
+                            <ProductReviews user={this.props.user} isAuthorised={this.props.isAuthorised} />
                         </div>
 
 
@@ -368,3 +369,12 @@ export default class ProductView extends React.Component {
         return (toRender);
     }
 }
+
+const mapPropsByState = (store) => {
+    return {
+        user: store.user,
+        isAuthorised: store.isAuthorised
+    }
+}
+
+export default connect(mapPropsByState, null)(ProductView)

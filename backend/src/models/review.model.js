@@ -36,7 +36,10 @@ const schema = new mongo.Schema({
     
     helpfulMembers: [typ.String],
 
-    user: typ.String
+    user: {
+        fullName: {type: typ.String, required: true },
+        gId: {type: typ.String, required: true}
+    } 
 });
 
 
