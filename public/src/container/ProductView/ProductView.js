@@ -1,6 +1,7 @@
 import React from 'react';
 import { Modal, Rate, Form, Input } from 'antd';
 import { connect } from 'react-redux';
+import * as cartActions from '../../Redux/Actions/CartActions'
 
 import ProductQNA from '../../components/ProductView/ProductQNA/ProductQNA';
 import ProductReviews from '../../components/ProductView/ProductReview/productReview';
@@ -67,10 +68,9 @@ class ProductView extends React.Component {
     }
 
     submitQNA = () => {
-        alert(this.state.qnaForm.question);
         this.changeModelView('qnaModel', false);
         const newState = { ...this.state, ...this.state.qna };
-        newState.qna.push({ question: this.state.qnaForm.question, answer: '' });
+        newState.qna.unshift({ question: this.state.qnaForm.question, answer: '' });
     }
 
 
@@ -354,4 +354,10 @@ const mapPropsByState = (store) => {
     }
 }
 
-export default connect(mapPropsByState, null)(ProductView)
+const mapPropsByDispatch = dispatch => {
+    return {
+        $addToCart: (item ,isAuthoised) => dispatch(cartActions.addToCart(item, isAuthoised))
+    }
+}
+
+export default connect(mapPropsByState, mapPropsByDispatch)(ProductView)
