@@ -5,16 +5,16 @@
 }
 
 .resultsView__wrapper{
-//  border:1px solid black; 
  display: flex;
  flex-direction: row;
-//  flex-wrap: wrap;
  margin:0.3rem;
 }
 
 // slider styles
 .slider__container{
-  
+  border-bottom:1px solid rgb(236, 236, 236);
+  height:120px;
+  padding:1rem 1.6rem;
 }
 
 
