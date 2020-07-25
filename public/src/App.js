@@ -43,14 +43,16 @@ class App extends React.Component {
     return (
       <React.Fragment>
 
-        <NavBar />
-        <SubNav />
 
-        { this.props.view.loading && <Loading /> }
+        {this.props.view.loading && <Loading />}
 
 
         <React.Suspense fallback={<div><Skeleton active /> <br /> <Skeleton active /> <br /> <Skeleton active /> <br /><Skeleton active /> </div>}>
           <Router>
+            
+            <NavBar />
+            <SubNav />
+
             <Switch>
 
               <Route path="/card" exact component={ProductBlock} />
