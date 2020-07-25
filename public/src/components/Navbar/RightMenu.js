@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 
 class RightMenu extends Component {
+  
   render() {
 
     return (
@@ -21,6 +22,7 @@ class RightMenu extends Component {
 
     );
   }
+  
 }
 
 const mapPropsToState = store => {
