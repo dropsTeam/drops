@@ -11,6 +11,7 @@ const log = async (req, res, next) => {
 
     try {
 
+
         const { token } = req.app.locals;
         const { user } = req.app.locals;
 
