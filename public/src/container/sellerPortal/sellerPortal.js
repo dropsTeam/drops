@@ -1,12 +1,36 @@
 import React from 'react';
 
-import { PageHeader, Button } from 'antd';
+import { PageHeader, Button, Menu, Dropdown, Modal } from 'antd';
 import ProductResults from '../../components/ProductsResults/ProductsResults';
 import styles from './sellerPortal.module.css';
 
 class SellerPortal extends React.Component {
 
+
+
     render() {
+
+        const menu = (
+            <Menu>
+                <Menu.Item>
+                    <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+                        + Add Product
+                </a>
+                </Menu.Item>
+                <Menu.Item>
+                    <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+                        Edit Profile
+                </a>
+                </Menu.Item>
+                <Menu.Item>
+                    <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
+                        Logout
+                </a>
+                </Menu.Item>
+            </Menu>
+        );
+
+
         return (
             <div styles={{ backgroundColor: 'grey' }} >
                 <PageHeader
@@ -17,7 +41,10 @@ class SellerPortal extends React.Component {
                     extra={[
                         <Button key="3">Orders</Button>,
                         <Button key="2">Questions</Button>,
-                        <Button key="1" type="primary">Settings</Button>
+                        
+                        <Dropdown key={1}  overlay={menu} placement="bottomLeft" arrow>
+                            <Button type="primary">Settings</Button>
+                        </Dropdown>
                     ]}
                 />
 
@@ -54,6 +81,16 @@ class SellerPortal extends React.Component {
 
                 <p className='h2' style={{ padding: '30px 0 0 20px' }}> Products</p>
 
+                <Modal
+                    title="Basic Modal"
+                    visible={false}
+                    onOk={() => { }}
+                    onCancel={() => { }}
+                >
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                    <p>Some contents...</p>
+                </Modal>
 
             </div>
         )
