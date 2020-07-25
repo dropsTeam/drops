@@ -104,12 +104,19 @@
 
 .resultsCard__content .resultsCard__title .assured__tag {
   width: 60px;
-  height: 25px;
+  height: 20px;
+}
+
+.resultsCard__content .resultsCard__title .review__count {
+  color: #878787;
+  padding: 0 0.3rem;
+  font-weight: 500;
 }
 
 .resultsCard__content .resultsCard__price {
   color: black;
   font-weight: 500;
+  margin-top: -0.4rem;
 }
 
 .resultsCard__content .resultsCard__price .price {
@@ -125,8 +132,8 @@
   color: #09a809;
 }
 
-.resultsCard__content .resultsCard__sizes {
-  margin: 0.5rem 0;
-  font-weight: 500;
+.resultsCard__content .results__emi {
+  color: black;
+  margin-top: 0.5rem;
 }
 /*# sourceMappingURL=ResultsCard.css.map */

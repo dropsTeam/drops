@@ -62,6 +62,9 @@ class Sider extends React.Component {
         onOpenChange={this.onOpenChange}
         style={{ width: 256 }}
       >
+        <div className="slider__container">
+         
+        </div>
         <SubMenu
           key="sub1"
           title={
@@ -322,13 +325,13 @@ const numbers = [
   id:6,
   img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
   title : "T-Shirt",
-  price : "450"
+  price : "150"
  },
  {
   id:7,
   img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
   title : "T-Shirt",
-  price : "450"
+  price : "250"
  },
  {
   id:8,
