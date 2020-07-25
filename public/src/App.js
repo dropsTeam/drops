@@ -49,7 +49,7 @@ class App extends React.Component {
 
         <React.Suspense fallback={<div><Skeleton active /> <br /> <Skeleton active /> <br /> <Skeleton active /> <br /><Skeleton active /> </div>}>
           <Router>
-            
+
             <NavBar />
             <SubNav />
 
