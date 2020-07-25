@@ -2,6 +2,16 @@ import React,{Component} from 'react';
 import  "./ResultsCard.css";
 
 
+
+
+
+
+
+
+
+
+
+
 class ResultsCard extends React.Component {
  constructor(props) {
   super(props);
@@ -24,7 +34,7 @@ render() {
   let emi = emiArr[Math.floor(Math.random() *2) ]
 
   return  (
-     <div class="p-2 flex-fill bd-highlight resultsCard__container ">
+     <div className="p-2 flex-fill bd-highlight resultsCard__container ">
       <div className="resultsImage__container">
         <a><img src={this.props.img}></img></a>
       </div>
