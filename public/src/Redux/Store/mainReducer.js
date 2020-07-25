@@ -55,28 +55,33 @@ export default function mainReducer(state = init, action) {
         // **********  CART ACTIONS  **********
 
         case ActionType.ADD_TO_CART: {
-                console.log('Called')
-                if (state.cartItems.length >= 10) { alert('Your Cart is full, (10 items)'); return }
-                const nwState = { ...state, ...state.cartItems };
-                nwState.cartItems.push(action.payload.item);
-                return nwState;
-            }
+
+            if (state.cartItems.length >= 10) { alert('Your Cart is full, (10 items)'); return }
+            const cart = [...state.cartItems];
+            cart.unshift(action.payload.item);
+            const nwState = { ...state, cartItems: cart };
+            return nwState;
+        }
 
         case ActionType.EDIT_CART: {
-                const newState = { ...state, ...state.cartItems };
-                newState.cartItems[action.payload.index] = action.payload.item;
-                return newState
-            }
+            const cart = [...state.cartItems];
+            cart[action.payload.index] = action.payload.item;
+
+            const newState = { ...state, cartItems: cart };
+            return newState
+        }
 
         case ActionType.DELETE_CART_ITEM: {
-                const newState = { ...state, ...state.cartItems };
-                newState.cartItems.splice(action.payload.index, 1);
-                return newState;
-            }
+
+            const cart =  [...state.cartItems];
+            cart.splice(action.payload.index, 1);
+            const newState = { ...state };
+            return newState;
+        }
 
         case ActionType.LOAD_CART: {
-            const newState = {...state, ...state.cartItems};
-            newState.cartItems = action.payload.cart;
+            const cart = [...action.payload.cart]
+            const newState = { ...state, cartItems: cart };
             return newState
         }
 
