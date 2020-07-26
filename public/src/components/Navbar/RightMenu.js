@@ -35,4 +35,4 @@ const mapPropsToState = store => {
   }
 }
 
-export default connect(mapPropsToState, null)(RightMenu)
+export default connect(mapPropsToState, null)(RightMenu);
