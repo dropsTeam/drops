@@ -55,22 +55,22 @@ app.use('/api/qna', require('./src/routes/qna.route'));
 
 // ************ Listen **************
 
-const cluster = require('cluster');
-const numCPU = require('os').cpus().length;
+// const cluster = require('cluster');
+// const numCPU = require('os').cpus().length;
 const PORT = process.env.PORT || 8080;
 
-if (cluster.isMaster) {
-    console.log('this is a master process: ', process.pid);
-    for (let i = 0; i < numCPU; i++) {
-        cluster.fork();
-    }
-    cluster.on('exit', worker => {
-        console.log(`worker ${process.pid} had died`);
-        cluster.fork();
-    })
-} else {
-    console.log('this is a worker process: ', process.pid);
-}
+// if (cluster.isMaster) {
+//     console.log('this is a master process: ', process.pid);
+//     for (let i = 0; i < numCPU; i++) {
+//         cluster.fork();
+//     }
+//     cluster.on('exit', worker => {
+//         console.log(`worker ${process.pid} had died`);
+//         cluster.fork();
+//     })
+// } else {
+//     console.log('this is a worker process: ', process.pid);
+// }
 
 app.listen(PORT, () => {
     console.log(`listening to the port ${PORT}`);
