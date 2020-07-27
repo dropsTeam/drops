@@ -1,9 +1,6 @@
 @media screen and (min-width: 1200px) {
   .resultsCard__container {
     margin: 0.5rem;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 0 20%;
-            flex: 1 0 20%;
     max-width: 24%;
     -webkit-transition: 0.2s all ease;
     transition: 0.2s all ease;
@@ -17,10 +14,7 @@
 
 @media screen and (max-width: 1025px) {
   .resultsCard__container {
-    margin: 0.4rem;
-    -webkit-box-flex: 1;
-        -ms-flex: 1 0 20%;
-            flex: 1 0 20%;
+    margin: 0.6rem;
     max-width: 31%;
     -webkit-transition: 0.2s all ease;
     transition: 0.2s all ease;
