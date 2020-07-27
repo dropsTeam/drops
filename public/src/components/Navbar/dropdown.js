@@ -109,9 +109,7 @@ class DropDown extends Component {
               </a>
             ) :
               (
-                // <p target="_blank" rel="noopener noreferrer" >
                   <CollectionsPage />
-               // {/* </p> */}
               )
           }
         </Menu.Item>
