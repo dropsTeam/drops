@@ -11,8 +11,10 @@ function setUser() {
         try {
 
             const user = await mainHttp.get('/user');
-            console.log(user.data);
+            console.log(user.data.userAddress.address)
+           
             return dispatch(login(user.data));
+        
 
         } catch (err) {
             console.log('Error Occured Setting the user');

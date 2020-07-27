@@ -45,6 +45,34 @@ const schema = mongo.Schema({
     email: { type: types.String },
     fullName: { type: types.String },
     cart: [cartSchema],
+    userAddress: {
+        city: {
+            type: types.String,
+            maxlength: 200,
+            default: ''
+        },
+        state: {
+            type: types.String,
+            maxlength: 200,
+            default: ''
+        },
+        zipCode: {
+            type: types.String,
+            maxlength: 200,
+            default: ''
+        },
+        landmark: {
+            type: types.String,
+            maxlength: 200,
+            default: ''
+        },
+        address: {
+            type: types.String,
+            maxlength: 200,
+            default: ''
+        }
+
+    },
     isSeller: {
         type: types.Boolean,
         default: false
@@ -61,16 +89,17 @@ const schema = mongo.Schema({
             type: types.String,
             maxlength: 1000,
             trim: true,
-            default: 'No Discription'
+            required: false
         },
         profleImg: {
             type: types.String,
-            default: 'Default'
+            default: 'Default',
+            required: false
         }
     }
 });
 
-cartSchema.index({ timeStamp: 1, gId: 1 }, { unique: false });
+cartSchema.index({ gId: 1 }, { unique: true });
 
 
 module.exports = mongo.model('users', schema);

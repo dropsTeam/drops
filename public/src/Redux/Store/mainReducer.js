@@ -9,7 +9,15 @@ const init = {
         fullName: '',
         email: '',
         profilePic: '',
-        isSeller: false
+        isSeller: false,
+        userAddress: {
+            city: '',
+            state: '',
+            zipCode: '',
+            landmark: '',
+            address: ''
+        },
+
     },
     view: {
         loading: false
