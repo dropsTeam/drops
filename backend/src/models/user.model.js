@@ -45,6 +45,34 @@ const schema = mongo.Schema({
     email: { type: types.String },
     fullName: { type: types.String },
     cart: [cartSchema],
+    userAddress: {
+        city: {
+            type: types.String,
+            maxlength: 200,
+            default: ''
+        },
+        state: {
+            type: types.String,
+            maxlength: 200,
+            default: ''
+        },
+        zipCode: {
+            type: types.String,
+            maxlength: 200,
+            default: ''
+        },
+        landmark: {
+            type: types.String,
+            maxlength: 200,
+            default: ''
+        },
+        address: {
+            type: types.String,
+            maxlength: 200,
+            default: ''
+        }
+
+    },
     isSeller: {
         type: types.Boolean,
         default: false
