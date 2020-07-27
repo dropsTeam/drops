@@ -13,8 +13,8 @@ class ResultsBlock extends Component{
 
 
    return (
-     <div className="d-flex bd-highlight flex-row flex-wrap  align-content-end">
-     {this.props.numbers.map((item,index)=>
+     <div className={`d-flex bd-highlight flex-row flex-wrap  .align-content-sm-around align-content-around `}>
+      {this.props.numbers.map((item,index)=>
           <ResultsCard 
              id={item.id} 
              title={item.title}
