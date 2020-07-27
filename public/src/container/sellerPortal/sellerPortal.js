@@ -4,7 +4,7 @@ import { PageHeader, Button, Menu, Dropdown, Modal } from 'antd';
 import ResultsBlock from "../../components/ProductsResults/ResultsBlock/ResultsBlock.js"
 import styles from './sellerPortal.module.css';
 import AddProduct from './Modals/AddProduct';
-
+import EditSellerProfile from './Modals/EditSellerProfile';
 
 
 class SellerPortal extends React.Component {
@@ -14,7 +14,8 @@ class SellerPortal extends React.Component {
 
         this.state = {
             view: {
-                AddProduct: false
+                AddProduct: true,
+                EditSellerProfile: false
             }
         }
 
@@ -55,6 +56,7 @@ class SellerPortal extends React.Component {
         return (
             <div>
                 <AddProduct isVisible={this.state.view.AddProduct} $toggleModal={(modalName, visible) => this.toggleModal(modalName, visible)} />
+                <EditSellerProfile isVisible={this.state.view.EditSellerProfile} $toggleModal={(modalName, visible) => this.toggleModal(modalName, visible)} />
                 <PageHeader
                     className={styles.sitePageHeader + ' mb-2'}
                     onBack={() => null}
