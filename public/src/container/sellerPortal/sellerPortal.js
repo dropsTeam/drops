@@ -102,7 +102,7 @@ class SellerPortal extends React.Component {
                 <hr />
 
                <div>
-                <p className='h2' style={{ padding: '30px 0 0 20px' }}> Products</p>
+                <p className='h2' style={{ padding: '30px 0 0 20px' }}>Your Products</p>
                 <div 
                   className={styles.results__block}
                   >
