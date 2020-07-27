@@ -1,17 +1,85 @@
 import React from 'react';
 
-import { Drawer, Form, Button, Col, Row, Input, Select, DatePicker } from 'antd';
+import DetailsForm from './DynamicForms/details.Form';
+import Highlights from './DynamicForms/Highlights';
+import { Drawer, Form, Button, Col, Row, Input, Select } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 const { Option } = Select;
 
+
 class AddProduct extends React.PureComponent {
+
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            heighlights: [''],
+            description: '',
+            title: '',
+            price: 0,
+            category: '',
+            details: [{ key: '', value: '' }]
+        }
+
+        this.addHLs = this.addHLs.bind(this);
+        this.HLsHandler = this.HLsHandler.bind(this);
+
+    }
+
+    addHLs = () => {
+        const newArr = [...this.state.heighlights];
+        newArr.push('');
+        const newState = { ...this.state, heighlights: [...newArr] };
+        this.setState(newState);
+    }
+
+    removeHLs = (index) => {
+
+        const newArr = [...this.state.heighlights];
+        newArr.splice(index, 1);
+        const newState = { ...this.state, heighlights: [...newArr] };
+        this.setState(newState);
+    }
+
+    HLsHandler = (e, index) => {
+
+        const newArr = [...this.state.heighlights];
+        newArr[index] = e.target.value;
+
+        const newState = { ...this.state, heighlights: [...newArr] };
+        this.setState(newState);
+    }
+
+    addDetails = () => {
+        const newArr = [...this.state.details];
+        newArr.push({ key: '', value: '' });
+        this.setState({ ...this.state, details: [...newArr] });
+    }
+    removeDetails = (index) => {
+        const newArr = [...this.state.details];
+        newArr.splice(index, 1);
+        this.setState({ ...this.state, details: [...newArr] });
+
+    }
+    handleDetails = (e, property, index) => {
+        const newArr = [...this.state.details];
+        newArr[index][property] = e.target.value;
+        this.setState({ ...this.state, details: [...newArr] });
+    }
+
+    twoWayBind = (e, inputName) => {
+        const newState = { ...this.state }
+        newState[inputName] = e.target.value;
+        this.setState(newState);
+    }
 
     render() {
 
 
         return (
             <Drawer
-                
+
                 title="Create a new account"
                 width={720}
                 onClose={() => this.props.$toggleModal('AddProduct', false)}
@@ -30,15 +98,14 @@ class AddProduct extends React.PureComponent {
                             Submit
               </Button>
                     </div>
-                }
-            >
+                }>
                 <Form layout="vertical" hideRequiredMark >
                     <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item
                                 name="name"
                                 label="Title"
-                                rules={[{ required: true, message: 'Please enter user name' }]}
+                                rules={[{ required: true, message: 'Please enter title' }]}
                             >
                                 <Input placeholder="Please enter the product title" />
                             </Form.Item>
@@ -46,70 +113,53 @@ class AddProduct extends React.PureComponent {
                         <Col span={12}>
                             <Form.Item
                                 name="url"
-                                label="Highlights"
+                                label="Price"
                                 rules={[{ required: true, message: 'Please enter url' }]}
                             >
                                 <Input
                                     style={{ width: '100%' }}
-                                    addonBefore="http://"
-                                    addonAfter=".com"
-                                    placeholder="Please enter url"
+                                    addonBefore="$"
+                                    type='number'
+                                    placeholder="Price"
+                                    min={0}
+                                    value={this.state.price}
+                                    onChange={(event) => this.twoWayBind(event, 'price')}
                                 />
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Row gutter={16}>
-                        <Col span={12}>
-                            <Form.Item
-                                name="owner"
-                                label="Owner"
-                                rules={[{ required: true, message: 'Please select an owner' }]}
-                            >
-                                <Select placeholder="Please select an owner">
-                                    <Option value="xiao">Xiaoxiao Fu</Option>
-                                    <Option value="mao">Maomao Zhou</Option>
-                                </Select>
-                            </Form.Item>
-                        </Col>
-                        <Col span={12}>
-                            <Form.Item
-                                name="type"
-                                label="Type"
-                                rules={[{ required: true, message: 'Please choose the type' }]}
-                            >
-                                <Select placeholder="Please choose the type">
-                                    <Option value="private">Private</Option>
-                                    <Option value="public">Public</Option>
-                                </Select>
-                            </Form.Item>
-                        </Col>
-                    </Row>
-                    <Row gutter={16}>
-                        <Col span={12}>
-                            <Form.Item
-                                name="approver"
-                                label="Approver"
-                                rules={[{ required: true, message: 'Please choose the approver' }]}
-                            >
-                                <Select placeholder="Please choose the approver">
-                                    <Option value="jack">Jack Ma</Option>
-                                    <Option value="tom">Tom Liu</Option>
-                                </Select>
-                            </Form.Item>
-                        </Col>
-                        <Col span={12}>
-                            <Form.Item
-                                name="dateTime"
-                                label="DateTime"
-                                rules={[{ required: true, message: 'Please choose the dateTime' }]}
-                            >
-                                <DatePicker.RangePicker
-                                    style={{ width: '100%' }}
-                                    getPopupContainer={trigger => trigger.parentElement}
-                                />
-                            </Form.Item>
-                        </Col>
-                    </Row>
+
+
+
+
+                    <Form.Item
+                        name="Category"
+                        label="Category"
+                        rules={[{ required: true, message: 'Please enter category' }]}>
+                        <Input onChange={(e) => this.twoWayBind(e, 'category')} value={this.state.category} placeholder="Please enter product category" />
+                    </Form.Item>
+
+
+                    <DetailsForm details={this.state.details} addDetails={this.addDetails} removeDetails={this.removeDetails} handleDetails={this.handleDetails} />
+
+                    <Col span={24}>
+                        <Form.Item
+                            name="approver"
+                            label="Specifications"
+                            rules={[{ required: true, message: 'Please choose the specifications' }]}
+                        >
+
+                            <Row gutter={16}>
+
+                            </Row>
+
+                            <Select placeholder="Please choose the approver">
+                                <Option value="jack">Jack Ma</Option>
+                                <Option value="tom">Tom Liu</Option>
+                            </Select>
+                        </Form.Item>
+                    </Col>
+
                     <Row gutter={16}>
                         <Col span={24}>
                             <Form.Item
@@ -118,15 +168,23 @@ class AddProduct extends React.PureComponent {
                                 rules={[
                                     {
                                         required: true,
-                                        message: 'please enter url description',
+                                        message: 'please enter description',
                                     },
-                                ]}
-                            >
-                                <Input.TextArea rows={4} placeholder="please enter url description" />
+                                ]}>
+                                <Input.TextArea value={this.state.description} onChange={(event) => this.twoWayBind(event, 'description')} rows={4} placeholder="Please enter description" />
                             </Form.Item>
                         </Col>
                     </Row>
-                    .
+
+                    <hr />
+
+
+
+                    <Highlights highlights={this.state.heighlights} addHLs={this.addHLs} HLsHandler={(e, index) => this.HLsHandler(e, index)} removeHLs={(index) => this.removeHLs(index)} />
+
+                    <hr />
+                    
+
                 </Form>
             </Drawer>
 

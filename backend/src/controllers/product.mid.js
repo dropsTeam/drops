@@ -63,7 +63,7 @@ const postProduct = async (req, res, next) => {
         const { user } = req.app.locals;
         const { title, discription, details, highlights, media, dropdown, varients, price, category } = req.body;
 
-        if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
+        if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10 || highlights.length > 10 ) throw 'Validation Error.';
 
 
 

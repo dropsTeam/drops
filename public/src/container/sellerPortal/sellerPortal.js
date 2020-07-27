@@ -73,29 +73,29 @@ class SellerPortal extends React.Component {
                 />
 
                 <p className='h2' style={{ padding: '30px 0 0 20px' }}> Stats</p>
-                <div class="row" style={{ padding: '0 20px' }}>
-                    <div class="col-sm-12 col-md-4 mt-2 ">
-                        <div class="card" style={{ backgroundColor: '#FEC009', color: 'white' }}>
-                            <div class="card-body" >
-                                <p class="card-text">Revenue</p>
-                                <h1 class="card-title " style={{ color: 'white' }}>$3,567.53 </h1>
+                <div className="row" style={{ padding: '0 20px' }}>
+                    <div className="col-sm-12 col-md-4 mt-2 ">
+                        <div className="card" style={{ backgroundColor: '#FEC009', color: 'white' }}>
+                            <div className="card-body" >
+                                <p className="card-text">Revenue</p>
+                                <h1 className="card-title " style={{ color: 'white' }}>$3,567.53 </h1>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 mt-2 ">
-                        <div class="card" style={{ backgroundColor: '#DD6777', color: 'white' }}>
-                            <div class="card-body">
+                    <div className="col-sm-12 col-md-4 mt-2 ">
+                        <div className="card" style={{ backgroundColor: '#DD6777', color: 'white' }}>
+                            <div className="card-body">
 
-                                <p class="card-text">Number Of Orders</p>
-                                <h1 class="card-title" style={{ color: 'white' }}>30,000</h1>
+                                <p className="card-text">Number Of Orders</p>
+                                <h1 className="card-title" style={{ color: 'white' }}>30,000</h1>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-12 col-md-4 mt-2 ">
-                        <div class="card" style={{ backgroundColor: '#6EC080' }}>
-                            <div class="card-body" style={{ color: 'white' }}>
-                                <p class="card-text">Number Of Products</p>
-                                <h1 class="card-title " style={{ color: 'white' }}>99 </h1>
+                    <div className="col-sm-12 col-md-4 mt-2 ">
+                        <div className="card" style={{ backgroundColor: '#6EC080' }}>
+                            <div className="card-body" style={{ color: 'white' }}>
+                                <p className="card-text">Number Of Products</p>
+                                <h1 className="card-title " style={{ color: 'white' }}>99 </h1>
                             </div>
                         </div>
                     </div>

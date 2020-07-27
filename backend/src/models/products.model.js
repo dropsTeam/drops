@@ -6,28 +6,28 @@ mongo.set('runValidators', true);
 const detailsSchema = mongo.Schema({
     key: {
         type: typ.String,
-        maxlength: 50,
+        maxlength: 100,
         required: true
     },
     value: {
         type: typ.String,
-        maxlength: 300,
+        maxlength: 1000,
         required: true
     }
 });
 
-const mediaSchema = mongo.Schema({
-    url: {
-        type: typ.String,
-        maxlength: 500,
-        required: true
-    },
+// const mediaSchema = mongo.Schema({
+//     url: {
+//         type: typ.String,
+//         maxlength: 500,
+//         required: true
+//     },
 
-    kind: {
-        type: typ.String,
-        enum: ['image', 'video']
-    }
-});
+//     kind: {
+//         type: typ.String,
+//         enum: ['image', 'video']
+//     }
+// });
 
 const varients = mongo.Schema({
     title: {
@@ -54,7 +54,7 @@ const schema = mongo.Schema({
     discription: {
         type: typ.String,
         required: true,
-        maxlength: [10000, '{PATH} exceeds the max length'],
+        maxlength: [100000, '{PATH} exceeds the max length'],
         text: true
     },
 
@@ -67,7 +67,7 @@ const schema = mongo.Schema({
         default: Date.now
     },
 
-    media: [mediaSchema],
+    media: [typ.String],
 
     dropdown: {
         title: {
