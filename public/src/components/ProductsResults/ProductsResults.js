@@ -1,7 +1,37 @@
 import React,{Component} from 'react';
 import  "./ProductResults.css";
-import ResultsCard from "../ProductsResults/ResultsCard/ResultsCard.js";
+// import ResultsCard from "../ProductsResults/ResultsCard/ResultsCard.js";
+import ResultsBlock from "./ResultsBlock/ResultsBlock.js"
+
 import {App,Sider} from "./FiltersMenu/FiltersMenu"
+
+
+// export class ResultsBlock extends Component{
+
+//   constructor(props) {
+//     super(props);
+//   }
+
+//   render(){
+
+
+//     return (
+//       <div className="d-flex bd-highlight flex-row flex-wrap  align-content-end">
+//       {this.props.numbers.map((item,index)=>
+//            <ResultsCard 
+//               id={item.id} 
+//               title={item.title}
+//               price={item.price} 
+//               img={item.img}  
+//               key={index} 
+//               flipkartImg="http://img1a.flixcart.com/www/linchpin/fk-cp-zion/img/fa_8b4b59.png"
+//             />
+//          )}
+//   </div>
+//     )
+//   }
+// }
+
 
 
 // filters block
@@ -28,9 +58,16 @@ class Filters extends Component {
 }
 
 
+
 // resulst block
 class Results extends Component {
+
+  constructor(props) {
+    super(props);
+  }
+
  render() {
+
    return (
      <div className="results__container">
       <div className="results__wrapper">
@@ -40,20 +77,8 @@ class Results extends Component {
         <div className="results__filterNavbar">
           {/* <Demo /> */}
         </div>
-        
-
-        <div className="d-flex bd-highlight flex-row flex-wrap  align-content-end">
-           {numbers.map((item,index)=>
-                <ResultsCard 
-                   id={item.id} 
-                   title={item.title}
-                   price={item.price} 
-                   img={item.img}  
-                   key={index} 
-                   flipkartImg="http://img1a.flixcart.com/www/linchpin/fk-cp-zion/img/fa_8b4b59.png"
-                 />
-              )}
-       </div>
+      
+          <ResultsBlock numbers={this.props.numbers} />
 
       </div>
      </div>
@@ -73,7 +98,7 @@ class ProductResults extends React.Component {
     <div className="resultsView__container">
      <div className="resultsView__wrapper">
        <Filters />
-       <Results />
+       <Results numbers={numbers} />
      </div>
     </div>
    )

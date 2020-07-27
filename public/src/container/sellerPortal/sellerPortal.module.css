@@ -1,3 +1,13 @@
 .sitePageHeader {
     border: 1px solid rgb(235, 237, 240);
 }
+
+.results__block{
+    width:80vw;
+    margin:0 auto;
+    border: 1px solid rgb(235, 235, 235);
+    box-shadow: 0px 0px 4px rgb(233, 233, 233);;
+    border-radius: 4px;
+    margin-top: 1rem ;
+    padding:1rem;
+}
