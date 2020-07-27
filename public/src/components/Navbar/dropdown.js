@@ -105,7 +105,7 @@ class DropDown extends Component {
         <Menu.Item>
           {
             (this.props.user.isSeller) ? (
-              <a target="_blank" rel="noopener noreferrer" >
+              <a  rel="noopener noreferrer" >
                 Seller Account
               </a>
             ) :
