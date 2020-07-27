@@ -36,18 +36,33 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <p type="primary" onClick={this.showModal}>
+        <a type="primary" onClick={this.showModal}>
           Login
-        </p>
+        </a>
         <Modal
-          
+          className="login__modal"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
           footer={null}
         >
-          <p>Login here to start your business as a seller</p>
-          <GoogleBtn visible={true} />
+          <div className="loginModal__container">
+            <div className="loginModal__imageContainer">
+              <div class="loginModal__title">
+                <span>Login</span>
+              </div>
+              <div className="loginModal__desc">
+                <span>Get access to your Orders, Wishlist and Recommendations</span>
+              </div>
+            </div>
+            <div className="loginModal__content">
+              <div className="login__buttonTitle">
+                 Sign In By Google
+              </div>
+              <div className="login__button"><GoogleBtn visible={true} /></div>
+            </div>
+          </div>
+         
         </Modal>
       </>
     );
@@ -67,7 +82,7 @@ class RightMenu extends Component {
         {
           (!this.props.isAuthorised) && (
             <Button className="logbtn">
-              <App />
+                <App />
             </Button>
 
           )
