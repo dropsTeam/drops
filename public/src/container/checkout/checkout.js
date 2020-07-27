@@ -115,7 +115,7 @@ class Cartcheckout extends Component {
                     )}
 
                 </Col>
-                {this.props.isAuthorised && (
+                { this.props.isAuthorised  && (
                     <Col className="col-right-cart" xl={8}>
                         <Card title="PRICE DETAILS" className="cart-left" headStyle={{ color: '#878787' }} >
                             {Pricelist}

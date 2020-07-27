@@ -37,7 +37,7 @@ class DropDown extends Component {
       this.props.isAuthorised && (
         <Dropdown classname="modified-dropdown" overlay={menu} >
           <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-            <Avatar size="large" icon={<UserOutlined />}></Avatar>
+            <Avatar size="large" src={this.props.user.profilePic} icon={<UserOutlined />}></Avatar>
           </a>
         </Dropdown>
       )

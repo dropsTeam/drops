@@ -32,8 +32,8 @@ class GoogleBtn extends React.Component {
         params.set('token', response.getAuthResponse().id_token);
 
         axios.post('/api/auth/log', params)
-            .then(user => {
-                this.props.$login(user.data);
+            .then(_ => {
+                this.props.$setUser();
                 // console.log(user.data);
 
             })
@@ -95,7 +95,7 @@ const mapStateToPeops = (store) => {
 
 const mapDispachToProps = (dispatch) => {
     return {
-        $login: (user) => dispatch(authActions.login(user)),
+        $setUser: (user) => dispatch(authActions.setUser()),
         $logout: () => dispatch(authActions.logout())
     }
 }
