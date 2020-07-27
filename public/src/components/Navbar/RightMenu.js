@@ -5,7 +5,6 @@ import DropDown from '../Navbar/dropdown';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-
 class RightMenu extends Component {
 
 
@@ -13,12 +12,18 @@ class RightMenu extends Component {
 
     return (
       <Menu mode="horizontal" className="rightymenu">
-        <Button className="logbtn">
-          Login
-        </Button>
+        {
+          (!this.props.isAuthorised) && (
+            <Button className="logbtn">
+              Login
+            </Button>
+
+          )
+        }
+
         <DropDown />
         <Menu.Item style={{ position: "relative", right: 25 }} key="1">
-          <NavLink to='/cart' style={{color: 'white'}}>
+          <NavLink to='/cart' style={{ color: 'white' }}>
             <Badge count={this.props.cartItems.length} style={{ position: "absolute", top: 8, right: 10, fontSize: 12, }}><ShoppingCartOutlined style={{ fontSize: 28, top: 7, position: "relative" }} /></Badge>Cart
           </NavLink>
         </Menu.Item>
@@ -31,7 +36,8 @@ class RightMenu extends Component {
 
 const mapPropsToState = store => {
   return {
-    cartItems: store.cartItems
+    cartItems: store.cartItems,
+    isAuthorised: store.isAuthorised
   }
 }
 
