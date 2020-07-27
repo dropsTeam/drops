@@ -1,32 +1,32 @@
 import React, { Component } from 'react';
-import { Menu, Dropdown,Button } from 'antd';
-import { DownOutlined } from '@ant-design/icons';
+import { Menu, Dropdown,Button,Avatar } from 'antd';
+import { DownOutlined, UserOutlined } from '@ant-design/icons';
 
 const DropDown = () =>  {
     const menu = (
         <Menu>
           <Menu.Item>
             <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
-              1st menu item
+              Edit Profile
             </a>
           </Menu.Item>
           <Menu.Item>
             <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
-              2nd menu item
+              SignUp as Seller
             </a>
           </Menu.Item>
           <Menu.Item>
             <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
-              3rd menu item
+              potty
             </a>
           </Menu.Item>
-          <Menu.Item danger>a danger item</Menu.Item>
+          <Menu.Item danger>Logout</Menu.Item>
         </Menu>
       );
     return (
         <Dropdown  classname="modified-dropdown" overlay={menu}>
             <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-            More  <DownOutlined />
+            <Avatar size="large" icon={<UserOutlined />}></Avatar>
             </a>
         </Dropdown>  
     );
