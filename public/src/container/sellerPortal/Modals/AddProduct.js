@@ -19,7 +19,8 @@ class AddProduct extends React.PureComponent {
             title: '',
             price: 0,
             category: '',
-            details: [{ key: '', value: '' }]
+            details: [{ key: '', value: '' }],
+            media: ['', '', '', '', '']
         }
 
         this.addHLs = this.addHLs.bind(this);
@@ -74,12 +75,17 @@ class AddProduct extends React.PureComponent {
         this.setState(newState);
     }
 
+    handleMedia = (event, index) => {
+        const newArr = [...this.state.media];
+        newArr[index] = event.target.value;
+        this.setState({ ...this.state, media: [...newArr] });
+    }
+
     render() {
 
 
         return (
             <Drawer
-
                 title="Create a new account"
                 width={720}
                 onClose={() => this.props.$toggleModal('AddProduct', false)}
@@ -89,14 +95,13 @@ class AddProduct extends React.PureComponent {
                     <div
                         style={{
                             textAlign: 'right',
-                        }}
-                    >
+                        }}>
                         <Button onClick={() => this.props.$toggleModal('AddProduct', false)} style={{ marginRight: 8 }}>
                             Cancel
-              </Button>
+                        </Button>
                         <Button onClick={() => this.props.$toggleModal('AddProduct', false)} type="primary">
                             Submit
-              </Button>
+                        </Button>
                     </div>
                 }>
                 <Form layout="vertical" hideRequiredMark >
@@ -105,8 +110,8 @@ class AddProduct extends React.PureComponent {
                             <Form.Item
                                 name="name"
                                 label="Title"
-                                rules={[{ required: true, message: 'Please enter title' }]}
-                            >
+                                rules={[{ required: true, message: 'Please enter title' }]}>
+
                                 <Input placeholder="Please enter the product title" />
                             </Form.Item>
                         </Col>
@@ -114,8 +119,8 @@ class AddProduct extends React.PureComponent {
                             <Form.Item
                                 name="url"
                                 label="Price"
-                                rules={[{ required: true, message: 'Please enter url' }]}
-                            >
+                                rules={[{ required: true, message: 'Please enter url' }]}>
+
                                 <Input
                                     style={{ width: '100%' }}
                                     addonBefore="$"
@@ -144,19 +149,28 @@ class AddProduct extends React.PureComponent {
 
                     <Col span={24}>
                         <Form.Item
-                            name="approver"
-                            label="Specifications"
-                            rules={[{ required: true, message: 'Please choose the specifications' }]}
-                        >
+                            name="dwdd"
+                            label="Media"
+                            rules={[{ required: true, message: 'Please choose all the media ' }]}>
 
                             <Row gutter={16}>
-
+                                <Col span={12}>
+                                    <Input value={this.state.media[0]} onChange={(event) => this.handleMedia(event, 0)} placeholder='Media 1' required={true} />
+                                </Col>
+                                <Col span={12}>
+                                    <Input value={this.state.media[1]} onChange={(event) => this.handleMedia(event, 1)} placeholder='Media 2' required={true} />
+                                </Col>
+                                <Col span={12}>
+                                    <Input value={this.state.media[2]} onChange={(event) => this.handleMedia(event, 2)} placeholder='Media 3' required={true} />
+                                </Col>
+                                <Col span={12}>
+                                    <Input value={this.state.media[3]} onChange={(event) => this.handleMedia(event, 3)} placeholder='Media 4' required={true} />
+                                </Col>
+                                <Col span={12}>
+                                    <Input value={this.state.media[4]} onChange={(event) => this.handleMedia(event, 4)} placeholder='Media 5' required={true} />
+                                </Col>
                             </Row>
 
-                            <Select placeholder="Please choose the approver">
-                                <Option value="jack">Jack Ma</Option>
-                                <Option value="tom">Tom Liu</Option>
-                            </Select>
                         </Form.Item>
                     </Col>
 
@@ -183,7 +197,7 @@ class AddProduct extends React.PureComponent {
                     <Highlights highlights={this.state.heighlights} addHLs={this.addHLs} HLsHandler={(e, index) => this.HLsHandler(e, index)} removeHLs={(index) => this.removeHLs(index)} />
 
                     <hr />
-                    
+
 
                 </Form>
             </Drawer>
