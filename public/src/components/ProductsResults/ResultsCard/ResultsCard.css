@@ -4,6 +4,8 @@
     max-width: 24%;
     -webkit-transition: 0.2s all ease;
     transition: 0.2s all ease;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
   }
   .resultsCard__container:hover {
     -webkit-box-shadow: 0px 0px 5px #dadada;
