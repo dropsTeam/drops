@@ -3,17 +3,36 @@ import React from 'react';
 import { PageHeader, Button, Menu, Dropdown, Modal } from 'antd';
 import ProductResults from '../../components/ProductsResults/ProductsResults';
 import styles from './sellerPortal.module.css';
+import AddProduct from './Modals/AddProduct';
 
 class SellerPortal extends React.Component {
 
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            view: {
+                AddProduct: false
+            }
+        }
+
+        this.toggleModal.bind(this);
+    }
+
+    toggleModal(modalName, visiblity) {
+
+        const newState = {...this.state, ...this.state.view };
+        newState.view[modalName] = visiblity;
+
+        this.setState(newState);
+    }
 
     render() {
 
         const menu = (
             <Menu>
-                <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+                <Menu.Item onClick={() => this.toggleModal('AddProduct', true)}>
+                    <a target="_blank" rel="noopener noreferrer" >
                         + Add Product
                 </a>
                 </Menu.Item>
@@ -32,7 +51,8 @@ class SellerPortal extends React.Component {
 
 
         return (
-            <div styles={{ backgroundColor: 'grey' }} >
+            <div>
+                <AddProduct isVisible={this.state.view.AddProduct} $toggleModal={(modalName, visible) => this.toggleModal(modalName, visible)} />
                 <PageHeader
                     className={styles.sitePageHeader + ' mb-2'}
                     onBack={() => null}
@@ -41,8 +61,8 @@ class SellerPortal extends React.Component {
                     extra={[
                         <Button key="3">Orders</Button>,
                         <Button key="2">Questions</Button>,
-                        
-                        <Dropdown key={1}  overlay={menu} placement="bottomLeft" arrow>
+
+                        <Dropdown key={1} overlay={menu} placement="bottomLeft" arrow>
                             <Button type="primary">Settings</Button>
                         </Dropdown>
                     ]}

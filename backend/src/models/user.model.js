@@ -61,16 +61,17 @@ const schema = mongo.Schema({
             type: types.String,
             maxlength: 1000,
             trim: true,
-            default: 'No Discription'
+            required: false
         },
         profleImg: {
             type: types.String,
-            default: 'Default'
+            default: 'Default',
+            required: false
         }
     }
 });
 
-cartSchema.index({ timeStamp: 1, gId: 1 }, { unique: false });
+cartSchema.index({ gId: 1 }, { unique: true });
 
 
 module.exports = mongo.model('users', schema);
