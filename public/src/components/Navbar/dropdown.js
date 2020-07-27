@@ -4,7 +4,6 @@ import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 
 
-
 import  { useState } from 'react';
 import {  Modal, Form, Input, Radio } from 'antd';
 
@@ -52,7 +51,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
         <Form.Item name="Bio" label="Bio">
           <Input type="textarea" />
         </Form.Item>
-        <Form.Item name="Profile Image" label="Profile Image">
+        <Form.Item name="Profile Image URL" label="Profile Image URL">
           <Input type="textarea" />
         </Form.Item>
       </Form>
@@ -70,14 +69,14 @@ const CollectionsPage = () => {
 
   return (
     <div>
-      <p
+      <a
         type="primary"
         onClick={() => {
           setVisible(true);
         }}
       >
         Become a seller
-      </p>
+      </a>
       <CollectionCreateForm
         visible={visible}
         onCreate={onCreate}
@@ -110,9 +109,9 @@ class DropDown extends Component {
               </a>
             ) :
               (
-                <a target="_blank" rel="noopener noreferrer" >
+                // <p target="_blank" rel="noopener noreferrer" >
                   <CollectionsPage />
-                </a>
+               // {/* </p> */}
               )
           }
         </Menu.Item>
