@@ -3,11 +3,13 @@
 }
 
 .results__block{
-    width:80vw;
-    margin:0 auto;
+    width:95vw;
+    margin:0rem auto;
     border: 1px solid rgb(235, 235, 235);
     box-shadow: 0px 0px 4px rgb(233, 233, 233);;
     border-radius: 4px;
     margin-top: 1rem ;
     padding:1rem;
 }
+
+

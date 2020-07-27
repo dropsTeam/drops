@@ -153,11 +153,11 @@ const numbers = [
   img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
   title : "T-Shirt",
   price : "250"
- },
- {
-  id:8,
-  img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
-  title : "T-Shirt",
-  price : "450"
  }
+//  {
+//   id:8,
+//   img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
+//   title : "T-Shirt",
+//   price : "450"
+//  }
 ]
