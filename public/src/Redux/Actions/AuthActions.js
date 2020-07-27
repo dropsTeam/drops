@@ -11,6 +11,7 @@ function setUser() {
         try {
 
             const user = await mainHttp.get('/user');
+            console.log(user.data);
             return dispatch(login(user.data));
 
         } catch (err) {

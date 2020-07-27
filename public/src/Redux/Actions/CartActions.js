@@ -62,7 +62,7 @@ function loadCart(isAuthorised) {
             dispatch({ type: ActionType.LOAD_CART, payload: { cart } })
         } else {
             // Fetch
-            dispatch({ type: ActionType.LOAD_CART, paylaod: { cart: [] } })
+            dispatch({ type: ActionType.LOAD_CART, payload: { cart: [] } })
 
         }
     }

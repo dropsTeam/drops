@@ -61,8 +61,7 @@ const schema = mongo.Schema({
             type: types.String,
             maxlength: 1000,
             trim: true,
-            default: 'No Discription',
-            required: false
+            default: 'No Discription'
         },
         profleImg: {
             type: types.String,

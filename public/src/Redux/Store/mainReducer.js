@@ -3,12 +3,13 @@ import ActionType from '../Actions/ActionType';
 
 const init = {
     isAuthorised: false,
-
+    
     user: {
         gId: '',
         fullName: '',
         email: '',
-        profilePic: ''
+        profilePic: '',
+        isSeller: false
     },
     view: {
         loading: false
