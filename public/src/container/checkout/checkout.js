@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import {Row, Col, Card, List,Radio,Input} from 'antd';
 import { Collapse } from 'antd';
 import GoogleBtn from '../GoogleBtn/GoogleBtn';
 import {CarOutlined, BellOutlined, StarOutlined   } from '@ant-design/icons';
 import DeliverForm from './checkoutdlvform';
 import PaymentForm from './payment';
+// import { connect } from 'react-redux';
 import { Orderlist, Pricelist}  from '../cart/cart.js';
 
 
@@ -26,6 +27,7 @@ class Cartcheckout extends Component {
         value: e.target.value,
       });
     };
+    
 
   render() {
 
@@ -66,21 +68,22 @@ class Cartcheckout extends Component {
                                 </List>
                             </Row>
                         </Col>
+                    </Row>                  
 
 
-                    </Row>
+
                 </Card>
 
-                <Card  title="DELIVERY ADDRESS" className="cart-right-check" headStyle={{ color:'grey', height:48}}>
+                <Card title="DELIVERY ADDRESS" className="cart-right-check" headStyle={{ color:'grey', height:48}}>
                     <DeliverForm />
                     
                 </Card>
 
-                <Card  title="ORDER SUMMARY" className="cart-right-check" headStyle={{ color:'grey', height:48}}>
-                    {Orderlist}
+                <Card  title="ORDER SUMMARY"  className="cart-right-check" headStyle={{ color:'grey', height:48}}>
+                    {Orderlist }
                 </Card>
 
-                <Card  title="PAYMENT OPTION" className="cart-right-check" headStyle={{ color:'grey', height:48}}>
+                <Card  title="PAYMENT OPTION" visible={false} className="cart-right-check" headStyle={{ color:'grey', height:48}}>
                     <Radio.Group onChange={this.onChange} value={value}>
                         <Radio style={radioStyle} value={1}>
                             Paypal
@@ -100,16 +103,11 @@ class Cartcheckout extends Component {
                    {Pricelist}
                 </Card>
             </Col>
-        </Row>
-
-      
-
-   
-
-      
-			
+        </Row>	
     );
   }
 }
+
+
 
 export default (Cartcheckout);
