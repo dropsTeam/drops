@@ -5,6 +5,7 @@ import Highlights from './DynamicForms/Highlights';
 import DropdownForm from './DynamicForms/Dropdown.Form';
 
 import { Drawer, Form, Button, Col, Row, Input } from 'antd';
+import { mainHttp } from '../../../Axios/Axios';
 
 
 
@@ -15,7 +16,7 @@ class AddProduct extends React.PureComponent {
         super(props);
 
         this.state = {
-            heighlights: [''],
+            highlights: [''],
             description: '',
             title: '',
             price: 0,
@@ -35,26 +36,26 @@ class AddProduct extends React.PureComponent {
     }
 
     addHLs = () => {
-        const newArr = [...this.state.heighlights];
+        const newArr = [...this.state.highlights];
         newArr.push('');
-        const newState = { ...this.state, heighlights: [...newArr] };
+        const newState = { ...this.state, highlights: [...newArr] };
         this.setState(newState);
     }
 
     removeHLs = (index) => {
 
-        const newArr = [...this.state.heighlights];
+        const newArr = [...this.state.highlights];
         newArr.splice(index, 1);
-        const newState = { ...this.state, heighlights: [...newArr] };
+        const newState = { ...this.state, highlights: [...newArr] };
         this.setState(newState);
     }
 
     HLsHandler = (e, index) => {
 
-        const newArr = [...this.state.heighlights];
+        const newArr = [...this.state.highlights];
         newArr[index] = e.target.value;
 
-        const newState = { ...this.state, heighlights: [...newArr] };
+        const newState = { ...this.state, highlights: [...newArr] };
         this.setState(newState);
     }
 
@@ -98,17 +99,17 @@ class AddProduct extends React.PureComponent {
         this.setState(newState);
     }
     addDropdownOption = () => {
-        const newArr = [ ...this.state.dropdown.options ];
+        const newArr = [...this.state.dropdown.options];
         newArr.push('');
         this.setState({ ...this.state, dropdown: { ...this.state.dropdown, options: [...newArr] } });
     }
     removeOptions = (index) => {
-        const newArr = [ ...this.state.dropdown.options ];
+        const newArr = [...this.state.dropdown.options];
         newArr.splice(index, 1);
         this.setState({ ...this.state, dropdown: { ...this.state.dropdown, options: [...newArr] } });
     }
     optionsHandler = (e, index) => {
-        const newArr = [ ...this.state.dropdown.options ];
+        const newArr = [...this.state.dropdown.options];
         newArr[index] = e.target.value;
         this.setState({ ...this.state, dropdown: { ...this.state.dropdown, options: [...newArr] } });
     }
@@ -124,6 +125,18 @@ class AddProduct extends React.PureComponent {
         const newArr = [...this.state.media];
         newArr[index] = event.target.value;
         this.setState({ ...this.state, media: [...newArr] });
+    }
+
+    submit = async () => {
+        try {
+
+            const product = await mainHttp.post('/products', { ...this.state });
+            console.log(product.data);
+            this.props.$toggleModal('AddProduct', false);
+
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     render() {
@@ -144,7 +157,7 @@ class AddProduct extends React.PureComponent {
                         <Button onClick={() => this.props.$toggleModal('AddProduct', false)} style={{ marginRight: 8 }}>
                             Cancel
                         </Button>
-                        <Button onClick={() => this.props.$toggleModal('AddProduct', false)} type="primary">
+                        <Button onClick={this.submit} type="primary">
                             Submit
                         </Button>
                     </div>
@@ -157,7 +170,7 @@ class AddProduct extends React.PureComponent {
                                 label="Title"
                                 rules={[{ required: true, message: 'Please enter title' }]}>
 
-                                <Input placeholder="Please enter the product title" />
+                                <Input value={this.state.title} onChange={(e) => this.twoWayBind(e, 'title')} placeholder="Please enter the product title" />
                             </Form.Item>
                         </Col>
                         <Col span={12}>
@@ -249,7 +262,7 @@ class AddProduct extends React.PureComponent {
 
 
 
-                    <Highlights highlights={this.state.heighlights} addHLs={this.addHLs} HLsHandler={(e, index) => this.HLsHandler(e, index)} removeHLs={(index) => this.removeHLs(index)} />
+                    <Highlights highlights={this.state.highlights} addHLs={this.addHLs} HLsHandler={(e, index) => this.HLsHandler(e, index)} removeHLs={(index) => this.removeHLs(index)} />
 
                     <KeyValueForm
                         data={this.state.varients}
@@ -266,11 +279,9 @@ class AddProduct extends React.PureComponent {
                     <DropdownForm
                         data={this.state.dropdown}
                         add={this.addDropdownOption}
-                        titleHandler={this.handleTitle}
+                        titleHandler={(e) => this.handleTitle(e)}
                         handler={this.optionsHandler}
                         remove={this.removeOptions} />
-
-
 
                 </Form>
             </Drawer>

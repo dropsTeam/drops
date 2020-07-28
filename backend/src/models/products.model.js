@@ -51,7 +51,7 @@ const schema = mongo.Schema({
         maxlength: [300, '{PATH} exceeds the max length'],
         text: true
     },
-    discription: {
+    description: {
         type: typ.String,
         required: true,
         maxlength: [100000, '{PATH} exceeds the max length'],
@@ -107,9 +107,7 @@ const schema = mongo.Schema({
     category: {
         type: typ.String,
         required: true,
-        maxlength: 50,
-        enum: ['Men Clothing', 'Women Clothing', 'Men Shoes', 'Women Shoes', 'Camera, Photo & Video', 'Headphones & Speakers', 'Cellphone, Tablets & Accessories', 'Computers, Monitors & Laptops'],
-        text: true
+        maxlength: 100
     }
 
 });

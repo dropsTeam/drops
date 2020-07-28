@@ -9,7 +9,7 @@ route
     .get('/search', authC.googleVerify(true, false), productC.search)
 
 route
-    .post('/', authC.googleVerify(true, true), authC.isSeller, productC.postProduct)
+    .post('/', authC.googleVerify(true, true), authC.isSeller(false), productC.postProduct)
     .put('/:productId', authC.googleVerify(true, true), productC.editProduct)
     .get('/:productId', authC.googleVerify(true, false), productC.get);
 

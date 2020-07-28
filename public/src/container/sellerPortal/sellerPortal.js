@@ -14,7 +14,7 @@ class SellerPortal extends React.Component {
 
         this.state = {
             view: {
-                AddProduct: true,
+                AddProduct: false,
                 EditSellerProfile: false
             }
         }

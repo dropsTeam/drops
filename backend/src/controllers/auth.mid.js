@@ -93,6 +93,8 @@ function googleVerify(fromCookie, terminateIfError = true) {
 function isSeller(checkOwnership = false) {
     return async (req, res, next) => {
         try {
+
+
             const { user } = req.app.locals;
 
             const userData = await userModel.findOne({ gId: user.gId }).select('isSeller').lean();
@@ -105,6 +107,7 @@ function isSeller(checkOwnership = false) {
             }
 
             req.app.locals.user._id = userData._id;
+
 
             next();
 

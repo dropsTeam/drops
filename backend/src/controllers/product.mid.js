@@ -61,7 +61,7 @@ const get = async (req, res, next) => {
 const postProduct = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
-        const { title, discription, details, highlights, media, dropdown, varients, price, category } = req.body;
+        const { title, description, details, highlights, media, dropdown, varients, price, category } = req.body;
 
         if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10 || highlights.length > 10 ) throw 'Validation Error.';
 
@@ -70,7 +70,7 @@ const postProduct = async (req, res, next) => {
         const payload = {
             seller: user.gId,
             title,
-            discription,
+            description,
             highlights,
             details, media, dropdown, varients, price, category
         };
@@ -88,14 +88,14 @@ const postProduct = async (req, res, next) => {
 const editProduct = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
-        const { productId, title, discription, highlights, details, media, dropdown, varients, price, category } = req.body;
+        const { productId, title, description, highlights, details, media, dropdown, varients, price, category } = req.body;
 
         if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
 
 
         const payload = {
             title,
-            discription,
+            description,
             details, media, dropdown, highlights, varients, price, category
         };
 
