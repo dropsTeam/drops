@@ -1,14 +1,12 @@
 import React from 'react';
 import { Input, Row, Col, Button } from 'antd';
 
-class DetailsForm extends React.PureComponent {
-
-
+class VarientForm extends React.PureComponent {
 
 
     render() {
 
-        const mapedForm = this.props.details.map((item, index) => {
+        const mapedForm = this.props.varient.map((item, index) => {
             return (
                 <Row gutter={16} key={index}>
                     <Col span={10}>

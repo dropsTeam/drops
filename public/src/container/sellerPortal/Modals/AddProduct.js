@@ -1,10 +1,11 @@
 import React from 'react';
 
-import DetailsForm from './DynamicForms/details.Form';
+import KeyValueForm from './DynamicForms/keyValue.Form';
 import Highlights from './DynamicForms/Highlights';
-import { Drawer, Form, Button, Col, Row, Input, Select } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-const { Option } = Select;
+import DropdownForm from './DynamicForms/Dropdown.Form';
+
+import { Drawer, Form, Button, Col, Row, Input } from 'antd';
+
 
 
 class AddProduct extends React.PureComponent {
@@ -20,7 +21,12 @@ class AddProduct extends React.PureComponent {
             price: 0,
             category: '',
             details: [{ key: '', value: '' }],
-            media: ['', '', '', '', '']
+            media: ['', '', '', '', ''],
+            varients: [{ title: '', media: '' }],
+            dropdown: {
+                title: '',
+                options: ['']
+            }
         }
 
         this.addHLs = this.addHLs.bind(this);
@@ -68,6 +74,45 @@ class AddProduct extends React.PureComponent {
         newArr[index][property] = e.target.value;
         this.setState({ ...this.state, details: [...newArr] });
     }
+    addVarient = () => {
+        const newArr = [...this.state.varients];
+        newArr.push({ title: '', media: '' });
+        this.setState({ ...this.state, varients: [...newArr] });
+    }
+    removeVarient = (index) => {
+        const newArr = [...this.state.varients];
+        newArr.splice(index, 1);
+        this.setState({ ...this.state, varients: [...newArr] });
+
+    }
+    handleVarient = (e, property, index) => {
+        const newArr = [...this.state.varients];
+        newArr[index][property] = e.target.value;
+        this.setState({ ...this.state, varients: [...newArr] });
+    }
+
+
+    handleTitle = (e) => {
+        const newState = { ...this.state, ...this.state.dropdown };
+        newState.dropdown.title = e.target.value;
+        this.setState(newState);
+    }
+    addDropdownOption = () => {
+        const newArr = [ ...this.state.dropdown.options ];
+        newArr.push('');
+        this.setState({ ...this.state, dropdown: { ...this.state.dropdown, options: [...newArr] } });
+    }
+    removeOptions = (index) => {
+        const newArr = [ ...this.state.dropdown.options ];
+        newArr.splice(index, 1);
+        this.setState({ ...this.state, dropdown: { ...this.state.dropdown, options: [...newArr] } });
+    }
+    optionsHandler = (e, index) => {
+        const newArr = [ ...this.state.dropdown.options ];
+        newArr[index] = e.target.value;
+        this.setState({ ...this.state, dropdown: { ...this.state.dropdown, options: [...newArr] } });
+    }
+
 
     twoWayBind = (e, inputName) => {
         const newState = { ...this.state }
@@ -145,7 +190,17 @@ class AddProduct extends React.PureComponent {
                     </Form.Item>
 
 
-                    <DetailsForm details={this.state.details} addDetails={this.addDetails} removeDetails={this.removeDetails} handleDetails={this.handleDetails} />
+
+                    <KeyValueForm
+                        data={this.state.details}
+                        keyProperty={'key'}
+                        valueProperty={'value'}
+                        keyPH={'Please add Title'}
+                        valuePH={'Please add discription'}
+                        add={this.addDetails}
+                        title={'Specifications'}
+                        remove={this.removeDetails}
+                        handler={this.handleDetails} />
 
                     <Col span={24}>
                         <Form.Item
@@ -196,7 +251,25 @@ class AddProduct extends React.PureComponent {
 
                     <Highlights highlights={this.state.heighlights} addHLs={this.addHLs} HLsHandler={(e, index) => this.HLsHandler(e, index)} removeHLs={(index) => this.removeHLs(index)} />
 
+                    <KeyValueForm
+                        data={this.state.varients}
+                        keyProperty={'title'}
+                        valueProperty={'media'}
+                        keyPH={'Please add Title'}
+                        valuePH={'Please add image url'}
+                        add={this.addVarient}
+                        title={'Varients'}
+                        remove={this.removeVarient}
+                        handler={this.handleVarient} />
                     <hr />
+
+                    <DropdownForm
+                        data={this.state.dropdown}
+                        add={this.addDropdownOption}
+                        titleHandler={this.handleTitle}
+                        handler={this.optionsHandler}
+                        remove={this.removeOptions} />
+
 
 
                 </Form>

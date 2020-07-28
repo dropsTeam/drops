@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Input, Form, Button } from 'antd'
+import { Row, Col, Input, Form, Button } from 'antd';
 
 class Highlights extends React.PureComponent {
 
