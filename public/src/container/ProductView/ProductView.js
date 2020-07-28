@@ -6,6 +6,7 @@ import * as cartActions from '../../Redux/Actions/CartActions'
 import ProductQNA from '../../components/ProductView/ProductQNA/ProductQNA';
 import ProductReviews from '../../components/ProductView/ProductReview/productReview';
 import ProductMediaView from '../../components/ProductView/ProductMediaView/ProductMediaView';
+import { mainHttp } from '../../Axios/Axios';
 
 class ProductView extends React.Component {
 
@@ -51,6 +52,15 @@ class ProductView extends React.Component {
             }
         }
 
+    }
+
+    componentDidMount() {
+        this.fetch();
+    }
+
+    async fetch() {
+        const product = await mainHttp.get(`/products/p/${this.props.match.params.id}`);
+        console.log(product.data);
     }
 
 

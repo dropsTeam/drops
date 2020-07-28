@@ -45,7 +45,7 @@ const get = async (req, res, next) => {
 
         const product = await productModel.findOne({ _id: productId }).lean();
 
-        if (req.app.locals.hasOwnProperty('user') && !!product) {
+        if (Object.prototype.hasOwnProperty.call(req.app.locals, 'user') && !!product) {
             await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $push: { recommendations: productId } });
         }
 
