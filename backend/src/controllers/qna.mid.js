@@ -6,8 +6,9 @@ const postQ = async (req, res, next) => {
 
         const { user } = req.app.locals;
         const { question, productId } = req.body;
+        console.log(question, productId);
 
-        await qnaModel.create({ question, productId, user: user.gId })
+        await qnaModel.create({ question, answer:'', productId, user: { gId: user.gId, fullName: user.fullName } })
         res.status(200).send('ok');
 
     } catch (err) {
@@ -35,6 +36,7 @@ const postA = async (req, res, next) => {
 const get = async (req, res, next) => {
     try {
         const { page, productId } = req.query;
+        console.log(page, productId);
 
         const qna = await qnaModel.find({ productId }).skip(page * 10).limit(10).sort('timeStamp').lean();
         res.status(200).send(qna);

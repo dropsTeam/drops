@@ -5,8 +5,6 @@ import { mainHttp } from '../../../Axios/Axios';
 
 class ProductReviews extends React.PureComponent {
 
-
-
     user = this.props.user;
 
     helpfulMembers = ['ds', 'ds']
@@ -26,31 +24,29 @@ class ProductReviews extends React.PureComponent {
         }
     }
 
-    page = 1;
+    page = 0;
 
-    loadMore = () => {
-        this.page++;
-        this.fetch();
-    }
 
     async fetch() {
         try {
             const newReviews = await mainHttp.get(`/products/reviews/?productId=${this.props.productId}&page=${this.page}`);
-            const newArr = [...this.state.reviews];
-            newArr.push(newReviews.data);
+            let newArr = [...this.state.reviews];
+            newArr = newArr.concat(newReviews.data);
 
             this.setState({
                 ...this.state,
-                reviews: newArr
+                reviews: [...newArr]
             });
+            this.page++;
 
         } catch (err) {
             alert('error occured loading the reviews');
+            console.log(err)
         }
     }
 
     componentDidMount() {
-        this.fetch()
+        this.fetch();
     }
 
     togglePostModal = (isVisible) => {
@@ -87,7 +83,7 @@ class ProductReviews extends React.PureComponent {
                     title={'Such a nice product'}
                     discription={'This is my first Apple Product Purchase. I have been an Android User since the beginning of Smartphone era. I am not an professional Reviewer so whatever I am writing here is totally a unbiased review, as a common man would convey if asked for feedback. So please read if you are interested on a unbiased and non-techy review.'} />
 
-                <a style={{ fontWeight: 600, textDecoration: 'none', padding: '30px 0px', color: 'blue', fontSize: '17px' }} onClick={this.loadMore}>Load More</a>
+                <a style={{ fontWeight: 600, textDecoration: 'none', padding: '30px 0px', color: 'blue', fontSize: '17px' }} onClick={this.fetch}>Load More</a>
 
                 <Modal
                     title="Add a review"
