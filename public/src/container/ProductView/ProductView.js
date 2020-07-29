@@ -56,7 +56,8 @@ class ProductView extends React.Component {
                     options: ['']
                 },
                 media: [''],
-                varients: [{ title: '', media: '' }]
+                varients: [{ title: '', media: '' }],
+                details: [{ key: '', value: '' }]
             },
             selected: {
                 dropdown: { title: '', options: '' },
@@ -71,24 +72,29 @@ class ProductView extends React.Component {
     }
 
     async fetch() {
-        const product = await mainHttp.get(`/products/p/${this.props.match.params.id}`);
-        this.setState({
-            ...this.state,
-            data: { ...product.data },
-            selected: {
-                ...this.state.selected,
-                dropdown: {
-                    ...this.state.selected.dropdown,
-                    title: product.data.dropdown.title,
-                    options: product.data.dropdown.options[0]
-                },
-                varients: {
-                    ...this.state.selected.varients,
-                    title: product.data.varients[0].title,
-                    media: product.data.varients[0].media
+        try {
+            const product = await mainHttp.get(`/products/p/${this.props.match.params.id}`);
+            this.setState({
+                ...this.state,
+                data: { ...product.data },
+                selected: {
+                    ...this.state.selected,
+                    dropdown: {
+                        ...this.state.selected.dropdown,
+                        title: product.data.dropdown.title,
+                        options: product.data.dropdown.options[0]
+                    },
+                    varients: {
+                        ...this.state.selected.varients,
+                        title: product.data.varients[0].title,
+                        media: product.data.varients[0].media
+                    }
                 }
-            }
-        });
+            });
+
+        } catch (err) {
+            this.props.history.goBack();
+        }
     }
 
 
@@ -132,7 +138,6 @@ class ProductView extends React.Component {
             newState.selected.varients.media = this.state.data.varients[value].media;
             this.setState(newState);
         }
-
     }
 
 
@@ -154,6 +159,15 @@ class ProductView extends React.Component {
                 <div onClick={() => this.select('varient', index)} key={index} className="col-3 my-2" >
                     <img style={{ border: (this.state.selected.varients.title === item.title) ? '1.5px solid rgb(156, 156, 156)' : '1.5px dotted rgb(156, 156, 156)', borderRadius: '5px', padding: '5px' }} src={item.media} className="img-fluid " alt=" " />
                     <span style={{ fontSize: '10px', overflow: 'scroll' }}>{item.title}</span>
+                </div>
+            )
+        });
+
+        const MapSpecifications = this.state.data.details.map((item, index) => {
+            return (
+                <div key={index} className="row mt-3 ">
+                    <div className="col-2" style={{ color: '#8d8f91', fontWeight: 500 }}>{item.key}</div>
+                    <div className="col-10">{item.value}</div>
                 </div>
             )
         });
@@ -319,28 +333,9 @@ class ProductView extends React.Component {
 
                             <hr />
 
-                            <div className="mt-4" style={{ fontSize: '14px', fontFamily: 'sans-serif' }}>
-                                <div className="row mt-3 ">
-                                    <div className="col-2" style={{ color: '#8d8f91', fontWeight: 500 }}>In The Box</div>
-                                    <div className="col-10">Handset, EarPods with Lightning Connector, Lightning to USB Cable, USB Power Adapter, Documentation</div>
-                                </div>
-                                <div className="row mt-3 ">
-                                    <div className="col-2" style={{ color: '#8d8f91', fontWeight: 500 }}>Model Number </div>
-                                    <div className="col-10" >MWM02HN/A</div>
-                                </div>
-                                <div className="row mt-3 ">
-                                    <div className="col-2" style={{ color: '#8d8f91', fontWeight: 500 }}>Model Name</div>
-                                    <div className="col-10" >iPhone 11</div>
-                                </div>
-                                <div className="row mt-3 ">
-                                    <div className="col-2" style={{ color: '#8d8f91', fontWeight: 500 }}>Color</div>
-                                    <div className="col-10" >Black</div>
-                                </div>
-                                <div className="row mt-3 ">
-                                    <div className="col-2" style={{ color: '#8d8f91', fontWeight: 500 }}>Browse Type</div>
-                                    <div className="col-10" >Smartphones</div>
-                                </div>
 
+                            <div className="mt-4" style={{ fontSize: '14px', fontFamily: 'sans-serif' }}>
+                                {MapSpecifications}
                             </div>
                         </div>
 
