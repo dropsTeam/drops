@@ -4,7 +4,7 @@ const typ = mongo.Schema.Types;
 mongo.set('runValidators', true);
 
 const schema = new mongo.Schema({
-    projectId: {
+    productId: {
         type: typ.ObjectId,
         required: true
     },

@@ -6,13 +6,14 @@ const userModel = require('../models/user.model');
 const basicProductInfo = async (req, res, next) => {
 
     try {
-        const { productId } = (req.method === 'POST') ? req.body : req.params;
 
-        const product = await productModel.findOne({ _id: productId }).select('title media varients dropdown totalReview price seller').lean();
+        let productId = (req.method === 'POST')? req.body.productId: req.params.productId;
+
+        const product = await productModel.findOne({ _id: productId }).select('title media varients dropdown aveageRaing totalReview price seller').lean();
 
         if (!!!product) { throw 'No Product Found with the given id!' };
 
-        req.app.locals.productInfo = product;
+        req.app.locals.product = product;
 
         next();
 
@@ -60,7 +61,6 @@ const postProduct = async (req, res, next) => {
         const { title, description, details, highlights, media, dropdown, varients, price, category } = req.body;
 
         if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10 || highlights.length > 10 ) throw 'Validation Error.';
-
 
 
         const payload = {

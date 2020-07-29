@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Rate, Form, Input } from 'antd';
+import { Modal, Form, Input } from 'antd';
 import { connect } from 'react-redux';
 import * as cartActions from '../../Redux/Actions/CartActions'
 
@@ -18,37 +18,10 @@ class ProductView extends React.Component {
 
     constructor(props) {
         super(props);
-        this.changeModelView.bind(this);
-
 
         this.state = {
-            view: {
-                reviewModel: false,
-                qnaModel: false
-            },
-            reviewForm: {
-                title: '',
-                discription: '',
-                rating: 1
-            },
-            qnaForm: {
-                question: ''
-            },
-            qna: [
-                {
-                    question: 'for gaming we can buy this',
-                    answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
-                },
-                {
-                    question: 'for gaming we can buy this',
-                    answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
-                },
-            ],
-            reviews: {
-                totalReviews: 11843,
-                averageRating: 4.5,
-                ratings: [60, 20, 5, 4, 10]
-            },
+            
+            
             data: {
                 highlights: [''],
                 dropdown: {
@@ -56,7 +29,8 @@ class ProductView extends React.Component {
                     options: ['']
                 },
                 media: [''],
-                varients: [{ title: '', media: '' }]
+                varients: [{ title: '', media: '' }],
+                details: [{ key: '', value: '' }]
             },
             selected: {
                 dropdown: { title: '', options: '' },
@@ -71,51 +45,47 @@ class ProductView extends React.Component {
     }
 
     async fetch() {
-        const product = await mainHttp.get(`/products/p/${this.props.match.params.id}`);
-        this.setState({
-            ...this.state,
-            data: { ...product.data },
-            selected: {
-                ...this.state.selected,
-                dropdown: {
-                    ...this.state.selected.dropdown,
-                    title: product.data.dropdown.title,
-                    options: product.data.dropdown.options[0]
-                },
-                varients: {
-                    ...this.state.selected.varients,
-                    title: product.data.varients[0].title,
-                    media: product.data.varients[0].media
+        try {
+            const product = await mainHttp.get(`/products/p/${this.props.match.params.id}`);
+
+            this.setState({
+                ...this.state,
+                data: { ...product.data },
+                selected: {
+                    ...this.state.selected,
+                    dropdown: {
+                        ...this.state.selected.dropdown,
+                        title: product.data.dropdown.title,
+                        options: product.data.dropdown.options[0]
+                    },
+                    varients: {
+                        ...this.state.selected.varients,
+                        title: product.data.varients[0].title,
+                        media: product.data.varients[0].media
+                    }
                 }
-            }
-        });
+            });
+
+        } catch (err) {
+            this.props.history.goBack();
+        }
     }
 
-
-    changeModelView = (modelName, isVisible) => {
-
-        const newState = { ...this.state, ...this.state.view };
-        newState.view[modelName] = isVisible;
-        this.setState(newState);
-    }
 
     submitReview = () => {
         alert(this.state.reviewForm.rating);
         this.changeModelView('reviewModel', false)
     }
 
-    submitQNA = () => {
-        this.changeModelView('qnaModel', false);
-        const newState = { ...this.state, ...this.state.qna };
-        newState.qna.unshift({ question: this.state.qnaForm.question, answer: '' });
-    }
+    
 
     addToCart = _ => {
         this.props.$addToCart({
             productId: this.state.data._id,
             quantity: 1,
             varients: { ...this.state.selected.varients },
-            dropdown: { ...this.state.selected.dropdown }
+            dropdown: { ...this.state.selected.dropdown },
+            title: this.state.data.title
         }, this.props.isAuthoised);
     }
 
@@ -132,7 +102,6 @@ class ProductView extends React.Component {
             newState.selected.varients.media = this.state.data.varients[value].media;
             this.setState(newState);
         }
-
     }
 
 
@@ -154,6 +123,15 @@ class ProductView extends React.Component {
                 <div onClick={() => this.select('varient', index)} key={index} className="col-3 my-2" >
                     <img style={{ border: (this.state.selected.varients.title === item.title) ? '1.5px solid rgb(156, 156, 156)' : '1.5px dotted rgb(156, 156, 156)', borderRadius: '5px', padding: '5px' }} src={item.media} className="img-fluid " alt=" " />
                     <span style={{ fontSize: '10px', overflow: 'scroll' }}>{item.title}</span>
+                </div>
+            )
+        });
+
+        const MapSpecifications = this.state.data.details.map((item, index) => {
+            return (
+                <div key={index} className="row mt-3 ">
+                    <div className="col-2" style={{ color: '#8d8f91', fontWeight: 500 }}>{item.key}</div>
+                    <div className="col-10">{item.value}</div>
                 </div>
             )
         });
@@ -319,84 +297,30 @@ class ProductView extends React.Component {
 
                             <hr />
 
-                            <div className="mt-4" style={{ fontSize: '14px', fontFamily: 'sans-serif' }}>
-                                <div className="row mt-3 ">
-                                    <div className="col-2" style={{ color: '#8d8f91', fontWeight: 500 }}>In The Box</div>
-                                    <div className="col-10">Handset, EarPods with Lightning Connector, Lightning to USB Cable, USB Power Adapter, Documentation</div>
-                                </div>
-                                <div className="row mt-3 ">
-                                    <div className="col-2" style={{ color: '#8d8f91', fontWeight: 500 }}>Model Number </div>
-                                    <div className="col-10" >MWM02HN/A</div>
-                                </div>
-                                <div className="row mt-3 ">
-                                    <div className="col-2" style={{ color: '#8d8f91', fontWeight: 500 }}>Model Name</div>
-                                    <div className="col-10" >iPhone 11</div>
-                                </div>
-                                <div className="row mt-3 ">
-                                    <div className="col-2" style={{ color: '#8d8f91', fontWeight: 500 }}>Color</div>
-                                    <div className="col-10" >Black</div>
-                                </div>
-                                <div className="row mt-3 ">
-                                    <div className="col-2" style={{ color: '#8d8f91', fontWeight: 500 }}>Browse Type</div>
-                                    <div className="col-10" >Smartphones</div>
-                                </div>
 
+                            <div className="mt-4" style={{ fontSize: '14px', fontFamily: 'sans-serif' }}>
+                                {MapSpecifications}
                             </div>
                         </div>
 
                         <div style={{ border: '1px solid #dadada', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
                             <ProductQNA
                                 user={this.props.user}
-                                $viewModel={(modelName, isVisible) => this.changeModelView(modelName, isVisible)}
-                                qna={this.state.qna}
+                                productId={this.props.match.params.id}
                                 isAuthorised={this.props.isAuthorised} />
                         </div>
 
                         <div style={{ border: '1px solid #dadada', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
                             <ProductReviews
-                                $viewModel={(modelName, isVisible) => this.changeModelView(modelName, isVisible)}
                                 user={this.props.user}
-                                reviews={this.state.reviews}
+                                productId={this.props.match.params.id}
                                 isAuthorised={this.props.isAuthorised} />
                         </div>
 
 
                     </div>
                 </div>
-                <Modal
-                    title="Add a review"
-                    visible={this.state.view.reviewModel}
-                    onOk={this.submitReview}
-                    onCancel={() => this.changeModelView('reviewModel', false)}>
-
-                    <React.Fragment>
-                        <p>Rating : <Rate className='ml-2' defaultValue={1} onChange={(event) => { const newState = { ...this.state, ...this.state.reviewForm }; newState.reviewForm.rating = event; this.setState(newState) }} /> </p>
-                        <br />
-                        <Form.Item label="Title">
-                            <Input placeholder={'Title'} value={this.state.reviewForm.title} required={true} onChange={(event) => { const newState = { ...this.state, ...this.state.reviewForm }; newState.reviewForm.title = event.target.value; this.setState(newState) }} />
-                        </Form.Item>
-
-                        <p>Discription *</p>
-                        <Input.TextArea value={this.state.reviewForm.discription} onChange={(event) => { const newState = { ...this.state, ...this.state.reviewForm }; newState.reviewForm.discription = event.target.value; this.setState(newState) }} rows={5} placeholder={'Discription (Optional)'} />
-                    </React.Fragment>
-
-                </Modal>
-
-                <Modal
-                    title="Ask a question"
-                    visible={this.state.view.qnaModel}
-                    onOk={this.submitQNA}
-                    onCancel={() => this.changeModelView('qnaModel', false)}>
-
-                    <React.Fragment>
-
-                        <Form.Item label="Question">
-                            <Input placeholder={'Question ?'} value={this.state.qnaForm.question} required={true} onChange={(event) => { const newState = { ...this.state, ...this.state.qnaForm }; newState.qnaForm.question = event.target.value; this.setState(newState) }} />
-                        </Form.Item>
-
-                    </React.Fragment>
-
-                </Modal>
+                
             </div>
         );
 

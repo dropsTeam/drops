@@ -7,7 +7,6 @@ const get = async (req, res, next) => {
         const { productId, page } = req.query;
 
         const reviews = await reviewModel.find({ productId }).sort('helpful').skip(page * 10).limit(10).lean();
-
         res.status(200).send(reviews);
 
     } catch (err) {
@@ -32,7 +31,7 @@ const getMyReview = async (req, res, next) => {
 const post = async (req, res, next) => {
     try {
 
-        const { productId, rating, title, discription } = req.body;
+        let { productId, rating, title, discription } = req.body;
         const { user, product } = req.app.locals;
 
         rating = Math.ceil(rating);
@@ -49,7 +48,7 @@ const post = async (req, res, next) => {
 
         const newRating = ((product.aveageRaing * product.totalReview) + rating) / (product.totalReview + 1);
 
-        const newReview = reviewModel.create({ productId, rating, title, discription, user: {gId: user.gId, fullName: user.fullName} })
+        const newReview = await reviewModel.create({ productId, rating, title, discription, user: {gId: user.gId, fullName: user.fullName} })
 
         await productModel.findOneAndUpdate({ _id: productId }, { aveageRaing: newRating, totalReview: product.totalReview + 1 });
 
@@ -58,7 +57,7 @@ const post = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured while posting the review' }, err);
+        res.status(400).send({ msg: 'Error Occured while posting the review' }, err);
     }
 }
 
@@ -81,8 +80,9 @@ const helpfulDELETE = async (req, res, next) => {
     try {
 
         const { user } = req.app.locals;
-        const { reviewId } = req.body;
-        await reviewModel.findOneAndUpdate({ _id: reviewId }, { $pull: { helpfulMembers: user.gId }, $dec: { helpful: 1 } });
+        const { reviewId } = req.params;
+        console.log(req.params);
+        await reviewModel.findOneAndUpdate({ _id: reviewId }, { $pull: { helpfulMembers: user.gId }, $inc: { helpful: -1 } });
 
         res.status(200).send('ok');
 
