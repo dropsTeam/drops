@@ -90,26 +90,21 @@ class ProductMediaView extends React.PureComponent {
 
 
     render() {
+
+        const renderMedia = this.props.data.map((item, index) => {
+            return (
+                <div key={index} className="col-12 my-2" >
+                    <img src={item} className="img-fluid" alt="" />
+                </div>
+            );
+        });
+
         return (
             <div style={{ position: 'sticky', top: '20px' }}>
                 <div className="row">
                     <div className="col-2 ">
                         <div className="row" style={{ cursor: 'pointer' }}>
-                            <div className="col-12 my-2" >
-                                <img src="https://cdn.mobilephonesdirect.co.uk/images/handsets/480/apple/apple-iphone-x-silver.png" className="img-fluid" alt="" />
-                            </div>
-                            <div className="col-12 my-2">
-                                <img src="https://cdn.mobilephonesdirect.co.uk/images/handsets/480/apple/apple-iphone-x-silver.png" className="img-fluid" alt="" />
-                            </div>
-                            <div className="col-12 my-2">
-                                <img src="https://cdn.mobilephonesdirect.co.uk/images/handsets/480/apple/apple-iphone-x-silver.png" className="img-fluid" alt="" />
-                            </div>
-                            <div className="col-12 my-2">
-                                <img src="https://cdn.mobilephonesdirect.co.uk/images/handsets/480/apple/apple-iphone-x-silver.png" className="img-fluid" alt="" />
-                            </div>
-                            <div className="col-12 my-2">
-                                <img src="https://cdn.mobilephonesdirect.co.uk/images/handsets/480/apple/apple-iphone-x-silver.png" className="img-fluid" alt="" />
-                            </div>
+                            {renderMedia}
                         </div>
                     </div>
 
@@ -136,7 +131,7 @@ class ProductMediaView extends React.PureComponent {
 }
 
 const mapPropsByState = (store) => {
-    
+
 }
 
 export default connect(mapPropsByState)(ProductMediaView);

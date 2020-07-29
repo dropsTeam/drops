@@ -55,6 +55,7 @@ class ProductView extends React.Component {
                     title: '',
                     options: ['']
                 },
+                media: [''],
                 varients: [{ title: '', media: '' }]
             },
             selected: {
@@ -164,7 +165,7 @@ class ProductView extends React.Component {
                 <div className="row">
                     <div className="col-md-4 col-sm-12 " style={{ textAlign: 'center', position: 'relative' }} >
 
-                        <ProductMediaView addToCart={this.addToCart} />
+                        <ProductMediaView data={this.state.data.media} addToCart={this.addToCart} />
 
                     </div>
 
