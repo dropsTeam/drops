@@ -32,12 +32,13 @@ class ProductReviews extends React.PureComponent {
             const newReviews = await mainHttp.get(`/products/reviews/?productId=${this.props.productId}&page=${this.page}`);
             let newArr = [...this.state.reviews];
             newArr = newArr.concat(newReviews.data);
+            console.log(newArr);
 
             this.setState({
                 ...this.state,
                 reviews: [...newArr]
             });
-            
+
             this.page++;
 
         } catch (err) {
@@ -55,7 +56,35 @@ class ProductReviews extends React.PureComponent {
         this.setState(newState);
     }
 
+    submitReview = async () => {
+        try {
+            const review = await mainHttp.post('/products/review', { productId: this.props.productId, ...this.state.reviewForm });
+            let newArr = [...this.state.reviews];
+            newArr.unshift(review);
+            this.setState({ ...this.state, review: [...newArr] });
+            this.togglePostModal(false);
+
+        } catch (err) {
+            console.log(err);
+            alert('Error occured submitting the review.');
+        }
+    }
+
     render() {
+
+        const mapReview = this.state.reviews.map((item, index) => {
+            return (
+                <ProductRating
+                    key={index}
+                    fullName={item.user.fullName}
+                    helpful={item.helpfulMembers.length}
+                    timeStamp={item.timeStamp}
+                    isHelpful={item.helpfulMembers.includes(this.props.user.gId)}
+                    rating={item.rating}
+                    title={item.title}
+                    discription={item.discription} />
+            )
+        });
 
         return (
             <React.Fragment>
@@ -75,15 +104,7 @@ class ProductReviews extends React.PureComponent {
                     </div>
                 </div>
 
-                <ProductRating
-                    fullName={'Jashanpreet Singh'}
-                    helpful={30}
-                    timeStamp={'10 min ago'}
-                    isHelpful={this.helpfulMembers.includes(this.props.user.gId)}
-                    rating={4.5}
-                    title={'Such a nice product'}
-                    discription={'This is my first Apple Product Purchase. I have been an Android User since the beginning of Smartphone era. I am not an professional Reviewer so whatever I am writing here is totally a unbiased review, as a common man would convey if asked for feedback. So please read if you are interested on a unbiased and non-techy review.'} />
-
+                {mapReview}
                 <a style={{ fontWeight: 600, textDecoration: 'none', padding: '30px 0px', color: 'blue', fontSize: '17px' }} onClick={this.fetch}>Load More</a>
 
                 <Modal
