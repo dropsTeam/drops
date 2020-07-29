@@ -5,7 +5,7 @@ import ProductRating from './ProductRatings/ProductRatings'
 
 class ProductReviews extends React.PureComponent {
 
-    
+
 
     user = this.props.user;
     reviews = this.props.reviews;
@@ -13,6 +13,7 @@ class ProductReviews extends React.PureComponent {
     helpfulMembers = ['ds', 'ds']
 
     render() {
+        console.log(this.props.reviews);
         return (
             <React.Fragment>
                 <h3> Ratings & Reviews <button className='btn btn-primary btn-sm float-right' onClick={() => this.props.$viewModel('reviewModel', true)} > Rate Product</button> </h3>
@@ -20,7 +21,7 @@ class ProductReviews extends React.PureComponent {
 
                 <div className='row' >
                     <div className='col-sm-12 col-md-4'>
-                        <h1 style={{ textAlign: 'center' }} > <span className="badge badge-success">{this.reviews.averageRating} &#9734;</span> </h1>
+                        <h1 style={{ textAlign: 'center' }} > <span className="badge badge-success">{this.props.reviews.averageRating} &#9734;</span> </h1>
                     </div>
                     <div className='col-sm-12 col-md-8'>
                         <Progress percent={this.reviews.ratings[0]} strokeColor='#52C41B' />

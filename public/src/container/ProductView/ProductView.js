@@ -74,6 +74,7 @@ class ProductView extends React.Component {
     async fetch() {
         try {
             const product = await mainHttp.get(`/products/p/${this.props.match.params.id}`);
+            console.log(product.data);
             this.setState({
                 ...this.state,
                 data: { ...product.data },
@@ -121,7 +122,8 @@ class ProductView extends React.Component {
             productId: this.state.data._id,
             quantity: 1,
             varients: { ...this.state.selected.varients },
-            dropdown: { ...this.state.selected.dropdown }
+            dropdown: { ...this.state.selected.dropdown },
+            title: this.state.data.title
         }, this.props.isAuthoised);
     }
 
@@ -351,7 +353,11 @@ class ProductView extends React.Component {
                             <ProductReviews
                                 $viewModel={(modelName, isVisible) => this.changeModelView(modelName, isVisible)}
                                 user={this.props.user}
-                                reviews={this.state.reviews}
+                                reviews={{
+                                    totalReviews: this.state.data.totalReview,
+                                    averageRating: this.state.data.aveageRaing,
+                                    ratings: [60, 20, 5, 4, 10]
+                                }}
                                 isAuthorised={this.props.isAuthorised} />
                         </div>
 
