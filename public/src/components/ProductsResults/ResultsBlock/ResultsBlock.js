@@ -1,6 +1,8 @@
-import React,{Component} from 'react';
+import React,{Component,componentDidMount} from 'react';
 import  "../ProductResults.css";
 import ResultsCard from "../ResultsCard/ResultsCard";
+
+import {mainHttp as axios} from "../../../Axios/Axios.js";
 
 
 class ResultsBlock extends Component{
@@ -9,9 +11,10 @@ class ResultsBlock extends Component{
    super(props);
  }
 
+
+ 
+
  render(){
-
-
    return (
      <div className={`d-flex bd-highlight flex-row flex-wrap  .align-content-sm-around align-content-around `}>
       {this.props.numbers.map((item,index)=>

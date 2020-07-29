@@ -7,4 +7,4 @@ const mainHttp = axios.create({
 })
 
 
-export { mainHttp };
+export  {mainHttp} ;

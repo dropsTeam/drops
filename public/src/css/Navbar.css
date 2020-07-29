@@ -16,7 +16,40 @@
 
 .searchbox{
     margin: 8px;
+    margin-left: 4rem;
 }
+
+.searched__list{
+  background-color: rgb(255, 255, 255);
+  border:1px solid white;
+   z-index:9999;
+   margin-left: 5.8rem;
+   margin-top: -0.75rem;;
+   box-shadow: 0px 0px 4px rgb(223, 223, 223);
+   position: absolute;
+}
+
+.searched__list ul{
+  width:520px;
+}
+
+.searched__list li{
+  list-style-type: none;
+  display: block;
+  padding:0.5rem;
+}
+
+.searched__list li:hover{
+   background-color: rgb(241, 241, 241);
+   cursor: pointer;
+}
+
+.show{
+  display: none;
+}
+
+
+
 .rightymenu{
     margin: 4px;
     background-color:#2874F0 ;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
 import * as authActions from './Redux/Actions/AuthActions';
 import * as cartActions from './Redux/Actions/CartActions';
 
@@ -19,7 +20,7 @@ import ProductResults from "./components/ProductsResults/ProductsResults.js"
 import NavBar from './components/Navbar/Navigationbar';
 import SubNav from './components/Navbar/subnav';
 
-import Loading from './components/Loading/Loading';
+import Loading from './components/Navbar/Loading/Loading';
 
 const ProductView = React.lazy(() => import('./container/ProductView/ProductView'));
 const Cart = React.lazy(() => import('./container/cart/cart'));

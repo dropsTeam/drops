@@ -24,8 +24,6 @@ const basicProductInfo = async (req, res, next) => {
 
 
 
-/*          MIDDLEWARES       */
-
 const getbasicProductInfo = async (req, res, next) => {
     try {
         const { product } = req.app.locals;
