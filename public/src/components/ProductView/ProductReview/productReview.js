@@ -56,6 +56,40 @@ class ProductReviews extends React.PureComponent {
         this.setState(newState);
     }
 
+    postHelpful = async (index) => {
+        try {
+            await mainHttp.post('/products/review/helpful', { reviewId: this.state.reviews[index]._id });
+
+            let newArr = [...this.state.reviews];
+            newArr[index].helpful += 1;
+            newArr[index].helpfulMembers.push(this.props.user.gId);
+
+            this.setState({ ...this.state, reviews: [...newArr] });
+
+        } catch (err) {
+            console.log(err);
+            alert('Error Occured posting the helpful request.');
+        }
+    }
+
+    removeHelpful = async (index) => {
+        try {
+            await mainHttp.delete(`/products/review/helpful/${this.state.reviews[index]._id}`);
+
+            let newArr = [...this.state.reviews];
+            
+            newArr[index].helpful -= 1;
+            
+            const mainIndex = newArr[index].helpfulMembers.indexOf(this.props.user.gId);
+            newArr[index].helpfulMembers.splice(mainIndex, 1);
+
+            this.setState({ ...this.state, reviews: [...newArr] });
+
+        } catch (err) {
+            alert('Error Occured posting the delete helpful request.');
+        }
+    }
+
     submitReview = async () => {
         try {
             const review = await mainHttp.post('/products/review', { productId: this.props.productId, ...this.state.reviewForm });
@@ -82,6 +116,9 @@ class ProductReviews extends React.PureComponent {
                     isHelpful={item.helpfulMembers.includes(this.props.user.gId)}
                     rating={item.rating}
                     title={item.title}
+                    index={index}
+                    postHelpful={this.postHelpful}
+                    removeHelpful={this.removeHelpful}
                     discription={item.discription} />
             )
         });

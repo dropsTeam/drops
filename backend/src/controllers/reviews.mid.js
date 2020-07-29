@@ -80,8 +80,9 @@ const helpfulDELETE = async (req, res, next) => {
     try {
 
         const { user } = req.app.locals;
-        const { reviewId } = req.body;
-        await reviewModel.findOneAndUpdate({ _id: reviewId }, { $pull: { helpfulMembers: user.gId }, $dec: { helpful: 1 } });
+        const { reviewId } = req.params;
+        console.log(req.params);
+        await reviewModel.findOneAndUpdate({ _id: reviewId }, { $pull: { helpfulMembers: user.gId }, $inc: { helpful: -1 } });
 
         res.status(200).send('ok');
 

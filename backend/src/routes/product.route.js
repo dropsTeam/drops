@@ -21,7 +21,7 @@ route
 route
     .get('/review/helpful', authC.googleVerify(true, true), reviewC.amIInhelpful)
     .post('/review/helpful', authC.googleVerify(true, true), reviewC.helpfulPOST)
-    .delete('/review/helpful', authC.googleVerify(true, true), reviewC.helpfulDELETE)
+    .delete('/review/helpful/:reviewId', authC.googleVerify(true, true), reviewC.helpfulDELETE)
 
 
 module.exports = route;
