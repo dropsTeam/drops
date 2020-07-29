@@ -44,11 +44,22 @@ class ProductView extends React.Component {
                     answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
                 },
             ],
-
             reviews: {
                 totalReviews: 11843,
                 averageRating: 4.5,
                 ratings: [60, 20, 5, 4, 10]
+            },
+            data: {
+                highlights: [''],
+                dropdown: {
+                    title: '',
+                    options: ['']
+                },
+                varients: [{ title: '', media: '' }]
+            },
+            selected: {
+                dropdown: { title: '', options: '' },
+                varients: { title: '', media: '' },
             }
         }
 
@@ -60,7 +71,23 @@ class ProductView extends React.Component {
 
     async fetch() {
         const product = await mainHttp.get(`/products/p/${this.props.match.params.id}`);
-        console.log(product.data);
+        this.setState({
+            ...this.state,
+            data: { ...product.data },
+            selected: {
+                ...this.state.selected,
+                dropdown: {
+                    ...this.state.selected.dropdown,
+                    title: product.data.dropdown.title,
+                    options: product.data.dropdown.options[0]
+                },
+                varients: {
+                    ...this.state.selected.varients,
+                    title: product.data.varients[0].title,
+                    media: product.data.varients[0].media
+                }
+            }
+        });
     }
 
 
@@ -84,16 +111,51 @@ class ProductView extends React.Component {
 
     addToCart = _ => {
         this.props.$addToCart({
-            productId: '',
+            productId: this.state.data._id,
             quantity: 1,
-            varient: '',
-            dropdown: ''
+            varients: { ...this.state.selected.varients },
+            dropdown: { ...this.state.selected.dropdown }
         }, this.props.isAuthoised);
+    }
+
+    select(selectType, value) {
+        if (selectType === 'dropdown') {
+            const newState = { ...this.state, selected: { ...this.state.selected, dropdown: { ...this.state.selected.dropdown } } };
+            newState.selected.dropdown.options = value;
+            newState.selected.dropdown.title = this.state.data.dropdown.title;
+            this.setState(newState);
+        }
+        if (selectType === 'varient') {
+            const newState = { ...this.state, selected: { ...this.state.selected, varient: { ...this.state.selected.varient } } };
+            newState.selected.varients.title = this.state.data.varients[value].title;
+            newState.selected.varients.media = this.state.data.varients[value].media;
+            this.setState(newState);
+        }
+
     }
 
 
 
     render() {
+
+        const MapHighlights = this.state.data.highlights.map((item, index) => {
+            return (<li key={index}>{item}</li>)
+        });
+
+        const dropdownOptions = this.state.data.dropdown.options.map((item, index) => {
+            return (
+                <span key={index} onClick={() => this.select('dropdown', item)} className={(this.state.selected.dropdown.options === item) ? 'badge m-1 badge-primary' : 'badge m-1 '} style={{ padding: '7px 10px', cursor: 'pointer' }}>{item}</span>
+            )
+        });
+
+        const varientMap = this.state.data.varients.map((item, index) => {
+            return (
+                <div onClick={() => this.select('varient', index)} key={index} className="col-3 my-2" >
+                    <img style={{ border: (this.state.selected.varients.title === item.title) ? '1.5px solid rgb(156, 156, 156)' : '1.5px dotted rgb(156, 156, 156)', borderRadius: '5px', padding: '5px' }} src={item.media} className="img-fluid " alt=" " />
+                    <span style={{ fontSize: '10px', overflow: 'scroll' }}>{item.title}</span>
+                </div>
+            )
+        });
 
 
         let toRender = (
@@ -117,20 +179,20 @@ class ProductView extends React.Component {
                         </ol>
 
                         <div className="my-3" style={{ fontSize: '19px', fontWeight: 500 }}>
-                            Apple iPhone 11 (Black, 64 GB)
-                    </div>
+                            {this.state.data.title}
+                        </div>
 
                         <div>
-                            <span href="#" className="badge badge-success">4.7 &#9734;</span>
+                            <span href="#" className="badge badge-success">{this.state.data.aveageRaing} &#9734;</span>
                             <span className="mx-2" style={{ fontWeight: 500, color: 'gray', fontSize: '14px' }}>
-                                16,083 Ratings &  Reviews
+                                {this.state.data.totalReview} Ratings &  Reviews
                         </span>
                             <img className="img-fluid" style={{ width: '80px' }} src="https://img1a.flixcart.com/www/linchpin/fk-cp-zion/img/fa_8b4b59.png" alt="" />
                         </div>
 
                         <div style={{ fontSize: '27px', fontWeight: 'bold' }} className="my-3">
-                            ₹68,300
-                    </div>
+                            ${this.state.data.price}
+                        </div>
 
                         <p>Available offers</p>
 
@@ -160,19 +222,8 @@ class ProductView extends React.Component {
                                             <div className="row " style={{
                                                 cursor: 'pointer'
                                             }}>
-                                                <div className="col-3 my-2" >
-                                                    <img style={{ border: '1.5px dotted rgb(156, 156, 156)', borderRadius: '5px', padding: '5px' }} src=" https://cdn.mobilephonesdirect.co.uk/images/handsets/480/apple/apple-iphone-x-silver.png " className="img-fluid " alt=" " />
-                                                </div>
-                                                <div className="col-3 my-2">
-                                                    <img style={{ border: '1.5px dotted rgb(156, 156, 156)', borderRadius: '5px', padding: '5px' }} src=" https://cdn.mobilephonesdirect.co.uk/images/handsets/480/apple/apple-iphone-x-silver.png " className="img-fluid " alt=" " />
-                                                </div>
-                                                <div className="col-3 my-2">
-                                                    <img style={{ border: '1.5px dotted rgb(156, 156, 156)', borderRadius: '5px', padding: '5px' }} src=" https://cdn.mobilephonesdirect.co.uk/images/handsets/480/apple/apple-iphone-x-silver.png " className="img-fluid " alt=" " />
-                                                </div>
-                                                <div className="col-3 my-2">
-                                                    <img style={{ border: '1.5px dotted rgb(156, 156, 156)', borderRadius: '5px', padding: '5px' }} src=" https://cdn.mobilephonesdirect.co.uk/images/handsets/480/apple/apple-iphone-x-silver.png " className="img-fluid " alt=" " />
-                                                </div>
 
+                                                {varientMap}
                                             </div>
                                         </div>
 
@@ -182,15 +233,11 @@ class ProductView extends React.Component {
                                 <div className=" col-sm-12 col-md-6 ">
                                     <div className="row">
                                         <div className="col-4" style={{ fontWeight: 600, color: 'gray', fontSize: '14px', textAlign: 'center' }}>
-                                            Storage
-                                    </div>
+                                            {this.state.data.dropdown.title}
+                                        </div>
                                         <div className="col-8">
                                             <div>
-                                                <span className="badge badge-primary m-1" style={{ padding: '7px 10px', cursor: 'pointer' }}>68 GB</span>
-                                                <span className="badge badge-light m-1" style={{ padding: '7px 10px', cursor: 'pointer' }}>128 GB</span>
-                                                <span className="badge badge-light m-1" style={{ padding: '7px 10px', cursor: 'pointer' }}>228 GB</span>
-                                                <span className="badge badge-light m-1" style={{ padding: '7px 10px', cursor: 'pointer' }}>528 GB</span>
-                                                <span className="badge badge-light m-1" style={{ padding: '7px 10px', cursor: 'pointer' }}>1 TB</span>
+                                                {dropdownOptions}
                                             </div>
 
                                         </div>
@@ -213,10 +260,7 @@ class ProductView extends React.Component {
                                     </div>
                                         <div className="col-8">
                                             <ul style={{ fontSize: '14.5px', listStyle: 'disc' }}>
-                                                <li>128 GB ROM</li>
-                                                <li>15.49 cm (6.1 inch) Liquid Retina HD Display</li>
-                                                <li>12MP + 12MP | 12MP Front Camera</li>
-                                                <li>A13 Bionic Chip Processor</li>
+                                                {MapHighlights}
 
                                             </ul>
                                         </div>
@@ -264,10 +308,8 @@ class ProductView extends React.Component {
                                 Description
                         </div>
                             <div className="col-10">
-                                The iPhone 11 features dual 12 MP Ultra Wide (13mm) and Wide (26mm) cameras with 4K video recording up to 60 fps. The Ultra Wide camera provides 120° field of view, letting you capture four times more scene, and the Wide camera provides 100% Focus Pixels
-                                for up to three times faster autofocus in low light.Featuring a 15.49-cm (6.1) all-screen Liquid Retina LCD and a glass and aluminum design, the iPhone 11 is as beautiful as it gets. Also, the IP68 rating ensures that is water-resistant
-                                up to 2 meters for 30 minutes.
-                        </div>
+                                {this.state.data.description}
+                            </div>
 
                         </div>
 
