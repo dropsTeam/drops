@@ -36,12 +36,14 @@ const getCart = async (req, res, next) => {
 const postCart = async (req, res, next) => {
     try {
 
-        const { productId, quantity, varient, dropdown } = req.body;
+        const { productId, quantity, varients, dropdown } = req.body;
         const { product, user } = req.app.locals;
 
+        if(varients.title.trim().length ===0 || varients.media.trim().length === 0) throw 'Validation error';
+        if(dropdown.title.trim().length ===0 || dropdown.options.trim().length === 0) throw 'Validation error';
         let isVarientValid = false;
-        for (const _varient of product.varient) {
-            if (varient.title === _varient.title) { isVarientValid = true; varient = _varient; break; };
+        for (const _varient of product.varients) {
+            if (varients.title === _varient.title) { isVarientValid = true; varients = _varient; break; };
         }
 
         if (!isVarientValid) { throw 'Not a valid varient' };
@@ -58,7 +60,7 @@ const postCart = async (req, res, next) => {
                 cart: {
                     productId,
                     quantity,
-                    varient,
+                    varients,
                     dropdown
                 }
             }
@@ -66,7 +68,7 @@ const postCart = async (req, res, next) => {
         userData.cart.push({
             productId,
             quantity,
-            varient,
+            varients,
             dropdown,
             timeStamp: Date.now()
         });
