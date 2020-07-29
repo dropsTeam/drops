@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Rate, Form, Input } from 'antd';
+import { Modal, Form, Input } from 'antd';
 import { connect } from 'react-redux';
 import * as cartActions from '../../Redux/Actions/CartActions'
 
@@ -18,37 +18,10 @@ class ProductView extends React.Component {
 
     constructor(props) {
         super(props);
-        this.changeModelView.bind(this);
-
 
         this.state = {
-            view: {
-                reviewModel: false,
-                qnaModel: false
-            },
-            reviewForm: {
-                title: '',
-                discription: '',
-                rating: 1
-            },
-            qnaForm: {
-                question: ''
-            },
-            qna: [
-                {
-                    question: 'for gaming we can buy this',
-                    answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
-                },
-                {
-                    question: 'for gaming we can buy this',
-                    answer: 'a big No,,, it s not good for gaming at all. battery performance is very poor.'
-                },
-            ],
-            reviews: {
-                totalReviews: 11843,
-                averageRating: 4.5,
-                ratings: [60, 20, 5, 4, 10]
-            },
+            
+            
             data: {
                 highlights: [''],
                 dropdown: {
@@ -99,23 +72,12 @@ class ProductView extends React.Component {
     }
 
 
-    changeModelView = (modelName, isVisible) => {
-
-        const newState = { ...this.state, ...this.state.view };
-        newState.view[modelName] = isVisible;
-        this.setState(newState);
-    }
-
     submitReview = () => {
         alert(this.state.reviewForm.rating);
         this.changeModelView('reviewModel', false)
     }
 
-    submitQNA = () => {
-        this.changeModelView('qnaModel', false);
-        const newState = { ...this.state, ...this.state.qna };
-        newState.qna.unshift({ question: this.state.qnaForm.question, answer: '' });
-    }
+    
 
     addToCart = _ => {
         this.props.$addToCart({
@@ -351,8 +313,8 @@ class ProductView extends React.Component {
 
                         <div style={{ border: '1px solid #dadada', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
                             <ProductReviews
-                                $viewModel={(modelName, isVisible) => this.changeModelView(modelName, isVisible)}
                                 user={this.props.user}
+                                productId={this.state.data._id}
                                 reviews={{
                                     totalReviews: this.state.data.totalReview,
                                     averageRating: this.state.data.aveageRaing,
@@ -364,40 +326,7 @@ class ProductView extends React.Component {
 
                     </div>
                 </div>
-                <Modal
-                    title="Add a review"
-                    visible={this.state.view.reviewModel}
-                    onOk={this.submitReview}
-                    onCancel={() => this.changeModelView('reviewModel', false)}>
-
-                    <React.Fragment>
-                        <p>Rating : <Rate className='ml-2' defaultValue={1} onChange={(event) => { const newState = { ...this.state, ...this.state.reviewForm }; newState.reviewForm.rating = event; this.setState(newState) }} /> </p>
-                        <br />
-                        <Form.Item label="Title">
-                            <Input placeholder={'Title'} value={this.state.reviewForm.title} required={true} onChange={(event) => { const newState = { ...this.state, ...this.state.reviewForm }; newState.reviewForm.title = event.target.value; this.setState(newState) }} />
-                        </Form.Item>
-
-                        <p>Discription *</p>
-                        <Input.TextArea value={this.state.reviewForm.discription} onChange={(event) => { const newState = { ...this.state, ...this.state.reviewForm }; newState.reviewForm.discription = event.target.value; this.setState(newState) }} rows={5} placeholder={'Discription (Optional)'} />
-                    </React.Fragment>
-
-                </Modal>
-
-                <Modal
-                    title="Ask a question"
-                    visible={this.state.view.qnaModel}
-                    onOk={this.submitQNA}
-                    onCancel={() => this.changeModelView('qnaModel', false)}>
-
-                    <React.Fragment>
-
-                        <Form.Item label="Question">
-                            <Input placeholder={'Question ?'} value={this.state.qnaForm.question} required={true} onChange={(event) => { const newState = { ...this.state, ...this.state.qnaForm }; newState.qnaForm.question = event.target.value; this.setState(newState) }} />
-                        </Form.Item>
-
-                    </React.Fragment>
-
-                </Modal>
+                
             </div>
         );
 
