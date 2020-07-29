@@ -37,6 +37,7 @@ class ProductReviews extends React.PureComponent {
                 ...this.state,
                 reviews: [...newArr]
             });
+            
             this.page++;
 
         } catch (err) {
