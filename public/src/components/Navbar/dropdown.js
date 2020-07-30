@@ -8,6 +8,7 @@ import { useState } from 'react';
 import { Modal, Form, Input, Radio } from 'antd';
 import { mainHttp } from '../../Axios/Axios';
 
+
 const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
   return (
