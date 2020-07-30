@@ -118,6 +118,7 @@ const search = async (req, res, next) => {
         let sortby = 'aveageRaing';
         let sortorder = 1;
 
+
         const payload = {
             $text: {
                 $search: ''
@@ -127,14 +128,20 @@ const search = async (req, res, next) => {
 
         console.log("text searched : "+req.query.text)
 
+
         if (req.query.hasOwnProperty('text')) {
+
         
             console.log(req.query.text.trim().length)
 
             if (req.query.text.trim().length > 0) {
                 console.log("no text ")
+
+
+            if (req.query.text.length !== 0) {
+
                 payload.$text.$search = req.query.text;
-            } else throw 'Text is required';
+            } else { throw 'Text is required here'};
         } else {
             throw 'Text is required';
         }
@@ -169,7 +176,7 @@ const search = async (req, res, next) => {
         // testing
         console.log("search res"+search)
 
-        if (req.app.locals.hasOwnProperty('user') && search.length !== 0) {
+        if (Object.prototype.hasOwnProperty.call(req.app.locals, 'user') && search.length !== 0) {
             await userModel.findOneAndUpdate({ gId: user.gId }, { $push: { searchHistory: req.query.text } });
         }
 
