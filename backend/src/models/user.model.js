@@ -30,16 +30,16 @@ const cartSchema = new mongo.Schema({
             required: true
         }
     },
-    timeStamp: {
-        type: types.Date,
-        default: Date.now
-    },
-    searchHistory: [mongo.Schema({ type: types.String })],
-    recommendations: [mongo.Schema({ type: types.ObjectId })]
 });
 
 
 const schema = mongo.Schema({
+    timeStamp: {
+        type: types.Date,
+        default: Date.now
+    },
+    searchHistory: [String],
+    recommendations: [String],
     gId: { type: types.String },
     profilePic: { type: types.String },
     email: { type: types.String },
@@ -80,16 +80,15 @@ const schema = mongo.Schema({
     seller: {
         name: {
             type: types.String,
-            required: false,
             maxlength: 50,
             trim: true,
-            unique: true
+            default: ''
         },
         bio: {
             type: types.String,
-            maxlength: 1000,
+            maxlength: 3000,
             trim: true,
-            required: false
+            default: ''
         },
         profleImg: {
             type: types.String,

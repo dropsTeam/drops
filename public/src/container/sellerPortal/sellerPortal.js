@@ -116,8 +116,7 @@ class SellerPortal extends React.Component {
                     title="Basic Modal"
                     visible={false}
                     onOk={() => { }}
-                    onCancel={() => { }}
-                >
+                    onCancel={() => { }}>
                     <p>Some contents...</p>
                     <p>Some contents...</p>
                     <p>Some contents...</p>

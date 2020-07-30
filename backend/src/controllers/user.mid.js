@@ -4,7 +4,7 @@ const userModel = require('../models/user.model');
 const get = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
-        const userData = await userModel.findOne({ gId: user.gId }).select('gId profilePic email fullName isSeller userAddress').lean();
+        const userData = await userModel.findOne({ gId: user.gId }).select('gId profilePic email fullName isSeller seller userAddress').lean();
         res.status(200).send(userData);
     }
     catch (err) {
@@ -39,8 +39,8 @@ const postCart = async (req, res, next) => {
         const { productId, quantity, varients, dropdown } = req.body;
         const { product, user } = req.app.locals;
 
-        if(varients.title.trim().length ===0 || varients.media.trim().length === 0) throw 'Validation error';
-        if(dropdown.title.trim().length ===0 || dropdown.options.trim().length === 0) throw 'Validation error';
+        if (varients.title.trim().length === 0 || varients.media.trim().length === 0) throw 'Validation error';
+        if (dropdown.title.trim().length === 0 || dropdown.options.trim().length === 0) throw 'Validation error';
         let isVarientValid = false;
         for (const _varient of product.varients) {
             if (varients.title === _varient.title) { isVarientValid = true; varients = _varient; break; };
@@ -153,10 +153,14 @@ const getRecommendedItems = async (req, res, next) => {
         const { user } = req.app.locals;
 
         const recommendations = await userModel.findOne({ gId: user.gId }).select('recommendations').splice('recommendations', -8).populate({ path: 'recommendations', ref: 'products', select: 'title price totalReview seller aveageRaing media' });
+        res.status(200).send(recommendations);
+
     } catch (err) {
         console.log(err);
         res.status(500).send({ msg: 'Error Occured getting the recommendations .' })
     }
 }
+
+
 
 module.exports = { get, getCart, postCart, deleteCartItem, editCart, getSearchHistory, getRecommendedItems };

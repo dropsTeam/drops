@@ -122,10 +122,11 @@ function isSeller(checkOwnership = false) {
 const signUpAsSeller = async (req, res, next) => {
     try {
 
-        const { name, bio } = req.body;
+        const { name, bio, profileImg } = req.body;
         const { user } = req.app.locals;
 
-        const update = { 'seller.name': name, 'seller.bio': bio, 'seller.profilePic': (!!!req.profilePic) ? 'default' : req.profilePic, isSeller: true }
+
+        const update = { 'seller.name': name, 'seller.bio': bio, 'seller.profileImg': profileImg, isSeller: true }
 
         await userModel.findOneAndUpdate({ gId: user.gId }, update);
         res.status(200).send(update);

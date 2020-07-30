@@ -20,8 +20,8 @@ class ProductView extends React.Component {
         super(props);
 
         this.state = {
-            
-            
+
+
             data: {
                 highlights: [''],
                 dropdown: {
@@ -42,7 +42,9 @@ class ProductView extends React.Component {
 
     componentDidMount() {
         this.fetch();
+
     }
+
 
     async fetch() {
         try {
@@ -66,6 +68,7 @@ class ProductView extends React.Component {
                 }
             });
 
+
         } catch (err) {
             this.props.history.goBack();
         }
@@ -77,7 +80,7 @@ class ProductView extends React.Component {
         this.changeModelView('reviewModel', false)
     }
 
-    
+
 
     addToCart = _ => {
         this.props.$addToCart({
@@ -320,7 +323,7 @@ class ProductView extends React.Component {
 
                     </div>
                 </div>
-                
+
             </div>
         );
 
