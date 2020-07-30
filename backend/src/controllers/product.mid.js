@@ -129,7 +129,7 @@ const search = async (req, res, next) => {
 
         if (req.query.hasOwnProperty('text')) {
             
-            if (req.query.text.trim().length == 0) {
+            if (req.query.text.trim().length !== 0) {
                 payload.$text.$search = req.query.text;
             } else throw 'Text is required';
         } else {
