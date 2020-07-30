@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './productMediaView.module.css'
-import { connect } from 'react-redux';
+
 
 class ProductMediaView extends React.PureComponent {
 
@@ -130,8 +130,6 @@ class ProductMediaView extends React.PureComponent {
     }
 }
 
-const mapPropsByState = (store) => {
 
-}
 
-export default connect(mapPropsByState)(ProductMediaView);
+export default ProductMediaView;

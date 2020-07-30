@@ -7,7 +7,7 @@ const basicProductInfo = async (req, res, next) => {
 
     try {
 
-        let productId = (req.method === 'POST')? req.body.productId: req.params.productId;
+        let productId = (req.method === 'POST') ? req.body.productId : req.params.productId;
 
         const product = await productModel.findOne({ _id: productId }).select('title media varients dropdown aveageRaing totalReview price seller').lean();
 
@@ -43,7 +43,12 @@ const get = async (req, res, next) => {
         const product = await productModel.findOne({ _id: productId }).lean();
 
         if (Object.prototype.hasOwnProperty.call(req.app.locals, 'user') && !!product) {
-            await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $push: { recommendations: productId } });
+            const userr = await userModel.findOne({ gId: req.app.locals.user.gId }).select('recommendations').lean();
+
+            if (!userr.recommendations.includes(productId)) {
+                await userModel.findOneAndUpdate({ gId: user.gId }, { $addToSet: { recommendations: productId } });
+
+            }
         }
 
         res.status(200).send(product);
@@ -60,7 +65,7 @@ const postProduct = async (req, res, next) => {
         const { user } = req.app.locals;
         const { title, description, details, highlights, media, dropdown, varients, price, category } = req.body;
 
-        if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10 || highlights.length > 10 ) throw 'Validation Error.';
+        if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10 || highlights.length > 10) throw 'Validation Error.';
 
 
         const payload = {
