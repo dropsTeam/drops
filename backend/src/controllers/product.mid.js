@@ -163,6 +163,7 @@ const search = async (req, res, next) => {
 
         const search = await productModel.find(payload).select('title media totalReview price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
 
+
         if (Object.prototype.hasOwnProperty.call(req.app.locals, 'user') && search.length !== 0) {
             await userModel.findOneAndUpdate({ gId: user.gId }, { $push: { searchHistory: req.query.text } });
         }
