@@ -125,9 +125,14 @@ const search = async (req, res, next) => {
             price: { $gt: 0, $lt: 10000000 }
         }
 
+        console.log("text searched : "+req.query.text)
 
         if (req.query.hasOwnProperty('text')) {
-            if (req.query.text.trim().length === 0) {
+        
+            console.log(req.query.text.trim().length)
+
+            if (req.query.text.trim().length > 0) {
+                console.log("no text ")
                 payload.$text.$search = req.query.text;
             } else throw 'Text is required';
         } else {
@@ -158,7 +163,11 @@ const search = async (req, res, next) => {
             payload.price.$gt, payload.price.$lt = req.query.range.split("-");
         }
 
+
+        console.log("searching ...")
         const search = await productModel.find(payload).select('title media totalReview price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
+        // testing
+        console.log("search res"+search)
 
         if (req.app.locals.hasOwnProperty('user') && search.length !== 0) {
             await userModel.findOneAndUpdate({ gId: user.gId }, { $push: { searchHistory: req.query.text } });
