@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import  { useState } from 'react';
 import {  Modal, Form, Input, Radio } from 'antd';
 
+
 const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
   return (

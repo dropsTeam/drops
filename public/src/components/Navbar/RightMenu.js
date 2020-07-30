@@ -89,6 +89,7 @@ class RightMenu extends Component {
         }
 
         <DropDown />
+        
         <Menu.Item style={{ position: "relative", right: 25 ,top: '-4px' }} key="1">
           <NavLink to='/cart' style={{ color: 'white' ,textDecoration : "none"}}>
             <Badge count={this.props.cartItems.length} style={{ position: "absolute", top: '7px', right: 10, fontSize: 12, }}><ShoppingCartOutlined style={{ fontSize: 28, top: 7, position: "relative" }} /></Badge>
