@@ -4,7 +4,7 @@ const userModel = require('../models/user.model');
 const get = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
-        const userData = await userModel.findOne({ gId: user.gId }).select('gId profilePic email fullName isSeller userAddress').lean();
+        const userData = await userModel.findOne({ gId: user.gId }).select('gId profilePic email fullName isSeller seller userAddress').lean();
         res.status(200).send(userData);
     }
     catch (err) {

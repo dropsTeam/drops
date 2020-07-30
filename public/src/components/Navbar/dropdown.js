@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Menu, Dropdown, Button, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
+import * as authActions from '../../Redux/Actions/AuthActions';
 
-
-import  { useState } from 'react';
-import {  Modal, Form, Input, Radio } from 'antd';
+import { useState } from 'react';
+import { Modal, Form, Input, Radio } from 'antd';
+import { mainHttp } from '../../Axios/Axios';
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
@@ -26,8 +27,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           .catch(info => {
             console.log('Validate Failed:', info);
           });
-      }}
-    >
+      }}>
       <Form
         form={form}
         layout="vertical"
@@ -37,7 +37,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
         }}
       >
         <Form.Item
-          name="Company Name"
+          name="name"
           label="Company Name"
           rules={[
             {
@@ -48,10 +48,10 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item name="Bio" label="Bio">
+        <Form.Item name="bio" label="Bio">
           <Input type="textarea" />
         </Form.Item>
-        <Form.Item name="Profile Image URL" label="Profile Image URL">
+        <Form.Item name="profileImg" label="Profile Image URL">
           <Input type="textarea" />
         </Form.Item>
       </Form>
@@ -59,12 +59,23 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   );
 };
 
-const CollectionsPage = () => {
+const CollectionsPage = (props) => {
   const [visible, setVisible] = useState(false);
 
-  const onCreate = values => {
-    console.log('Received values of form: ', values);
-    setVisible(false);
+  const onCreate = async values => {
+
+    try {
+      const seller = await mainHttp.post('/user/seller', { ...values });
+      console.log(values);
+      props.signUpAsSeller({ isSeller: true, seller: { ...values } });
+    } catch (err) {
+      console.log(err);
+      alert('oops Error occured signing up a seller');
+    }
+    finally {
+      setVisible(false);
+    }
+
   };
 
   return (
@@ -92,6 +103,11 @@ const CollectionsPage = () => {
 // dropdown at nanbar----------------------
 class DropDown extends Component {
 
+  signUpAsSeller = (sellerInfo) => {
+    console.log(sellerInfo);
+    this.props.setSeller(sellerInfo);
+  }
+
   render() {
     const menu = (
 
@@ -104,12 +120,12 @@ class DropDown extends Component {
         <Menu.Item>
           {
             (this.props.user.isSeller) ? (
-              <a  rel="noopener noreferrer" >
+              <a rel="noopener noreferrer" >
                 Seller Account
               </a>
             ) :
               (
-                  <CollectionsPage />
+                <CollectionsPage signUpAsSeller={this.signUpAsSeller} />
               )
           }
         </Menu.Item>
@@ -137,4 +153,10 @@ const mapPropsToState = (store) => {
   }
 }
 
-export default connect(mapPropsToState, null)(DropDown);
+const mapPropsToDispatch = dispatch => {
+  return {
+    setSeller: (sellerInfo) => dispatch(authActions.setSeller(sellerInfo))
+  }
+}
+
+export default connect(mapPropsToState, mapPropsToDispatch)(DropDown);

@@ -14,14 +14,20 @@ function setUser() {
            
             return dispatch(login(user.data));
         
-
         } catch (err) {
             console.log('Error Occured Setting the user');
             return;
         }
-
     }
 }
+
+
+function setSeller(sellerinfo) {
+    return dispatch => {
+        dispatch({type: ActionType.SET_SELLER, payload: sellerinfo});
+    }
+}
+
 
 function logout() {
     return dispatch => {
@@ -37,4 +43,4 @@ function logout() {
 }
 
 
-export { login, logout, setUser }
+export { login, logout, setUser, setSeller }

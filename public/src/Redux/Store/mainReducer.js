@@ -1,15 +1,21 @@
 import ActionType from '../Actions/ActionType';
+
 // import update from 'immutability-helper';
 
 const init = {
     isAuthorised: false,
-    
+
     user: {
         gId: '',
         fullName: '',
         email: '',
         profilePic: '',
         isSeller: false,
+        seller: {
+            bio: '',
+            name: '',
+            profileImg: ''
+        },
         userAddress: {
             city: '',
             state: '',
@@ -41,13 +47,34 @@ export default function mainReducer(state = init, action) {
 
         case ActionType.LOGIN:
             {
-                let newState = { ...state, isAuthorised: true, user: { ...action.payload } }
+                let newState = {
+                    ...state,
+                    isAuthorised: true,
+                    user: { ...action.payload }
+                }
                 return newState;
             }
 
         case ActionType.LOGOUT:
             {
                 let nState = { ...state, isAuthorised: false, user: {} };
+                return nState;
+            }
+        case ActionType.SET_SELLER:
+            {
+                let nState = {
+                    ...state,
+                    user: {
+                        ...state.user,
+                        isSeller: action.payload.isSeller,
+                        seller: {
+                            ...state.user.seller,
+                            bio: action.payload.seller.bio,
+                            name: action.payload.seller.name,
+                            profileImg: action.payload.seller.profileImg
+                        }
+                    }
+                }
                 return nState;
             }
 
@@ -82,7 +109,7 @@ export default function mainReducer(state = init, action) {
 
         case ActionType.DELETE_CART_ITEM: {
 
-            const cart =  [...state.cartItems];
+            const cart = [...state.cartItems];
             cart.splice(action.payload.index, 1);
             const newState = { ...state };
             return newState;
