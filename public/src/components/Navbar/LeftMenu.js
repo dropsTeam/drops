@@ -57,7 +57,7 @@ class AutoCompletedText extends React.Component{
 handleFocus(e) {
   e.preventDefault();
   console.log('The link was clicked.');
-  axios.get("/user/searchHistory")
+  axios.get("/user/searchHistory/")
     .then(res=>{
       console.log(res);
    })

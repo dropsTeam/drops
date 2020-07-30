@@ -5,14 +5,24 @@ import ResultsCard from "../ResultsCard/ResultsCard";
 import {mainHttp as axios} from "../../../Axios/Axios.js";
 
 
+
+
+
+
 class ResultsBlock extends Component{
 
  constructor(props) {
    super(props);
  }
 
+ componentDidMount(){
+   axios.get("/products/search?text=Mobile&category=Mobile")
+      .then(res=>{
+        console.log(res);
+        console.log("search request")
+     })
+ }
 
- 
 
  render(){
    return (
