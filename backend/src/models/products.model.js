@@ -112,8 +112,8 @@ const schema = mongo.Schema({
 
 });
 
-schema.index({ discription: 'text' });
+schema.index({ title: 'text' });
 
 schema.index({ aveageRaing: 1, price: 1, timeStamp: 1 });
 
-module.exports =  mongo.model('products', schema);
+module.exports = mongo.model('products', schema);

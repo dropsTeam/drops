@@ -114,7 +114,7 @@ const search = async (req, res, next) => {
     try {
 
 
-        let page = 1;
+        let page = 0;
         let sortby = 'aveageRaing';
         let sortorder = 1;
 
@@ -122,15 +122,15 @@ const search = async (req, res, next) => {
             $text: {
                 $search: ''
             },
-            price: { $gt: 0, $lt: 10000000 }
+            
+            // price: { $gt: 0, $lt: 10000000 }
         }
 
-        console.log("text searched : "+req.query.text)
 
         if (req.query.hasOwnProperty('text')) {
-            
+
             if (req.query.text.trim().length !== 0) {
-                payload.$text.$search = req.query.text;
+                payload.$text.$search = req.query.text
             } else throw 'Text is required';
         } else {
             throw 'Text is required';
@@ -162,9 +162,9 @@ const search = async (req, res, next) => {
 
 
         console.log("searching ...")
-        const search = await productModel.find(payload).select('title media totalReview price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
+        const search = await productModel.find(payload, { score: {$meta: "textScore"} }).select('title media totalReview price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
         // testing
-        console.log("search res"+search)
+        console.log("search res" + search)
 
 
 
