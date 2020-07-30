@@ -16,7 +16,7 @@ class ResultsBlock extends Component{
  }
 
  componentDidMount(){
-   axios.get("/products/search?text=Mobile&category=Mobile")
+   axios.get("/products/search?text=apple&category=Mobile")
       .then(res=>{
         console.log(res);
         console.log("search request")
