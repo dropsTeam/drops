@@ -118,6 +118,7 @@ const search = async (req, res, next) => {
         let sortby = 'aveageRaing';
         let sortorder = 1;
 
+
         const payload = {
             $text: {
                 $search: ''
@@ -126,10 +127,12 @@ const search = async (req, res, next) => {
         }
 
 
+
         if (req.query.hasOwnProperty('text')) {
-            if (req.query.text.trim().length === 0) {
+
+            if (req.query.text.length !== 0) {
                 payload.$text.$search = req.query.text;
-            } else throw 'Text is required';
+            } else { throw 'Text is required here'};
         } else {
             throw 'Text is required';
         }
@@ -160,7 +163,7 @@ const search = async (req, res, next) => {
 
         const search = await productModel.find(payload).select('title media totalReview price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
 
-        if (req.app.locals.hasOwnProperty('user') && search.length !== 0) {
+        if (Object.prototype.hasOwnProperty.call(req.app.locals, 'user') && search.length !== 0) {
             await userModel.findOneAndUpdate({ gId: user.gId }, { $push: { searchHistory: req.query.text } });
         }
 
