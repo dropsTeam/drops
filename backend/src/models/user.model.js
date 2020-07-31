@@ -68,7 +68,6 @@ const schema = mongo.Schema({
     }
 });
 
-cartSchema.index({ gId: 1 }, { unique: true });
 
 
 module.exports = mongo.model('users', schema);
