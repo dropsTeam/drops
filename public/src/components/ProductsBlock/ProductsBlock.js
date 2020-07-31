@@ -21,6 +21,9 @@ import 'antd/dist/antd.css';
 class ProductBlock extends Component {
   constructor(props) {
     super(props);
+    this.state={
+      recommendedProducts : ''
+    }
   }
 
 
@@ -30,6 +33,7 @@ class ProductBlock extends Component {
   axios.get("/user/recommendation/")
      .then(res=>{
        console.log({recommendations : res.data.recommendations});
+       this.setState({recommendedProducts : res.data.recommendations})
     })
   }
 
@@ -52,6 +56,17 @@ class ProductBlock extends Component {
 
         {/* product scroll bars */}
         <ProductScrollBars title={"Deals of the Day"} arr={scrollArr} /> 
+        {/* product scroll bars for the recommended products */}
+        <ProductScrollBars title={"Recommendations"} arr={this.props.recommendedProducts > 0 ? this.props.recommendedProducts : 
+              [{
+                id:1,
+                title : "Thermometer",
+                tag : 'Sale 80%',
+                brands: " JBL, Sony and more",
+                price: "$200",
+                img : "https://rukminim1.flixcart.com/image/150/150/k9pynww0/digital-thermometer/2/q/w/four-star-tg818c-infrared-thermometer-original-imafrgd98nqdudax.jpeg?q=70"
+              }] 
+            } />
 
         {/* product ads */}
         <ProductAds arr={adsArr1} />
