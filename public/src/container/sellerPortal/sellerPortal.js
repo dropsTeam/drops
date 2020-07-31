@@ -19,7 +19,8 @@ class SellerPortal extends React.Component {
                 AddProduct: false,
                 EditSellerProfile: false,
                 AnswerQuestions: false
-            }
+            },
+            products : []
         }
 
         this.toggleModal.bind(this);
@@ -29,7 +30,11 @@ class SellerPortal extends React.Component {
     componentDidMount(){
        axios.get("/products/seller")
         .then(res=>{
-            console.log(res)
+            console.log(res.data)
+            return res.data;
+        })
+        .then(res=>{
+            this.setState({products : res})
         })
     }
 
@@ -44,6 +49,8 @@ class SellerPortal extends React.Component {
     }
 
     render() {
+
+        console.log(this.state.products)
 
         const menu = (
             <Menu>
@@ -67,6 +74,7 @@ class SellerPortal extends React.Component {
 
 
         return (
+
             <div>
                 <AddProduct isVisible={this.state.view.AddProduct} $toggleModal={(modalName, visible) => this.toggleModal(modalName, visible)} />
                 <EditSellerProfile isVisible={this.state.view.EditSellerProfile} $toggleModal={(modalName, visible) => this.toggleModal(modalName, visible)} />
@@ -122,7 +130,7 @@ class SellerPortal extends React.Component {
                         className={styles.results__block}
                     >
                         <ResultsBlock 
-                        //    numbers={numbers} 
+                           numbers={this.state.products} 
                         />
                     </div>
                 </div>
