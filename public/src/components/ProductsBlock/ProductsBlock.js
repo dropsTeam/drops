@@ -1,6 +1,8 @@
 import React,{Component} from 'react';
 // importing axios
 import {mainHttp as axios} from "../../Axios/Axios.js";
+// initializing  the redux-------------------------------------
+import { connect } from 'react-redux';
 // nested components of the product block
 import ProductScrollBars from "../ProductCards/ProductScrollBars/ProductScrollBars.js";
 import ProductCategories from "../ProductCards/ProductCategories/ProductCategories.js"
@@ -57,7 +59,8 @@ class ProductBlock extends Component {
         {/* product scroll bars */}
         <ProductScrollBars title={"Deals of the Day"} arr={scrollArr} /> 
         {/* product scroll bars for the recommended products */}
-        <ProductScrollBars title={"Recommendations"} arr={this.props.recommendedProducts > 0 ? this.props.recommendedProducts : 
+        {this.props.isAuthorised ? 
+            <ProductScrollBars title={"Recommendations"} arr={this.props.recommendedProducts > 0 ? this.props.recommendedProducts : 
               [{
                 id:1,
                 title : "Thermometer",
@@ -66,7 +69,11 @@ class ProductBlock extends Component {
                 price: "$200",
                 img : "https://rukminim1.flixcart.com/image/150/150/k9pynww0/digital-thermometer/2/q/w/four-star-tg818c-infrared-thermometer-original-imafrgd98nqdudax.jpeg?q=70"
               }] 
-            } />
+             } 
+            /> 
+            :
+            ""
+        }
 
         {/* product ads */}
         <ProductAds arr={adsArr1} />
@@ -87,7 +94,17 @@ class ProductBlock extends Component {
 }
 
 
-export default ProductBlock;
+// if the user is not authorised don't show   
+
+const mapPropsToState = (store) => {
+  return {
+      isAuthorised: store.isAuthorised
+  }
+}
+
+export default connect(mapPropsToState)(ProductBlock)
+
+
 
 
 
