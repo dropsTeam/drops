@@ -6,8 +6,9 @@ import styles from './sellerPortal.module.css';
 import AddProduct from './Modals/AddProduct';
 import EditSellerProfile from './Modals/EditSellerProfile';
 import AnswerQuestionModal from './Modals/answerQuestions';
+import OrederViews from '../../components/OrdersViews/OrderViews';
 
-import {mainHttp as axios} from "../../Axios/Axios";
+import { mainHttp as axios } from "../../Axios/Axios";
 
 class SellerPortal extends React.Component {
 
@@ -20,22 +21,22 @@ class SellerPortal extends React.Component {
                 EditSellerProfile: false,
                 AnswerQuestions: false
             },
-            products : []
+            products: []
         }
 
         this.toggleModal.bind(this);
     }
 
 
-    componentDidMount(){
-       axios.get("/products/seller")
-        .then(res=>{
-            console.log(res.data)
-            return res.data;
-        })
-        .then(res=>{
-            this.setState({products : res})
-        })
+    componentDidMount() {
+        axios.get("/products/seller")
+            .then(res => {
+                console.log(res.data)
+                return res.data;
+            })
+            .then(res => {
+                this.setState({ products: res })
+            })
     }
 
 
@@ -129,13 +130,15 @@ class SellerPortal extends React.Component {
                     <div
                         className={styles.results__block}
                     >
-                        <ResultsBlock 
-                           numbers={this.state.products} 
+                        <ResultsBlock
+                            numbers={this.state.products}
                         />
                     </div>
                 </div>
 
-                <AnswerQuestionModal $toggleModal={(a,b) => this.toggleModal(a,b)} isVisible={this.state.view.AnswerQuestions} />
+                <OrederViews />
+
+                <AnswerQuestionModal $toggleModal={(a, b) => this.toggleModal(a, b)} isVisible={this.state.view.AnswerQuestions} />
 
 
 
