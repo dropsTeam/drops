@@ -142,10 +142,6 @@ class LeftMenu extends Component{
     return (
        <div className={`searched__list`}>
           <AutoCompletedText />
-          {/* <Search
-          enterButton
-          size="medium" */}
-      
        </div>
     )
   }

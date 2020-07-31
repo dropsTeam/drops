@@ -6,33 +6,6 @@ import ResultsBlock from "./ResultsBlock/ResultsBlock.js"
 import {App,Sider} from "./FiltersMenu/FiltersMenu"
 
 
-// export class ResultsBlock extends Component{
-
-//   constructor(props) {
-//     super(props);
-//   }
-
-//   render(){
-
-
-//     return (
-//       <div className="d-flex bd-highlight flex-row flex-wrap  align-content-end">
-//       {this.props.numbers.map((item,index)=>
-//            <ResultsCard 
-//               id={item.id} 
-//               title={item.title}
-//               price={item.price} 
-//               img={item.img}  
-//               key={index} 
-//               flipkartImg="http://img1a.flixcart.com/www/linchpin/fk-cp-zion/img/fa_8b4b59.png"
-//             />
-//          )}
-//   </div>
-//     )
-//   }
-// }
-
-
 
 // filters block
 class Filters extends Component {
@@ -86,6 +59,8 @@ class Results extends Component {
  }
 }
 
+
+// and here is the whole block of results containing the filters and resulting products block
 
 // main  searched product results container---------------------------------------------------------------
 class ProductResults extends React.Component {
@@ -154,10 +129,5 @@ const numbers = [
   title : "T-Shirt",
   price : "250"
  }
-//  {
-//   id:8,
-//   img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
-//   title : "T-Shirt",
-//   price : "450"
-//  }
+
 ]
