@@ -10,7 +10,6 @@ const { Search } = Input;
 
 
 
-
 //  the autocomplete component for searching  the products----
 class AutoCompletedText extends React.Component {
   constructor(props) {
@@ -104,11 +103,9 @@ class AutoCompletedText extends React.Component {
 
   //  searching the product and redirecting to the results page-----
   handleSearch(value) {
-
     this.props.history.push({
       pathname: `/results/${value}`
     })
-
   }
 
 

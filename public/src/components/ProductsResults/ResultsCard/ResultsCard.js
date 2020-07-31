@@ -6,13 +6,11 @@ import  "./ResultsCard.css";
 class ResultsCard extends React.Component {
  constructor(props) {
   super(props);
-
-
+  
   this.multiply = this.multiply.bind(this);
  }
 
  multiply = (a, b) => a * b;
-
 
 
 render() {
@@ -34,7 +32,7 @@ render() {
         <span className="resultsCard__heading" >{this.props.title}</span>
         <p>
           <span style={{ textAlign: 'center' }} > <span className="badge badge-success">{this.props.rating} &#9734;</span> </span>
-          <span className="review__count">({this.props.totalReviews})</span>
+          <span className="review__count">({this.props.totalReviews > 0 ? this.props.totalReviews : "No Reviews"})</span>
           <span><img className="assured__tag" src={this.props.flipkartImg} ></img></span>
         </p>
        </div>

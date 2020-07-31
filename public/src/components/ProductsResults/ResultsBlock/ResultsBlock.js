@@ -6,9 +6,6 @@ import {mainHttp as axios} from "../../../Axios/Axios.js";
 
 
 
-
-
-
 class ResultsBlock extends Component{
 
  constructor(props) {
