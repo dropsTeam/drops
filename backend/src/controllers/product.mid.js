@@ -168,7 +168,7 @@ const search = async (req, res, next) => {
 
         if (Object.prototype.hasOwnProperty.call(req.app.locals, 'user') && search.length !== 0) {
 
-            await userModel.findOneAndUpdate({ gId: user.gId }, { $push: { searchHistory: req.query.text } });
+            await userModel.findOneAndUpdate({ gId: req.app.locals.user }, { $push: { searchHistory: req.query.text } });
         }
 
         res.status(200).send(search);
