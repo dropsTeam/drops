@@ -5,7 +5,7 @@
 @media screen and (min-width:1200px){
   .resultsCard__container{
     margin:0.5rem;
-    max-width:24%;
+    max-width:23%;
     transition: 0.2s all ease;
     justify-content: space-around;
     &:hover{
@@ -20,7 +20,7 @@
 @media screen and (max-width:1025px){
   .resultsCard__container{
     margin:0.6rem;
-    max-width:31%;
+    max-width:29%;
     transition: 0.2s all ease;
     &:hover{
      box-shadow: 0px 0px 5px rgb(218, 218, 218);
@@ -35,8 +35,8 @@
 .resultsImage__container{
 margin:0 auto;
  margin-bottom:0.5rem;
- height: 230px;
- width:200px;
+ height: 200px;
+ width:120px;
  .resultsImage__wrapper{
   padding:0 0.5rem;
   img{
@@ -65,8 +65,8 @@ margin:0 auto;
  .resultsImage__container{
   margin:0 auto;
    margin-bottom:0.5rem;
-   height: 230px;
-   width:200px;
+   height: 200px;
+   width:130px;
    .resultsImage__wrapper{
     padding:0 0.5rem;
     img{
@@ -105,7 +105,7 @@ margin:0 auto;
   margin:1rem auto;
    margin-bottom:0.5rem;
    height: 150px;
-   width:110px;
+   width:90px;
    .resultsImage__wrapper{
     padding:0 0.5rem;
 

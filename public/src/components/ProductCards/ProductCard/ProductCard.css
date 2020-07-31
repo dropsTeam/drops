@@ -32,17 +32,19 @@
 }
 
 .image__wrapper{
-  padding:0rem 1rem;
+  padding:0rem 0.5rem;
 }
 
-.image__content{
-  height:120px;
-  padding:0rem 1rem;
+.image__wrapper img{
+  height:130px;
+  width:110px;
+  padding:0rem 0rem;
 }
+
 
 
 img{
- width:100%;
+ width:100px;
  height: 100%;
  /* border:1px solid black; */
 }

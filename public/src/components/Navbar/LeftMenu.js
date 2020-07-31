@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
+import { withRouter  } from 'react-router-dom';
 // import categories from "./Country"
 import {mainHttp as axios} from "../../Axios/Axios.js";
 import { Input, Dropdown} from 'antd';
 // initialising redux for checking authorised users----
 import { connect } from 'react-redux';
 const { Search } = Input;
+
+
 
 
 
@@ -20,6 +23,7 @@ class AutoCompletedText extends React.Component{
    this.onTextChange = this.onTextChange.bind(this.onTextChange)
    this.handleFocus = this.handleFocus.bind(this);
    this.handleBlur = this.handleBlur.bind(this);
+   this.handleSearch = this.handleSearch.bind(this);
  }
 
 
@@ -98,6 +102,12 @@ onTextChange=(e) => {
  }
 
 
+//  searching the product
+  handleSearch(value){
+     console.log(value)
+     this.props.history.push('/results');
+  }
+
 
 
 
@@ -109,10 +119,11 @@ render(){
           enterButton
           size="medium"
           value={text}
-          onSearch={value => console.log(value)}
+          onSearch={value => this.handleSearch(value)}
           onChange={this.onTextChange} 
           onFocus={this.handleFocus}  
-          onBlur={this.handleBlur} 
+          onBlur={this.handleBlur}
+        
         />
       {this.renderSuggestions()}
       </>
@@ -133,7 +144,7 @@ class LeftMenu extends Component{
     let defaultHistory = ["Mens Clothes","Women Clothes","Electronics","Handbags","Mobile","Home & Decor"];
     return (
        <div className={`searched__list`}>
-          <AutoCompletedText  searchedCategories={this.props.isAuthorised ? '' : defaultHistory} />
+          <AutoCompletedText history={this.props.history}  searchedCategories={this.props.isAuthorised ? '' : defaultHistory} />
        </div>
     )
   }
@@ -146,6 +157,6 @@ const mapPropsToState = (store) => {
 }
 
 
-export default connect(mapPropsToState)(LeftMenu)
+export default connect(mapPropsToState)(withRouter(LeftMenu))
 
 
