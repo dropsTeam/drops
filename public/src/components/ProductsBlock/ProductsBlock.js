@@ -24,7 +24,7 @@ class ProductBlock extends Component {
   constructor(props) {
     super(props);
     this.state={
-      recommendedProducts : ''
+      recommendedProducts : []
     }
   }
 
@@ -36,17 +36,21 @@ class ProductBlock extends Component {
   //  if(this.props.isAuthorised){
     axios.get("/user/recommendation/")
       .then(res=>{
-        console.log({data : res.data});
-        console.log({recommendations : res.data.recommendations});
-        this.setState({recommendedProducts : res.data.recommendations})
+        console.log({recommendations : res.data.recommendations});  
+        return res.data.recommendations
       })
+       .then(res=>{
+        this.setState({recommendedProducts : res})
+       })
   //  }
   }
 
 
   render() {
+   
     return (
       <>
+       {/* {this.state.recommendedProducts.length > 0   ?  */}
       <div className="main__container">
         {/* carousal  */}
         <Carousel  slides={carouselSlidesData}/>
@@ -66,19 +70,8 @@ class ProductBlock extends Component {
         {/* product scroll bars for the recommended products */}
 
         {this.props.isAuthorised ? 
-            <ProductScrollBars title={"Recommendations"} arr={this.props.recommendedProducts > 0 ? this.props.recommendedProducts : 
-              [{
-                id:1,
-                title : "Thermometer",
-                tag : 'Sale 80%',
-                brands: " JBL, Sony and more",
-                price: "$200",
-                img : "https://rukminim1.flixcart.com/image/150/150/k9pynww0/digital-thermometer/2/q/w/four-star-tg818c-infrared-thermometer-original-imafrgd98nqdudax.jpeg?q=70"
-              }] 
-             } 
-            /> 
-           :
-          " "
+            <ProductScrollBars title={"Recommendations"} arr={this.state.recommendedProducts}/>
+            : '' 
          }
 
         {/* product ads */}
@@ -92,9 +85,11 @@ class ProductBlock extends Component {
         {/* product ads */}
         <ProductAds arr={adsArr2} />
       </div>
-     </>
+       {/* : ""} */}
+     </> 
 
     )
+
   }
 
 }
