@@ -29,13 +29,13 @@ class AutoCompletedText extends React.Component{
  }
 
 
- componentDidMount(){
-  axios.get("/user/recommendation/")
-     .then(res=>{
-       console.log(res);
-       console.log("search request")
-    })
-}
+//  componentDidMount(){
+//   axios.get("/user/recommendation/")
+//      .then(res=>{
+//        console.log(res);
+//        console.log("search request")
+//     })
+// }
 
 
 
