@@ -32,11 +32,15 @@ class ProductBlock extends Component {
 
   //  for creating the array in the recommendation scroll bars in  the home page -------------
  componentDidMount(){
-  axios.get("/user/recommendation/")
-     .then(res=>{
-       console.log({recommendations : res.data.recommendations});
-       this.setState({recommendedProducts : res.data.recommendations})
-    })
+   console.log(this.props)
+  //  if(this.props.isAuthorised){
+    axios.get("/user/recommendation/")
+      .then(res=>{
+        console.log({data : res.data});
+        console.log({recommendations : res.data.recommendations});
+        this.setState({recommendedProducts : res.data.recommendations})
+      })
+  //  }
   }
 
 
@@ -58,7 +62,9 @@ class ProductBlock extends Component {
 
         {/* product scroll bars */}
         <ProductScrollBars title={"Deals of the Day"} arr={scrollArr} /> 
+
         {/* product scroll bars for the recommended products */}
+
         {this.props.isAuthorised ? 
             <ProductScrollBars title={"Recommendations"} arr={this.props.recommendedProducts > 0 ? this.props.recommendedProducts : 
               [{
@@ -71,9 +77,9 @@ class ProductBlock extends Component {
               }] 
              } 
             /> 
-            :
-            ""
-        }
+           :
+          " "
+         }
 
         {/* product ads */}
         <ProductAds arr={adsArr1} />
