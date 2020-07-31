@@ -46,7 +46,7 @@ const get = async (req, res, next) => {
             const userr = await userModel.findOne({ gId: req.app.locals.user.gId }).select('recommendations').lean();
 
             if (!userr.recommendations.includes(productId)) {
-                await userModel.findOneAndUpdate({ gId: user.gId }, { $addToSet: { recommendations: productId } });
+                await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $addToSet: { recommendations: productId } });
 
             }
         }

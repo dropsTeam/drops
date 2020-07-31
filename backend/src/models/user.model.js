@@ -39,7 +39,7 @@ const schema = mongo.Schema({
         default: Date.now
     },
     searchHistory: [String],
-    recommendations: [String],
+    recommendations: [{type: types.ObjectId, ref:'products'}],
     gId: { type: types.String },
     profilePic: { type: types.String },
     email: { type: types.String },
