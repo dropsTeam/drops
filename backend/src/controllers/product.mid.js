@@ -161,10 +161,8 @@ const search = async (req, res, next) => {
         }
 
 
-        console.log("searching ...")
+
         const search = await productModel.find(payload, { score: {$meta: "textScore"} }).select('title media totalReview price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
-        // testing
-        console.log("search res" + search)
 
 
 
