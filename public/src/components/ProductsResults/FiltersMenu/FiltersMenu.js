@@ -1,39 +1,15 @@
-import React,{Component} from 'react';
+import React from 'react';
 import { Menu , Tabs} from 'antd';
-import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 
 import IntegerStep from "../Slider/Slider"
-
 
 const { SubMenu } = Menu;
 const { TabPane } = Tabs;
 
-function callback(key) {
-  console.log(key);
-}
-
-const Demo = () => (
-  <Tabs defaultActiveKey="1" onChange={callback}>
-    <TabPane tab="SortBy" disabled key="1">
-      {/* SortBy */}
-    </TabPane>
-    <TabPane tab="Popularity" key="2">
-      Popularity
-    </TabPane>
-    <TabPane tab="Price -- Low To High" key="3">
-      Price -- Low To High
-    </TabPane>
-    <TabPane tab="Price -- High To Low" key="4">
-      Price -- High To Low
-    </TabPane>
-    <TabPane tab="Newest First" key="5">
-    
-    </TabPane>
-  </Tabs>
-);
 
 
 
+// Two different components for different screen sizes---------------------
 
 class Sider extends React.Component {
   // submenu keys of first level
@@ -111,7 +87,7 @@ class Sider extends React.Component {
 
 
 
-
+// smaller screen sizes
 class App extends React.Component {
   state = {
     current: 'mail',
@@ -166,24 +142,7 @@ class App extends React.Component {
            <label for="vehicle1" className="radio__label"> 3* Rating</label><br></br>
           </p>
         </SubMenu>
-        <SubMenu key="sub4" className="filters__option"  title="PRICES">
-          <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label for="vehicle1" className="radio__label"> I have a bike</label><br></br>
-          </p>
-          <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label for="vehicle1" className="radio__label"> I have a bike</label><br></br>
-          </p>
-          <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label for="vehicle1" className="radio__label"> I have a bike</label><br></br>
-          </p>
-          <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label for="vehicle1" className="radio__label"> I have a bike</label><br></br>
-          </p>
-        </SubMenu>
+        
       </Menu>
     );
   }

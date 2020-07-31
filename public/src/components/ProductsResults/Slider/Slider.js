@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 import { Slider, InputNumber, Row, Col } from 'antd';
 
 
@@ -43,22 +43,22 @@ class IntegerStep extends React.Component {
         </Row>
         <Row>
           <div className="site-input-number-wrapper">
-            <InputNumber 
+            $<InputNumber 
                min={1} 
                max={20000} 
                defaultValue={3} 
                onChange={this.onChangeMin} 
-               value={`$${this.state.priceMin}`}
+               value={`${this.state.priceMin}`}
              /> 
              
-             to  
+               
             
-            <InputNumber 
+            to<InputNumber 
                min={1} 
                max={20000} 
                defaultValue={50} 
                onChange={this.onChangeMax} 
-               value={`$${this.state.priceMax}`}
+               value={`${this.state.priceMax}`}
              />
           </div>
        </Row>
