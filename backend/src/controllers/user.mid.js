@@ -160,7 +160,7 @@ const getRecommendedItems = async (req, res, next) => {
                 ref: 'products',
                 select: 'title price totalReview seller aveageRaing media'
             });
-        console.log(recommendations);
+
         res.status(200).send(recommendations);
 
     } catch (err) {
