@@ -1,4 +1,7 @@
 import React,{Component} from 'react';
+// importing axios
+import {mainHttp as axios} from "../../Axios/Axios.js";
+// nested components of the product block
 import ProductScrollBars from "../ProductCards/ProductScrollBars/ProductScrollBars.js";
 import ProductCategories from "../ProductCards/ProductCategories/ProductCategories.js"
 import ProductAds from "../ProductCards/ProductsAds/ProductAds.js"
@@ -19,6 +22,17 @@ class ProductBlock extends Component {
   constructor(props) {
     super(props);
   }
+
+
+
+  //  for creating the array in the recommendation scroll bars in  the home page -------------
+ componentDidMount(){
+  axios.get("/user/recommendation/")
+     .then(res=>{
+       console.log({recommendations : res.data.recommendations});
+    })
+  }
+
 
   render() {
     return (

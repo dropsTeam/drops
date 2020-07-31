@@ -1,27 +1,21 @@
 import React, { Component } from 'react';
-// import Countries from "./Country"
+// import categories from "./Country"
 import {mainHttp as axios} from "../../Axios/Axios.js";
 import { Input, Dropdown} from 'antd';
-import ButtonGroup from 'antd/lib/button/button-group';
+// initialising redux for checking authorised users----
+import { connect } from 'react-redux';
 const { Search } = Input;
 
-const Countries =[
-  "T-Shirts",
-  "Lipsticks",
-  "Home Decor",
-  "Electronics",
-  "Men'wear",
-  "Kids Clothes"
-]
 
 
+//  the autocomplete component for searching  the products----
 class AutoCompletedText extends React.Component{
  constructor(props){
    super(props);
    this.state={
-     suggestions:Countries,
+     suggestions: this.props.searchedCategories,
      text:'',
-     focus:false
+     focus:false,
    }
    this.onTextChange = this.onTextChange.bind(this.onTextChange)
    this.handleFocus = this.handleFocus.bind(this);
@@ -29,40 +23,7 @@ class AutoCompletedText extends React.Component{
  }
 
 
-//  componentDidMount(){
-//   axios.get("/user/recommendation/")
-//      .then(res=>{
-//        console.log(res);
-//        console.log("search request")
-//     })
-// }
 
-
-
-
- onTextChange=(e) => {
-  let suggestions = Countries;
-  let value = e.target.value;
-  if(value.length > 0){
-    let patt = new RegExp(`^${value}`,'i')
-    suggestions = Countries.filter(v => patt.test(v));
-  }
-
-   this.setState({
-     text:e.target.value,
-     suggestions : suggestions
-   })
- }
- 
-
- selectedItem = (value) =>{
-  this.setState({
-    text:value,
-    suggestions:Countries,
-    focus:true
-  })
-  this.setState({focus:false})
-}
 
 
 handleFocus(e) {
@@ -71,6 +32,7 @@ handleFocus(e) {
   axios.get("/user/searchHistory/")
     .then(res=>{
       console.log(res);
+      this.setState({suggestions : res.data})
    })
   this.setState({focus:true}) 
 }
@@ -82,6 +44,35 @@ handleBlur(e) {
   this.renderSuggestions()
   setTimeout(()=>this.setState({focus:false}) ,200) 
 }
+
+
+
+
+onTextChange=(e) => {
+  let suggestions = this.state.suggestions;
+  let value = e.target.value;
+  if(value.length > 0){
+    let patt = new RegExp(`^${value}`,'i')
+    suggestions = suggestions.filter(v => patt.test(v));
+  }
+
+   this.setState({
+     text:e.target.value,
+     suggestions : suggestions
+   })
+ }
+ 
+
+ selectedItem = (value) =>{
+  console.log({"categories on  selection":this.state.suggestions})
+  this.setState({
+    text:value,
+    suggestions:this.state.suggestions,
+    focus:true
+  })
+  this.setState({focus:false})
+}
+
 
  renderSuggestions = () => {
    if(this.state.suggestions.length == 0){
@@ -111,7 +102,7 @@ handleBlur(e) {
 
 
 render(){
-  const {suggestions,text} = this.state;
+  const {text} = this.state;
    return(
       <>
         <Search
@@ -130,23 +121,31 @@ render(){
 }
 
 
+
+// the main left menu component------
 class LeftMenu extends Component{
 
   constructor(props) {
     super(props);
   }
 
-
   render(){
-    let focus = this.props.focus;
+    let defaultHistory = ["Mens Clothes","Women Clothes","Electronics","Handbags","Mobile","Home & Decor"];
     return (
        <div className={`searched__list`}>
-          <AutoCompletedText />
+          <AutoCompletedText  searchedCategories={this.props.isAuthorised ? '' : defaultHistory} />
        </div>
     )
   }
 }
 
+const mapPropsToState = (store) => {
+  return {
+      isAuthorised: store.isAuthorised
+  }
+}
 
 
-export default LeftMenu;
+export default connect(mapPropsToState)(LeftMenu)
+
+
