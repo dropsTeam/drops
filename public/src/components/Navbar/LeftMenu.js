@@ -19,6 +19,7 @@ class AutoCompletedText extends React.Component{
      suggestions: this.props.searchedCategories,
      text:'',
      focus:false,
+     results : []
    }
    this.onTextChange = this.onTextChange.bind(this.onTextChange)
    this.handleFocus = this.handleFocus.bind(this);
@@ -102,10 +103,24 @@ onTextChange=(e) => {
  }
 
 
-//  searching the product
+//  searching the product and redirecting to the results page-----
   handleSearch(value){
      console.log(value)
-     this.props.history.push('/results');
+
+     axios.get(`/products/search?text=${value}`)
+      .then(res=>{
+        console.log(res);  
+        return  res;
+      })
+      .then(res=>{
+        this.setState({results : res.data});
+
+        this.props.history.push({
+          pathname: `/results?text=${value}`,
+          params : {results : this.state.results}  ,
+          text : value
+         })
+       })
   }
 
 

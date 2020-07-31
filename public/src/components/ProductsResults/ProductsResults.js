@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { PureComponent } from 'react';
 import  "./ProductResults.css";
 // import ResultsCard from "../ProductsResults/ResultsCard/ResultsCard.js";
 import ResultsBlock from "./ResultsBlock/ResultsBlock.js"
@@ -10,7 +10,7 @@ import {mainHttp as axios} from "../../Axios/Axios.js";
 
 
 // filters block
-class Filters extends Component {
+class Filters extends PureComponent {
  render() {
    return (
      <div className="filters__container">
@@ -35,14 +35,14 @@ class Filters extends Component {
 
 
 // resulst block
-class Results extends Component {
+class Results extends React.PureComponent {
 
   constructor(props) {
     super(props);
   }
 
  render() {
-
+   console.log(this.props)
    return (
      <div className="results__container">
       <div className="results__wrapper">
@@ -65,7 +65,7 @@ class Results extends Component {
 // and here is the whole block of results containing the filters and resulting products block
 
 // main  searched product results container---------------------------------------------------------------
-class ProductResults extends React.Component {
+class ProductResults extends React.PureComponent {
   constructor(props) {
    super(props);
 
@@ -74,28 +74,30 @@ class ProductResults extends React.Component {
    }
   }
 
- 
-
   componentDidMount(){
-    console.log(this.props)
-    axios.get("/products/search?text=Apple")
-      .then(res=>{
-        console.log(res);  
-        return  res;
-      })
-       .then(res=>{
-        this.setState({results : res})
-       })
+    const text = this.props;
+     this.setState({ results : this.props.location.params.results  })
   }
 
- render() {
 
-     
+  componentDidUpdate(props){
+      if(props.location.text !== this.props.location.text){
+        console.log("state changed")
+        this.setState({results : this.props.location.params.results})
+      }
+
+  }
+
+ 
+  
+
+ render() {
+   console.log('yo')
    return  (
     <div className="resultsView__container">
      <div className="resultsView__wrapper">
        <Filters />
-       <Results numbers={this.state.results} />
+       <Results numbers={this.state.results } />
      </div>
     </div>
    )

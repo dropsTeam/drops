@@ -20,9 +20,9 @@ class ResultsBlock extends Component{
 
    return (
      <>
-     {this.props.numbers.data  ? 
+     {this.props.numbers ? 
        <div className={`d-flex bd-highlight flex-row flex-wrap  .align-content-sm-around align-content-around `}>
-        {this.props.numbers.data.map((item,index)=>
+        {this.props.numbers.map((item,index)=>
             <ResultsCard 
               id={item.id} 
               title={item.title}
