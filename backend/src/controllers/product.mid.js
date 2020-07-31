@@ -59,6 +59,19 @@ const get = async (req, res, next) => {
     }
 }
 
+const getSellerProducts = async (req, res) => {
+    try {
+        const { user } = req.app.locals;
+
+        const products = await productModel.find({ seller: user.gId }).lean();
+        res.status(200).send(products);
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).send('oops')
+    }
+}
+
 
 const postProduct = async (req, res, next) => {
     try {
@@ -122,7 +135,7 @@ const search = async (req, res, next) => {
             $text: {
                 $search: ''
             },
-            
+
             // price: { $gt: 0, $lt: 10000000 }
         }
 
@@ -162,7 +175,7 @@ const search = async (req, res, next) => {
 
 
 
-        const search = await productModel.find(payload, { score: {$meta: "textScore"} }).select('title media totalReview aveageRaing category price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
+        const search = await productModel.find(payload, { score: { $meta: "textScore" } }).select('title media totalReview aveageRaing category price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
 
 
 
@@ -180,4 +193,4 @@ const search = async (req, res, next) => {
 }
 
 
-module.exports = { basicProductInfo, getbasicProductInfo, postProduct, editProduct, search, get };
+module.exports = { basicProductInfo, getbasicProductInfo, postProduct, editProduct, search, get, getSellerProducts };

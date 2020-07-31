@@ -5,11 +5,13 @@ const productC = require('../controllers/product.mid');
 const reviewC = require('../controllers/reviews.mid');
 const qnaC = require('../controllers/qna.mid');
 
+
 route
     .get('/search', authC.googleVerify(true, false), productC.search)
 
 route
     .post('/', authC.googleVerify(true, true), authC.isSeller(false), productC.postProduct)
+    .get('/seller', authC.googleVerify(true, true), productC.getSellerProducts);
     .put('/p/:productId', authC.googleVerify(true, true), authC.isSeller(true), productC.editProduct)
     .get('/p/:productId', authC.googleVerify(true, false), productC.basicProductInfo, productC.get);
 
@@ -23,6 +25,7 @@ route
     .get('/review/helpful', authC.googleVerify(true, true), reviewC.amIInhelpful)
     .post('/review/helpful', authC.googleVerify(true, true), reviewC.helpfulPOST)
     .delete('/review/helpful/:reviewId', authC.googleVerify(true, true), reviewC.helpfulDELETE)
+
 
 
 module.exports = route;
