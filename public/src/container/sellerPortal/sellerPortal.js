@@ -28,15 +28,16 @@ class SellerPortal extends React.Component {
     }
 
 
-    componentDidMount() {
-        axios.get("/products/seller")
-            .then(res => {
-                console.log(res.data)
-                return res.data;
-            })
-            .then(res => {
-                this.setState({ products: res })
-            })
+
+    // for getting the particular product on mount---
+    componentDidMount(){
+       axios.get("/products/seller")
+        .then(res=>{
+            return res.data;
+        })
+        .then(res=>{
+            this.setState({products : res})
+        })
     }
 
 
@@ -50,8 +51,6 @@ class SellerPortal extends React.Component {
     }
 
     render() {
-
-        console.log(this.state.products)
 
         const menu = (
             <Menu>
