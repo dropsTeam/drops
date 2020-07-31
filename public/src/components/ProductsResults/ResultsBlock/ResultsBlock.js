@@ -29,6 +29,8 @@ class ResultsBlock extends Component{
               price={item.price} 
               img={item.media[0]}  
               key={index} 
+              rating={item.aveageRaing}
+              totalReviews={item.totalReview}
               flipkartImg="http://img1a.flixcart.com/www/linchpin/fk-cp-zion/img/fa_8b4b59.png"
             />
           )}

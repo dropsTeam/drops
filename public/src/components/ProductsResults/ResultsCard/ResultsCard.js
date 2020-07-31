@@ -21,8 +21,8 @@ render() {
   let aPrice = this.props.price;
   let dPrice = aPrice-this.multiply(discountPercent,aPrice);
 // for calculating emi based on price
-  const emiArr = ["EMI avalaible","No EMI avalaible"]
-  let emi = emiArr[Math.floor(Math.random() *2) ]
+  const emiArr = ["EMI avalaible","No EMI avalaible"];
+  let emi = emiArr[Math.floor(Math.random() *2) ];
 
   return  (
      <div className={`p-2  bd-highlight resultsCard__container `} >
@@ -33,8 +33,8 @@ render() {
        <div className="resultsCard__title">
         <span className="resultsCard__heading" >{this.props.title}</span>
         <p>
-          <span style={{ textAlign: 'center' }} > <span className="badge badge-success">{4.5} &#9734;</span> </span>
-          <span className="review__count">({345})</span>
+          <span style={{ textAlign: 'center' }} > <span className="badge badge-success">{this.props.rating} &#9734;</span> </span>
+          <span className="review__count">({this.props.totalReviews})</span>
           <span><img className="assured__tag" src={this.props.flipkartImg} ></img></span>
         </p>
        </div>
