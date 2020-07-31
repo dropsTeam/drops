@@ -1,5 +1,7 @@
 import React from 'react';
+
 import { Modal, Input, Button } from 'antd';
+import { mainHttp } from '../../../Axios/Axios';
 
 class AnswerQuestionModal extends React.PureComponent {
 
@@ -35,6 +37,14 @@ class AnswerQuestionModal extends React.PureComponent {
         }
     }
 
+    submit = (index) => {
+        try {
+            mainHttp.post('/', )
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
 
     render() {
 
@@ -43,7 +53,7 @@ class AnswerQuestionModal extends React.PureComponent {
                 <React.Fragment key={index}>
                     <p> {index + 1 + ' ' + item.question} </p>
                     <Input.TextArea row={4} placeholder='Answer' value={item.answer} />
-                    <Button style={{ margin: '10px 0', float: 'right', overflow: 'hidden' }} type='primary'>Submit</Button>
+                    <Button style={{ margin: '10px 0', float: 'right' }} type='primary'>Submit</Button>
 
                 </React.Fragment>
             )

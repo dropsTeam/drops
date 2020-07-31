@@ -13,6 +13,7 @@ route
     .put('/p/:productId', authC.googleVerify(true, true), authC.isSeller(true), productC.editProduct)
     .get('/p/:productId', authC.googleVerify(true, false), productC.basicProductInfo, productC.get);
 
+
 route
     .get('/review', authC.googleVerify(true, true), reviewC.getMyReview)
     .post('/review', authC.googleVerify(true, true), productC.basicProductInfo, reviewC.post)

@@ -47,5 +47,13 @@ const get = async (req, res, next) => {
     }
 }
 
+const getPendingQuestions = () => {
+    try {
+        
+    } catch (err) {
+        console.log(err);
+        res.status(400).send({ msg: 'Error Occured while getting pending questions', err });
+    }
+}
 
-module.exports = { postQ, postA, get };
+module.exports = { postQ, postA, get, getPendingQuestions };
