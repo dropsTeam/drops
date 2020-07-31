@@ -27,6 +27,9 @@ const schema = new mongo.Schema({
     user: {
         fullName: typ.String,
         gId: typ.String
+    },
+    seller: {
+        type: typ.String
     }
 });
 

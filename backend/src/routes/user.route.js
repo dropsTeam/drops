@@ -9,8 +9,8 @@ route.get('/', authC.googleVerify(true, true), userC.get);
 
 route
     .get('/cart', authC.googleVerify(true, true), userC.getCart)
-    .post('/cart', authC.googleVerify(true, true), productC.basicProductInfo, userC.postCart)
-    .delete('/cart/:index', authC.googleVerify(true, true), userC.deleteCartItem)
+    .post('/cart', authC.googleVerify(true, true), productC.basicProductInfo, userC.postCart(false))
+    .delete('/cart', authC.googleVerify(true, true), userC.deleteCartItem)
     .put('/cart', authC.googleVerify(true, true), userC.editCart)
 
 route.get('/searchHistory', authC.googleVerify(true, true), userC.getSearchHistory)

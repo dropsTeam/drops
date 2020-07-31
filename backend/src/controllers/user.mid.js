@@ -1,5 +1,5 @@
 const userModel = require('../models/user.model');
-
+const orderModel = require('./../models/orders.model');
 
 const get = async (req, res, next) => {
     try {
@@ -18,11 +18,11 @@ const getCart = async (req, res, next) => {
 
     try {
 
-        const { _id } = req.app.locals.user;
+        const { user } = req.app.locals;
 
-        const cart = await await userModel.findById(_id).select('cart').lean();
+        const cart = await await orderModel.find({ user: user.gId, confirmed: false }).lean();
 
-        res.status(200).send(cart.cart);
+        res.status(200).send(cart);
 
     }
     catch (err) {
@@ -33,54 +33,54 @@ const getCart = async (req, res, next) => {
 
 
 
-const postCart = async (req, res, next) => {
-    try {
+function postCart(isNext) {
+    return async (req, res, next) => {
+        try {
+            const { user, product } = req.app.locals;
+            const { productId, quantity, address, phoneNumber, dropdown, varients } = req.body;
 
-        const { productId, quantity, varients, dropdown } = req.body;
-        const { product, user } = req.app.locals;
-
-        if (varients.title.trim().length === 0 || varients.media.trim().length === 0) throw 'Validation error';
-        if (dropdown.title.trim().length === 0 || dropdown.options.trim().length === 0) throw 'Validation error';
-        let isVarientValid = false;
-        for (const _varient of product.varients) {
-            if (varients.title === _varient.title) { isVarientValid = true; varients = _varient; break; };
-        }
-
-        if (!isVarientValid) { throw 'Not a valid varient' };
-        if (dropdown.title !== product.dropdown.title || !product.dropdown.options.includes(dropdown.option)) { throw 'Not a valid dropdown value' };
-
-        const userData = await userModel.findById(user.gId).select('cart').lean();
-
-        if (userData.cart.length >= 10) {
-            throw 'Your cart is already full, You cannot put more than 10 items.'
-        }
-
-        const update = {
-            $push: {
-                cart: {
-                    productId,
-                    quantity,
-                    varients,
-                    dropdown
-                }
+            const payload = {
+                user: user.gId,
+                address: {
+                    location: address.location,
+                    city: address.city,
+                    country: address.country,
+                    state: address.state
+                },
+                title: product.title,
+                price: product.price,
+                media: product.media,
+                productId,
+                quantity,
+                phoneNumber,
+                fullName: user.fullName,
+                dropdown: {
+                    title: dropdown.title,
+                    options: dropdown.options
+                },
+                varients
             }
-        };
-        userData.cart.push({
-            productId,
-            quantity,
-            varients,
-            dropdown,
-            timeStamp: Date.now()
-        });
 
-        await userModel.findByIdAndUpdate(user.gId, update);
-        res.status(200).send({ cart: userData.cart });
+            let isValid = false;
 
-    } catch (err) {
-        console.log(err);
-        res.status(400).send({ msg: 'Error Occured posting the cart ', err });
+
+            for (const _varient of product.varients) {
+                if (varients === _varient.title) { isValid = true; payload.media = _varient.media; break; };
+            }
+
+            if (!isValid && !product.dropdown.options.includes(dropdown)) throw 'Validation Error';
+
+            const order = await orderModel.create(payload);
+            if (isNext) next();
+
+            res.status(200).send(order);
+
+        } catch (err) {
+            console.log(err);
+            res.status(500).send('Error occured while posting cart');
+        }
     }
-};
+}
 
 
 
@@ -88,24 +88,11 @@ const deleteCartItem = async (req, res, next) => {
     try {
 
         const { user } = req.app.locals;
-        const { index } = req.params;
+        const { cartId } = req.body;
 
-        const cartData = await userModel.findById(user.gId).select('cart').lean();
+        await orderModel.remove({ _id: cartId, confirmed: false, user: user.gId }).lean();
 
-
-        if (index < 0) {
-            cartData.cart = []
-        } else {
-            if (index >= cartData.cart.length) { throw `No such element with index ${index} found in cart` };
-            cartData.cart.splice(index, 1);
-        }
-
-        const update = {
-            cart: cartData.cart
-        }
-
-        await userModel.findByIdAndUpdate(user.gId, update);
-        res.status(200).send({ cart: cartData.cart })
+        res.status(200).send('ok');
 
     } catch (err) {
         console.log(err);
@@ -119,14 +106,10 @@ const editCart = async (req, res, next) => {
     try {
 
         const { user } = req.app.locals;
-        const { quantity, index } = req.body;
+        const { cartId, quantity } = req.body;
 
-        const cartData = await userModel.findById(user.gId).select('cart').lean();
-        if (index >= cartData.cart.length || index < 0) throw `No such element with index ${index} found in cart`;
-
-        const key = 'cart.' + index + '.quantiry';
-        userModel.findByIdAndUpdate(user.gId, { $set: { [key]: quantity } });
-
+        await orderModel.findByIdAndUpdate({ seller: user.gId, confirmed: false, _id: cartId }, { quantity });
+        res.state(200).send('ok');
 
     } catch (err) {
         console.log(err);

@@ -2,35 +2,6 @@ const mongo = require('mongoose');
 const types = mongo.Schema.Types;
 
 
-const cartSchema = new mongo.Schema({
-    productId: {
-        type: types.ObjectId,
-        required: true
-    },
-
-    quantity: {
-        type: types.Number,
-        max: 100,
-        min: 1,
-        default: 1
-    },
-    varient: {
-        type: types.Number,
-        min: 0
-    },
-    dropdown: {
-        title: {
-            type: types.String,
-            maxlength: 50,
-            required: true
-        },
-        option: {
-            type: types.String,
-            maxlength: 50,
-            required: true
-        }
-    },
-});
 
 
 const schema = mongo.Schema({
@@ -39,12 +10,11 @@ const schema = mongo.Schema({
         default: Date.now
     },
     searchHistory: [String],
-    recommendations: [{type: types.ObjectId, ref:'products'}],
+    recommendations: [{ type: types.ObjectId, ref: 'products' }],
     gId: { type: types.String },
     profilePic: { type: types.String },
     email: { type: types.String },
     fullName: { type: types.String },
-    cart: [cartSchema],
     userAddress: {
         city: {
             type: types.String,

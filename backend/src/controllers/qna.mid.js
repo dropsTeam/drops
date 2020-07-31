@@ -8,7 +8,7 @@ const postQ = async (req, res, next) => {
         const { question, productId } = req.body;
         console.log(question, productId);
 
-        await qnaModel.create({ question, answer:'', productId, user: { gId: user.gId, fullName: user.fullName } })
+        await qnaModel.create({ question, answer: '', productId, seller: user.gId, user: { gId: user.gId, fullName: user.fullName } })
         res.status(200).send('ok');
 
     } catch (err) {
@@ -22,9 +22,9 @@ const postA = async (req, res, next) => {
     try {
 
         // Find if the product is under this seller
-        const { answer, productId } = req.body;
+        const { answer, qnaId } = req.body;
 
-        await qnaModel.findOneAndUpdate({ productId }, { answer });
+        await qnaModel.findOneAndUpdate({ _id: qnaId }, { answer });
         res.status(200).send('ok');
 
     } catch (err) {
@@ -47,9 +47,13 @@ const get = async (req, res, next) => {
     }
 }
 
-const getPendingQuestions = () => {
+const getPendingQuestions = async (req, res) => {
     try {
-        
+        const { user } = req.app.locals;
+        console.log(user.gId);
+        const questions = await qnaModel.find({ seller: user.gId, answer: "" }).sort('timeStamp');
+        res.status(200).send(questions);
+
     } catch (err) {
         console.log(err);
         res.status(400).send({ msg: 'Error Occured while getting pending questions', err });

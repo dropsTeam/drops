@@ -32,12 +32,12 @@ const detailsSchema = mongo.Schema({
 const varients = mongo.Schema({
     title: {
         type: typ.String,
-        maxlength: 50,
+        maxlength: 200,
         required: false
     },
     media: {
         type: typ.String,
-        maxlength: 100,
+        maxlength: 200,
         required: false
     }
 });
@@ -78,7 +78,7 @@ const schema = mongo.Schema({
         options: [{
             type: typ.String,
             required: true,
-            maxlength: 50
+            maxlength: 100
         }]
     },
 

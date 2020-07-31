@@ -18,9 +18,9 @@ class ProductQNA extends React.PureComponent {
             ],
             qnaForm: {
                 question: ''
-            },
+            }
         }
-        this.mapedQuestion.bind(this);
+
         this.fetch = this.fetch.bind(this);
     }
 
@@ -47,13 +47,7 @@ class ProductQNA extends React.PureComponent {
         this.fetch();
     }
 
-    mapedQuestion(arrOfQNA) {
-        return arrOfQNA.map((item, index) => {
-            return (
-                <QNA key={Math.random()} question={item.question} fullName={item.user.fullName} answer={item.answer} timeStamp={item.timeStamp} />
-            )
-        })
-    }
+
 
     togglePostModal = (isVisible) => {
         const newState = { ...this.state, qnaModelVis: isVisible };
@@ -71,7 +65,7 @@ class ProductQNA extends React.PureComponent {
 
             this.togglePostModal(false);
             const newArr = [...this.state.qna];
-            newArr.unshift({ question: this.state.qnaForm.question, answer: '' });
+            newArr.unshift({ question: this.state.qnaForm.question, answer: '', user: { fullName: 'you', timeStamp: Date.now } });
             this.setState({ ...this.state, qna: newArr });
         } catch (err) {
             alert('Error Occured submitting the question.')
@@ -81,12 +75,19 @@ class ProductQNA extends React.PureComponent {
 
     render() {
 
+        const mapedQuestion = this.state.qna.map((item, index) => {
+            return (
+                <QNA key={Math.random()} question={item.question} fullName={item.user.fullName} answer={item.answer} timeStamp={item.timeStamp} />
+            )
+        })
+
+
         return (
             <React.Fragment>
                 <h3>Questions and Answers <button className='btn btn-primary btn-sm float-right' onClick={() => this.togglePostModal(true)} >Ask A Question</button> </h3>
                 <hr />
 
-                {this.mapedQuestion(this.state.qna)}
+                {mapedQuestion}
 
                 <a onClick={this.fetch} style={{ fontWeight: 600, textDecoration: 'none', padding: '30px 0px', color: 'blue', fontSize: '17px' }}>Load More</a>
 
