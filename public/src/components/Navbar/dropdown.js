@@ -7,7 +7,7 @@ import * as authActions from '../../Redux/Actions/AuthActions';
 import { useState } from 'react';
 import { Modal, Form, Input, Radio } from 'antd';
 import { mainHttp } from '../../Axios/Axios';
-
+import { withRouter} from 'react-router-dom';
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
@@ -121,7 +121,7 @@ class DropDown extends Component {
         <Menu.Item>
           {
             (this.props.user.isSeller) ? (
-              <a rel="noopener noreferrer" >
+              <a rel="noopener noreferrer" onClick={() => this.props.history.push('/s/seller')} >
                 Seller Account
               </a>
             ) :
@@ -160,4 +160,4 @@ const mapPropsToDispatch = dispatch => {
   }
 }
 
-export default connect(mapPropsToState, mapPropsToDispatch)(DropDown);
+export default connect(mapPropsToState, mapPropsToDispatch)(withRouter(DropDown));
