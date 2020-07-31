@@ -27,7 +27,10 @@ class SellerPortal extends React.Component {
 
 
     componentDidMount(){
-       axios.get("")
+       axios.get("/products/seller")
+        .then(res=>{
+            console.log(res)
+        })
     }
 
 
