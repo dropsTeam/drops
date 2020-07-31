@@ -4,6 +4,8 @@ import  "./ProductResults.css";
 import ResultsBlock from "./ResultsBlock/ResultsBlock.js"
 
 import {App,Sider} from "./FiltersMenu/FiltersMenu"
+// importing axios
+import {mainHttp as axios} from "../../Axios/Axios.js";
 
 
 
@@ -66,14 +68,34 @@ class Results extends Component {
 class ProductResults extends React.Component {
   constructor(props) {
    super(props);
+
+   this.state={
+     results :''
+   }
+  }
+
+ 
+
+  componentDidMount(){
+    console.log(this.props)
+    axios.get("/products/search?text=Apple")
+      .then(res=>{
+        console.log(res);  
+        return  res;
+      })
+       .then(res=>{
+        this.setState({results : res})
+       })
   }
 
  render() {
+
+     
    return  (
     <div className="resultsView__container">
      <div className="resultsView__wrapper">
        <Filters />
-       <Results numbers={numbers} />
+       <Results numbers={this.state.results} />
      </div>
     </div>
    )
@@ -85,49 +107,3 @@ export default ProductResults;
 
 
 
-// fake products array---
-const numbers = [
- {
-  id:1,
-  img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
-  title : "T-Shirt",
-  price : "450"
- },
- {
-  id:2,
-  img:"https://rukminim1.flixcart.com/image/309/371/k7531jk0/t-shirt/z/c/a/s-rh-roundnck-x-hlfslv-blk-org-skin-rockhard-original-imafpfvkgtxeuz77.jpeg?q=50",
-  title : "Striped Men Routine Wear",
-  price : "450"
- },
- {
-  id:3,
-  img:"https://rukminim1.flixcart.com/image/309/371/jtn9bww0/t-shirt/5/g/g/m-hm-1001-black-red-helmont-original-imafdfvvr8hqdu65.jpeg?q=50",
-  title : "T-Shirt",
-  price : "450"
- },
- {
-  id:4,
-  img:"https://rukminim1.flixcart.com/image/309/371/k30h8y80/t-shirt/u/z/s/s-shp275282-shapphr-original-imafjvg4nngzwrfw.jpeg?q=50",
-  title : "T-Shirt",
-  price : "450"
- },
- {
-  id:5,
-  img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
-  title : "T-Shirt",
-  price : "450"
- },
- {
-  id:6,
-  img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
-  title : "T-Shirt",
-  price : "150"
- },
- {
-  id:7,
-  img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
-  title : "T-Shirt",
-  price : "250"
- }
-
-]
