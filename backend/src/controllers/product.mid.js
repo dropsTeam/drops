@@ -172,6 +172,11 @@ const search = async (req, res, next) => {
         if (req.query.hasOwnProperty('range')) {
             
             payload.price.$gt, payload.price.$lt = req.query.range.split("-");
+
+            let splitRange = req.query.range.split("-")
+            payload.price.$gt = splitRange[0];
+            payload.price.$lt = splitRange[1];
+
         }
 
 
