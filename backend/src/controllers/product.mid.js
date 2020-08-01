@@ -156,7 +156,7 @@ const search = async (req, res, next) => {
                 ['INC', 'DEC'].includes(req.query.sortorder)
             ) {
                 sortby = req.query.sortby;
-                sortorder = (req.query.sortorder === 'INC') ? 1 : -1;
+                sortorder = (req.query.sortorder === 'INC') ? -1 : 1;
             }
         }
 
