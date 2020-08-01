@@ -136,7 +136,7 @@ const search = async (req, res, next) => {
                 $search: ''
             },
 
-            // price: { $gt: 0, $lt: 10000000 }
+            price: { $gt: 0, $lt: 10000 }
         }
 
 
