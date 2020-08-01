@@ -4,8 +4,8 @@ import { Slider, InputNumber, Row, Col } from 'antd';
 
 class IntegerStep extends React.Component {
   state = {
-    priceMin :0,
-    priceMax :50
+    priceMin :10,
+    priceMax :4000
   };
 
  
@@ -22,6 +22,7 @@ class IntegerStep extends React.Component {
   };
 
   onPriceChange(values) {
+    console.log([values[0],values[1]])
     this.setState({
       priceMin: values[0],
       priceMax: values[1],
@@ -34,8 +35,8 @@ class IntegerStep extends React.Component {
       <>
         <Row>
           <Col span={22}>
-          <Slider range defaultValue={[0, 20000]}  
-            max={20000}
+          <Slider range defaultValue={[10, 4000]}  
+            max={5000}
             onChange={this.onPriceChange.bind(this)}
             value={[this.state.priceMin, this.state.priceMax]}
           />
@@ -44,8 +45,8 @@ class IntegerStep extends React.Component {
         <Row>
           <div className="site-input-number-wrapper">
             $<InputNumber 
-               min={1} 
-               max={20000} 
+               min={10} 
+               max={5000} 
                defaultValue={3} 
                onChange={this.onChangeMin} 
                value={`${this.state.priceMin}`}
@@ -54,8 +55,8 @@ class IntegerStep extends React.Component {
                
             
             to<InputNumber 
-               min={1} 
-               max={20000} 
+               min={4000} 
+               max={5000} 
                defaultValue={50} 
                onChange={this.onChangeMax} 
                value={`${this.state.priceMax}`}
