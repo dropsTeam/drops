@@ -4,9 +4,11 @@ import { Radio, Input } from 'antd';
 import { mainHttp as axios } from  "../../../Axios/Axios.js"
 
 import IntegerStep from "../Slider/Slider"
+import { Slider, InputNumber, Row, Col } from 'antd';
 
 const { SubMenu } = Menu;
 const { TabPane } = Tabs;
+
 
 
 
@@ -14,28 +16,99 @@ const { TabPane } = Tabs;
 class RadioGroup extends React.Component {
   state = {
     sortby: "aveageRaing",
-    sortorder : "INC"
+    sortorder : "INC",
+    priceMin :10,
+    priceMax :4000
   };
 
-   fetch = async() =>{
+  // for fetching by SORTBY
+   fetchBy = async(sortby) =>{
     let url = window.location.href;
     let arr = url.split("/");
     let arrLen = arr.length;
-    const data = await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}`)
-             .then(res=>{
-               console.log(res)
-               console.log(arr[arrLen-1])
-             })
+    await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${sortby}&sortorder=${this.state.sortorder}`)
+        .then(res=>{
+          console.log(res)
+          console.log(arr[arrLen-1])
+          console.log(this.state)
+        })
      }
 
+// for fetching by SORTORDER
+    fetchOrder = async(sortorder) =>{
+    let url = window.location.href;
+    let arr = url.split("/");
+    let arrLen = arr.length;
+    await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${sortorder}`)
+        .then(res=>{
+          console.log(res)
+          console.log(arr[arrLen-1])
+          console.log(this.state)
+        })
+    }
+
+  // for fetching by Price Range
+  fetchRange = async(range1,range2) =>{
+    let url = window.location.href;
+    let arr = url.split("/");
+    let arrLen = arr.length;
+    let range = `${range1}`+"-"+`${range2}`;
+    console.log(range);
+    await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}`)
+        .then(res=>{
+          console.log(res)
+          console.log(arr[arrLen-1])
+          console.log(this.state)
+        })
+    }
+
+
+  // functions for fetching requests on changing filteres
   onChangeSortBy = e => {
     console.log(e.target.value);
     this.setState({
-      sortby: e.target.value,
+      sortby: e.target.value
     });
-
-    this.fetch()
+    console.log("sortby :"+e.target.value)
+    this.fetchBy(e.target.value)
   };
+
+
+  onChangeSortOrder = e => {
+      console.log(e.target.value);
+      this.setState({
+        sortorder: e.target.value,
+      });
+      console.log("sortorder :"+e.target.value)
+      this.fetchOrder(e.target.value)
+    };
+
+  
+
+
+
+// functions for price ranger
+    onChangeMin = value => {
+      this.setState({
+        priceMin: value,
+      });
+    };
+  
+    onChangeMax = value => {
+      this.setState({
+        priceMax: value,
+      });
+    };
+  
+    onPriceChange(values) {
+      console.log([values[0],values[1]])
+      this.setState({
+        priceMin: values[0],
+        priceMax: values[1],
+      });
+      this.fetchRange(values[0],values[1])
+    }
+
 
   render() {
     const radioStyle = {
@@ -45,6 +118,47 @@ class RadioGroup extends React.Component {
     };
     const { value } = this.state;
     return (
+      <>
+        {/* price ranger */}
+        <div>
+          <div className="slider__container">
+          <h6>PRICES</h6>
+          <Row>
+            <Col span={22}>
+            <Slider range defaultValue={[10, 4000]}  
+              max={5000}
+              onChange={this.onPriceChange.bind(this)}
+              value={[this.state.priceMin, this.state.priceMax]}
+            />
+            </Col>
+         </Row>
+         <Row>
+          <div className="site-input-number-wrapper">
+            $<InputNumber 
+               min={10} 
+               max={5000} 
+               defaultValue={3} 
+               onChange={this.onChangeMin} 
+               value={`${this.state.priceMin}`}
+             /> 
+             
+            
+            to<InputNumber 
+               min={4000} 
+               max={5000} 
+               defaultValue={50} 
+               onChange={this.onChangeMax} 
+               value={`${this.state.priceMax}`}
+             />
+           </div>
+          </Row>
+         </div>
+        </div>
+
+{/* price ranger ends */}
+
+{/* radio groupd for sort by and sort order */}
+    <div className="filters__option--inner">
       <Radio.Group onChange={this.onChangeSortBy} value={value}>
         <Radio style={radioStyle} value={"timeStamp"}>
           By Date
@@ -57,61 +171,21 @@ class RadioGroup extends React.Component {
         </Radio>
       </Radio.Group>
 
-    );
-  }
-}
-
-
-// radio group for prices range  - high to low / low to high
-class RadioGroupPrices extends React.Component {
-  state = {
-    sortby: "aveageRaing",
-    sortorder : "INC"
-  };
-
-
-  fetch = async(sortorder) =>{
-    let url = window.location.href;
-    let arr = url.split("/");
-    let arrLen = arr.length;
-    console.log("param :"+sortorder)
-    const data = await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${sortorder}`)
-             .then(res=>{
-               console.log(res)
-               console.log(arr[arrLen-1])
-             })
-     }
-
-
-  onChangeSortOrder = e => {
-    console.log(e.target.value);
-    this.setState({
-      sortorder: e.target.value,
-    });
-
-    this.fetch(e.target.value)
-  };
-
-  render() {
-    const radioStyle = {
-      display: 'block',
-      height: '30px',
-      lineHeight: '30px',
-    };
-    const { value } = this.state;
-    return (
-      <Radio.Group onChange={this.onChangeSortOrder}  defaultValue={"DEC"}>
-        <Radio style={radioStyle} value={"DEC"}>
+      <Radio.Group onChange={this.onChangeSortOrder} value={value}>
+        <Radio style={radioStyle}  value={"INC"}>
           High-To-Low
         </Radio>
-        <Radio style={radioStyle} value={"INC"}>
+        <Radio style={radioStyle}  value={"DEC"}>
           Low-To-High
         </Radio>
       </Radio.Group>
+    </div>
 
+     </>
     );
   }
 }
+
 
 
 
@@ -147,21 +221,10 @@ class Sider extends React.Component {
         defaultOpenKeys={['sub1','sub2']}
         style={{ width: 256 }}
       >
-        <div className="slider__container">
-          <h6>PRICES</h6>
-          <IntegerStep />
-        </div>
-
-        {/* radi group for --- */}
 
         <SubMenu key="sub1" className="filters__option" title="SORT BY">
           <RadioGroup />
         </SubMenu>
-
-        <SubMenu key="sub2" className="filters__option" title="SORTING ORDER">
-          <RadioGroupPrices />
-        </SubMenu>
-
 
       </Menu>
     );
