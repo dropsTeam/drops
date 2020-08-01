@@ -1,10 +1,85 @@
 import React from 'react';
-import { Menu , Tabs} from 'antd';
+import { Menu, Tabs } from 'antd';
+import { Radio, Input } from 'antd';
 
 import IntegerStep from "../Slider/Slider"
 
 const { SubMenu } = Menu;
 const { TabPane } = Tabs;
+
+
+
+class RadioGroup extends React.Component {
+  state = {
+    value: 1,
+  };
+
+  onChange = e => {
+    console.log(e.target.value);
+    this.setState({
+      value: e.target.value,
+    });
+  };
+
+  render() {
+    const radioStyle = {
+      display: 'block',
+      height: '30px',
+      lineHeight: '30px',
+    };
+    const { value } = this.state;
+    return (
+      <Radio.Group onChange={this.onChange} value={value}>
+        <Radio style={radioStyle} value={"timeStamp"}>
+          By Date
+        </Radio>
+        <Radio style={radioStyle} value={"aveageRaing"}>
+          Average Rating
+        </Radio>
+        <Radio style={radioStyle} value={"totalReview"}>
+          Total Reviews
+        </Radio>
+      </Radio.Group>
+
+    );
+  }
+}
+
+
+// radio group for prices
+class RadioGroupPrices extends React.Component {
+  state = {
+    value: 1,
+  };
+
+  onChange = e => {
+    console.log(e.target.value);
+    this.setState({
+      value: e.target.value,
+    });
+  };
+
+  render() {
+    const radioStyle = {
+      display: 'block',
+      height: '30px',
+      lineHeight: '30px',
+    };
+    const { value } = this.state;
+    return (
+      <Radio.Group onChange={this.onChange} defaultValue={"DEC"}>
+        <Radio style={radioStyle} value={"DEC"}>
+          High-To-Low
+        </Radio>
+        <Radio style={radioStyle} value={"INC"}>
+          Low-To-High
+        </Radio>
+      </Radio.Group>
+
+    );
+  }
+}
+
 
 
 
@@ -36,48 +111,24 @@ class Sider extends React.Component {
         mode="inline"
         openKeys={this.state.openKeys}
         onOpenChange={this.onOpenChange}
+        defaultOpenKeys={['sub1','sub2']}
         style={{ width: 256 }}
       >
         <div className="slider__container">
-           <h6>PRICES</h6>
-            <IntegerStep />
+          <h6>PRICES</h6>
+          <IntegerStep />
         </div>
-        <SubMenu
-          key="sub1"
-          title={
-            <span >
-              <span className="filters__option" >COLORS</span>
-            </span>
-          }
-        >
-          <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label htmlFor="vehicle1" className="radio__label">Red</label><br></br>
-          </p>
-          <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label htmlFor="vehicle1" className="radio__label"> Blue</label><br></br>
-          </p>
-          <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label htmlFor="vehicle1" className="radio__label"> green</label><br></br>
-          </p>
-          <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label htmlFor="vehicle1" className="radio__label"> purple</label><br></br>
-          </p>
-          
+
+        {/* radi group for --- */}
+
+        <SubMenu key="sub1" className="filters__option" title="SORT BY">
+          <RadioGroup />
         </SubMenu>
-        <SubMenu key="sub2" className="filters__option"  title="CUSTOMER RATINGS">
-          <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label htmlFor="vehicle1" className="radio__label"> 4* Rating</label><br></br>
-          </p>
-          <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label htmlFor="vehicle1" className="radio__label"> 3* Rating</label><br></br>
-          </p>
+
+        <SubMenu key="sub2" className="filters__option" title="SORTING ORDER">
+          <RadioGroupPrices />
         </SubMenu>
+
 
       </Menu>
     );
@@ -103,9 +154,9 @@ class App extends React.Component {
     return (
       <Menu onClick={this.handleClick} selectedKeys={[current]} mode="inline">
         <div className="slider__container">
-           <h6>PRICES</h6>
-            <IntegerStep />
-        </div>   
+          <h6>PRICES</h6>
+          <IntegerStep />
+        </div>
         <SubMenu
           key="sub1"
           title={
@@ -115,41 +166,41 @@ class App extends React.Component {
           }
         >
           <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label for="vehicle1" className="radio__label">Red</label><br></br>
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+            <label for="vehicle1" className="radio__label">Red</label><br></br>
           </p>
           <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label for="vehicle1" className="radio__label"> Blue</label><br></br>
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+            <label for="vehicle1" className="radio__label"> Blue</label><br></br>
           </p>
           <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label for="vehicle1" className="radio__label"> green</label><br></br>
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+            <label for="vehicle1" className="radio__label"> green</label><br></br>
           </p>
           <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label for="vehicle1" className="radio__label"> purple</label><br></br>
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+            <label for="vehicle1" className="radio__label"> purple</label><br></br>
           </p>
-          
+
         </SubMenu>
-        <SubMenu key="sub2" className="filters__option"  title="CUSTOMER RATINGS">
+        <SubMenu key="sub2" className="filters__option" title="CUSTOMER RATINGS">
           <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label for="vehicle1" className="radio__label"> 4* Rating</label><br></br>
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+            <label for="vehicle1" className="radio__label"> 4* Rating</label><br></br>
           </p>
           <p className="radio__input">
-           <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-           <label for="vehicle1" className="radio__label"> 3* Rating</label><br></br>
+            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
+            <label for="vehicle1" className="radio__label"> 3* Rating</label><br></br>
           </p>
         </SubMenu>
-        
+
       </Menu>
     );
   }
 }
 
 
-export {Sider,App};
+export { Sider, App };
 
 
 
