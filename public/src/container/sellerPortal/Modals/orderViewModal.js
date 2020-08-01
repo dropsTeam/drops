@@ -2,16 +2,19 @@ import React from 'react';
 
 import { Drawer } from 'antd';
 import OrderViews from '../../../components/OrdersViews/OrderViews';
+import { mainHttp } from '../../../Axios/Axios';
 
 class OrderViewModal extends React.PureComponent {
 
 
     componentDidMount() {
-        fetch();
+        this.fetch();
     }
-    
+
     async fetch() {
         try {
+            const orders = await mainHttp.get('/orders/sellerOrders/1');
+            console.log(orders.data);
 
         } catch (err) {
             alert('Error Occured loading the orders');
