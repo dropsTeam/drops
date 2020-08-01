@@ -10,7 +10,7 @@ const { TabPane } = Tabs;
 
 
 
-
+// sort by radio group
 class RadioGroup extends React.Component {
   state = {
     sortby: "aveageRaing",
@@ -62,7 +62,7 @@ class RadioGroup extends React.Component {
 }
 
 
-// radio group for prices
+// radio group for prices range  - high to low / low to high
 class RadioGroupPrices extends React.Component {
   state = {
     sortby: "aveageRaing",
@@ -118,7 +118,7 @@ class RadioGroupPrices extends React.Component {
 
 
 // Two different components for different screen sizes---------------------
-
+//  DESKTOP SIZES :
 class Sider extends React.Component {
   // submenu keys of first level
   rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
@@ -170,7 +170,7 @@ class Sider extends React.Component {
 
 
 
-
+// MOBILE 
 // smaller screen sizes
 class App extends React.Component {
   state = {
