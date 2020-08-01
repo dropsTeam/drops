@@ -29,8 +29,14 @@ const schema = mongo.Schema({
         required: true
     },
     varients: {
-        type: typ.String,
-        required: true
+        media: {
+            type: typ.String,
+            required: true
+        },
+        title: {
+            type: typ.String,
+            required: true
+        }
     },
     dropdown: {
         title: {
@@ -48,7 +54,7 @@ const schema = mongo.Schema({
     },
     phoneNumber: {
         type: typ.Number,
-        required: true
+        required: false
     },
     media: {
         type: typ.String,
@@ -62,23 +68,23 @@ const schema = mongo.Schema({
         location: {
             type: typ.String,
             maxlength: 500,
-            required: true
+            required: false
         },
         city: {
             type: typ.String,
             maxlength: 50,
-            required: true
+            required: false
         },
         country: {
             type: typ.String,
             maxlength: 50,
-            required: true
+            required: false
 
         },
         state: {
             type: typ.String,
             maxlength: 50,
-            required: true
+            required: false
         },
     }
 });

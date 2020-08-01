@@ -37,23 +37,17 @@ function postCart(isNext) {
     return async (req, res, next) => {
         try {
             const { user, product } = req.app.locals;
-            const { productId, quantity, address, phoneNumber, dropdown, varients } = req.body;
+            const { productId, quantity, dropdown, varients } = req.body;
 
             const payload = {
                 user: user.gId,
-                address: {
-                    location: address.location,
-                    city: address.city,
-                    country: address.country,
-                    state: address.state
-                },
+
                 title: product.title,
                 price: product.price,
-                media: product.media,
+                media: product.media[0],
                 seller: product.seller,
                 productId,
                 quantity,
-                phoneNumber,
                 fullName: user.fullName,
                 dropdown: {
                     title: dropdown.title,
@@ -69,8 +63,9 @@ function postCart(isNext) {
                 if (varients === _varient.title) { isValid = true; payload.media = _varient.media; break; };
             }
 
-            if (!isValid && !product.dropdown.options.includes(dropdown)) throw 'Validation Error';
+            if (!isValid && !product.dropdown.options.includes(dropdown.options)) throw 'Validation Error';
 
+            console.log(payload)
             const order = await orderModel.create(payload);
             if (isNext) next();
 

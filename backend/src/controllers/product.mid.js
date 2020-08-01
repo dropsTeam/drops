@@ -152,11 +152,11 @@ const search = async (req, res, next) => {
 
         if (req.query.hasOwnProperty('sortby') && req.query.hasOwnProperty('sortorder')) {
             if (
-                ['aveageRaing', 'timeStamp', 'price'].includes(req.query.sortby),
+                ['totalReview', 'aveageRaing', 'timeStamp', 'price'].includes(req.query.sortby),
                 ['INC', 'DEC'].includes(req.query.sortorder)
             ) {
                 sortby = req.query.sortby;
-                sortorder = (req.query.sortorder === 'INC') ? 1 : -1;
+                sortorder = (req.query.sortorder === 'INC') ? -1 : 1;
             }
         }
 

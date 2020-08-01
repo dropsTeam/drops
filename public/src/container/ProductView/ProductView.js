@@ -89,7 +89,7 @@ class ProductView extends React.Component {
             varients: { ...this.state.selected.varients },
             dropdown: { ...this.state.selected.dropdown },
             title: this.state.data.title
-        }, this.props.isAuthoised);
+        }, this.props.isAuthorised);
     }
 
     select(selectType, value) {
