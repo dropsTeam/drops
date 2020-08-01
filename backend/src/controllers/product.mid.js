@@ -170,6 +170,7 @@ const search = async (req, res, next) => {
         }
 
         if (req.query.hasOwnProperty('range')) {
+            
             payload.price.$gt, payload.price.$lt = req.query.range.split("-");
         }
 
