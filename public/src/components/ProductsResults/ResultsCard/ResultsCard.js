@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import  "./ResultsCard.css";
+import {withRouter} from "react-router-dom"
 
 
 
@@ -25,7 +26,7 @@ render() {
   return  (
      <div className={`p-2  bd-highlight resultsCard__container `} >
       <div className="resultsImage__container">
-        <a><img src={this.props.img}></img></a>
+        <a  onClick={()=> this.props.history.push(`/view/${this.props.id}`)}><img src={this.props.img}></img></a>
       </div>
       <div className="resultsCard__content">
        <div className="resultsCard__title">
@@ -50,4 +51,4 @@ render() {
  }
 }
 
-export default ResultsCard;
+export default withRouter(ResultsCard);

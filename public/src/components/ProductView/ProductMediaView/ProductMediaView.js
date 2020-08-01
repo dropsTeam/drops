@@ -109,8 +109,8 @@ class ProductMediaView extends React.PureComponent {
                     </div>
 
                     <div className={'col-10 ' + ' ' + styles.image} ref={this.image} onMouseOver={this.imgMouseOver} onMouseOut={this.imgMouseOut} onMouseMove={this.imgMouseMove}>
-                        <a href="https://cdn.mobilephonesdirect.co.uk/images/handsets/480/apple/apple-iphone-x-silver.png" ref={this.imgLink} target="_blank">
-                            <img style={{ width: '20vmax' }} src="https://cdn.mobilephonesdirect.co.uk/images/handsets/480/apple/apple-iphone-x-silver.png" className="img-fluid mx-auto" alt="" />
+                        <a href={this.props.data[0]} ref={this.imgLink} target="_blank">
+                            <img style={{ width: '20vmax' }} src={this.props.data[0]} className="img-fluid mx-auto" alt="" />
                         </a>
 
                     </div>

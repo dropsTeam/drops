@@ -62,7 +62,7 @@ class App extends React.Component {
               <Route path="/cart" exact component={Cart} />
               <PrivateRoute access={true} path='/checkout' exact component={Checkout} />
 
-              {/* <Route path="/:id" exact component={ProductView} /> */}
+              <Route path="/view/:id" exact component={ProductView} />
 
               <PrivateRoute access={true} path='/s/seller' exact component={SellerPortal} />
 

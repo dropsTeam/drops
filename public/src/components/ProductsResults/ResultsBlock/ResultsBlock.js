@@ -15,13 +15,15 @@ class ResultsBlock extends Component{
 
  render(){
 
+  console.log(this.props)
+
    return (
      <>
      {this.props.numbers ? 
        <div className={`d-flex bd-highlight flex-row flex-wrap  .align-content-sm-around align-content-around `}>
         {this.props.numbers.map((item,index)=>
             <ResultsCard 
-              id={item.id} 
+              id={item._id} 
               title={item.title}
               price={item.price} 
               img={item.media[0]}  
