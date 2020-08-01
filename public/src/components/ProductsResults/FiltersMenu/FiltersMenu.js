@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu, Tabs } from 'antd';
 import { Radio, Input } from 'antd';
+import { mainHttp as axios } from  "../../../Axios/Axios.js"
 
 import IntegerStep from "../Slider/Slider"
 
@@ -9,16 +10,31 @@ const { TabPane } = Tabs;
 
 
 
+// sort by radio group
 class RadioGroup extends React.Component {
   state = {
-    value: 1,
+    sortby: "aveageRaing",
+    sortorder : "INC"
   };
 
-  onChange = e => {
+   fetch = async() =>{
+    let url = window.location.href;
+    let arr = url.split("/");
+    let arrLen = arr.length;
+    const data = await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}`)
+             .then(res=>{
+               console.log(res)
+               console.log(arr[arrLen-1])
+             })
+     }
+
+  onChangeSortBy = e => {
     console.log(e.target.value);
     this.setState({
-      value: e.target.value,
+      sortby: e.target.value,
     });
+
+    this.fetch()
   };
 
   render() {
@@ -29,7 +45,7 @@ class RadioGroup extends React.Component {
     };
     const { value } = this.state;
     return (
-      <Radio.Group onChange={this.onChange} value={value}>
+      <Radio.Group onChange={this.onChangeSortBy} value={value}>
         <Radio style={radioStyle} value={"timeStamp"}>
           By Date
         </Radio>
@@ -46,17 +62,34 @@ class RadioGroup extends React.Component {
 }
 
 
-// radio group for prices
+// radio group for prices range  - high to low / low to high
 class RadioGroupPrices extends React.Component {
   state = {
-    value: 1,
+    sortby: "aveageRaing",
+    sortorder : "INC"
   };
 
-  onChange = e => {
+
+  fetch = async(sortorder) =>{
+    let url = window.location.href;
+    let arr = url.split("/");
+    let arrLen = arr.length;
+    console.log("param :"+sortorder)
+    const data = await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${sortorder}`)
+             .then(res=>{
+               console.log(res)
+               console.log(arr[arrLen-1])
+             })
+     }
+
+
+  onChangeSortOrder = e => {
     console.log(e.target.value);
     this.setState({
-      value: e.target.value,
+      sortorder: e.target.value,
     });
+
+    this.fetch(e.target.value)
   };
 
   render() {
@@ -67,7 +100,7 @@ class RadioGroupPrices extends React.Component {
     };
     const { value } = this.state;
     return (
-      <Radio.Group onChange={this.onChange} defaultValue={"DEC"}>
+      <Radio.Group onChange={this.onChangeSortOrder}  defaultValue={"DEC"}>
         <Radio style={radioStyle} value={"DEC"}>
           High-To-Low
         </Radio>
@@ -85,7 +118,7 @@ class RadioGroupPrices extends React.Component {
 
 
 // Two different components for different screen sizes---------------------
-
+//  DESKTOP SIZES :
 class Sider extends React.Component {
   // submenu keys of first level
   rootSubmenuKeys = ['sub1', 'sub2', 'sub4'];
@@ -137,7 +170,7 @@ class Sider extends React.Component {
 
 
 
-
+// MOBILE 
 // smaller screen sizes
 class App extends React.Component {
   state = {
