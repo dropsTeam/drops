@@ -50,6 +50,7 @@ function postCart(isNext) {
                 title: product.title,
                 price: product.price,
                 media: product.media,
+                seller: product.seller,
                 productId,
                 quantity,
                 phoneNumber,

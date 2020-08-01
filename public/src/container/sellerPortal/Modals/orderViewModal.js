@@ -1,41 +1,36 @@
 import React from 'react';
 
-import { Modal } from 'antd';
+import { Drawer } from 'antd';
 import OrderViews from '../../../components/OrdersViews/OrderViews';
 
-class orderViewModal extends React.PureComponent {
+class OrderViewModal extends React.PureComponent {
 
-    state = { visible: false };
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
-    };
-    handleOk = e => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
-    };
-    handleCancel = e => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
-    };
+
+    componentDidMount() {
+        fetch();
+    }
+    
+    async fetch() {
+        try {
+
+        } catch (err) {
+            alert('Error Occured loading the orders');
+        }
+    }
 
     render() {
 
         return (
-            <Modal
-                title="Basic Modal"
-                visible={this.state.visible}
-                onOk={this.handleOk}
-                onCancel={this.handleCancel}>
+            <Drawer
+                title="Orders"
+                visible={this.props.isVisible}
+                width={750}
+                closable={true}
+                onClose={() => this.props.$toggleModal('orderView', false)}>
                 <OrderViews />
-            </Modal>
+            </Drawer>
         )
     }
 }
 
-export default orderViewModal;
+export default OrderViewModal;

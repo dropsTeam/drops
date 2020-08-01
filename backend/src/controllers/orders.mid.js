@@ -15,4 +15,36 @@ const post = async (req, res) => {
     }
 }
 
-module.exports = { post };
+const getSellerOrders = async (req, res) => {
+
+    try {
+        const { user } = req.app.locals;
+        const { page } = req.params;
+
+        const orders = await orderModel.find({ seller: user.gId, confirmed: true }).sort('timeStamp').skip(page * 30).limit(30).lean();
+        res.status(200).send(orders);
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).send('Error Occured loading the orders');
+    }
+}
+
+const get = async (req, res) => {
+
+    try {
+        const { user } = req.app.locals;
+        const { page } = req.params;
+
+        const orders = await orderModel.find({ user: user.gId, confirmed: true }).sort('timeStamp').skip(page * 30).limit(30).lean();
+        res.status(200).send(orders);
+    }
+    catch (err) {
+        console.log(err);
+        res.status(400).send('Error Occured loading the orders');
+    }
+}
+
+
+
+module.exports = { post, getSellerOrders, get };

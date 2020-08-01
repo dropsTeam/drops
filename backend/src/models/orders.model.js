@@ -4,6 +4,7 @@ const typ = mongo.Schema.Types;
 const schema = mongo.Schema({
 
     user: typ.String,
+    seller: typ.String,
     productId: typ.ObjectId,
     title: {
         type: typ.String,

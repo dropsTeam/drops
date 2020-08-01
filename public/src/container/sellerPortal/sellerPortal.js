@@ -3,10 +3,12 @@ import React from 'react';
 import { PageHeader, Button, Menu, Dropdown, Modal } from 'antd';
 import ResultsBlock from "../../components/ProductsResults/ResultsBlock/ResultsBlock.js"
 import styles from './sellerPortal.module.css';
+
 import AddProduct from './Modals/AddProduct';
 import EditSellerProfile from './Modals/EditSellerProfile';
 import AnswerQuestionModal from './Modals/answerQuestions';
-import OrederViews from '../../components/OrdersViews/OrderViews';
+
+import OrderViewModal from './Modals/orderViewModal';
 
 import { mainHttp as axios } from "../../Axios/Axios";
 
@@ -19,7 +21,8 @@ class SellerPortal extends React.Component {
             view: {
                 AddProduct: false,
                 EditSellerProfile: false,
-                AnswerQuestions: false
+                AnswerQuestions: false,
+                orderView: false
             },
             products: []
         }
@@ -30,14 +33,14 @@ class SellerPortal extends React.Component {
 
 
     // for getting the particular product on mount---
-    componentDidMount(){
-       axios.get("/products/seller")
-        .then(res=>{
-            return res.data;
-        })
-        .then(res=>{
-            this.setState({products : res})
-        })
+    componentDidMount() {
+        axios.get("/products/seller")
+            .then(res => {
+                return res.data;
+            })
+            .then(res => {
+                this.setState({ products: res })
+            })
     }
 
 
@@ -87,7 +90,7 @@ class SellerPortal extends React.Component {
                         <Dropdown key={1} overlay={menu} placement="bottomLeft" arrow>
                             <Button type="primary">Settings</Button>
                         </Dropdown>,
-                        <Button key="3">Orders</Button>,
+                        <Button key="3" onClick={() => this.toggleModal('orderView', true)}>Orders</Button>,
                         <Button key="2" onClick={() => this.toggleModal('AnswerQuestions', true)} >Pending Questions</Button>,
 
                     ]}
@@ -135,10 +138,9 @@ class SellerPortal extends React.Component {
                     </div>
                 </div>
 
-                <OrederViews />
 
                 <AnswerQuestionModal $toggleModal={(a, b) => this.toggleModal(a, b)} isVisible={this.state.view.AnswerQuestions} />
-
+                <OrderViewModal $toggleModal={(a, b) => this.toggleModal('orderView', b)} isVisible={this.state.view.orderView} />
 
 
             </div>
