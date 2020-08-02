@@ -3,9 +3,14 @@ import React from 'react';
 import { PageHeader, Button, Menu, Dropdown, Modal } from 'antd';
 import ResultsBlock from "../../components/ProductsResults/ResultsBlock/ResultsBlock.js"
 import styles from './sellerPortal.module.css';
+
 import AddProduct from './Modals/AddProduct';
 import EditSellerProfile from './Modals/EditSellerProfile';
+import AnswerQuestionModal from './Modals/answerQuestions';
 
+import OrderViewModal from './Modals/orderViewModal';
+
+import { mainHttp as axios } from "../../Axios/Axios";
 
 class SellerPortal extends React.Component {
 
@@ -15,16 +20,34 @@ class SellerPortal extends React.Component {
         this.state = {
             view: {
                 AddProduct: false,
-                EditSellerProfile: false
-            }
+                EditSellerProfile: false,
+                AnswerQuestions: false,
+                orderView: false
+            },
+            products: []
         }
 
         this.toggleModal.bind(this);
     }
 
+
+
+    // for getting the particular product on mount---
+    componentDidMount() {
+        axios.get("/products/seller")
+            .then(res => {
+                return res.data;
+            })
+            .then(res => {
+                this.setState({ products: res })
+            })
+    }
+
+
+
     toggleModal(modalName, visiblity) {
 
-        const newState = {...this.state, ...this.state.view };
+        const newState = { ...this.state, ...this.state.view };
         newState.view[modalName] = visiblity;
 
         this.setState(newState);
@@ -54,6 +77,7 @@ class SellerPortal extends React.Component {
 
 
         return (
+
             <div>
                 <AddProduct isVisible={this.state.view.AddProduct} $toggleModal={(modalName, visible) => this.toggleModal(modalName, visible)} />
                 <EditSellerProfile isVisible={this.state.view.EditSellerProfile} $toggleModal={(modalName, visible) => this.toggleModal(modalName, visible)} />
@@ -63,12 +87,12 @@ class SellerPortal extends React.Component {
                     title="Dashboard"
                     subTitle="Seller"
                     extra={[
-                        <Button key="3">Orders</Button>,
-                        <Button key="2">Questions</Button>,
-
                         <Dropdown key={1} overlay={menu} placement="bottomLeft" arrow>
                             <Button type="primary">Settings</Button>
-                        </Dropdown>
+                        </Dropdown>,
+                        <Button key="3" onClick={() => this.toggleModal('orderView', true)}>Orders</Button>,
+                        <Button key="2" onClick={() => this.toggleModal('AnswerQuestions', true)} >Pending Questions</Button>,
+
                     ]}
                 />
 
@@ -103,25 +127,21 @@ class SellerPortal extends React.Component {
                 </div>
                 <hr />
 
-               <div>
-                <p className='h2' style={{ padding: '30px 0 0 20px' }}>Your Products</p>
-                <div 
-                  className={styles.results__block}
-                  >
-                    <ResultsBlock numbers={numbers} />
+                <div>
+                    <p className='h2' style={{ padding: '30px 0 0 20px' }}>Your Products</p>
+                    <div
+                        className={styles.results__block}
+                    >
+                        <ResultsBlock
+                            numbers={this.state.products}
+                        />
+                    </div>
                 </div>
-              </div>
 
-                <Modal
-                    title="Basic Modal"
-                    visible={false}
-                    onOk={() => { }}
-                    onCancel={() => { }}
-                >
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                    <p>Some contents...</p>
-                </Modal>
+
+                <AnswerQuestionModal $toggleModal={(a, b) => this.toggleModal(a, b)} isVisible={this.state.view.AnswerQuestions} />
+                <OrderViewModal $toggleModal={(a, b) => this.toggleModal('orderView', b)} isVisible={this.state.view.orderView} />
+
 
             </div>
         )
@@ -132,53 +152,3 @@ class SellerPortal extends React.Component {
 export default SellerPortal;
 
 
-const numbers = [
-    {
-     id:1,
-     img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
-     title : "T-Shirt",
-     price : "450"
-    },
-    {
-     id:2,
-     img:"https://rukminim1.flixcart.com/image/309/371/k7531jk0/t-shirt/z/c/a/s-rh-roundnck-x-hlfslv-blk-org-skin-rockhard-original-imafpfvkgtxeuz77.jpeg?q=50",
-     title : "Striped Men Routine Wear",
-     price : "450"
-    },
-    {
-     id:3,
-     img:"https://rukminim1.flixcart.com/image/309/371/jtn9bww0/t-shirt/5/g/g/m-hm-1001-black-red-helmont-original-imafdfvvr8hqdu65.jpeg?q=50",
-     title : "T-Shirt",
-     price : "450"
-    },
-    {
-     id:4,
-     img:"https://rukminim1.flixcart.com/image/309/371/k30h8y80/t-shirt/u/z/s/s-shp275282-shapphr-original-imafjvg4nngzwrfw.jpeg?q=50",
-     title : "T-Shirt",
-     price : "450"
-    },
-    {
-     id:5,
-     img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
-     title : "T-Shirt",
-     price : "450"
-    },
-    {
-     id:6,
-     img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
-     title : "T-Shirt",
-     price : "150"
-    },
-    {
-     id:7,
-     img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
-     title : "T-Shirt",
-     price : "250"
-    }
-    // {
-    //  id:8,
-    //  img:"https://rukminim1.flixcart.com/image/309/371/k5txifk0/t-shirt/h/z/v/m-43-celebrino-original-imafzf8hxqsznvw5.jpeg?q=50",
-    //  title : "T-Shirt",
-    //  price : "450"
-    // }
-   ]

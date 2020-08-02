@@ -14,9 +14,14 @@
   float: left;
 }
 
+.ant-input-search{
+  width:450px;
+}
+
 .searchbox{
-    margin: 8px;
-    margin-left: 4rem;
+    margin: 0rem;
+    /* margin-left: 4rem; */
+    width:500px;
 }
 
 .searched__list{
@@ -24,13 +29,13 @@
   border:1px solid white;
    z-index:9999;
    margin-left: 5.8rem;
-   margin-top: -0.75rem;;
-   box-shadow: 0px 0px 4px rgb(223, 223, 223);
+   margin-top: 0.8rem;;
+   /* box-shadow: 0px 0px 4px rgb(223, 223, 223); */
    position: absolute;
 }
 
 .searched__list ul{
-  width:520px;
+  width:450px;
 }
 
 .searched__list li{
@@ -44,10 +49,18 @@
    cursor: pointer;
 }
 
-.show{
+.hide{
   display: none;
 }
 
+.show{
+  display: block;
+}
+
+.recentSearch__image{
+  width:40px;
+  height: 40px;
+}
 
 
 .rightymenu{

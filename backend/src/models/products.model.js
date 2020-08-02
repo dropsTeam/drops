@@ -32,12 +32,12 @@ const detailsSchema = mongo.Schema({
 const varients = mongo.Schema({
     title: {
         type: typ.String,
-        maxlength: 50,
+        maxlength: 200,
         required: false
     },
     media: {
         type: typ.String,
-        maxlength: 100,
+        maxlength: 200,
         required: false
     }
 });
@@ -78,7 +78,7 @@ const schema = mongo.Schema({
         options: [{
             type: typ.String,
             required: true,
-            maxlength: 50
+            maxlength: 100
         }]
     },
 
@@ -112,8 +112,8 @@ const schema = mongo.Schema({
 
 });
 
-schema.index({ discription: 'text' });
+schema.index({ title: 'text' });
 
 schema.index({ aveageRaing: 1, price: 1, timeStamp: 1 });
 
-module.exports =  mongo.model('products', schema);
+module.exports = mongo.model('products', schema);

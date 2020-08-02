@@ -6,13 +6,14 @@ const userModel = require('../models/user.model');
 const basicProductInfo = async (req, res, next) => {
 
     try {
-        const { productId } = (req.method === 'POST') ? req.body : req.params;
 
-        const product = await productModel.findOne({ _id: productId }).select('title media varients dropdown totalReview price seller').lean();
+        let productId = (req.method === 'POST') ? req.body.productId : req.params.productId;
+
+        const product = await productModel.findOne({ _id: productId }).select('title media varients dropdown aveageRaing totalReview price seller').lean();
 
         if (!!!product) { throw 'No Product Found with the given id!' };
 
-        req.app.locals.productInfo = product;
+        req.app.locals.product = product;
 
         next();
 
@@ -42,7 +43,12 @@ const get = async (req, res, next) => {
         const product = await productModel.findOne({ _id: productId }).lean();
 
         if (Object.prototype.hasOwnProperty.call(req.app.locals, 'user') && !!product) {
-            await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $push: { recommendations: productId } });
+            const userr = await userModel.findOne({ gId: req.app.locals.user.gId }).select('recommendations').lean();
+
+            if (!userr.recommendations.includes(productId)) {
+                await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $addToSet: { recommendations: productId } });
+
+            }
         }
 
         res.status(200).send(product);
@@ -53,14 +59,26 @@ const get = async (req, res, next) => {
     }
 }
 
+const getSellerProducts = async (req, res) => {
+    try {
+        const { user } = req.app.locals;
+
+        const products = await productModel.find({ seller: user.gId }).lean();
+        res.status(200).send(products);
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).send('oops')
+    }
+}
+
 
 const postProduct = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
         const { title, description, details, highlights, media, dropdown, varients, price, category } = req.body;
 
-        if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10 || highlights.length > 10 ) throw 'Validation Error.';
-
+        if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10 || highlights.length > 10) throw 'Validation Error.';
 
 
         const payload = {
@@ -109,7 +127,7 @@ const search = async (req, res, next) => {
     try {
 
 
-        let page = 1;
+        let page = 0;
         let sortby = 'aveageRaing';
         let sortorder = 1;
 
@@ -117,13 +135,15 @@ const search = async (req, res, next) => {
             $text: {
                 $search: ''
             },
-            price: { $gt: 0, $lt: 10000000 }
+
+            price: { $gt: 0, $lt: 10000 }
         }
 
 
         if (req.query.hasOwnProperty('text')) {
-            if (req.query.text.trim().length === 0) {
-                payload.$text.$search = req.query.text;
+
+            if (req.query.text.trim().length !== 0) {
+                payload.$text.$search = req.query.text
             } else throw 'Text is required';
         } else {
             throw 'Text is required';
@@ -132,11 +152,11 @@ const search = async (req, res, next) => {
 
         if (req.query.hasOwnProperty('sortby') && req.query.hasOwnProperty('sortorder')) {
             if (
-                ['aveageRaing', 'timeStamp', 'price'].includes(req.query.sortby),
+                ['totalReview', 'aveageRaing', 'timeStamp', 'price'].includes(req.query.sortby),
                 ['INC', 'DEC'].includes(req.query.sortorder)
             ) {
                 sortby = req.query.sortby;
-                sortorder = (req.query.sortorder === 'INC') ? 1 : -1;
+                sortorder = (req.query.sortorder === 'INC') ? -1 : 1;
             }
         }
 
@@ -150,13 +170,24 @@ const search = async (req, res, next) => {
         }
 
         if (req.query.hasOwnProperty('range')) {
+            
             payload.price.$gt, payload.price.$lt = req.query.range.split("-");
+
+            let splitRange = req.query.range.split("-")
+            payload.price.$gt = splitRange[0];
+            payload.price.$lt = splitRange[1];
+
         }
 
-        const search = await productModel.find(payload).select('title media totalReview price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
 
-        if (req.app.locals.hasOwnProperty('user') && search.length !== 0) {
-            await userModel.findOneAndUpdate({ gId: user.gId }, { $push: { searchHistory: req.query.text } });
+
+        const search = await productModel.find(payload, { score: { $meta: "textScore" } }).select('title media totalReview aveageRaing category price').sort({ totalReview: 1, [sortby]: [sortorder] }).skip(page * 20).limit(20).lean();
+
+
+
+        if (Object.prototype.hasOwnProperty.call(req.app.locals, 'user') && search.length !== 0) {
+
+            await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $push: { searchHistory: req.query.text } });
         }
 
         res.status(200).send(search);
@@ -168,4 +199,4 @@ const search = async (req, res, next) => {
 }
 
 
-module.exports = { basicProductInfo, getbasicProductInfo, postProduct, editProduct, search, get };
+module.exports = { basicProductInfo, getbasicProductInfo, postProduct, editProduct, search, get, getSellerProducts };

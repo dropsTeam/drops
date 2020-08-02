@@ -7,30 +7,31 @@ const schema = new mongo.Schema({
 
     productId: {
         type: typ.ObjectId,
-        ref:'products',
+        ref: 'products',
         required: true
     },
     question: {
         type: typ.String,
-        maxlength: [100, '{PATH} exceeds the max length'],
+        maxlength: [500, '{PATH} exceeds the max length'],
         required: true
     },
     answer: {
         type: typ.String,
-        maxlength: [2000, '{PATH} exceeds the max length'],
-        required: false
+        maxlength: [5000, '{PATH} exceeds the max length'],
+        default: ''
     },
     timeStamp: {
         type: typ.Date,
         default: Date.now
     },
     user: {
-        type: typ.String,
-        required: true
+        fullName: typ.String,
+        gId: typ.String
+    },
+    seller: {
+        type: typ.String
     }
 });
 
-schema.index({ timeStamp: 1 }, { unique: false });
 
-
-module.export = mongo.model('qna', schema);
+module.exports = mongo.model('qna', schema);

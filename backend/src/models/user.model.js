@@ -2,49 +2,19 @@ const mongo = require('mongoose');
 const types = mongo.Schema.Types;
 
 
-const cartSchema = new mongo.Schema({
-    productId: {
-        type: types.ObjectId,
-        required: true
-    },
 
-    quantity: {
-        type: types.Number,
-        max: 100,
-        min: 1,
-        default: 1
-    },
-    varient: {
-        type: types.Number,
-        min: 0
-    },
-    dropdown: {
-        title: {
-            type: types.String,
-            maxlength: 50,
-            required: true
-        },
-        option: {
-            type: types.String,
-            maxlength: 50,
-            required: true
-        }
-    },
+
+const schema = mongo.Schema({
     timeStamp: {
         type: types.Date,
         default: Date.now
     },
-    searchHistory: [mongo.Schema({ type: types.String })],
-    recommendations: [mongo.Schema({ type: types.ObjectId })]
-});
-
-
-const schema = mongo.Schema({
+    searchHistory: [String],
+    recommendations: [{ type: types.ObjectId, ref: 'products' }],
     gId: { type: types.String },
     profilePic: { type: types.String },
     email: { type: types.String },
     fullName: { type: types.String },
-    cart: [cartSchema],
     userAddress: {
         city: {
             type: types.String,
@@ -80,16 +50,15 @@ const schema = mongo.Schema({
     seller: {
         name: {
             type: types.String,
-            required: false,
             maxlength: 50,
             trim: true,
-            unique: true
+            default: ''
         },
         bio: {
             type: types.String,
-            maxlength: 1000,
+            maxlength: 3000,
             trim: true,
-            required: false
+            default: ''
         },
         profleImg: {
             type: types.String,
@@ -99,7 +68,6 @@ const schema = mongo.Schema({
     }
 });
 
-cartSchema.index({ gId: 1 }, { unique: true });
 
 
 module.exports = mongo.model('users', schema);

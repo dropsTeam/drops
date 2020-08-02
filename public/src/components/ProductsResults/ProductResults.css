@@ -150,6 +150,10 @@
   font-weight: 500;
 }
 
+.filters__option--inner {
+  padding: 0 1.5rem;
+}
+
 .radio__input {
   margin: 0.5rem 1.5rem;
 }

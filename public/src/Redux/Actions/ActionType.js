@@ -4,6 +4,7 @@ const ActionType = {
     LOGIN: 'LOGIN',
     LOGOUT: 'LOGOUT',
     SET_USER: 'SET_USER',
+    SET_SELLER: 'SET_SELLER',
     
     LOADING: 'LOADING',
 

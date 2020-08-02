@@ -1,8 +1,11 @@
 import ActionType from './ActionType';
+import { mainHttp } from '../../Axios/Axios';
 
 function addToCart(item, isAuthorised) {
 
-    return dispatch => {
+    return async dispatch => {
+
+
         if (!isAuthorised) {
             if (!!!localStorage.getItem('cart')) localStorage.setItem('cart', JSON.stringify([]));
             let cart = JSON.parse(localStorage.getItem('cart'));
@@ -10,9 +13,19 @@ function addToCart(item, isAuthorised) {
             localStorage.setItem('cart', JSON.stringify(cart));
         }
         else {
-            // POST REQUEST
+            try {
+
+                await mainHttp.post('/user/cart',{...item});
+                dispatch({ type: ActionType.ADD_TO_CART, payload: { item } })
+
+            } catch (err) {
+                alert('Error Occured posting your cart');
+            }
         }
+
         dispatch({ type: ActionType.ADD_TO_CART, payload: {item} })
+
+
     }
 }
 

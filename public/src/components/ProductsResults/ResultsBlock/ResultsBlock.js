@@ -5,6 +5,7 @@ import ResultsCard from "../ResultsCard/ResultsCard";
 import {mainHttp as axios} from "../../../Axios/Axios.js";
 
 
+
 class ResultsBlock extends Component{
 
  constructor(props) {
@@ -12,22 +13,27 @@ class ResultsBlock extends Component{
  }
 
 
- 
-
  render(){
+
    return (
-     <div className={`d-flex bd-highlight flex-row flex-wrap  .align-content-sm-around align-content-around `}>
-      {this.props.numbers.map((item,index)=>
-          <ResultsCard 
-             id={item.id} 
-             title={item.title}
-             price={item.price} 
-             img={item.img}  
-             key={index} 
-             flipkartImg="http://img1a.flixcart.com/www/linchpin/fk-cp-zion/img/fa_8b4b59.png"
-           />
-        )}
- </div>
+     <>
+     {this.props.numbers ? 
+       <div className={`d-flex bd-highlight flex-row flex-wrap  .align-content-sm-around align-content-around `}>
+        {this.props.numbers.map((item,index)=>
+            <ResultsCard 
+              id={item._id} 
+              title={item.title}
+              price={item.price} 
+              img={item.media[0]}  
+              key={index} 
+              rating={item.aveageRaing}
+              totalReviews={item.totalReview}
+              flipkartImg="http://img1a.flixcart.com/www/linchpin/fk-cp-zion/img/fa_8b4b59.png"
+            />
+          )}
+      </div>
+    : ""}
+    </>
    )
  }
 }
