@@ -12,7 +12,7 @@ function addToCart(item, isAuthorised) {
         else {
             // POST REQUEST
         }
-        dispatch({ type: ActionType.ADD_TO_CART, payload: { item } })
+        dispatch({ type: ActionType.ADD_TO_CART, payload: {item} })
     }
 }
 
@@ -68,4 +68,4 @@ function loadCart(isAuthorised) {
     }
 }
 
-export { addToCart, editCart, deleteCartItem, loadCart }
+export { addToCart, editCart, deleteCartItem, loadCart };
