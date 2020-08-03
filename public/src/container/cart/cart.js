@@ -15,8 +15,8 @@ import { editCart, deleteCartItem } from '../../Redux/Actions/CartActions';
 
 class Cart extends Component {
 
-    editCart = (quantity, productId, index) => {
-        this.props.$editCart(quantity, productId, index, this.props.isAuthorised);
+    editCart = (quantity, index) => {
+        this.props.$editCart(quantity, index, this.props.isAuthorised);
     }
 
     deleteCartItem = (index) => {
@@ -33,7 +33,7 @@ class Cart extends Component {
                 <Col className="col-left-cart" xs={24} sm={24} md={24} lg={24} xl={16}>
                     <Card title="MY SHOPPING BAG" className="cart-right-check">
 
-                        <OrderList $editCart={(quantity, productId, index) => this.editCart(quantity, productId, index)} $deleteCartItem={(index) => this.deleteCartItem(index)} isAuthorised = {this.props.isAuthorised} cartItems = {this.props.cartItems} />
+                        <OrderList $editCart={(quantity, index) => this.editCart(quantity, index)} $deleteCartItem={(index) => this.deleteCartItem(index)} isAuthorised = {this.props.isAuthorised} cartItems = {this.props.cartItems} />
 
                         <Row className="row-desc-2">
                             <Form>
