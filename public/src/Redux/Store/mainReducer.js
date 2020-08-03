@@ -102,8 +102,8 @@ export default function mainReducer(state = init, action) {
 
         case ActionType.EDIT_CART: {
             const cart = [...state.cartItems];
-            
-            
+
+
 
             cart[action.payload.index].quantity = action.payload.quantity;
 
@@ -113,8 +113,18 @@ export default function mainReducer(state = init, action) {
 
         case ActionType.DELETE_CART_ITEM: {
 
+            let index = 0;
+
+            if (state.isAuthorised) {
+                index = action.payload.index;
+            } else {
+                index = state.cartItems.findIndex(item => {
+                    return item._id === action.payload.index;
+                });
+            }
+
             const cart = [...state.cartItems];
-            cart.splice(action.payload.index, 1);
+            cart.splice(index, 1);
             const newState = { ...state, cartItems: [...cart] };
             return newState;
         }
@@ -122,11 +132,11 @@ export default function mainReducer(state = init, action) {
         case ActionType.LOAD_CART: {
             const cart = [...action.payload.cart]
             const newState = { ...state, cartItems: cart };
-            return newState
+            return newState;
         }
 
         case ActionType.CLEAR_CART: {
-            return { ...this.state, cartItems: [] }
+            return { ...state, cartItems: [] }
         }
 
 
