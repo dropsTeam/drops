@@ -18,7 +18,7 @@ render() {
 
   let discountPercent = 0.2;
   let aPrice = this.props.price;
-  let dPrice = aPrice-this.multiply(discountPercent,aPrice);
+  let dPrice = aPrice+this.multiply(discountPercent,aPrice);
 // for calculating emi based on price
   const emiArr = ["EMI avalaible","No EMI avalaible"];
   let emi = emiArr[Math.floor(Math.random() *2) ];
@@ -38,8 +38,8 @@ render() {
         </p>
        </div>
        <div className="resultsCard__price">
-         <span className="resultsCard__dPrice price">${dPrice}</span>
-         <span className="resultsCard__aPrice price">${aPrice}</span>
+         <span className="resultsCard__dPrice price">${aPrice}</span>
+         <span className="resultsCard__aPrice price">${dPrice}</span>
          <span className="resultsCard__dPercent price">{discountPercent*100}% off</span>
        </div>
        <div className="results__emi">
