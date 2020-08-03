@@ -33,6 +33,7 @@ class RadioGroup extends React.Component {
       lineHeight: '30px',
     };
     const { value } = this.state;
+    const {value2} = this.state;
     return (
       <>
         {/* price ranger */}
@@ -87,7 +88,7 @@ class RadioGroup extends React.Component {
         </Radio>
       </Radio.Group>
 
-      <Radio.Group onChange={(e) => this.props.onChangeSortOrder(e) } value={value}>
+      <Radio.Group onChange={(e) => this.props.onChangeSortOrder(e) } value2={value}>
         <Radio style={radioStyle}  value={"INC"}>
           High-To-Low
         </Radio>
