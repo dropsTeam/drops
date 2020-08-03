@@ -4,7 +4,7 @@ const orderModel = require('./../models/orders.model');
 const get = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
-        const userData = await userModel.findOne({ gId: user.gId }).sort('-timeStamp').select('gId profilePic email fullName isSeller seller userAddress timeStamp').lean();
+        const userData = await userModel.findOne({ gId: user.gId }).select('gId profilePic email fullName isSeller seller userAddress timeStamp').lean();
         res.status(200).send(userData);
     }
     catch (err) {
@@ -20,7 +20,7 @@ const getCart = async (req, res, next) => {
 
         const { user } = req.app.locals;
 
-        const cart = await await orderModel.find({ user: user.gId, confirmed: false }).lean();
+        const cart = await await orderModel.find({ user: user.gId, confirmed: false }).sort('-timeStamp').lean();
 
         res.status(200).send(cart);
 

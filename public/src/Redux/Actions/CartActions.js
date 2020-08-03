@@ -98,7 +98,7 @@ function loadCart(isAuthorised) {
                 localStorage.setItem('cart', JSON.stringify([]));
             }
             const cart = JSON.parse(localStorage.getItem('cart'));
-            cart.reverse();
+
 
             dispatch({ type: ActionType.LOAD_CART, payload: { cart: [...cart] } })
 
@@ -119,7 +119,7 @@ function loadCart(isAuthorised) {
                 await Promise.all(promis);
 
                 const fetchCart = await mainHttp.get('/user/cart');
-                fetchCart.data.reverse();
+
 
                 dispatch({ type: ActionType.LOAD_CART, payload: { cart: [...fetchCart.data] } })
                 localStorage.clear();
