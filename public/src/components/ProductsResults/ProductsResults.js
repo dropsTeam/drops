@@ -93,6 +93,23 @@ class ProductResults extends React.PureComponent {
   }
 
 
+  // fetch for results-----main
+
+  fetch = async () => {
+    try {
+      const results = await mainHttp.get(`/products/search?text=${this.props.match.params.text}`)
+
+      const newArr = [...results.data];
+      this.setState({ ...this.state, results: [...newArr] });
+      
+      console.log(results)
+    } catch (err) {
+      console.log(err)
+      alert('error occured laoding th results')
+    }
+  }
+
+
   // for fetching by SORTBY
   fetchBy = async(sortby) =>{
     let url = window.location.href;
@@ -173,20 +190,7 @@ class ProductResults extends React.PureComponent {
     this.fetchRange(this.state.priceMin,value)
   };
 
-  // fetch for results-----main
-
-  fetch = async () => {
-    try {
-      const results = await mainHttp.get(`/products/search?text=${this.props.match.params.text}`)
-
-      const newArr = [...results.data];
-      this.setState({ ...this.state, results: [...newArr] });
-
-    } catch (err) {
-      console.log(err)
-      alert('error occured laoding th results')
-    }
-  }
+  
 
 
   render() {

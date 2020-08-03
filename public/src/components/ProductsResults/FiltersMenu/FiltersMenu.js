@@ -87,6 +87,9 @@ class RadioGroup extends React.Component {
         <Radio style={radioStyle} value={"totalReview"}>
           Total Reviews
         </Radio>
+        <Radio style={radioStyle} value={"price"}>
+          Price
+        </Radio>
       </Radio.Group>
 
       <Radio.Group onChange={(e) => this.props.onChangeSortOrder(e) } value2={value}>
