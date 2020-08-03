@@ -25,8 +25,8 @@ class OrderList extends React.PureComponent {
                     </Col>
                     <Row className="bottom-desc-line">
                         <PlusMinusCart
-                            $editCart={(a, c) => this.props.$editCart(a, c)}
-                            $deleteCartItem={(a) => this.props.$deleteCartItem(a)}
+                            $editCart={this.props.$editCart}
+                            $deleteCartItem={this.props.$deleteCartItem}
                             isAuthorised={this.props.isAuthorised}
                             cartId={item._id} 
                             index={index}

@@ -16,7 +16,6 @@ class PlusMinusCart extends React.Component {
 
     let reduxIndex = (this.props.isAuthorised) ? this.props.cartId : this.props.index;
 
-
     return (
 
       <Row className="b-row-plusminus">

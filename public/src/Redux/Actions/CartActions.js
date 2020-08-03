@@ -15,7 +15,10 @@ function addToCart(item, isAuthorised) {
         }
         else {
             try {
-                await mainHttp.post('/user/cart', { ...item });
+                const newITEM = await mainHttp.post('/user/cart', { ...item });
+
+                item._id = newITEM.data._id;
+
                 dispatch({ type: ActionType.ADD_TO_CART, payload: { item } })
 
             } catch (err) {
@@ -95,6 +98,7 @@ function loadCart(isAuthorised) {
                 localStorage.setItem('cart', JSON.stringify([]));
             }
             const cart = JSON.parse(localStorage.getItem('cart'));
+            cart.reverse();
 
             dispatch({ type: ActionType.LOAD_CART, payload: { cart: [...cart] } })
 
@@ -115,6 +119,7 @@ function loadCart(isAuthorised) {
                 await Promise.all(promis);
 
                 const fetchCart = await mainHttp.get('/user/cart');
+                fetchCart.data.reverse();
 
                 dispatch({ type: ActionType.LOAD_CART, payload: { cart: [...fetchCart.data] } })
                 localStorage.clear();

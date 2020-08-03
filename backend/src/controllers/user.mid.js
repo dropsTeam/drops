@@ -4,7 +4,7 @@ const orderModel = require('./../models/orders.model');
 const get = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
-        const userData = await userModel.findOne({ gId: user.gId }).select('gId profilePic email fullName isSeller seller userAddress').lean();
+        const userData = await userModel.findOne({ gId: user.gId }).sort('-timeStamp').select('gId profilePic email fullName isSeller seller userAddress timeStamp').lean();
         res.status(200).send(userData);
     }
     catch (err) {
@@ -40,6 +40,7 @@ function postCart(isNext) {
             const { productId, quantity, dropdown, varients } = req.body;
 
             const payload = {
+
                 user: user.gId,
 
                 title: product.title,
