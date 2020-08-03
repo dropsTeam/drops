@@ -344,4 +344,4 @@ const mapPropsByDispatch = dispatch => {
     }
 }
 
-export default connect(mapPropsByState, mapPropsByDispatch)(ProductView)
+export default connect(mapPropsByState, mapPropsByDispatch)(ProductView);

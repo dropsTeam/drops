@@ -22,6 +22,10 @@ function addToCart(item, isAuthorised) {
                 alert('Error Occured posting your cart');
             }
         }
+
+        dispatch({ type: ActionType.ADD_TO_CART, payload: {item} })
+
+
     }
 }
 
@@ -61,6 +65,7 @@ function deleteCartItem(index, isAuthorised) {
 }
 
 
+
 function loadCart(isAuthorised) {
     return dispatch => {
         if (!isAuthorised) {
@@ -77,6 +82,7 @@ function loadCart(isAuthorised) {
     }
 }
 
+
 function clearCart() {
 
     return dispatch => {
@@ -86,3 +92,4 @@ function clearCart() {
 }
 
 export { addToCart, editCart, deleteCartItem, loadCart, clearCart }
+
