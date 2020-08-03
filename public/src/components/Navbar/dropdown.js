@@ -131,7 +131,7 @@ class DropDown extends Component {
           }
         </Menu.Item>
 
-        <Menu.Item danger>Logout</Menu.Item>
+        <Menu.Item danger onClick={this.props.$logout}>Logout</Menu.Item>
       </Menu>
     );
 
@@ -156,7 +156,8 @@ const mapPropsToState = (store) => {
 
 const mapPropsToDispatch = dispatch => {
   return {
-    setSeller: (sellerInfo) => dispatch(authActions.setSeller(sellerInfo))
+    setSeller: (sellerInfo) => dispatch(authActions.setSeller(sellerInfo)),
+    $logout: () => dispatch(authActions.logout())
   }
 }
 
