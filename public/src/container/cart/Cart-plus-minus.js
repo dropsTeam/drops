@@ -14,11 +14,13 @@ class PlusMinusCart extends React.Component {
 
   render() {
 
+
+
     return (
 
       <Row className="b-row-plusminus">
         <ButtonGroup>
-          <Button className="plusminus-btn-1-x" onClick={() => this.props.$editCart(this.props.quantity - 1, this.props.productId)}>
+          <Button className="plusminus-btn-1-x" onClick={() => this.props.$editCart(this.props.quantity - 1, this.props.productId, this.props.index)}>
             <MinusCircleOutlined />
           </Button>
 
@@ -34,7 +36,7 @@ class PlusMinusCart extends React.Component {
             <a>SAVE FOR LATER</a>
           </div>
           <div className="rbsvu">
-            <a onClick={this.props.deleteCartItem}> REMOVE</a>
+            <a onClick={() => this.props.$deleteCartItem(this.props.productId, this.props.index)}> REMOVE</a>
           </div>
         </div>
       </Row>

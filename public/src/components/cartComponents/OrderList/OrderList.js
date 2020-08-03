@@ -18,14 +18,14 @@ class OrderList extends React.PureComponent {
                         <h1>{item.title}</h1>
                         <h2>{item.productId}</h2>
                         <h3>{item.dropdown.title} : {item.dropdown.options} - {item.varients.title}</h3>
-                        <h3><span className="rate-1-x"></span><span className="rate-2-x">$1999</span><span className="rate-3-x">71%off</span></h3>
+            <h3><span className="rate-1-x"></span><span className="rate-2-x">$1999</span><span className="rate-3-x">71%off - {item.price}</span></h3>
                     </Col>
                     <Col span={8} className="desc-cart-right">
                         <h1>Delivery by Sun Jul 19 | $65 </h1>
                         <h2>10 Days Replacement Policy</h2>
                     </Col>
                     <Row className="bottom-desc-line">
-                        <PlusMinusCart $editCart={this.props.$editCart} index={this.props.index} quantity={item.quantity} productId={item.productId} />
+                        <PlusMinusCart $editCart={(a,b,c) => this.props.$editCart(a,b,c)} $deleteCartItem={() => this.props.$deleteCartItem()} index={index} quantity={item.quantity} productId={item.productId} />
                     </Row>
                 </Row>
             )

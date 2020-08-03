@@ -86,6 +86,7 @@ class ProductView extends React.Component {
         this.props.$addToCart({
             productId: this.state.data._id,
             quantity: 1,
+            price: this.state.data.price,
             varients: { ...this.state.selected.varients },
             dropdown: { ...this.state.selected.dropdown },
             title: this.state.data.title

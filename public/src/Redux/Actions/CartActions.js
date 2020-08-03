@@ -29,7 +29,7 @@ function addToCart(item, isAuthorised) {
     }
 }
 
-function editCart(quantity, productId, index = 0, isAuthorised) {
+function editCart(quantity, productId, index, isAuthorised) {
     return dispatch => {
 
         if (quantity <= 0) return;
@@ -56,7 +56,7 @@ function editCart(quantity, productId, index = 0, isAuthorised) {
 
 }
 
-function deleteCartItem(index, isAuthorised) {
+function deleteCartItem(productId, index, isAuthorised) {
     return dispatch => {
         if (!isAuthorised) {
 
@@ -67,7 +67,7 @@ function deleteCartItem(index, isAuthorised) {
         else {
             // POST REQUEST
         }
-        dispatch({ type: ActionType.EDIT_CART, payload: { index } });
+        dispatch({ type: ActionType.DELETE_CART_ITEM, payload: {productId, index } });
     }
 
 }

@@ -1,31 +1,28 @@
 import React from 'react';
-import { connect } from 'react-redux';
+
 
 class PriceList extends React.PureComponent {
 
     render() {
-        return (
 
-            <div>
-                <p>Price <span className="p-details">fd</span></p>
-                <p>Delivery Fee <span className="p-details">FREE</span></p>
-                <span>--------------------------------------------------------------</span>
-                <p style={{ fontSize: 20, fontWeight: "bold" }}>Total Amount <span className="p-details">yoyo</span></p>
-                <span>--------------------------------------------------------------</span>
-            </div>
+       
+            return (
 
-        )
-    }
-}
+                <div>
+                    <p>Total Items <span className="p-details">{this.props.cartItems.reduce((a, c) => a + c.quantity, 0)}</span></p>
+                    <p>Delivery Fee <span className="p-details">FREE</span></p>
+                    <span>--------------------------------------------------------------</span>
+                    <p style={{ fontSize: 20, fontWeight: "bold" }}>Total Amount <span className="p-details"> $ {this.props.cartItems.reduce((a, c) => a + c.price * c.quantity, 0)}</span></p>
+                    <span>--------------------------------------------------------------</span>
+                </div>
+            )
+      
 
-const mapPropsToState = (store) => {
-    return {
-        cartItems: store.cartItems,
-        user: store.user,
-        isAuthorised: store.isAuthorised,
-
+        
     }
 }
 
 
-export default connect(mapPropsToState, null)(PriceList);
+
+
+export default PriceList;
