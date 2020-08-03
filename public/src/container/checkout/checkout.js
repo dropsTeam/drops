@@ -6,7 +6,9 @@ import { CarOutlined, BellOutlined, StarOutlined } from '@ant-design/icons';
 import DeliverForm from './checkoutdlvform';
 import PaymentForm from './payment';
 import { connect } from 'react-redux';
-import { Orderlist, Pricelist } from '../cart/cart.js';
+import PriceList from '../../components/cartComponents/PriceList/PriceList'
+import OrderList from '../../components/cartComponents/OrderList/OrderList'
+
 
 
 const { Panel } = Collapse;
@@ -86,7 +88,7 @@ class Cartcheckout extends Component {
 
 
                                         <Card title="ORDER SUMMARY" className="cart-right-check" headStyle={{ color: 'grey', height: 48 }}>
-                                            {Orderlist}
+                                            <OrderList />
                                         </Card>
 
                                         <Card title="PAYMENT OPTION" visible={false} className="cart-right-check" headStyle={{ color: 'grey', height: 48 }}>
@@ -118,7 +120,7 @@ class Cartcheckout extends Component {
                 { this.props.isAuthorised  && (
                     <Col className="col-right-cart" xl={8}>
                         <Card title="PRICE DETAILS" className="cart-left" headStyle={{ color: '#878787' }} >
-                            {Pricelist}
+                            <PriceList />
                         </Card>
                     </Col>
                 )}
