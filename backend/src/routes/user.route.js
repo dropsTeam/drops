@@ -5,7 +5,8 @@ const productC = require('../controllers/product.mid');
 const { auth } = require('../../config');
 
 
-route.get('/', authC.googleVerify(true, true), userC.get);
+route.get('/', authC.googleVerify(true, true), userC.get)
+    .put('/', authC.googleVerify(true, true), userC.editProfile)
 
 route
     .get('/cart', authC.googleVerify(true, true), userC.getCart)

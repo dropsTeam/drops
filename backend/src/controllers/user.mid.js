@@ -13,6 +13,29 @@ const get = async (req, res, next) => {
     }
 };
 
+const editProfile = async (req, res, next) => {
+    try {
+        const { address } = req.body;
+        const { user } = req.app.locals;
+
+        const update = {
+            city: address.city,
+            state: address.state,
+            zipCode: address.zipCode,
+            landmark: address.landmark,
+            address: address.address
+        }
+
+        await userModel.findOneAndUpdate({ gId: user.gId }, update);
+
+        res.status(200).send('ok');
+
+    } catch (err) {
+        console.log(err);
+        res.status(500).send({ msg: 'Error Occured editing the profile' });
+    }
+}
+
 
 const getCart = async (req, res, next) => {
 
@@ -157,4 +180,4 @@ const getRecommendedItems = async (req, res, next) => {
 
 
 
-module.exports = { get, getCart, postCart, deleteCartItem, editCart, getSearchHistory, getRecommendedItems };
+module.exports = { get, editProfile, getCart, postCart, deleteCartItem, editCart, getSearchHistory, getRecommendedItems };
