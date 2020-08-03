@@ -23,26 +23,34 @@ function addToCart(item, isAuthorised) {
             }
         }
 
-        dispatch({ type: ActionType.ADD_TO_CART, payload: {item} })
+        dispatch({ type: ActionType.ADD_TO_CART, payload: { item } })
 
 
     }
 }
 
-function editCart(item, index, isAuthorised) {
+function editCart(quantity, productId, index = 0, isAuthorised) {
     return dispatch => {
+
+        if (quantity <= 0) return;
         if (!isAuthorised) {
 
-            if (!!!localStorage.getItem('cart')) localStorage.setItem('cart', JSON.stringify([]));
+            if (!!!localStorage.getItem('cart')) {
+                localStorage.setItem('cart', JSON.stringify([]));
+                alert('product doesnot exist. ');
+                return;
+            }
 
             let cart = JSON.parse(localStorage.getItem('cart'));
-            cart[index] = item;
+
+            cart[index].quantity = quantity;
+
             localStorage.setItem('cart', JSON.stringify(cart));
         }
         else {
-            
+
         }
-        dispatch({ type: ActionType.EDIT_CART, payload: { item, index } });
+        dispatch({ type: ActionType.EDIT_CART, payload: { productId, quantity, index } });
 
     }
 
