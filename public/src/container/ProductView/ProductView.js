@@ -10,11 +10,8 @@ import { mainHttp } from '../../Axios/Axios';
 
 class ProductView extends React.Component {
 
-
     clearSrc;
     zoomLevel = 2;
-
-
 
     constructor(props) {
         super(props);
@@ -85,6 +82,7 @@ class ProductView extends React.Component {
     addToCart = _ => {
         this.props.$addToCart({
             productId: this.state.data._id,
+            _id: 0,
             quantity: 1,
             price: this.state.data.price,
             varients: { ...this.state.selected.varients },

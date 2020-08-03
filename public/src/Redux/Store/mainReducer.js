@@ -103,9 +103,15 @@ export default function mainReducer(state = init, action) {
         case ActionType.EDIT_CART: {
             const cart = [...state.cartItems];
 
+            let index = action.payload.index;
 
+            if (state.isAuthorised) {
+                index = cart.findIndex(item => {
+                    return item._id === action.payload.index;
+                });
+            }
 
-            cart[action.payload.index].quantity = action.payload.quantity;
+            cart[index].quantity = action.payload.quantity;
 
             const newState = { ...state, cartItems: [...cart] };
             return newState

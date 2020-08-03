@@ -111,7 +111,7 @@ const editCart = async (req, res, next) => {
         const { cartId, quantity } = req.body;
 
         await orderModel.findByIdAndUpdate({ seller: user.gId, confirmed: false, _id: cartId }, { quantity });
-        res.state(200).send('ok');
+        res.status(200).send('ok');
 
     } catch (err) {
         console.log(err);

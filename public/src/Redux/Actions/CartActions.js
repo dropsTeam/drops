@@ -5,16 +5,16 @@ function addToCart(item, isAuthorised) {
 
     return async dispatch => {
 
-
         if (!isAuthorised) {
             if (!!!localStorage.getItem('cart')) localStorage.setItem('cart', JSON.stringify([]));
             let cart = JSON.parse(localStorage.getItem('cart'));
             cart.push(item);
             localStorage.setItem('cart', JSON.stringify(cart));
+            dispatch({ type: ActionType.ADD_TO_CART, payload: { item } })
+
         }
         else {
             try {
-
                 await mainHttp.post('/user/cart', { ...item });
                 dispatch({ type: ActionType.ADD_TO_CART, payload: { item } })
 
@@ -23,17 +23,15 @@ function addToCart(item, isAuthorised) {
             }
         }
 
-        dispatch({ type: ActionType.ADD_TO_CART, payload: { item } })
-
-
     }
 }
 
 function editCart(quantity, index, isAuthorised) {
 
-    return dispatch => {
+    return async dispatch => {
 
         if (quantity <= 0) return;
+
         if (!isAuthorised) {
 
             if (!!!localStorage.getItem('cart')) {
@@ -47,11 +45,14 @@ function editCart(quantity, index, isAuthorised) {
             cart[index].quantity = quantity;
 
             localStorage.setItem('cart', JSON.stringify(cart));
+            dispatch({ type: ActionType.EDIT_CART, payload: { quantity, index } });
         }
         else {
 
+            await mainHttp.put('/user/cart', { cartId: index, quantity });
+            dispatch({ type: ActionType.EDIT_CART, payload: { quantity, index } });
+
         }
-        dispatch({ type: ActionType.EDIT_CART, payload: { quantity, index } });
 
     }
 

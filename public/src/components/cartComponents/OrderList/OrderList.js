@@ -1,10 +1,9 @@
 import React from 'react';
 import { Row, Col } from 'antd';
-import PlusMinusCart from '../../../container/cart/Cart-plus-minus';
+import PlusMinusCart from '../CartPlusMinus/Cart-plus-minus';
 
 
 class OrderList extends React.PureComponent {
-
 
 
 
@@ -25,7 +24,13 @@ class OrderList extends React.PureComponent {
                         <h2>10 Days Replacement Policy</h2>
                     </Col>
                     <Row className="bottom-desc-line">
-                        <PlusMinusCart $editCart={(a, c) => this.props.$editCart(a, c)} $deleteCartItem={(a) => this.props.$deleteCartItem(a)} isAuthorised={this.props.isAuthorised} cartId={item._id} index={index} quantity={item.quantity} productId={item.productId} />
+                        <PlusMinusCart
+                            $editCart={(a, c) => this.props.$editCart(a, c)}
+                            $deleteCartItem={(a) => this.props.$deleteCartItem(a)}
+                            isAuthorised={this.props.isAuthorised}
+                            cartId={item._id} 
+                            index={index}
+                            quantity={item.quantity} />
                     </Row>
                 </Row>
             )

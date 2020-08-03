@@ -6,13 +6,6 @@ import OrderList from '../../components/cartComponents/OrderList/OrderList';
 import { editCart, deleteCartItem } from '../../Redux/Actions/CartActions';
 
 
-// style={{ width: 600 }}
-
-
-
-
-
-
 class Cart extends Component {
 
     editCart = (quantity, index) => {
@@ -33,7 +26,7 @@ class Cart extends Component {
                 <Col className="col-left-cart" xs={24} sm={24} md={24} lg={24} xl={16}>
                     <Card title="MY SHOPPING BAG" className="cart-right-check">
 
-                        <OrderList $editCart={(quantity, index) => this.editCart(quantity, index)} $deleteCartItem={(index) => this.deleteCartItem(index)} isAuthorised = {this.props.isAuthorised} cartItems = {this.props.cartItems} />
+                        <OrderList $editCart={(quantity, index) => this.editCart(quantity, index)} $deleteCartItem={(index) => this.deleteCartItem(index)} isAuthorised={this.props.isAuthorised} cartItems={this.props.cartItems} />
 
                         <Row className="row-desc-2">
                             <Form>
@@ -46,7 +39,7 @@ class Cart extends Component {
 
                 <Col className="col-right-cart" xl={8}>
                     <Card title="PRICE DETAILS" className="cart-left" headStyle={{ color: '#878787' }} >
-                        <PriceList  $editCart={(quantity, productId) => this.editCart(quantity, productId)} isAuthorised={this.props.isAuthorised} cartItems={this.props.cartItems}  />
+                        <PriceList $editCart={(quantity, productId) => this.editCart(quantity, productId)} isAuthorised={this.props.isAuthorised} cartItems={this.props.cartItems} />
                     </Card>
                 </Col>
             </Row>
@@ -60,7 +53,6 @@ class Cart extends Component {
 const mapPropsToState = (store) => {
     return {
         cartItems: store.cartItems,
-        user: store.user,
         isAuthorised: store.isAuthorised,
 
     }
@@ -68,8 +60,8 @@ const mapPropsToState = (store) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        $editCart: (quantity, productId, index, isAuthorised) => dispatch(editCart(quantity, productId, index, isAuthorised)),
-        $deleteCartItem: (productId, isAuthorised) => dispatch(deleteCartItem(productId, isAuthorised))
+        $editCart: (quantity, index, isAuthorised) => dispatch(editCart(quantity, index, isAuthorised)),
+        $deleteCartItem: (index, isAuthorised) => dispatch(deleteCartItem(index, isAuthorised))
     }
 }
 
