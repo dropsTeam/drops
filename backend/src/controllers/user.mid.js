@@ -86,7 +86,13 @@ const deleteCartItem = async (req, res, next) => {
         const { user } = req.app.locals;
         const { cartId } = req.body;
 
-        await orderModel.remove({ _id: cartId, confirmed: false, user: user.gId }).lean();
+        const where = { confirmed: false, user: user.gId };
+
+        if (cartId != -1) {
+            where._id = cartId;
+        }
+        await orderModel.remove(where).lean();
+
 
         res.status(200).send('ok');
 

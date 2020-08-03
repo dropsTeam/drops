@@ -102,6 +102,7 @@ class ProductResults extends React.PureComponent {
     await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${sortby}&sortorder=${this.state.sortorder}&range=${range}`)
         .then(res=>{
           this.setState({results : res.data})
+          console.log(res)
         })
      }
 
@@ -114,6 +115,7 @@ class ProductResults extends React.PureComponent {
       await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${sortorder}&range=${range}`)
         .then(res=>{
           this.setState({results : res.data})
+          console.log(res)
         })
     }
 

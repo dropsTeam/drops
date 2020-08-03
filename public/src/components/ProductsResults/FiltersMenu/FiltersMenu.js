@@ -32,7 +32,9 @@ class RadioGroup extends React.Component {
       height: '30px',
       lineHeight: '30px',
     };
+
     const { value } = this.state;
+    const {value2} = this.state;
     return (
       <>
         {/* price ranger */}
@@ -75,7 +77,7 @@ class RadioGroup extends React.Component {
 
 {/* radio groupd for sort by and sort order */}
     <div className="filters__option--inner">
-      <Radio.Group onChange={(event) =>  this.props.onChangeSortBy(event)} value={value}>
+      <Radio.Group onChange={(event) =>  this.props.onChangeSortBy(event)} value1={value}>
         <Radio style={radioStyle} value={"timeStamp"}>
           By Date
         </Radio>
@@ -87,7 +89,7 @@ class RadioGroup extends React.Component {
         </Radio>
       </Radio.Group>
 
-      <Radio.Group onChange={(e) => this.props.onChangeSortOrder(e) } value={value}>
+      <Radio.Group onChange={(e) => this.props.onChangeSortOrder(e) } value2={value}>
         <Radio style={radioStyle}  value={"INC"}>
           High-To-Low
         </Radio>
