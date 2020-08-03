@@ -150,5 +150,16 @@ function clearCart() {
     }
 }
 
-export { addToCart, editCart, deleteCartItem, loadCart, clearCart }
+function checkout(cartId) {
+    return async dispatch => {
+        try {
+            await mainHttp.post('/orders', { cartId });
+            dispatch({ type: ActionType.DELETE_CART_ITEM, index: cartId });
+        } catch (err) {
+            alert('Error Occured checking out.')
+        }
+    }
+}
+
+export { addToCart, editCart, deleteCartItem, loadCart, clearCart, checkout }
 
