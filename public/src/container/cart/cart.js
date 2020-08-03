@@ -37,7 +37,7 @@ class Cart extends Component {
 
                         <Row className="row-desc-2">
                             <Form>
-                                <Button className="fitem00"><a>PLACE ORDER</a></Button>
+                                <Button className="fitem00" disabled={this.props.cartItems.length === 0}><a>PLACE ORDER</a></Button>
                             </Form>
                         </Row>
 
