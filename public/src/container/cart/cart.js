@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import PriceList from '../../components/cartComponents/PriceList/PriceList.js';
 import OrderList from '../../components/cartComponents/OrderList/OrderList';
 import { editCart, deleteCartItem } from '../../Redux/Actions/CartActions';
+import '../checkout/checkout';
+import checkout from '../checkout/checkout';
 
 class Cart extends Component {
 
@@ -32,7 +34,7 @@ class Cart extends Component {
 
                         <Row className="row-desc-2">
                             <Form>
-                                <Button className="fitem00" disabled={this.props.cartItems.length === 0}  > <a>PLACE ORDER</a></Button>
+                                <Button className="fitem00" onClick={checkout} disabled={this.props.cartItems.length === 0}> <a>PLACE ORDER</a></Button>
                             </Form>
                         </Row>
 

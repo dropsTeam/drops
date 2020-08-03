@@ -6,9 +6,9 @@ import { CarOutlined, BellOutlined, StarOutlined } from '@ant-design/icons';
 import DeliverForm from './checkoutdlvform';
 import PaymentForm from './payment';
 import { connect } from 'react-redux';
-import PriceList from '../../components/cartComponents/PriceList/PriceList'
-import OrderList from '../../components/cartComponents/OrderList/OrderList'
-
+import PriceList from '../../components/cartComponents/PriceList/PriceList';
+import OrderList from '../../components/cartComponents/OrderList/OrderList';
+import { editCart, deleteCartItem } from '../../Redux/Actions/CartActions';
 
 
 const { Panel } = Collapse;
@@ -18,6 +18,15 @@ const { Panel } = Collapse;
 
 
 class Cartcheckout extends Component {
+
+
+    editCart = (quantity, index) => {
+        this.props.$editCart(quantity, index, this.props.isAuthorised);
+    }
+
+    deleteCartItem = (index) => {
+        this.props.$deleteCartItem(index, this.props.isAuthorised);
+    }
 
     state = {
         value: 1,
@@ -82,34 +91,31 @@ class Cartcheckout extends Component {
                             <Card title="DELIVERY ADDRESS" className="cart-right-check" headStyle={{ color: 'grey', height: 48 }}>
                                 <DeliverForm />
                             </Card>
-                            {
-                                (this.props.user.userAddress.address.trim() !== '') && (
+                           
                                     <React.Fragment>
 
 
                                         <Card title="ORDER SUMMARY" className="cart-right-check" headStyle={{ color: 'grey', height: 48 }}>
-                                            <OrderList />
+                                            <OrderList $editCart={(quantity, index) => this.editCart(quantity, index)} $deleteCartItem={(index) => this.deleteCartItem(index)} isAuthorised={this.props.isAuthorised} cartItems={this.props.cartItems} />
                                         </Card>
 
                                         <Card title="PAYMENT OPTION" visible={false} className="cart-right-check" headStyle={{ color: 'grey', height: 48 }}>
                                             <Radio.Group onChange={this.onChange} value={value}>
                                                 <Radio style={radioStyle} value={1}>
                                                     Paypal
-                            </Radio>
+                                                </Radio>
                                                 <Radio style={radioStyle} value={2}>
                                                     Cash On Delivery
-                            </Radio>
+                                                </Radio>
                                                 <Radio style={radioStyle} value={3}>
                                                     Debit
-                            {value === 3 ? <PaymentForm /> : null}
+                                                    {value === 3 ? <PaymentForm /> : null}
                                                 </Radio>
                                             </Radio.Group>
                                         </Card>
                                     </React.Fragment>
 
-                                )
-
-                            }
+                            
 
                         </div>
 
@@ -120,7 +126,7 @@ class Cartcheckout extends Component {
                 { this.props.isAuthorised  && (
                     <Col className="col-right-cart" xl={8}>
                         <Card title="PRICE DETAILS" className="cart-left" headStyle={{ color: '#878787' }} >
-                            <PriceList />
+                            <PriceList $editCart={(quantity, productId) => this.editCart(quantity, productId)} isAuthorised={this.props.isAuthorised} cartItems={this.props.cartItems} />
                         </Card>
                     </Col>
                 )}
@@ -131,9 +137,18 @@ class Cartcheckout extends Component {
 
 const mapPropsToState = (store) => {
     return {
+        cartItems: store.cartItems,
         isAuthorised: store.isAuthorised,
         user: store.user
+
     }
 }
 
-export default connect(mapPropsToState, null)(Cartcheckout);
+const mapDispatchToProps = dispatch => {
+    return {
+        $editCart: (quantity, index, isAuthorised) => dispatch(editCart(quantity, index, isAuthorised)),
+        $deleteCartItem: (index, isAuthorised) => dispatch(deleteCartItem(index, isAuthorised))
+    }
+}
+
+export default connect(mapPropsToState, mapDispatchToProps)(Cartcheckout);
