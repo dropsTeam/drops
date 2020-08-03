@@ -15,7 +15,7 @@ function addToCart(item, isAuthorised) {
         else {
             try {
 
-                await mainHttp.post('/user/cart',{...item});
+                await mainHttp.post('/user/cart', { ...item });
                 dispatch({ type: ActionType.ADD_TO_CART, payload: { item } })
 
             } catch (err) {
@@ -36,7 +36,7 @@ function editCart(item, index, isAuthorised) {
             localStorage.setItem('cart', JSON.stringify(cart));
         }
         else {
-            // POST REQUEST
+            
         }
         dispatch({ type: ActionType.EDIT_CART, payload: { item, index } });
 
@@ -77,4 +77,12 @@ function loadCart(isAuthorised) {
     }
 }
 
-export { addToCart, editCart, deleteCartItem, loadCart }
+function clearCart() {
+
+    return dispatch => {
+        localStorage.clear();
+        dispatch({ type: ActionType.CLEAR_CART, playload: [] });
+    }
+}
+
+export { addToCart, editCart, deleteCartItem, loadCart, clearCart }

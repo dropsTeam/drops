@@ -170,7 +170,7 @@ const search = async (req, res, next) => {
         }
 
         if (req.query.hasOwnProperty('range')) {
-            
+
             payload.price.$gt, payload.price.$lt = req.query.range.split("-");
 
             let splitRange = req.query.range.split("-")
@@ -186,8 +186,10 @@ const search = async (req, res, next) => {
 
 
         if (Object.prototype.hasOwnProperty.call(req.app.locals, 'user') && search.length !== 0) {
-
-            await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $push: { searchHistory: req.query.text } });
+            const history = await userModel.findOne({ gId: req.app.locals.user.gId }).select('history').lean();
+            if (history.history[-1] !== search) {
+                await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $push: { searchHistory: req.query.text } });
+            }
         }
 
         res.status(200).send(search);

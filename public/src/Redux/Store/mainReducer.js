@@ -112,7 +112,7 @@ export default function mainReducer(state = init, action) {
 
             const cart = [...state.cartItems];
             cart.splice(action.payload.index, 1);
-            const newState = { ...state };
+            const newState = { ...state, cartItems: [...cart] };
             return newState;
         }
 
@@ -120,6 +120,10 @@ export default function mainReducer(state = init, action) {
             const cart = [...action.payload.cart]
             const newState = { ...state, cartItems: cart };
             return newState
+        }
+
+        case ActionType.CLEAR_CART: {
+            return { ...this.state, cartItems: [] }
         }
 
 
