@@ -38,7 +38,7 @@ const schema = mongo.Schema({
         },
         address: {
             type: types.String,
-            maxlength: 200,
+            maxlength: 300,
             default: ''
         }
 
