@@ -10,7 +10,7 @@ route.get('/', authC.googleVerify(true, true), userC.get);
 route
     .get('/cart', authC.googleVerify(true, true), userC.getCart)
     .post('/cart', authC.googleVerify(true, true), productC.basicProductInfo, userC.postCart(false))
-    .delete('/cart', authC.googleVerify(true, true), userC.deleteCartItem)
+    .delete('/cart/:cartId', authC.googleVerify(true, true), userC.deleteCartItem)
     .put('/cart', authC.googleVerify(true, true), userC.editCart)
 
 route.get('/searchHistory', authC.googleVerify(true, true), userC.getSearchHistory)

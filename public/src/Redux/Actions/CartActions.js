@@ -29,7 +29,7 @@ function addToCart(item, isAuthorised) {
     }
 }
 
-function editCart(quantity, productId, index, isAuthorised) {
+function editCart(quantity, index, isAuthorised) {
 
     return dispatch => {
 
@@ -51,27 +51,29 @@ function editCart(quantity, productId, index, isAuthorised) {
         else {
 
         }
-        dispatch({ type: ActionType.EDIT_CART, payload: { productId, quantity, index } });
+        dispatch({ type: ActionType.EDIT_CART, payload: { quantity, index } });
 
     }
 
 }
 
 
-function deleteCartItem(  index, isAuthorised) {
+function deleteCartItem(index, isAuthorised) {
     return async dispatch => {
+
         if (!isAuthorised) {
 
             let cart = JSON.parse(localStorage.getItem('cart'));
+            alert(isAuthorised)
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
             dispatch({ type: ActionType.DELETE_CART_ITEM, payload: { index } });
         }
         else {
             try {
-                await mainHttp.delete('/user/cart', { cartId: index });
+                await mainHttp.delete(`/user/cart/${index}`);
                 dispatch({ type: ActionType.DELETE_CART_ITEM, payload: { index } });
-               } catch (err) {
+            } catch (err) {
                 console.log(err);
                 alert('Error Occured deleting the cart')
             }
@@ -113,10 +115,8 @@ function loadCart(isAuthorised) {
 
                 const fetchCart = await mainHttp.get('/user/cart');
 
-                clearCart();
-
-
                 dispatch({ type: ActionType.LOAD_CART, payload: { cart: [...fetchCart.data] } })
+                localStorage.clear();
 
             } catch (err) {
                 alert('Error Occured loading the cart in actions');

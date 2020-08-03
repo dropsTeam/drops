@@ -84,7 +84,7 @@ const deleteCartItem = async (req, res, next) => {
     try {
 
         const { user } = req.app.locals;
-        const { cartId } = req.body;
+        const { cartId } = req.params;
 
         const where = { confirmed: false, user: user.gId };
 

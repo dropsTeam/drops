@@ -19,8 +19,8 @@ class Cart extends Component {
         this.props.$editCart(quantity, productId, index, this.props.isAuthorised);
     }
 
-    deleteCartItem = (productId, index) => {
-        this.props.$deleteCartItem(productId, index, this.props.isAuthorised);
+    deleteCartItem = (index) => {
+        this.props.$deleteCartItem(index, this.props.isAuthorised);
     }
 
 
@@ -33,7 +33,7 @@ class Cart extends Component {
                 <Col className="col-left-cart" xs={24} sm={24} md={24} lg={24} xl={16}>
                     <Card title="MY SHOPPING BAG" className="cart-right-check">
 
-                        <OrderList $editCart={(quantity, productId, index) => this.editCart(quantity, productId, index)} $deleteCartItem={(productId, index) => this.deleteCartItem(productId, index)} isAuthorised={this.props.isAuthorised} cartItems={this.props.cartItems} />
+                        <OrderList $editCart={(quantity, productId, index) => this.editCart(quantity, productId, index)} $deleteCartItem={(index) => this.deleteCartItem(index)} isAuthorised = {this.props.isAuthorised} cartItems = {this.props.cartItems} />
 
                         <Row className="row-desc-2">
                             <Form>
