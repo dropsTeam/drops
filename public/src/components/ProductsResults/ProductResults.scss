@@ -147,7 +147,11 @@
  }
 
  .filters__option--inner{
-  padding: 0 1.5rem;
+  padding: 0 0rem;
+ }
+
+ .filters__radio{
+   padding:0rem 1.5rem;
  }
  
  // radio input fields

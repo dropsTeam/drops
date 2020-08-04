@@ -75,6 +75,7 @@ class ProductResults extends React.PureComponent {
       results: [],
       sortby: "aveageRaing",
       sortorder : "INC",
+      category : '',
       priceMin :10,
       priceMax :4000
     }
@@ -132,6 +133,28 @@ class ProductResults extends React.PureComponent {
       await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${sortorder}&range=${range}`)
         .then(res=>{
           this.setState({results : res.data})
+        })
+    }
+
+
+    // for fetching by Category
+    fetchCategory = async(category) =>{
+      let url = window.location.href;
+      let arr = url.split("/");
+      let arrLen = arr.length;
+      let range = `${this.state.priceMin}`+"-"+`${this.state.priceMax}`;
+
+      let query;
+      if(category){
+         query = `/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}&category=${category}`;
+      }
+      else{
+        query = `/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}`;
+      }
+      // finally query---------------------------------------------
+      await axios.get(query)
+        .then(res=>{
+          this.setState({results : res.data})
           console.log(res)
         })
     }
@@ -166,6 +189,16 @@ class ProductResults extends React.PureComponent {
       });
       this.fetchOrder(e.target.value)
     };
+
+  onChangeCategory = e => {
+      this.setState({
+        category: e.target.value,
+      });
+      console.log(e.target.value)
+      this.fetchCategory(e.target.value)
+      console.log("category change working ....")
+    }; 
+
 
   onPriceChange = (values) => {
     console.log([values[0],values[1]])
@@ -202,6 +235,7 @@ class ProductResults extends React.PureComponent {
              onChangeSortBy={this.onChangeSortBy} 
              onChangeSortOrder={this.onChangeSortOrder}
              onPriceChange={this.onPriceChange}
+             onChangeCategory={this.onChangeCategory}
              onChangeMax={this.onChangeMax}
              onChangeMin={this.onChangeMin}
              priceMax={this.state.priceMax}

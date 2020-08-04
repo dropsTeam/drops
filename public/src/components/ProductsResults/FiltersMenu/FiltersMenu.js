@@ -4,7 +4,7 @@ import { Radio, Input } from 'antd';
 import { mainHttp as axios } from  "../../../Axios/Axios.js"
 
 import IntegerStep from "../Slider/Slider"
-import { Slider, InputNumber, Row, Col } from 'antd';
+import { Slider, InputNumber, Row, Col , Divider } from 'antd';
 
 const { SubMenu } = Menu;
 const { TabPane } = Tabs;
@@ -77,22 +77,59 @@ class RadioGroup extends React.Component {
 
 {/* radio groupd for sort by and sort order */}
     <div className="filters__option--inner">
-      <Radio.Group onChange={(event) =>  this.props.onChangeSortBy(event)} value1={value}>
-        <Radio style={radioStyle} value={"timeStamp"}>
-          By Date
-        </Radio>
-        <Radio style={radioStyle} value={"aveageRaing"}>
-          Average Rating
-        </Radio>
-        <Radio style={radioStyle} value={"totalReview"}>
-          Total Reviews
-        </Radio>
-        <Radio style={radioStyle} value={"price"}>
-          Price
-        </Radio>
-      </Radio.Group>
+      
+      <Menu
+        style={{ width: 256 , border : 'none'}}
+        defaultSelectedKeys={['1']}
+        defaultOpenKeys={['sub1']}
+        mode="inline"
+      >
+    
+      <SubMenu  style={{ color : "black" , fontWeight : '500' }}  key="sub2"  title="SORT BY">
+        <Radio.Group className="filters__radio" onChange={(event) =>  this.props.onChangeSortBy(event)} value1={value}>
+          <Radio style={radioStyle} value={"timeStamp"}>
+            By Date
+          </Radio>
+          <Radio style={radioStyle} value={"aveageRaing"}>
+            Average Rating
+          </Radio>
+          <Radio style={radioStyle} value={"totalReview"}>
+            Total Reviews
+          </Radio>
+          <Radio style={radioStyle} value={"price"}>
+            Price
+          </Radio>
+        </Radio.Group>
+       </SubMenu>
 
-      <Radio.Group onChange={(e) => this.props.onChangeSortOrder(e) } value2={value}>
+      </Menu>
+
+
+      {/* Menu for Categories------------ */}
+        <Menu
+          style={{ width: 256 , border : 'none'}}
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['sub1']}
+          mode="inline"
+          >
+        
+          <SubMenu  style={{ color : "black" , fontWeight : '500'}}   key="sub2"  title="CATEGORIES">
+            <Radio.Group  className="filters__radio" onChange={(event) =>  this.props.onChangeCategory(event)} value1={value}>
+              <Radio style={radioStyle} value={"Mobile"}>
+                Mobile
+              </Radio>
+              <Radio style={radioStyle} value={"Electronics"}>
+                Electronics
+              </Radio>
+            </Radio.Group>
+          </SubMenu>
+        
+        </Menu>
+
+     {/* Radio group by sort by ---- order-- */}
+      <Divider plain>Sort Order</Divider>
+
+      <Radio.Group className="filters__radio" onChange={(e) => this.props.onChangeSortOrder(e) } value2={value}>
         <Radio style={radioStyle}  value={"INC"}>
           High-To-Low
         </Radio>
@@ -136,19 +173,19 @@ class Sider extends React.Component {
   render() {
 
     return (
-      <Menu
-        mode="inline"
-        openKeys={this.state.openKeys}
-        onOpenChange={this.onOpenChange}
-        defaultOpenKeys={['sub1','sub2']}
-        style={{ width: 256 }}
-      >
+      // <Menu
+      //   mode="inline"
+      //   openKeys={this.state.openKeys}
+      //   onOpenChange={this.onOpenChange}
+      //   defaultOpenKeys={['sub1','sub2']}
+      //   style={{ width: 256 }}
+      // >
 
-        <SubMenu key="sub1" className="filters__option" title="SORT BY">
+      //   <SubMenu key="sub1" className="filters__option" title="SORT BY">
           <RadioGroup  {...this.props} />
-        </SubMenu>
+        // </SubMenu>
 
-      </Menu>
+      // </Menu>
     );
   }
 }
