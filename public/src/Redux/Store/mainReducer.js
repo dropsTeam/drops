@@ -78,6 +78,24 @@ export default function mainReducer(state = init, action) {
                 return nState;
             }
 
+        case ActionType.EDIT_ADDRESS: {
+            const newState = {
+                ...state,
+                user: {
+                    ...state.user,
+                    userAddress: {
+                        ...state.user.userAddress,
+                        city: action.payload.city,
+                        state: action.payload.state,
+                        zipCode: action.payload.zipCode,
+                        landmark: action.payload.landmark,
+                        address: action.payload.address
+                    }
+                }
+            }
+            return newState;
+        }
+
 
 
         //  *********** VIEW ACTIONS **********
