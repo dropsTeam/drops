@@ -5,6 +5,7 @@ const ActionType = {
     LOGOUT: 'LOGOUT',
     SET_USER: 'SET_USER',
     SET_SELLER: 'SET_SELLER',
+    EDIT_PROFILE: 'EDIT_PROFILE',
     
     LOADING: 'LOADING',
 

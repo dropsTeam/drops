@@ -21,6 +21,19 @@ function setUser() {
     }
 }
 
+function editProfile(details) {
+    return async dispatch => {
+        try {
+
+            await mainHttp.put('/user', details);
+            dispatch({ type: ActionType.EDIT_PROFILE, payload: details })
+
+        } catch (err) {
+            console.log(err);
+            alert('Error Occured editing the user.')
+        }
+    }
+}
 
 function setSeller(sellerinfo) {
     return dispatch => {
@@ -43,4 +56,4 @@ function logout() {
 }
 
 
-export { login, logout, setUser, setSeller }
+export { login, logout, setUser, setSeller, editProfile }
