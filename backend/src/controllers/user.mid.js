@@ -15,15 +15,18 @@ const get = async (req, res, next) => {
 
 const editProfile = async (req, res, next) => {
     try {
-        const { address } = req.body;
+        const { details } = req.body;
         const { user } = req.app.locals;
 
         const update = {
-            city: address.city,
-            state: address.state,
-            zipCode: address.zipCode,
-            landmark: address.landmark,
-            address: address.address
+            address: {
+                city: details.city,
+                state: details.state,
+                zipCode: details.zipCode,
+                landmark: details.landmark,
+                address: details.address
+            },
+            phoneNumber: details.phoneNumber
         }
 
         await userModel.findOneAndUpdate({ gId: user.gId }, update);

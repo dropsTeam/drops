@@ -43,6 +43,10 @@ const schema = mongo.Schema({
         }
 
     },
+    phoneNumber: {
+        type: types.Number,
+        required: false
+    },
     isSeller: {
         type: types.Boolean,
         default: false

@@ -21,12 +21,12 @@ function setUser() {
     }
 }
 
-function editAddress(address) {
+function editProfile(details) {
     return async dispatch => {
         try {
 
-            await mainHttp.put('/user', address);
-            dispatch({ type: ActionType.EDIT_ADDRESS, payload: address })
+            await mainHttp.put('/user', details);
+            dispatch({ type: ActionType.EDIT_PROFILE, payload: details })
 
         } catch (err) {
             console.log(err);
@@ -56,4 +56,4 @@ function logout() {
 }
 
 
-export { login, logout, setUser, setSeller, editAddress }
+export { login, logout, setUser, setSeller, editProfile }

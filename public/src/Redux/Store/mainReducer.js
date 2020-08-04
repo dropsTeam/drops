@@ -16,6 +16,7 @@ const init = {
             name: '',
             profileImg: ''
         },
+        phoneNumber: 0,
         userAddress: {
             city: '',
             state: '',
@@ -78,11 +79,12 @@ export default function mainReducer(state = init, action) {
                 return nState;
             }
 
-        case ActionType.EDIT_ADDRESS: {
+        case ActionType.EDIT_PROFILE: {
             const newState = {
                 ...state,
                 user: {
                     ...state.user,
+                    phoneNumber: action.payload.phoneNumber,
                     userAddress: {
                         ...state.user.userAddress,
                         city: action.payload.city,
