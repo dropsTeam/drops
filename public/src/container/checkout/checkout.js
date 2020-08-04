@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import PriceList from '../../components/cartComponents/PriceList/PriceList';
 import OrderList from '../../components/cartComponents/OrderList/OrderList';
 import { editCart, deleteCartItem } from '../../Redux/Actions/CartActions';
-
+import { editProfile } from '../../Redux/Actions/AuthActions';
 
 const { Panel } = Collapse;
 
@@ -26,6 +26,10 @@ class Cartcheckout extends Component {
 
     deleteCartItem = (index) => {
         this.props.$deleteCartItem(index, this.props.isAuthorised);
+    }
+
+    editProfile = (details) => {
+        this.props.$editProfile(details, this.props.isAuthorised);
     }
 
     state = {
@@ -57,8 +61,6 @@ class Cartcheckout extends Component {
                         <Row className="row-check-login">
                             <Col span={12}>
                                 <GoogleBtn visible={true} />
-
-
                             </Col>
 
                             <Col span={12} className="right-check-col">
@@ -89,7 +91,7 @@ class Cartcheckout extends Component {
 
                         <div>
                             <Card title="DELIVERY ADDRESS" className="cart-right-check" headStyle={{ color: 'grey', height: 48 }}>
-                                <DeliverForm />
+                                <DeliverForm $editProfile={(details) => this.editProfile(details)} isAuthorised={this.props.isAuthorised} />
                             </Card>
                             {
                                 (this.props.user.userAddress.address.trim() !== '') && (
@@ -151,7 +153,8 @@ const mapPropsToState = (store) => {
 const mapDispatchToProps = dispatch => {
     return {
         $editCart: (quantity, index, isAuthorised) => dispatch(editCart(quantity, index, isAuthorised)),
-        $deleteCartItem: (index, isAuthorised) => dispatch(deleteCartItem(index, isAuthorised))
+        $deleteCartItem: (index, isAuthorised) => dispatch(deleteCartItem(index, isAuthorised)),
+        $editProfile: (details, isAuthorised) => dispatch(editProfile(details, isAuthorised))
     }
 }
 

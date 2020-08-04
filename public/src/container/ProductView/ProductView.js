@@ -339,7 +339,7 @@ const mapPropsByState = (store) => {
 
 const mapPropsByDispatch = dispatch => {
     return {
-        $addToCart: (item, isAuthoised) => dispatch(cartActions.addToCart(item, isAuthoised))
+        $addToCart: (item, isAuthorised) => dispatch(cartActions.addToCart(item, isAuthorised))
     }
 }
 
