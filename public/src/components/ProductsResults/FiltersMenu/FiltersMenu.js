@@ -85,7 +85,7 @@ class RadioGroup extends React.Component {
         mode="inline"
       >
     
-      <SubMenu  style={{ color : "black" , fontWeight : '500' }}  key="sub2"  title="SORT BY">
+      <SubMenu  style={{ color : "black" , fontWeight : '500' }}  key="sub1"  title="SORT BY">
         <Radio.Group className="filters__radio" onChange={(event) =>  this.props.onChangeSortBy(event)} value1={value}>
           <Radio style={radioStyle} value={"timeStamp"}>
             By Date
