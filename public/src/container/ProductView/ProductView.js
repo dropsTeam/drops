@@ -25,6 +25,8 @@ class ProductView extends React.Component {
                     title: '',
                     options: ['']
                 },
+                aveageRaing: 0,
+                totalReview: 0,
                 media: [''],
                 varients: [{ title: '', media: '' }],
                 details: [{ key: '', value: '' }]
@@ -46,7 +48,7 @@ class ProductView extends React.Component {
     async fetch() {
         try {
             const product = await mainHttp.get(`/products/p/${this.props.match.params.id}`);
-
+            console.log(product.data);
             this.setState({
                 ...this.state,
                 data: { ...product.data },
@@ -313,7 +315,10 @@ class ProductView extends React.Component {
                         </div>
 
                         <div style={{ border: '1px solid #dadada', borderRadius: '4px', marginTop: '50px', padding: '20px' }}>
+                            
                             <ProductReviews
+                                aveageRaing={this.state.data.aveageRaing}
+                                totalReview={this.state.data.totalReview}
                                 user={this.props.user}
                                 productId={this.props.match.params.id}
                                 isAuthorised={this.props.isAuthorised} />

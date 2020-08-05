@@ -45,10 +45,8 @@ const get = async (req, res, next) => {
         if (Object.prototype.hasOwnProperty.call(req.app.locals, 'user') && !!product) {
             const userr = await userModel.findOne({ gId: req.app.locals.user.gId }).select('recommendations').lean();
 
-            if (!userr.recommendations.includes(productId)) {
-                await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $addToSet: { recommendations: productId } });
-
-            }
+            await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $addToSet: { recommendations: productId } });
+            
         }
 
         res.status(200).send(product);

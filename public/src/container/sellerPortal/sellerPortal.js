@@ -129,12 +129,8 @@ class SellerPortal extends React.Component {
 
                 <div>
                     <p className='h2' style={{ padding: '30px 0 0 20px' }}>Your Products</p>
-                    <div
-                        className={styles.results__block}
-                    >
-                        <ResultsBlock
-                            numbers={this.state.products}
-                        />
+                    <div className={styles.results__block} >
+                        {(this.state.products.length === 0) ? <img src='../../assets/empty.svg' /> : <ResultsBlock numbers={this.state.products} />}
                     </div>
                 </div>
 

@@ -25,7 +25,7 @@ class Navbar extends Component {
 
   render() {
     return (
-        <nav className="menuBar">
+        <nav className="menuBar" style={{zIndex: 400}}>
         	<div className="logo">
         		<a><Avatar style={{ width: 130, height: 40, top:-10, left:30 }} shape="square" src={flipkart}></Avatar></a>
           

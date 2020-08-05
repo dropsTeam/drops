@@ -11,7 +11,8 @@ import '../src/css/cart.css';
 import '../src/css/checkout.css';
 
 import { PrivateRoute } from './utils';
-import { Skeleton } from 'antd';
+import { Skeleton, BackTop } from 'antd';
+import { ArrowUpOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 
 import ProductBlock from "./components/ProductsBlock/ProductsBlock.js";
@@ -20,7 +21,7 @@ import ProductResults from "./components/ProductsResults/ProductsResults.js"
 import NavBar from './components/Navbar/Navigationbar';
 import SubNav from './components/Navbar/subnav';
 
-import Loading from './components/Navbar/Loading/Loading';
+import Loading from './components/Loading/Loading';
 
 const ProductView = React.lazy(() => import('./container/ProductView/ProductView'));
 const Cart = React.lazy(() => import('./container/cart/cart'));
@@ -44,6 +45,10 @@ class App extends React.Component {
     return (
       <React.Fragment>
 
+
+        <BackTop>
+          <div className='btn pb-2 btn-primary'><ArrowUpOutlined /></div>
+        </BackTop>
 
         {this.props.view.loading && <Loading />}
 

@@ -12,8 +12,6 @@ class ProductReviews extends React.PureComponent {
     state = {
         reviews: [],
         stats: {
-            totalReviews: 11843,
-            averageRating: 4.5,
             ratings: [60, 20, 5, 4, 10]
         },
         postModalVis: false,
@@ -30,13 +28,16 @@ class ProductReviews extends React.PureComponent {
     async fetch() {
         try {
             const newReviews = await mainHttp.get(`/products/reviews/?productId=${this.props.productId}&page=${this.page}`);
+
             let newArr = [...this.state.reviews];
             newArr = newArr.concat(newReviews.data);
-            console.log(newArr);
-
+            console.log(this.props)
             this.setState({
                 ...this.state,
-                reviews: [...newArr]
+                reviews: [...newArr],
+                stats: {
+                    ...this.state.stats,
+                }
             });
 
             this.page++;
@@ -68,7 +69,7 @@ class ProductReviews extends React.PureComponent {
 
         } catch (err) {
             console.log(err);
-            alert('Error Occured posting the helpful request.');
+
         }
     }
 
@@ -77,16 +78,16 @@ class ProductReviews extends React.PureComponent {
             await mainHttp.delete(`/products/review/helpful/${this.state.reviews[index]._id}`);
 
             let newArr = [...this.state.reviews];
-            
+
             newArr[index].helpful -= 1;
-            
+
             const mainIndex = newArr[index].helpfulMembers.indexOf(this.props.user.gId);
             newArr[index].helpfulMembers.splice(mainIndex, 1);
 
             this.setState({ ...this.state, reviews: [...newArr] });
 
         } catch (err) {
-            alert('Error Occured posting the delete helpful request.');
+
         }
     }
 
@@ -100,7 +101,7 @@ class ProductReviews extends React.PureComponent {
 
         } catch (err) {
             console.log(err);
-            alert('Error occured submitting the review.');
+
         }
     }
 
@@ -125,12 +126,12 @@ class ProductReviews extends React.PureComponent {
 
         return (
             <React.Fragment>
-                <h3> Ratings & Reviews <button className='btn btn-primary btn-sm float-right' onClick={() => this.togglePostModal(true)} > Rate Product</button> </h3>
+                <h3> {this.props.totalReview} Ratings & Reviews <button className='btn btn-primary btn-sm float-right' onClick={() => this.togglePostModal(true)} > Rate Product</button> </h3>
                 <hr />
 
                 <div className='row' >
                     <div className='col-sm-12 col-md-4'>
-                        <h1 style={{ textAlign: 'center' }} > <span className="badge badge-success">{this.state.stats.averageRating} &#9734;</span> </h1>
+                        <h1 style={{ textAlign: 'center' }} > <span className="badge badge-success">{this.props.aveageRaing} &#9734;</span> </h1>
                     </div>
                     <div className='col-sm-12 col-md-8'>
                         <Progress percent={this.state.stats.ratings[0]} strokeColor='#52C41B' />

@@ -25,7 +25,7 @@ const schema = new mongo.Schema({
     },
     discription: {
         type: typ.String,
-        required: true,
+        required: false,
         maxlength: [2000, '{PATH} exceeds the max length']
     },
     helpful: {
