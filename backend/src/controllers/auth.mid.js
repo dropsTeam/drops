@@ -119,12 +119,13 @@ function isSeller(checkOwnership = false) {
 }
 
 
-const signUpAsSeller = async (req, res, next) => {
+const signUpAsSeller = async (req, res) => {
     try {
 
         const { name, bio, profileImg } = req.body;
         const { user } = req.app.locals;
 
+        if(profileImg.length) {profileImg =  user.profilePic}
 
         const update = { 'seller.name': name, 'seller.bio': bio, 'seller.profileImg': profileImg, isSeller: true }
 

@@ -11,7 +11,7 @@ route
 
 route
     .post('/', authC.googleVerify(true, true), authC.isSeller(false), productC.postProduct)
-    .get('/seller', authC.googleVerify(true, true), productC.getSellerProducts)
+    .get('/seller', authC.googleVerify(true, true), authC.isSeller(false), productC.getSellerProducts)
     .put('/p/:productId', authC.googleVerify(true, true), authC.isSeller(true), productC.editProduct)
     .get('/p/:productId', authC.googleVerify(true, false), productC.basicProductInfo, productC.get);
 

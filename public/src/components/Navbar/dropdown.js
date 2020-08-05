@@ -49,10 +49,10 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
         >
           <Input />
         </Form.Item>
-        <Form.Item name="bio" label="Bio">
+        <Form.Item name="bio" label="Bio (Optional) ">
           <Input type="textarea" />
         </Form.Item>
-        <Form.Item name="profileImg" label="Profile Image URL">
+        <Form.Item name="profileImg" label="Profile Image URL ( Optional )">
           <Input type="textarea" />
         </Form.Item>
       </Form>

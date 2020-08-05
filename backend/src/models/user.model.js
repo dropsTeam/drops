@@ -54,17 +54,16 @@ const schema = mongo.Schema({
     seller: {
         name: {
             type: types.String,
-            maxlength: 50,
+            maxlength: 100,
             trim: true,
             default: ''
         },
         bio: {
             type: types.String,
-            maxlength: 3000,
-            trim: true,
-            default: ''
+            maxlength: 4000,
+            default: 'No Bio'
         },
-        profleImg: {
+        profileImg: {
             type: types.String,
             default: 'Default',
             required: false
