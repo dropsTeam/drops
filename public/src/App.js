@@ -56,7 +56,7 @@ class App extends React.Component {
 
             <Switch>
 
-              <Route path="/card" exact component={ProductBlock} />
+              <Route path="/" exact component={ProductBlock} />
               <Route path="/results/:text" exact component={ProductResults} />
 
               <Route path="/cart/:id?" exact component={Cart} />
