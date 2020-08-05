@@ -14,7 +14,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   return (
     <Modal
       visible={visible}
-      title="Create a new collection"
+      title="Create a Seller Account"
       okText="Create"
       cancelText="Cancel"
       onCancel={onCancel}
@@ -45,15 +45,15 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
               required: true,
               message: 'Please input the name of your company!',
             },
-          ]}
-        >
+          ]}>
+
           <Input />
         </Form.Item>
         <Form.Item name="bio" label="Bio (Optional) ">
-          <Input type="textarea" />
+          <Input.TextArea row={3} />
         </Form.Item>
         <Form.Item name="profileImg" label="Profile Image URL ( Optional )">
-          <Input type="textarea" />
+          <Input  />
         </Form.Item>
       </Form>
     </Modal>
@@ -66,8 +66,10 @@ const CollectionsPage = (props) => {
   const onCreate = async values => {
 
     try {
-      const seller = await mainHttp.post('/user/seller', { ...values });
+      if(values.bio === undefined) {values.bio = ''}
+      if(values.profileImg === undefined) {values.profileImg = ''}
       console.log(values);
+      const seller = await mainHttp.post('/user/seller', { ...values });
       props.signUpAsSeller({ isSeller: true, seller: { ...values } });
     } catch (err) {
       console.log(err);
