@@ -1,5 +1,6 @@
 import React from 'react';
 import  "./ProductCard.css";
+import { withRouter } from 'react-router';
 
 
 class ProductCard extends React.PureComponent {
@@ -17,10 +18,11 @@ class ProductCard extends React.PureComponent {
   let discountPercent = 0.2;
   let aPrice = this.props.item.price;
   let dPrice = aPrice+this.multiply(discountPercent,aPrice);
-  
+  console.log(this.props)
+
    return  (
      <li className="nav-item">
-       <a className="nav-item__link">
+       <a  onClick={()=> this.props.history.push(`/view/${this.props.item._id}`)} className="nav-item__link"  >
           <div className="product__container">
             <div className="product__wrapper">   
               <div className="image__container">
@@ -48,7 +50,7 @@ class ProductCard extends React.PureComponent {
   }
 }
 
-export default ProductCard;
+export default withRouter(ProductCard);
 
 
 
