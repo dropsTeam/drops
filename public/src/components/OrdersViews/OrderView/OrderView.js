@@ -6,8 +6,8 @@ import { HeartTwoTone, SendOutlined, ShoppingOutlined, CheckCircleTwoTone } from
 class OrederView extends React.PureComponent {
 
     componentDidMount() {
-        const date1 = new Date(this.props.order.timeStamp);
-        
+        const date1 = new Date(this.props.order.timeStamp).getDate();
+        alert(date1)
     }
 
     render() {
