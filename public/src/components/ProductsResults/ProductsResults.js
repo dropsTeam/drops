@@ -165,7 +165,7 @@ class ProductResults extends React.PureComponent {
     let arr = url.split("/");
     let arrLen = arr.length;
     let range = `${range1}`+"-"+`${range2}`;
-    console.log(range);
+    console.log("range requested");
     await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}`)
         .then(res=>{
           this.setState({results : res.data})
@@ -206,21 +206,24 @@ class ProductResults extends React.PureComponent {
       priceMin: values[0],
       priceMax: values[1],
     });
-    this.fetchRange(values[0],values[1])
+    setTimeout(()=>console.log("2s"),2000)
+    setTimeout(()=>this.fetchRange(values[0],values[1]),2000)
   }
 
   onChangeMin = value => {
     this.setState({
       priceMin: value,
     });
-    this.fetchRange(value,this.state.priceMax)
+    // this.fetchRange(value,this.state.priceMax)
+    setTimeout(()=>this.fetchRange(value,this.state.priceMax),2000)
   };
 
   onChangeMax = value => {
     this.setState({
       priceMax: value,
     });
-    this.fetchRange(this.state.priceMin,value)
+    // this.fetchRange(this.state.priceMin,value)
+    setTimeout(()=>this.fetchRange(this.state.priceMin,value),2000)
   };
 
   
