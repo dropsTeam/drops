@@ -216,7 +216,10 @@ const getSellerStats = async (req, res, next) => {
                 }
             }
 
-        ])
+        ]);
+
+        if(totalProducts.length === 0) {totalProducts.push({totalProducts: 0})}
+        if(totalRevenue.length === 0) {totalRevenue.push({totalOrders: 0, totalSaleAmount: 0})}
 
         res.status(200).send({ totalProducts: totalProducts[0].totalProducts, totalOrders: totalRevenue[0].totalOrders, totalSaleAmount: totalRevenue[0].totalSaleAmount });
 
