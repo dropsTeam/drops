@@ -66,7 +66,7 @@ class ProductBlock extends Component {
         </div>
 
         {/* product scroll bars */}
-        <ProductScrollBars title={"Deals of the Day"} arr={scrollArr} /> 
+        <ProductScrollBars title={"Deals of the Day"} arr={this.state.recommendedProducts} /> 
 
         {/* product scroll bars for the recommended products */}
 
@@ -79,9 +79,9 @@ class ProductBlock extends Component {
         <ProductAds arr={adsArr1} />
 
          {/* product scroll bars */}
-        <ProductScrollBars title={"Electronics"} arr={scrollArr} /> 
-        <ProductScrollBars title={"Home"} arr={scrollArr} /> 
-       <ProductScrollBars title={"New offers"} arr={scrollArr} />
+        <ProductScrollBars title={"Electronics"} arr={this.state.recommendedProducts} /> 
+        <ProductScrollBars title={"Home"} arr={this.state.recommendedProducts} /> 
+        <ProductScrollBars title={"New offers"} arr={this.state.recommendedProducts} />
 
         {/* product ads */}
         <ProductAds arr={adsArr2} />
@@ -117,7 +117,7 @@ const categoriesArr = [
     id:1,
     title : "Electronics",
     media : ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80","https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"],
-    img : "https://images.unsplash.com/photo-1503341455253-b2e723bb3dbb?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
+    img : "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
   },
   {
    id:2,
@@ -206,7 +206,7 @@ const scrollArr = [
     title : "Thermometer",
     tag : 'Sale 80%',
     brands: " JBL, Sony and more",
-    price: "$200",
+    price: "200",
     media : ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80","https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"],
     img : "https://rukminim1.flixcart.com/image/150/150/k9pynww0/digital-thermometer/2/q/w/four-star-tg818c-infrared-thermometer-original-imafrgd98nqdudax.jpeg?q=70"
   },
@@ -215,7 +215,7 @@ const scrollArr = [
    title : "HeadPhones",
    tag : 'Sale 80%',
    brands: " JBL, Sony and more",
-   price: "$200",
+   price: "200",
    img : "https://rukminim1.flixcart.com/image/150/150/jucz98w0/headphone/8/c/m/boult-audio-boult-audio-curve-wireless-neckband-magnetic-original-imaff5t9dj9hhjx3.jpeg?q=70",
    media : ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80","https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"]
   },
@@ -224,7 +224,7 @@ const scrollArr = [
    title : "Speakers",
    tag : 'Sale 80%',
    brands: " JBL, Sony and more",
-   price: "$200",
+   price: "200",
    img : "https://rukminim1.flixcart.com/image/150/150/k3ncakw0pkrrdj/speaker/mobile-tablet-speaker/h/h/y/jbl-jblgo2blk-original-imafh4b8hadqj8s2.jpeg?q=70",
    media : ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80","https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"]
   },
@@ -233,7 +233,7 @@ const scrollArr = [
    title : "Phone Cover",
    tag : 'Sale 80%',
    brands: " JBL, Sony and more",
-   price: "$200",
+   price: "200",
    img : "https://rukminim1.flixcart.com/image/150/150/kbqu4cw0/screen-guard/edge-to-edge-tempered-glass/a/v/t/flipkart-smartbuy-rn8pro-sg-in-original-imaftyk3sg3urhgy.jpeg?q=70",
    media : ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80","https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"]
   },
@@ -242,7 +242,7 @@ const scrollArr = [
     title : "Phone Cover",
     tag : 'Sale 80%',
     brands: " JBL, Sony and more",
-    price: "$200",
+    price: "200",
     img : "https://rukminim1.flixcart.com/image/150/150/kbqu4cw0/screen-guard/edge-to-edge-tempered-glass/a/v/t/flipkart-smartbuy-rn8pro-sg-in-original-imaftyk3sg3urhgy.jpeg?q=70",
     media : ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80","https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"]
    },
@@ -251,7 +251,7 @@ const scrollArr = [
     title : "Phone Cover",
     tag : 'Sale 80%',
     brands: " JBL, Sony and more",
-    price: "$200",
+    price: "200",
     img : "https://rukminim1.flixcart.com/image/150/150/kbqu4cw0/screen-guard/edge-to-edge-tempered-glass/a/v/t/flipkart-smartbuy-rn8pro-sg-in-original-imaftyk3sg3urhgy.jpeg?q=70",
     media : ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80","https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"]
    },{
@@ -259,7 +259,7 @@ const scrollArr = [
     title : "Phone Cover",
     tag : 'Sale 80%',
     brands: " JBL, Sony and more",
-    price: "$200",
+    price: "200",
     img : "https://rukminim1.flixcart.com/image/150/150/kbqu4cw0/screen-guard/edge-to-edge-tempered-glass/a/v/t/flipkart-smartbuy-rn8pro-sg-in-original-imaftyk3sg3urhgy.jpeg?q=70",
     media : ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80","https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"]
    }
@@ -268,7 +268,7 @@ const scrollArr = [
     title : "Phone Cover",
     tag : 'Sale 80%',
     brands: " JBL, Sony and more",
-    price: "$200",
+    price: "200",
     img : "https://rukminim1.flixcart.com/image/150/150/kbqu4cw0/screen-guard/edge-to-edge-tempered-glass/a/v/t/flipkart-smartbuy-rn8pro-sg-in-original-imaftyk3sg3urhgy.jpeg?q=70",
     media : ["https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80","https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"]
    }

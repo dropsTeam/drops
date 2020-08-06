@@ -81,6 +81,8 @@ class SellerPortal extends React.Component {
 
     render() {
 
+        console.log(this.state)
+
         const menu = (
             <Menu>
                 <Menu.Item onClick={() => this.toggleModal('AddProduct', true)}>
