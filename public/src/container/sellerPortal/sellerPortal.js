@@ -2,15 +2,16 @@ import React from 'react';
 
 import { PageHeader, Button, Menu, Dropdown, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
-import ResultsBlock from "../../components/ProductsResults/ResultsBlock/ResultsBlock.js"
 import styles from './sellerPortal.module.css';
 
+import ResultsBlock from "../../components/ProductsResults/ResultsBlock/ResultsBlock.js"
 import AddProduct from './Modals/AddProduct';
 import EditSellerProfile from './Modals/EditSellerProfile';
 import AnswerQuestionModal from './Modals/answerQuestions';
 
 import OrderViewModal from './Modals/orderViewModal';
 import { connect } from 'react-redux';
+import { editSellerAccount } from '../../Redux/Actions/AuthActions';
 
 import { mainHttp as axios } from "../../Axios/Axios";
 
@@ -57,12 +58,10 @@ class SellerPortal extends React.Component {
                     ...this.state.stats,
                     totalOrders: stats.data.totalOrders,
                     totalSaleAmount: stats.data.totalSaleAmount,
-                    totalProducts: stats.data.totalProducts 
+                    totalProducts: stats.data.totalProducts
                 }
             });
 
-
-            console.log(stats.data);
 
         } catch (err) {
             console.log(err)
@@ -79,6 +78,7 @@ class SellerPortal extends React.Component {
         this.setState(newState);
     }
 
+
     render() {
 
         const menu = (
@@ -89,9 +89,9 @@ class SellerPortal extends React.Component {
                 </a>
                 </Menu.Item>
                 <Menu.Item>
-                    <a target="_blank" rel="noopener noreferrer" href="http://www.taobao.com/">
+                    <a target="_blank" rel="noopener noreferrer" onClick={() => this.toggleModal('EditSellerProfile', true)}>
                         Edit Profile
-                </a>
+                    </a>
                 </Menu.Item>
                 <Menu.Item>
                     <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
@@ -173,7 +173,14 @@ class SellerPortal extends React.Component {
 
                 <AnswerQuestionModal $toggleModal={(a, b) => this.toggleModal(a, b)} isVisible={this.state.view.AnswerQuestions} />
                 <OrderViewModal $toggleModal={(a, b) => this.toggleModal('orderView', b)} isVisible={this.state.view.orderView} />
-
+                <EditSellerProfile
+                    name={this.props.user.seller.name}
+                    bio={this.props.user.seller.bio}
+                    profileImg={this.props.user.seller.profileImg}
+                    
+                    onSave={(data) => this.props.$editSellerProfile(data)}
+                    isVisible={this.state.view.EditSellerProfile}
+                    $toggleModal={(a) => this.toggleModal('EditSellerProfile', a)} />
 
             </div>
         )
@@ -187,6 +194,13 @@ const mapPropsToState = store => {
     }
 }
 
-export default connect(mapPropsToState, null)(SellerPortal);
+const mapPropsToDispatch = dispatch => {
+
+    return {
+        $editSellerProfile: (data) => dispatch(editSellerAccount(data))
+    }
+}
+
+export default connect(mapPropsToState, mapPropsToDispatch)(SellerPortal);
 
 

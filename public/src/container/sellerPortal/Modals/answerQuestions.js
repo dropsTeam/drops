@@ -56,6 +56,7 @@ class AnswerQuestionModal extends React.PureComponent {
                     <Input.TextArea row='4' placeholder='Answer' onChange={(e) => this.handleAns(e, index)} value={item.answer} />
                     <div style={{ height: '20px' }}></div>
                     <p style={{ fontSize: '10px', fontWeight: 500 }}>By {item.user.fullName} at {item.timeStamp}</p>
+                    <p style={{fontSize: '10px', fontWeight: 500}}>{ 'product id : ' + item.productId}</p>
                     <Button onClick={() => this.submit(index)} style={{ margin: '10px 0', float: 'right' }} type='primary'>Submit</Button>
                 </Card>
 

@@ -6,7 +6,7 @@ const mainHttp = axios.create({
     baseURL: '/api',
     timeout: 3000,
     withCredentials: true
-})
+});
 
 mainHttp.interceptors.request.use((config) => {
 
@@ -16,15 +16,20 @@ mainHttp.interceptors.request.use((config) => {
 });
 
 mainHttp.interceptors.response.use((response) => {
-
+    
     if (response.config.method === 'post') {
         if (response.status === 200) {
             message.success('Done !!');
         }
     }
-    else if(response.config.method === 'delete') {
+    else if (response.config.method === 'delete') {
         if (response.status === 200) {
             message.success('Successfully Removed !!');
+        }
+    }
+    if (response.config.method === 'put') {
+        if (response.status === 200) {
+            message.success('Successfully edited !!');
         }
     }
     return response;

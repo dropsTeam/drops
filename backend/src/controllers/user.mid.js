@@ -218,7 +218,7 @@ const getSellerStats = async (req, res, next) => {
 
         ])
 
-        res.status(200).send({ totalProducts: totalProducts[0].totalProducts, totalOrders: totalRevenue[0].totalOrders, totalSaleAmount: totalRevenue[0].totalSaleAmount  });
+        res.status(200).send({ totalProducts: totalProducts[0].totalProducts, totalOrders: totalRevenue[0].totalOrders, totalSaleAmount: totalRevenue[0].totalSaleAmount });
 
     } catch (err) {
         console.log(err);
@@ -226,6 +226,29 @@ const getSellerStats = async (req, res, next) => {
     }
 }
 
+const editSeller = async (req, res, next) => {
+    try {
+        const { user } = req.app.locals;
+        const { sellerData } = req.body;
+
+        const update = {
+            seller: {
+                name: sellerData.name,
+                bio: sellerData.bio,
+                profileImg: sellerData.profileImg
+            }
+        };
+        
+        await userModel.findOneAndUpdate({ gId: user.gId }, update);
+
+        res.status(200).send('ok');
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).send({ msg: 'Error Occured while editing the profile.' })
+    }
+}
 
 
-module.exports = { get, editProfile, getCart, postCart, deleteCartItem, editCart, getSearchHistory, getRecommendedItems, getSellerStats };
+
+module.exports = { get, editProfile, getCart, postCart, deleteCartItem, editCart, getSearchHistory, getRecommendedItems, getSellerStats, editSeller };

@@ -98,6 +98,23 @@ export default function mainReducer(state = init, action) {
             return newState;
         }
 
+        case ActionType.EDIT_SELLER_ACCOUNT: {
+            const newState = {
+                ...state,
+                user: {
+                    ...state.user,
+                    seller: {
+                        ...state.user.seller,
+                        name: action.payload.name,
+                        bio: action.payload.bio,
+                        profileImg: action.payload.profileImg
+                    }
+                }
+            };
+
+            return newState;
+        }
+
 
 
         //  *********** VIEW ACTIONS **********

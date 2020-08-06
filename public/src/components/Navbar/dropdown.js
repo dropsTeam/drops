@@ -7,7 +7,7 @@ import * as authActions from '../../Redux/Actions/AuthActions';
 import { useState } from 'react';
 import { Modal, Form, Input, Radio } from 'antd';
 import { mainHttp } from '../../Axios/Axios';
-import { withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
@@ -53,7 +53,7 @@ const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
           <Input.TextArea row={3} />
         </Form.Item>
         <Form.Item name="profileImg" label="Profile Image URL ( Optional )">
-          <Input  />
+          <Input />
         </Form.Item>
       </Form>
     </Modal>
@@ -66,8 +66,8 @@ const CollectionsPage = (props) => {
   const onCreate = async values => {
 
     try {
-      if(values.bio === undefined) {values.bio = ''}
-      if(values.profileImg === undefined) {values.profileImg = ''}
+      if (values.bio === undefined) { values.bio = '' }
+      if (values.profileImg === undefined) { values.profileImg = '' }
       console.log(values);
       const seller = await mainHttp.post('/user/seller', { ...values });
       props.signUpAsSeller({ isSeller: true, seller: { ...values } });

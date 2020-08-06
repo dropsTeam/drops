@@ -35,6 +35,20 @@ function editProfile(details) {
     }
 }
 
+function editSellerAccount(data) {
+    return async dispatch => {
+
+        try {
+            
+            await mainHttp.put('/user/seller', {sellerData: data});
+            dispatch({type: ActionType.EDIT_SELLER_ACCOUNT, payload: data});
+
+        } catch (err) {
+            console.log(err);
+        }
+    } 
+}
+
 function setSeller(sellerinfo) {
     return dispatch => {
         dispatch({ type: ActionType.SET_SELLER, payload: sellerinfo });
@@ -56,4 +70,4 @@ function logout() {
 }
 
 
-export { login, logout, setUser, setSeller, editProfile }
+export { login, logout, setUser, setSeller, editProfile, editSellerAccount }

@@ -17,6 +17,7 @@ route.get('/searchHistory', authC.googleVerify(true, true), userC.getSearchHisto
     .get('/recommendation', authC.googleVerify(true, true), userC.getRecommendedItems)
 
 route.post('/seller', authC.googleVerify(true, true), authC.signUpAsSeller)
+    .put('/seller', authC.googleVerify(true, true), authC.isSeller(false), userC.editSeller )
     .get('/seller/stats',authC.googleVerify(true, true), authC.isSeller(false), userC.getSellerStats)
 
 module.exports = route;

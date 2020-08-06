@@ -3,9 +3,11 @@ const ActionType = {
     
     LOGIN: 'LOGIN',
     LOGOUT: 'LOGOUT',
+    
     SET_USER: 'SET_USER',
     SET_SELLER: 'SET_SELLER',
     EDIT_PROFILE: 'EDIT_PROFILE',
+    EDIT_SELLER_ACCOUNT: 'EDIT_SELLER_ACCOUNT',
     
     LOADING: 'LOADING',
 
