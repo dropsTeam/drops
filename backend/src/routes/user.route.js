@@ -2,7 +2,6 @@ const route = require('express').Router();
 const userC = require('../controllers/user.mid');
 const authC = require('../controllers/auth.mid');
 const productC = require('../controllers/product.mid');
-const { auth } = require('../../config');
 
 
 route.get('/', authC.googleVerify(true, true), userC.get)
@@ -18,5 +17,6 @@ route.get('/searchHistory', authC.googleVerify(true, true), userC.getSearchHisto
     .get('/recommendation', authC.googleVerify(true, true), userC.getRecommendedItems)
 
 route.post('/seller', authC.googleVerify(true, true), authC.signUpAsSeller)
+    .get('/seller/stats',authC.googleVerify(true, true), authC.isSeller(false), userC.getSellerStats)
 
 module.exports = route;

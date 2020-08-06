@@ -26,7 +26,12 @@ class SellerPortal extends React.Component {
                 AnswerQuestions: false,
                 orderView: false
             },
-            products: []
+            products: [],
+            stats: {
+                totalOrders: 0,
+                totalSaleAmount: 0,
+                totalProducts: 0
+            }
         }
 
         this.toggleModal.bind(this);
@@ -36,13 +41,32 @@ class SellerPortal extends React.Component {
 
     // for getting the particular product on mount---
     componentDidMount() {
-        axios.get("/products/seller")
-            .then(res => {
-                return res.data;
-            })
-            .then(res => {
-                this.setState({ products: res })
-            })
+        this.fetch();
+    }
+
+    async fetch() {
+        try {
+
+            const products = await axios.get("/products/seller")
+            const stats = await axios.get('/user/seller/stats');
+
+            this.setState({
+                ...this.state,
+                products: [...products.data],
+                stats: {
+                    ...this.state.stats,
+                    totalOrders: stats.data.totalOrders,
+                    totalSaleAmount: stats.data.totalSaleAmount,
+                    totalProducts: stats.data.totalProducts 
+                }
+            });
+
+
+            console.log(stats.data);
+
+        } catch (err) {
+            console.log(err)
+        }
     }
 
 
@@ -100,7 +124,7 @@ class SellerPortal extends React.Component {
 
                 <div style={{ color: 'white', margin: '0px', background: '#0099ff' }}>
                     <p className='m-0 h2 p-4'>
-                        { (this.props.user.seller.profileImg === 'Default' || this.props.user.seller.profileImg.length === 0)? <Avatar style={{ marginRight: '30px' }} size="large" icon={<UserOutlined />} />: <Avatar style={{ marginRight: '30px' }} size="large" src={this.props.user.seller.profileImg}  />  }
+                        {(this.props.user.seller.profileImg === 'Default' || this.props.user.seller.profileImg.length === 0) ? <Avatar style={{ marginRight: '30px' }} size="large" icon={<UserOutlined />} /> : <Avatar style={{ marginRight: '30px' }} size="large" src={this.props.user.seller.profileImg} />}
                         Welcome Back {this.props.user.seller.name}
                     </p>
                     <pre className='m-0 p-4 h6' style={{ color: 'white', paddingLeft: '30px', whiteSpace: 'pre-wrap' }}>{this.props.user.seller.bio}</pre>
@@ -108,13 +132,13 @@ class SellerPortal extends React.Component {
                 </div>
                 <svg style={{ margin: '0px' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,128L48,128C96,128,192,128,288,138.7C384,149,480,171,576,170.7C672,171,768,149,864,160C960,171,1056,213,1152,197.3C1248,181,1344,107,1392,69.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
 
-                
+
                 <div className="row" style={{ padding: '0 20px' }}>
                     <div className="col-sm-12 col-md-4 mt-2 ">
                         <div className="card" style={{ backgroundColor: '#FEC009', color: 'white' }}>
                             <div className="card-body" >
                                 <p className="card-text">Revenue</p>
-                                <h1 className="card-title " style={{ color: 'white' }}>$3,567.53 </h1>
+                                <h1 className="card-title " style={{ color: 'white' }}>${this.state.stats.totalSaleAmount} </h1>
                             </div>
                         </div>
                     </div>
@@ -123,7 +147,7 @@ class SellerPortal extends React.Component {
                             <div className="card-body">
 
                                 <p className="card-text">Number Of Orders</p>
-                                <h1 className="card-title" style={{ color: 'white' }}>30,000</h1>
+                                <h1 className="card-title" style={{ color: 'white' }}>{this.state.stats.totalOrders}</h1>
                             </div>
                         </div>
                     </div>
@@ -131,7 +155,7 @@ class SellerPortal extends React.Component {
                         <div className="card" style={{ backgroundColor: '#6EC080' }}>
                             <div className="card-body" style={{ color: 'white' }}>
                                 <p className="card-text">Number Of Products</p>
-                                <h1 className="card-title " style={{ color: 'white' }}>99 </h1>
+                                <h1 className="card-title " style={{ color: 'white' }}>{this.state.stats.totalProducts} </h1>
                             </div>
                         </div>
                     </div>

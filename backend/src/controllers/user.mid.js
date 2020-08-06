@@ -1,5 +1,6 @@
 const userModel = require('../models/user.model');
-const orderModel = require('./../models/orders.model');
+const orderModel = require('../models/orders.model');
+const productModal = require('../models/products.model');
 
 const get = async (req, res, next) => {
     try {
@@ -182,5 +183,49 @@ const getRecommendedItems = async (req, res, next) => {
 }
 
 
+const getSellerStats = async (req, res, next) => {
+    try {
+        const { user } = req.app.locals;
 
-module.exports = { get, editProfile, getCart, postCart, deleteCartItem, editCart, getSearchHistory, getRecommendedItems };
+        const totalRevenue = await orderModel.aggregate([
+            {
+                $match: {
+                    seller: user.gId,
+                    confirmed: true
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalSaleAmount: { $sum: '$price' },
+                    totalOrders: { $sum: 1 }
+                }
+            }
+        ]);
+
+        const totalProducts = await productModal.aggregate([
+            {
+                $match: {
+                    seller: user.gId
+                }
+            },
+            {
+                $group: {
+                    _id: null,
+                    totalProducts: { $sum: 1 }
+                }
+            }
+
+        ])
+
+        res.status(200).send({ totalProducts: totalProducts[0].totalProducts, totalOrders: totalRevenue[0].totalOrders, totalSaleAmount: totalRevenue[0].totalSaleAmount  });
+
+    } catch (err) {
+        console.log(err);
+        res.status(400).send('oops');
+    }
+}
+
+
+
+module.exports = { get, editProfile, getCart, postCart, deleteCartItem, editCart, getSearchHistory, getRecommendedItems, getSellerStats };
