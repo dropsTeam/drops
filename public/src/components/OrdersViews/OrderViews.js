@@ -5,6 +5,7 @@ import OrderView from './OrderView/OrderView';
 class OrederViews extends React.PureComponent {
 
     render() {
+ 
 
         const mapedComponent = this.props.orders.map((item, index) => {
             return <OrderView key={index} order={item} />

@@ -139,11 +139,15 @@ class DropDown extends Component {
 
     return (
       this.props.isAuthorised && (
-        <Dropdown classname="modified-dropdown" overlay={menu} >
-          <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
-            <Avatar size="large" src={this.props.user.profilePic} icon={<UserOutlined />}></Avatar>
-          </a>
-        </Dropdown>
+        <React.Fragment>
+
+          <Dropdown classname="modified-dropdown" overlay={menu} >
+            <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
+              <Avatar size="large" src={this.props.user.profilePic} icon={<UserOutlined />}></Avatar>
+            </a>
+          </Dropdown>
+          <button className='btn btn-sm btn-primary mr-4'>Orders</button>
+        </React.Fragment>
       )
     );
   }

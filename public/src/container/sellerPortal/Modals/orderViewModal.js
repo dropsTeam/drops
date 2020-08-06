@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Drawer } from 'antd';
+import { Drawer, message } from 'antd';
 import OrderViews from '../../../components/OrdersViews/OrderViews';
 import { mainHttp } from '../../../Axios/Axios';
 
@@ -11,7 +11,8 @@ class OrderViewModal extends React.PureComponent {
         super(props);
 
         this.state = {
-            orders: []
+            orders: [],
+            page: 0
         }
     }
 
@@ -19,16 +20,29 @@ class OrderViewModal extends React.PureComponent {
         this.fetch();
     }
 
-    async fetch() {
+    fetch = async () => {
         try {
-            const orders = await mainHttp.get('/orders/sellerOrders/0');
-            this.setState({
-                ...this.state,
-                orders: [...orders.data]
+            
+            const orders = await mainHttp.get(`/orders/sellerOrders/${this.state.page}`);
+            
+            if(orders.data.length === 0) {
+                message.error('No More Orders');
+                return;
+            }
+            this.setState( (stateSnapShot , propsSnapShot) => {
+                
+                let newArr = stateSnapShot.orders.concat(orders.data);
+                return {
+                    ...stateSnapShot,
+                    orders: [...newArr],
+                    page: stateSnapShot.page + 1
+                }
+                
             });
 
         } catch (err) {
-            alert('Error Occured loading the orders');
+            console.log(err)
+            console.log('Error Occured loading the orders');
         }
     }
 
@@ -42,6 +56,9 @@ class OrderViewModal extends React.PureComponent {
                 closable={true}
                 onClose={() => this.props.$toggleModal('orderView', false)}>
                 <OrderViews orders={this.state.orders} />
+                <div style={{textAlign: 'center'}}>
+                    <button onClick={this.fetch} className='btn btn-sm btn-primary' >Load More</button>
+                </div>
             </Drawer>
         )
     }
