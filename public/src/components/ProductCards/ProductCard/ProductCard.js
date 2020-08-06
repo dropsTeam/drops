@@ -5,11 +5,18 @@ import  "./ProductCard.css";
 class ProductCard extends React.PureComponent {
   constructor(props) {
    super(props);
-  }
 
+   this.multiply = this.multiply.bind(this);
+  }
+ 
+  multiply = (a, b) => a * b;
 
   
  render() {
+
+  let discountPercent = 0.2;
+  let aPrice = this.props.item.price;
+  let dPrice = aPrice+this.multiply(discountPercent,aPrice);
   
    return  (
      <li className="nav-item">
@@ -22,10 +29,13 @@ class ProductCard extends React.PureComponent {
                 </div>
               </div>
               <div className="product__title">
-                <p>{this.props.item.title}</p>
-                </div>
+                {this.props.item.title}
+              </div>
               <div className="product__price">
-                <p>{this.props.item.price}</p>
+                {/* <p>{this.props.item.price}</p> */}
+                <span className="productCard__dPrice price">${aPrice}</span>
+                <span className="productCard__aPrice price">${dPrice}</span>
+                <span className="productCard__dPercent price">{discountPercent*100}% off</span>
                 </div>
               <div className="product__brands">
                 <p>{this.props.item.brands}</p>
