@@ -21,8 +21,7 @@ class OrderViewModal extends React.PureComponent {
                     orders: [...newArr],
                     page: stateSnapshot.page + 1
                 }
-            })
-
+            });
 
         } catch (err) {
             console.log(err);
