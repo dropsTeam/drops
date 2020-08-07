@@ -13,7 +13,7 @@ const get = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error occured while ' })
+        errorHandler(res, 400, 'Error Occured while fetching the reviews.');
     }
 }
 
@@ -26,7 +26,7 @@ const getMyReview = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(200).send({ msg: 'Error Occured getting your review.', err });
+        errorHandler(res, 400, 'Error Occured getting your review.');
     }
 }
 
@@ -60,7 +60,7 @@ const post = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        errorHandler(res, 400, 'Error Occured while posting the review');
+        errorHandler(res, 400, 'Error Occured while posting the review.');
         // res.status(400).send({ msg: 'Error Occured while posting the review' });
     }
 }
@@ -76,7 +76,7 @@ const helpfulPOST = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(400).send({ msg: 'Error Occured POSTING the Job', err });
+        errorHandler(res, 400, 'Error Occured POSTING the Job.');
     }
 }
 
@@ -92,7 +92,7 @@ const helpfulDELETE = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(400).send({ msg: 'Error Occured POSTING the Job', err });
+        errorHandler(res, 400, 'Error Occured while deleting the helphul.');
     }
 }
 
@@ -113,7 +113,8 @@ const amIInhelpful = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(400).send({ msg: 'Error Occured figuring out if you said this review was helphul or not earlier.', err });
+        errorHandler(res, 400, 'Oops.');
+
     }
 }
 

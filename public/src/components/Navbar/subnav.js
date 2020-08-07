@@ -1,134 +1,56 @@
 import React from 'react';
-import { Menu} from 'antd';
-
-import { MailOutlined, AppstoreOutlined, SettingOutlined } from '@ant-design/icons';
-import { DownOutlined } from '@ant-design/icons';
-
+import { Menu } from 'antd';
+import { withRouter } from 'react-router-dom';
 const { SubMenu } = Menu;
 
 class SubNav extends React.Component {
 
 
+  handleClick = (moveTo) => {
+    this.props.history.push(`/results/${moveTo}`);
+  }
+
   render() {
-    
+
     return (
-      <Menu onClick={this.handleClick} mode="horizontal">
-        <SubMenu title="Electronics"> 
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
+      <Menu mode="horizontal">
+        <SubMenu title="Electronics" onTitleClick={() => this.handleClick('Electronics')}>
+
         </SubMenu>
-        <SubMenu title="TV & Appliances"> 
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
+        <SubMenu title="Mobile" onTitleClick={() => this.handleClick('Mobile')}>
+
         </SubMenu>
-        <SubMenu title="Men"> 
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
+        <SubMenu title=" PC & Laptop " onTitleClick={() => this.handleClick('PC&Laptop')}>
+
         </SubMenu>
-        <SubMenu title="Women" > 
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:11">Option 1</Menu.Item>
-            <Menu.Item key="setting:22">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:33">Option 3</Menu.Item>
-            <Menu.Item key="setting:44">Option 4</Menu.Item>
-          </Menu.ItemGroup>
+        <SubMenu title="TV & Appliances" onTitleClick={() => this.handleClick('TV&Appliances')}>
+
         </SubMenu>
-        <SubMenu title="Baby & Kids"> 
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
+        <SubMenu title="Men" onTitleClick={() => this.handleClick('Men')}>
+
         </SubMenu>
-        <SubMenu title="Home & Furniture"> 
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
+        <SubMenu title="Women" onTitleClick={() => this.handleClick('Women')}>
+
         </SubMenu>
-        
-        
-        <SubMenu title="Sports, Books & More"> 
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
+        <SubMenu title="Baby & Kids" onTitleClick={() => this.handleClick('Kids')}>
+
+        </SubMenu>
+        <SubMenu title="Home & Furniture" onTitleClick={() => this.handleClick('Furniture')}>
+
         </SubMenu>
 
-        <SubMenu title="Flights"> 
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
+        <SubMenu title="Sports, Books & More" onTitleClick={() => this.handleClick('Sports')}>
+
         </SubMenu>
-        <SubMenu title="Baby & Kids"> 
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
+
+
+        <SubMenu title="Tools" onTitleClick={() => this.handleClick('Tools')}>
+
         </SubMenu>
-        <SubMenu title="Home Tools"> 
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
-        </SubMenu>
-        <SubMenu title="Offer Zone"> 
-          <Menu.ItemGroup title="Item 1">
-            <Menu.Item key="setting:1">Option 1</Menu.Item>
-            <Menu.Item key="setting:2">Option 2</Menu.Item>
-          </Menu.ItemGroup>
-          <Menu.ItemGroup title="Item 2">
-            <Menu.Item key="setting:3">Option 3</Menu.Item>
-            <Menu.Item key="setting:4">Option 4</Menu.Item>
-          </Menu.ItemGroup>
-        </SubMenu>
+
       </Menu>
     );
   }
 }
 
-export default SubNav;
+export default withRouter(SubNav);

@@ -1,5 +1,7 @@
 const productModel = require('../models/products.model');
 const userModel = require('../models/user.model');
+const { errorHandler } = require('../utils/ErrorHandler');
+
 
 /*          HELPERS MIDDLEWARES      */
 
@@ -19,7 +21,7 @@ const basicProductInfo = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured fetching the product info', err });
+        errorHandler(res, 400, 'Oops');
     }
 }
 
@@ -32,7 +34,7 @@ const getbasicProductInfo = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured getting the product info' });
+        errorHandler(res, 400, 'Oops');
     }
 }
 
@@ -53,7 +55,8 @@ const get = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured fetching the product data.', err });
+        errorHandler(res, 400, 'Error Occured fetching the product data.');
+
     }
 }
 
@@ -66,7 +69,7 @@ const getSellerProducts = async (req, res) => {
 
     } catch (err) {
         console.log(err);
-        res.status(400).send('oops')
+        errorHandler(res, 400, 'Error occured while fetching the products.');
     }
 }
 
@@ -93,7 +96,7 @@ const postProduct = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured Posting the product info' });
+        errorHandler(res, 400, 'Error occured while posting the products.');
     }
 }
 
@@ -116,7 +119,7 @@ const editProduct = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured Editing the product.', err });
+        errorHandler(res, 400, 'Error occured while editing the products.');
     }
 }
 
@@ -194,7 +197,7 @@ const search = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured searching for products', err });
+        errorHandler(res, 400, 'Error Occured searching for products.');
     }
 }
 

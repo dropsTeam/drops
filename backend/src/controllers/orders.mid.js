@@ -1,4 +1,6 @@
 const orderModel = require('../models/orders.model');
+const { errorHandler } = require('../utils/ErrorHandler');
+
 
 const post = async (req, res) => {
     try {
@@ -11,7 +13,7 @@ const post = async (req, res) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send('Error Occured while posting order');
+        errorHandler(res, 400, 'Error Occures while posting the order.');
     }
 }
 
@@ -26,7 +28,7 @@ const getSellerOrders = async (req, res) => {
 
     } catch (err) {
         console.log(err);
-        res.status(400).send('Error Occured loading the orders');
+        errorHandler(res, 400, 'Error Occures while getting the order.');
     }
 }
 
@@ -41,7 +43,7 @@ const get = async (req, res) => {
     }
     catch (err) {
         console.log(err);
-        res.status(400).send('Error Occured loading the orders');
+        errorHandler(res, 400, 'Error Occures while getting the order.');
     }
 }
 

@@ -1,5 +1,6 @@
-
 const qnaModel = require('../models/qna.model');
+const { errorHandler } = require('../utils/ErrorHandler');
+
 
 const postQ = async (req, res, next) => {
     try {
@@ -13,7 +14,7 @@ const postQ = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(400).send({ msg: 'Error Occured while posting question', err });
+        errorHandler(res, 400, 'Error Occured while posting question.');
     }
 
 }
@@ -29,7 +30,7 @@ const postA = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(400).send({ msg: 'Error Occured while posting answer', err });
+        errorHandler(res, 400, 'Error Occured while posting answer.');
     }
 }
 
@@ -43,7 +44,7 @@ const get = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(400).send({ msg: 'Error Occured while getting qna', err });
+        errorHandler(res, 400, 'Error Occured while getting qna.');
     }
 }
 
@@ -56,7 +57,7 @@ const getPendingQuestions = async (req, res) => {
 
     } catch (err) {
         console.log(err);
-        res.status(400).send({ msg: 'Error Occured while getting pending questions', err });
+        errorHandler(res, 400, 'Error Occured while getting pending questions.');
     }
 }
 

@@ -4,7 +4,7 @@ const config = require('../../config');
 const userModel = require('../models/user.model');
 const productModel = require('../models/products.model');
 const client = new OAuth2Client(config.auth.GOOGLE_CLIENT_ID);
-
+const { errorHandler } = require('../utils/ErrorHandler');
 
 
 const log = async (req, res, next) => {
@@ -35,7 +35,7 @@ const log = async (req, res, next) => {
 
     } catch (err) {
         console.log(err)
-        res.status(400).send({ msg: 'Error Occured' });
+        errorHandler(res, 400, 'Cannot Log In');
     }
 }
 
@@ -46,7 +46,8 @@ const logout = async (req, res, next) => {
         res.clearCookie('auth-token').send('ok');
 
     } catch (err) {
-        res.status(400).send({ message: err })
+        console.log(err);
+        errorHandler(res, 400, 'Cannot Logout');
     }
 }
 
@@ -82,7 +83,7 @@ function googleVerify(fromCookie, terminateIfError = true) {
         catch (err) {
             console.log(err);
             if (terminateIfError) {
-                res.status(401).send({ msg: 'Token Unverified' });
+                errorHandler(res, 400, 'Token Unverified');
             } else {
                 next();
             }
@@ -93,7 +94,6 @@ function googleVerify(fromCookie, terminateIfError = true) {
 function isSeller(checkOwnership = false) {
     return async (req, res, next) => {
         try {
-
 
             const { user } = req.app.locals;
 
@@ -113,7 +113,7 @@ function isSeller(checkOwnership = false) {
 
         } catch (err) {
             console.log(err);
-            res.status(401).send({ msg: 'Error Occured.', err })
+            errorHandler(res, 400, 'Unauthorised');
         }
     }
 }
@@ -125,7 +125,7 @@ const signUpAsSeller = async (req, res) => {
         const { name, bio, profileImg } = req.body;
         const { user } = req.app.locals;
 
-        if(profileImg.length) {profileImg =  user.profilePic}
+        if (profileImg.length) { profileImg = user.profilePic }
 
         const update = { 'seller.name': name, 'seller.bio': bio, 'seller.profileImg': profileImg, isSeller: true }
 
@@ -133,7 +133,8 @@ const signUpAsSeller = async (req, res) => {
         res.status(200).send(update);
 
     } catch (err) {
-        res.status(400).send({ msg: 'Error Occured signing up as seller', err });
+        console.log(err)
+        errorHandler(res, 400, 'Error Occured while signing up as seller');
     }
 }
 

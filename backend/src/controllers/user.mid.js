@@ -1,6 +1,7 @@
 const userModel = require('../models/user.model');
 const orderModel = require('../models/orders.model');
 const productModal = require('../models/products.model');
+const { errorHandler } = require('../utils/ErrorHandler');
 
 const get = async (req, res, next) => {
     try {
@@ -10,7 +11,7 @@ const get = async (req, res, next) => {
     }
     catch (err) {
         console.log(err);
-        res.status(400).send({ msg: 'Error Occured in fetching user' });
+        errorHandler(res, 400, 'Error Occured in fetching user');
     }
 };
 
@@ -36,7 +37,7 @@ const editProfile = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured editing the profile' });
+        errorHandler(res, 400, 'Error Occured editing the profile.');
     }
 }
 
@@ -54,7 +55,7 @@ const getCart = async (req, res, next) => {
     }
     catch (err) {
         console.log(err);
-        res.status(400).send({ msg: 'Error Occured in fetching user' });
+        errorHandler(res, 400, 'Error Occured in fetching user.');
     }
 };
 
@@ -101,7 +102,7 @@ function postCart(isNext) {
 
         } catch (err) {
             console.log(err);
-            res.status(500).send('Error occured while posting cart');
+            errorHandler(res, 400, 'Error occured while posting cart.');
         }
     }
 }
@@ -126,7 +127,7 @@ const deleteCartItem = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured while deleting the cart.', err })
+        errorHandler(res, 400, 'Error Occured while deleting the cart.');
     }
 }
 
@@ -143,7 +144,7 @@ const editCart = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured while editing the cart.', err })
+        errorHandler(res, 400, 'Error Occured while editing the cart.');
     }
 }
 
@@ -157,7 +158,7 @@ const getSearchHistory = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured fetching the search history', err });
+        errorHandler(res, 400, 'Error Occured fetching the search history.');
     }
 }
 
@@ -178,7 +179,7 @@ const getRecommendedItems = async (req, res, next) => {
 
     } catch (err) {
         console.log(err);
-        res.status(500).send({ msg: 'Error Occured getting the recommendations .' })
+        errorHandler(res, 400, 'Error Occured getting the recommendations.');
     }
 }
 
@@ -218,14 +219,14 @@ const getSellerStats = async (req, res, next) => {
 
         ]);
 
-        if(totalProducts.length === 0) {totalProducts.push({totalProducts: 0})}
-        if(totalRevenue.length === 0) {totalRevenue.push({totalOrders: 0, totalSaleAmount: 0})}
+        if (totalProducts.length === 0) { totalProducts.push({ totalProducts: 0 }) }
+        if (totalRevenue.length === 0) { totalRevenue.push({ totalOrders: 0, totalSaleAmount: 0 }) }
 
         res.status(200).send({ totalProducts: totalProducts[0].totalProducts, totalOrders: totalRevenue[0].totalOrders, totalSaleAmount: totalRevenue[0].totalSaleAmount });
 
     } catch (err) {
         console.log(err);
-        res.status(400).send('oops');
+        errorHandler(res, 400, 'Oops.');
     }
 }
 
@@ -241,14 +242,14 @@ const editSeller = async (req, res, next) => {
                 profileImg: sellerData.profileImg
             }
         };
-        
+
         await userModel.findOneAndUpdate({ gId: user.gId }, update);
 
         res.status(200).send('ok');
 
     } catch (err) {
         console.log(err);
-        res.status(400).send({ msg: 'Error Occured while editing the profile.' })
+        errorHandler(res, 400, 'Error Occured while editing the profile.');
     }
 }
 
