@@ -1,5 +1,5 @@
 import React from 'react';
-import { Progress, Modal, Rate, Form, Input } from 'antd';
+import { Progress, Modal, Rate, Form, Input, message } from 'antd';
 import ProductRating from './ProductRatings/ProductRatings'
 import { mainHttp } from '../../../Axios/Axios';
 
@@ -19,31 +19,32 @@ class ProductReviews extends React.PureComponent {
             title: '',
             discription: '',
             rating: 1
-        }
+        },
+        page: 0
     }
 
-    page = 0;
 
-
-    async fetch() {
+    fetch = async () => {
         try {
-            const newReviews = await mainHttp.get(`/products/reviews/?productId=${this.props.productId}&page=${this.page}`);
+            
+            const newReviews = await mainHttp.get(`/products/reviews/?productId=${this.props.productId}&page=${this.state.page}`);
+            
+            if (newReviews.data.length === 0) {
+                message.error('No reviews to load!')
+                return;
+            }
+            let newArr = [...this.state.reviews].concat(newReviews.data);
 
-            let newArr = [...this.state.reviews];
-            newArr = newArr.concat(newReviews.data);
-            console.log(this.props)
-            this.setState({
-                ...this.state,
-                reviews: [...newArr],
-                stats: {
-                    ...this.state.stats,
+            this.setState((stateSnapshot, propsSnapshot) => {
+
+                return {
+                    ...stateSnapshot,
+                    reviews: [...newArr],
+                    page: stateSnapshot.page + 1
                 }
             });
 
-            this.page++;
-
         } catch (err) {
-            alert('error occured loading the reviews');
             console.log(err)
         }
     }
@@ -143,7 +144,8 @@ class ProductReviews extends React.PureComponent {
                 </div>
 
                 {mapReview}
-                <a style={{ fontWeight: 600, textDecoration: 'none', padding: '30px 0px', color: 'blue', fontSize: '17px' }} onClick={this.fetch}>Load More</a>
+                <a style={{ fontWeight: 600, textDecoration: 'none', padding: '30px 0px', color: 'blue', fontSize: '17px' }}
+                    onClick={this.fetch} >Load More</a>
 
                 <Modal
                     title="Add a review"

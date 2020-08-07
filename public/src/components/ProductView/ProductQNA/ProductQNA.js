@@ -1,24 +1,21 @@
 import React from 'react';
 
 import QNA from './QNA/QNA';
-import { Form, Modal, Input } from 'antd';
+import { Form, Modal, Input, message } from 'antd';
 import { mainHttp } from '../../../Axios/Axios';
 
 class ProductQNA extends React.PureComponent {
 
 
-    page = 0;
-
     constructor(props) {
         super(props);
         this.state = {
             qnaModelVis: false,
-            qna: [
-
-            ],
+            qna: [],
             qnaForm: {
                 question: ''
-            }
+            },
+            page: 0
         }
 
         this.fetch = this.fetch.bind(this);
@@ -26,19 +23,24 @@ class ProductQNA extends React.PureComponent {
 
     async fetch() {
         try {
-            const qna = await mainHttp.get(`/qna?productId=${this.props.productId}&page=${this.page}`);
-            console.log(qna.data);
+            const qna = await mainHttp.get(`/qna?productId=${this.props.productId}&page=${this.state.page}`);
 
-            let newArr = [...this.state.qna];
-            newArr = newArr.concat(qna.data);
-            this.setState({
-                ...this.state,
-                qna: [...newArr]
+            if(qna.data.length === 0) {
+                message.error('No Questions to load.');
+                return;
+            }
+
+            const newArr = [...this.state.qna].concat(qna.data);
+
+            this.setState((stateSnapshot, propsSnapshat) => {
+                return {
+                    ...stateSnapshot,
+                    qna: [...newArr],
+                    page: stateSnapshot.page + 1
+                }
             });
-            this.page++;
 
         } catch (err) {
-            alert('Error Occured fetching the QNA')
             console.log(err)
         }
     }

@@ -163,7 +163,6 @@ class DropDown extends React.PureComponent {
       this.props.isAuthorised && (
         <React.Fragment>
 
-
           <button className='btn btn-sm btn-primary mr-5'
             onClick={() => this.toggleModal('ordersModal', true)}>
             Orders
