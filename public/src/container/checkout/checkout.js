@@ -143,9 +143,10 @@ class Cartcheckout extends Component {
 
 const mapPropsToState = (store) => {
     return {
+        user: store.user,
         cartItems: store.cartItems,
         isAuthorised: store.isAuthorised,
-        user: store.user
+        
 
     }
 }
