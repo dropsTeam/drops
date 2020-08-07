@@ -1,13 +1,15 @@
-import React, { Component } from 'react';
-import { Menu, Dropdown, Button, Avatar } from 'antd';
+import React, { Component, PureComponent } from 'react';
+import { Menu, Dropdown, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import * as authActions from '../../Redux/Actions/AuthActions';
+import OrderViewModal from '../OrderViewModal/OrderViewModal';
 
 import { useState } from 'react';
 import { Modal, Form, Input, Radio } from 'antd';
 import { mainHttp } from '../../Axios/Axios';
 import { withRouter } from 'react-router-dom';
+
 
 const CollectionCreateForm = ({ visible, onCreate, onCancel }) => {
   const [form] = Form.useForm();
@@ -104,12 +106,32 @@ const CollectionsPage = (props) => {
 
 
 // dropdown at nanbar----------------------
-class DropDown extends Component {
+class DropDown extends React.PureComponent {
+
+  state = {
+    view: {
+      ordersModal: false
+    },
+  }
 
   signUpAsSeller = (sellerInfo) => {
     console.log(sellerInfo);
     this.props.setSeller(sellerInfo);
   }
+
+  toggleModal = (modalName, isVisible) => {
+
+    const newState = {
+      ...this.state,
+      view: {
+        ...this.state.view,
+      }
+    };
+
+    newState.view[modalName] = isVisible;
+    this.setState({ ...newState });
+  }
+
 
   render() {
     const menu = (
@@ -146,7 +168,10 @@ class DropDown extends Component {
               <Avatar size="large" src={this.props.user.profilePic} icon={<UserOutlined />}></Avatar>
             </a>
           </Dropdown>
-          <button className='btn btn-sm btn-primary mr-4'>Orders</button>
+         
+          <button className='btn btn-sm btn-primary mr-4' onClick={() => this.toggleModal('ordersModal', true)}>Orders</button>
+          <OrderViewModal isVisible={this.state.view.ordersModal} $toggleModal={(a) => this.toggleModal('ordersModal', a)} />
+
         </React.Fragment>
       )
     );
