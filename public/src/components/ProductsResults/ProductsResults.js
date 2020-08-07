@@ -192,7 +192,7 @@ class ProductResults extends React.PureComponent {
   onPageChange = (page) =>{
     console.log(page);
     this.setState({
-        page: page
+        page: page-1
       });
       this.fetchPage(page)
     }
