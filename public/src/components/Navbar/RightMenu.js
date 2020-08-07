@@ -45,11 +45,10 @@ class App extends React.Component {
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
-          footer={null}
-        >
+          footer={null}>
           <div className="loginModal__container">
             <div className="loginModal__imageContainer">
-              <div class="loginModal__title">
+              <div className="loginModal__title">
                 <span>Login</span>
               </div>
               <div className="loginModal__desc">
