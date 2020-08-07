@@ -40,10 +40,6 @@ class Filters extends PureComponent {
 // resulst block
 class Results extends React.PureComponent {
 
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className="results__container">
@@ -55,7 +51,7 @@ class Results extends React.PureComponent {
             {/* <Demo /> */}
           </div>
 
-          <ResultsBlock numbers={this.props.numbers} />
+          <ResultsBlock {...this.props}  />
 
         </div>
       </div>
@@ -77,7 +73,9 @@ class ProductResults extends React.PureComponent {
       sortorder : "INC",
       category : '',
       priceMin :10,
-      priceMax :4000
+      priceMax :4000,
+      page :0,
+      range : "0-2000"
     }
 
   }
@@ -93,20 +91,37 @@ class ProductResults extends React.PureComponent {
     }
   }
 
+  // fetch by page change
+  fetchPage = async(page) =>{
+    let url = window.location.href;
+    let arr = url.split("/");
+    let arrLen = arr.length;
+    try{
+      await axios.get(`/products/search?text=${arr[arrLen-1]}&page=${page}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${this.state.range}`)
+        .then(res=>{
+          this.setState({results : res.data})
+          console.log(res)
+        })
+    }
+    catch(err){
+      console.log(err)
+    }
+  }
+
 
   // fetch for results-----main
 
   fetch = async () => {
     try {
-      const results = await mainHttp.get(`/products/search?text=${this.props.match.params.text}`)
+      const results = await mainHttp.get(`/products/search?text=${this.props.match.params.text}&page=${this.props.page}`)
 
       const newArr = [...results.data];
       this.setState({ ...this.state, results: [...newArr] });
       
-      console.log(results)
+      // console.log(results)
     } catch (err) {
       console.log(err)
-      alert('error occured laoding th results')
+      alert('error occured laoding the results')
     }
   }
 
@@ -174,6 +189,14 @@ class ProductResults extends React.PureComponent {
     }
 
 
+  onPageChange = (page) =>{
+    console.log(page);
+    this.setState({
+        page: page
+      });
+      this.fetchPage(page)
+    }
+
   // functions for fetching requests on changing filteres
   onChangeSortBy = e => {
     this.setState({
@@ -226,6 +249,8 @@ class ProductResults extends React.PureComponent {
     setTimeout(()=>this.fetchRange(this.state.priceMin,value),2000)
   };
 
+
+
   
 
 
@@ -234,6 +259,7 @@ class ProductResults extends React.PureComponent {
     return (
       <div className="resultsView__container">
         <div className="resultsView__wrapper">
+
           <Filters  
              onChangeSortBy={this.onChangeSortBy} 
              onChangeSortOrder={this.onChangeSortOrder}
@@ -244,7 +270,11 @@ class ProductResults extends React.PureComponent {
              priceMax={this.state.priceMax}
              priceMin={this.state.priceMin}
              />
-          <Results numbers={this.state.results} />
+
+          <Results 
+              numbers={this.state.results} 
+              onPageChange={this.onPageChange}
+           />
         </div>
       </div>
     )

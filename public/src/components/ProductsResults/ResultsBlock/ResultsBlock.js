@@ -3,21 +3,20 @@ import  "../ProductResults.css";
 import ResultsCard from "../ResultsCard/ResultsCard";
 
 import {mainHttp as axios} from "../../../Axios/Axios.js";
-
+import { Pagination } from 'antd';
 
 
 class ResultsBlock extends Component{
 
- constructor(props) {
-   super(props);
- }
-
 
  render(){
+
+  console.log(this.props)
 
    return (
      <>
      {this.props.numbers ? 
+       <>
        <div className={`d-flex bd-highlight flex-row flex-wrap  .align-content-sm-around align-content-around `}>
         {this.props.numbers.map((item,index)=>
             <ResultsCard 
@@ -32,6 +31,15 @@ class ResultsBlock extends Component{
             />
           )}
       </div>
+
+     <div className="pagination__container">
+        <Pagination
+        onChange={(page)=>this.props.onPageChange(page)}
+        defaultCurrent={0}
+        total={50}
+      />
+     </div>
+      </>
     : ""}
     </>
    )

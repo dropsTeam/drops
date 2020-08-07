@@ -167,4 +167,14 @@
   color: black;
   font-weight: 400;
 }
+
+.pagination__container {
+  padding-top: 3rem;
+  padding-bottom: 1rem;
+  text-align: center;
+}
+
+.pagination__container ul {
+  display: inline;
+}
 /*# sourceMappingURL=ProductResults.css.map */
