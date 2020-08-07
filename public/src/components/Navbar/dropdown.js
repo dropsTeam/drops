@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React from 'react';
 import { Menu, Dropdown, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
@@ -6,7 +6,7 @@ import * as authActions from '../../Redux/Actions/AuthActions';
 import OrderViewModal from '../OrderViewModal/OrderViewModal';
 
 import { useState } from 'react';
-import { Modal, Form, Input, Radio } from 'antd';
+import { Modal, Form, Input } from 'antd';
 import { mainHttp } from '../../Axios/Axios';
 import { withRouter } from 'react-router-dom';
 
@@ -163,13 +163,18 @@ class DropDown extends React.PureComponent {
       this.props.isAuthorised && (
         <React.Fragment>
 
+
+          <button className='btn btn-sm btn-primary mr-5'
+            onClick={() => this.toggleModal('ordersModal', true)}>
+            Orders
+          </button>
+
           <Dropdown classname="modified-dropdown" overlay={menu} >
             <a className="ant-dropdown-link" onClick={e => e.preventDefault()}>
               <Avatar size="large" src={this.props.user.profilePic} icon={<UserOutlined />}></Avatar>
             </a>
           </Dropdown>
-         
-          <button className='btn btn-sm btn-primary mr-4' onClick={() => this.toggleModal('ordersModal', true)}>Orders</button>
+
           <OrderViewModal isVisible={this.state.view.ordersModal} $toggleModal={(a) => this.toggleModal('ordersModal', a)} />
 
         </React.Fragment>

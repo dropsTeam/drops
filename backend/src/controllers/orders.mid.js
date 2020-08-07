@@ -36,7 +36,7 @@ const get = async (req, res) => {
         const { user } = req.app.locals;
         const { page } = req.params;
 
-        const orders = await orderModel.find({ user: user.gId, confirmed: true }).sort('timeStamp').skip(page * 30).limit(30).lean();
+        const orders = await orderModel.find({ user: user.gId, confirmed: true }).sort('timeStamp').skip(page * 20).limit(30).lean();
         res.status(200).send(orders);
     }
     catch (err) {
