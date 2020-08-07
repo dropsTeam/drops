@@ -28,6 +28,10 @@ class OrderViewModal extends React.PureComponent {
         }
     }
 
+    componentDidMount() {
+        this.fetch();
+    }
+
     render() {
         return (
             <Modal
