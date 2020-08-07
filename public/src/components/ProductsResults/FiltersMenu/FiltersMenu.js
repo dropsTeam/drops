@@ -3,7 +3,7 @@ import { Menu, Tabs } from 'antd';
 import { Radio, Input } from 'antd';
 import { mainHttp as axios } from  "../../../Axios/Axios.js"
 
-import IntegerStep from "../Slider/Slider"
+// import IntegerStep from "../Slider/Slider"
 import { Slider, InputNumber, Row, Col , Divider } from 'antd';
 
 const { SubMenu } = Menu;
@@ -173,19 +173,9 @@ class Sider extends React.Component {
   render() {
 
     return (
-      // <Menu
-      //   mode="inline"
-      //   openKeys={this.state.openKeys}
-      //   onOpenChange={this.onOpenChange}
-      //   defaultOpenKeys={['sub1','sub2']}
-      //   style={{ width: 256 }}
-      // >
-
-      //   <SubMenu key="sub1" className="filters__option" title="SORT BY">
+     
           <RadioGroup  {...this.props} />
-        // </SubMenu>
-
-      // </Menu>
+      
     );
   }
 }
@@ -210,7 +200,7 @@ class App extends React.Component {
       <Menu onClick={this.handleClick} selectedKeys={[current]} mode="inline">
         <div className="slider__container">
           <h6>PRICES</h6>
-          <IntegerStep />
+          {/* <IntegerStep /> */}
         </div>
         <SubMenu
           key="sub1"
