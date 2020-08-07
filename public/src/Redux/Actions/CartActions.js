@@ -1,5 +1,6 @@
 import ActionType from './ActionType';
 import { mainHttp } from '../../Axios/Axios';
+import {message} from 'antd';
 
 function addToCart(item, isAuthorised) {
 
@@ -22,7 +23,7 @@ function addToCart(item, isAuthorised) {
                 dispatch({ type: ActionType.ADD_TO_CART, payload: { item } })
 
             } catch (err) {
-                alert('Error Occured posting your cart');
+                message.error('Error Occured posting your cart');
             }
         }
 
@@ -39,7 +40,7 @@ function editCart(quantity, index, isAuthorised) {
 
             if (!!!localStorage.getItem('cart')) {
                 localStorage.setItem('cart', JSON.stringify([]));
-                alert('product doesnot exist. ');
+                message.info('product doesnot exist. ');
                 return;
             }
 
@@ -68,7 +69,6 @@ function deleteCartItem(index, isAuthorised) {
         if (!isAuthorised) {
 
             let cart = JSON.parse(localStorage.getItem('cart'));
-            alert(isAuthorised)
             cart.splice(index, 1);
             localStorage.setItem('cart', JSON.stringify(cart));
             dispatch({ type: ActionType.DELETE_CART_ITEM, payload: { index } });
@@ -79,7 +79,7 @@ function deleteCartItem(index, isAuthorised) {
                 dispatch({ type: ActionType.DELETE_CART_ITEM, payload: { index } });
             } catch (err) {
                 console.log(err);
-                alert('Error Occured deleting the cart')
+                message.error('Error Occured deleting the cart')
             }
         }
     }
@@ -125,7 +125,7 @@ function loadCart(isAuthorised) {
                 localStorage.clear();
 
             } catch (err) {
-                alert('Error Occured loading the cart in actions');
+                message.error('Error Occured loading the cart in actions');
                 console.log(err);
             }
 
@@ -145,7 +145,7 @@ function clearCart() {
 
         } catch (err) {
             console.log(err);
-            alert('Error Occured clearing the cart')
+            message.error('Error Occured clearing the cart')
         }
     }
 }
@@ -156,7 +156,7 @@ function checkout(cartId) {
             await mainHttp.post('/orders', { cartId });
             dispatch({ type: ActionType.DELETE_CART_ITEM, index: cartId });
         } catch (err) {
-            alert('Error Occured checking out.')
+            message.error('Error Occured checking out.')
         }
     }
 }

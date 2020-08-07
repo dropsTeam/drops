@@ -1,7 +1,7 @@
 import React from 'react';
 
 import QNA from './QNA/QNA';
-import { Form, Modal, Input, message } from 'antd';
+import { Form, Modal, Input, message, Empty } from 'antd';
 import { mainHttp } from '../../../Axios/Axios';
 
 class ProductQNA extends React.PureComponent {
@@ -24,8 +24,7 @@ class ProductQNA extends React.PureComponent {
     async fetch() {
         try {
             const qna = await mainHttp.get(`/qna?productId=${this.props.productId}&page=${this.state.page}`);
-
-            if(qna.data.length === 0) {
+            if (qna.data.length === 0) {
                 message.error('No Questions to load.');
                 return;
             }
@@ -67,7 +66,7 @@ class ProductQNA extends React.PureComponent {
 
             this.togglePostModal(false);
             const newArr = [...this.state.qna];
-            newArr.unshift({ question: this.state.qnaForm.question, answer: '', user: { fullName: 'you', timeStamp: Date.now } });
+            newArr.unshift({ question: this.state.qnaForm.question, answer: '', timeStamp: new Date().getDate(), user: { fullName: 'you' } });
             this.setState({ ...this.state, qna: newArr });
         } catch (err) {
             alert('Error Occured submitting the question.')
@@ -89,7 +88,8 @@ class ProductQNA extends React.PureComponent {
                 <h3>Questions and Answers <button className='btn btn-primary btn-sm float-right' onClick={() => this.togglePostModal(true)} >Ask A Question</button> </h3>
                 <hr />
 
-                {mapedQuestion}
+                {(this.state.qna.length === 0) ? <Empty /> :  mapedQuestion }
+
 
                 <a onClick={this.fetch} style={{ fontWeight: 600, textDecoration: 'none', padding: '30px 0px', color: 'blue', fontSize: '17px' }}>Load More</a>
 

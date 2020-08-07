@@ -133,7 +133,6 @@ export default function mainReducer(state = init, action) {
             const cart = [...state.cartItems];
             cart.unshift(action.payload.item);
             const nwState = { ...state, cartItems: cart };
-            alert('Added to cart');
             return nwState;
         }
 

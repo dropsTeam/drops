@@ -1,5 +1,5 @@
 import React from 'react';
-import { Progress, Modal, Rate, Form, Input, message } from 'antd';
+import { Progress, Modal, Rate, Form, Input, message, Empty } from 'antd';
 import ProductRating from './ProductRatings/ProductRatings'
 import { mainHttp } from '../../../Axios/Axios';
 
@@ -26,9 +26,9 @@ class ProductReviews extends React.PureComponent {
 
     fetch = async () => {
         try {
-            
+
             const newReviews = await mainHttp.get(`/products/reviews/?productId=${this.props.productId}&page=${this.state.page}`);
-            
+
             if (newReviews.data.length === 0) {
                 message.error('No reviews to load!')
                 return;
@@ -134,18 +134,34 @@ class ProductReviews extends React.PureComponent {
                     <div className='col-sm-12 col-md-4'>
                         <h1 style={{ textAlign: 'center' }} > <span className="badge badge-success">{this.props.aveageRaing} &#9734;</span> </h1>
                     </div>
+
                     <div className='col-sm-12 col-md-8'>
-                        <Progress percent={this.state.stats.ratings[0]} strokeColor='#52C41B' />
-                        <Progress percent={this.state.stats.ratings[1]} strokeColor='#1990FF' />
-                        <Progress percent={this.state.stats.ratings[2]} strokeColor='#FF9F01' />
-                        <Progress percent={this.state.stats.ratings[3]} strokeColor='red' />
-                        <Progress percent={this.state.stats.ratings[4]} strokeColor='#FF4D4F' />
+                        {
+                            (this.state.reviews.length !== 0) && (
+                                <React.Fragment>
+                                    <Progress percent={this.state.stats.ratings[0]} strokeColor='#52C41B' />
+                                    <Progress percent={this.state.stats.ratings[1]} strokeColor='#1990FF' />
+                                    <Progress percent={this.state.stats.ratings[2]} strokeColor='#FF9F01' />
+                                    <Progress percent={this.state.stats.ratings[3]} strokeColor='red' />
+                                    <Progress percent={this.state.stats.ratings[4]} strokeColor='#FF4D4F' />
+
+
+                                </React.Fragment>
+                            )
+                        }
                     </div>
                 </div>
 
-                {mapReview}
-                <a style={{ fontWeight: 600, textDecoration: 'none', padding: '30px 0px', color: 'blue', fontSize: '17px' }}
-                    onClick={this.fetch} >Load More</a>
+                {(this.state.reviews.length === 0) ? <Empty /> : (
+                    <React.Fragment>
+                        {mapReview}
+                        <a style={{ fontWeight: 600, textDecoration: 'none', padding: '30px 0px', color: 'blue', fontSize: '17px' }}
+                            onClick={this.fetch} >
+                            Load More
+                        </a>
+                    </React.Fragment>)
+                }
+
 
                 <Modal
                     title="Add a review"
@@ -166,7 +182,7 @@ class ProductReviews extends React.PureComponent {
 
                 </Modal>
 
-            </React.Fragment>
+            </React.Fragment >
         )
     }
 }

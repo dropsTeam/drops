@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PageHeader, Button, Menu, Dropdown, Avatar } from 'antd';
+import { PageHeader, Button, Menu, Dropdown, Avatar, Empty } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import styles from './sellerPortal.module.css';
 
@@ -168,7 +168,7 @@ class SellerPortal extends React.Component {
                     <div>
                         <p className='h2' style={{ padding: '30px 0 0 20px' }}>Your Products</p>
                         <div className={styles.results__block} >
-                            {(this.state.products.length === 0) ? <img src='/public/public/logo192.png' /> : <ResultsBlock numbers={this.state.products} />}
+                            {(this.state.products.length === 0)? <Empty /> : <ResultsBlock numbers={this.state.products} />}
                         </div>
                     </div>
 
