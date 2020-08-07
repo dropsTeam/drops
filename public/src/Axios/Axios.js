@@ -34,6 +34,7 @@ mainHttp.interceptors.response.use((response) => {
     }
     return response;
 }, (error) => {
+    console.log(error)
     if (error.response.status === 400) {
         message.error(error.response.data.msg);
     }

@@ -192,9 +192,9 @@ class ProductResults extends React.PureComponent {
   onPageChange = (page) =>{
     console.log(page);
     this.setState({
-        page: page
+        page: page-1
       });
-      this.fetchPage(page)
+      this.fetchPage(page-1)
     }
 
   // functions for fetching requests on changing filteres
