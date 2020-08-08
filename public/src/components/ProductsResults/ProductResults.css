@@ -1,3 +1,9 @@
+.empty__container {
+  margin: 5rem auto;
+  text-align: center;
+  display: block;
+}
+
 .resultsView__container {
   width: auto;
   -webkit-box-sizing: border-box;

@@ -140,16 +140,16 @@ class ProductResults extends React.PureComponent {
      }
 
 // for fetching by SORTORDER
-    fetchOrder = async(sortorder) =>{
-      let url = window.location.href;
-      let arr = url.split("/");
-      let arrLen = arr.length;
-      let range = `${this.state.priceMin}`+"-"+`${this.state.priceMax}`;
-      await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${sortorder}&range=${range}`)
-        .then(res=>{
-          this.setState({results : res.data})
-        })
-    }
+  fetchOrder = async(sortorder) =>{
+    let url = window.location.href;
+    let arr = url.split("/");
+    let arrLen = arr.length;
+    let range = `${this.state.priceMin}`+"-"+`${this.state.priceMax}`;
+    await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${sortorder}&range=${range}`)
+      .then(res=>{
+        this.setState({results : res.data})
+      })
+  }
 
 
     // for fetching by Category
