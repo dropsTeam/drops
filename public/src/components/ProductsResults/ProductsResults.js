@@ -1,5 +1,8 @@
 import React, { PureComponent } from 'react';
 import "./ProductResults.css";
+
+import { connect } from 'react-redux';
+import * as authActions from "../../Redux/Actions/ViewActions.js"
 // import ResultsCard from "../ProductsResults/ResultsCard/ResultsCard.js";
 import ResultsBlock from "./ResultsBlock/ResultsBlock.js"
 import { mainHttp } from '../../Axios/Axios';
@@ -41,6 +44,8 @@ class Filters extends PureComponent {
 class Results extends React.PureComponent {
 
   render() {
+
+
     return (
       <div className="results__container">
         <div className="results__wrapper">
@@ -93,6 +98,7 @@ class ProductResults extends React.PureComponent {
 
   // fetch by page change
   fetchPage = async(page) =>{
+    this.props.$loading(true)
     let url = window.location.href;
     let arr = url.split("/");
     let arrLen = arr.length;
@@ -100,6 +106,7 @@ class ProductResults extends React.PureComponent {
       await axios.get(`/products/search?text=${arr[arrLen-1]}&page=${page}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${this.state.range}`)
         .then(res=>{
           this.setState({results : res.data})
+          this.props.$loading(false)
           console.log(res)
         })
     }
@@ -113,8 +120,11 @@ class ProductResults extends React.PureComponent {
 
   fetch = async () => {
     try {
+      this.props.$loading(true)
       const results = await mainHttp.get(`/products/search?text=${this.props.match.params.text}&page=${this.props.page}`)
-
+      if(results){
+        this.props.$loading(false)
+      }
       const newArr = [...results.data];
       this.setState({ ...this.state, results: [...newArr] });
       
@@ -128,6 +138,7 @@ class ProductResults extends React.PureComponent {
 
   // for fetching by SORTBY
   fetchBy = async(sortby) =>{
+    this.props.$loading(true)
     let url = window.location.href;
     let arr = url.split("/");
     let arrLen = arr.length;
@@ -135,12 +146,14 @@ class ProductResults extends React.PureComponent {
     await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${sortby}&sortorder=${this.state.sortorder}&range=${range}`)
         .then(res=>{
           this.setState({results : res.data})
+          this.props.$loading(false)
           console.log(res)
         })
      }
 
 // for fetching by SORTORDER
   fetchOrder = async(sortorder) =>{
+    this.props.$loading(true)
     let url = window.location.href;
     let arr = url.split("/");
     let arrLen = arr.length;
@@ -148,12 +161,14 @@ class ProductResults extends React.PureComponent {
     await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${sortorder}&range=${range}`)
       .then(res=>{
         this.setState({results : res.data})
+        this.props.$loading(false)
       })
   }
 
 
     // for fetching by Category
     fetchCategory = async(category) =>{
+      this.props.$loading(true)
       let url = window.location.href;
       let arr = url.split("/");
       let arrLen = arr.length;
@@ -170,20 +185,22 @@ class ProductResults extends React.PureComponent {
       await axios.get(query)
         .then(res=>{
           this.setState({results : res.data})
+          this.props.$loading(false)
           console.log(res)
         })
     }
 
   // for fetching by Price Range
   fetchRange = async(range1,range2) =>{
+    this.props.$loading(true)
     let url = window.location.href;
     let arr = url.split("/");
     let arrLen = arr.length;
     let range = `${range1}`+"-"+`${range2}`;
-    console.log("range requested");
     await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}`)
         .then(res=>{
           this.setState({results : res.data})
+          this.props.$loading(false)
         })
 
     }
@@ -256,6 +273,9 @@ class ProductResults extends React.PureComponent {
 
   render() {
 
+
+    console.log(this.props)
+
     return (
       <div className="resultsView__container">
         <div className="resultsView__wrapper">
@@ -274,6 +294,7 @@ class ProductResults extends React.PureComponent {
           <Results 
               numbers={this.state.results} 
               onPageChange={this.onPageChange}
+              loading={this.props.isloading}
            />
         </div>
       </div>
@@ -282,7 +303,19 @@ class ProductResults extends React.PureComponent {
 }
 
 
-export default ProductResults;
+const mapStateToProps = (store) => {
+  return {
+      isloading: store.view.loading
+  }
+}
+
+const mapDispachToProps = (dispatch) => {
+  return {
+    $loading : (bool) => dispatch(authActions.loading(bool))
+  }
+}
+
+export default connect(mapStateToProps, mapDispachToProps)(ProductResults);
 
 
 

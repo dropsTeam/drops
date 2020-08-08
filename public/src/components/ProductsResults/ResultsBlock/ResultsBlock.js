@@ -3,7 +3,7 @@ import  "../ProductResults.css";
 import ResultsCard from "../ResultsCard/ResultsCard";
 
 import {mainHttp as axios} from "../../../Axios/Axios.js";
-import { Pagination , Empty } from 'antd';
+import { Pagination , Empty , Spin } from 'antd';
 
 
 class ResultsBlock extends Component{
@@ -12,9 +12,12 @@ class ResultsBlock extends Component{
 
  render(){
 
+  console.log(this.props)
+
 
    return (
-     <>
+
+      <Spin spinning={this.props.loading}> 
      {this.props.numbers ? 
        <>
        <div className={`d-flex bd-highlight flex-row flex-wrap  .align-content-sm-around align-content-around `}>
@@ -44,13 +47,13 @@ class ResultsBlock extends Component{
           defaultCurrent={1}
           total={50}
         />
-        </div>
+       </div>
+       
       </>
-    : 
-    //  <Empty className="empty__container"  description={"No Results Found"}/>
-    ""
+      : 
+     ""
     }
-    </>
+    </Spin>
    )
  }
 }

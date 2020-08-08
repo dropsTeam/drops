@@ -96,6 +96,8 @@
     left: 0;
 }
 
+
+
 .card {
     background: #E8EBF3;
     height: 30vh;
@@ -112,7 +114,8 @@
     top: 0;
     bottom: 0;
 
-    margin: auto;
+    margin:  auto;
+    margin:20rem auto ;
 
     border-radius: 10px;
 
