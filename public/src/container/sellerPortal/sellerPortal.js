@@ -218,7 +218,7 @@ class SellerPortal extends React.Component {
                         <SellerProductListView onEdit={(index) => this.onProductEditClick(index)} />
 
                         <div className={styles.results__block} >
-                            {(this.state.products.length === 0) ? <Empty /> : <ResultsBlock numbers={this.state.products} />}
+                            {(this.state.products.length === 0) ? <Empty /> : <ResultsBlock numbers={this.state.products} loading={this.props.isloading} />}
                         </div>
                     </div>
 

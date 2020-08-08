@@ -25,7 +25,7 @@ class RadioGroup extends React.Component {
 
   render() {
 
-    console.log(this.props)
+    // console.log(this.props)
 
     const radioStyle = {
       display: 'block',
@@ -45,6 +45,7 @@ class RadioGroup extends React.Component {
             <Col span={22}>
             <Slider range defaultValue={[10, 4000]}  
               max={5000}
+              onAfterChange={(event) => this.props.onPriceAfterChange(event)}
               onChange={(event) => this.props.onPriceChange(event)}
               value={[this.props.priceMin, this.props.priceMax]}
             />
