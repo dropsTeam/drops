@@ -79,7 +79,7 @@ class ProductResults extends React.PureComponent {
       category : '',
       priceMin :10,
       priceMax :4000,
-      page :0,
+      page :1,
       range : "0-2000"
     }
 
@@ -121,7 +121,7 @@ class ProductResults extends React.PureComponent {
   fetch = async () => {
     try {
       this.props.$loading(true)
-      const results = await mainHttp.get(`/products/search?text=${this.props.match.params.text}&page=${this.props.page}`)
+      const results = await mainHttp.get(`/products/search?text=${this.props.match.params.text}&page=${this.state.page}`)
       if(results){
         this.props.$loading(false)
       }
