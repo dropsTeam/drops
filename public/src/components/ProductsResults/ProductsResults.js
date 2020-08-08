@@ -29,7 +29,7 @@ class Filters extends PureComponent {
             </div>
             {/* mobile */}
             <div className="filters__block--horizontal">
-              <App />
+              <App {...this.props} />
             </div>
           </div>
         </div>

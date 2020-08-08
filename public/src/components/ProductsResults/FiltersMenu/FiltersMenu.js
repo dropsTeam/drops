@@ -198,49 +198,7 @@ class App extends React.Component {
   render() {
     const { current } = this.state;
     return (
-      <Menu onClick={this.handleClick} selectedKeys={[current]} mode="inline">
-        <div className="slider__container">
-          <h6>PRICES</h6>
-          {/* <IntegerStep /> */}
-        </div>
-        <SubMenu
-          key="sub1"
-          title={
-            <span >
-              <span className="filters__option" >COLORS</span>
-            </span>
-          }
-        >
-          <p className="radio__input">
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-            <label for="vehicle1" className="radio__label">Red</label><br></br>
-          </p>
-          <p className="radio__input">
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-            <label for="vehicle1" className="radio__label"> Blue</label><br></br>
-          </p>
-          <p className="radio__input">
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-            <label for="vehicle1" className="radio__label"> green</label><br></br>
-          </p>
-          <p className="radio__input">
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-            <label for="vehicle1" className="radio__label"> purple</label><br></br>
-          </p>
-
-        </SubMenu>
-        <SubMenu key="sub2" className="filters__option" title="CUSTOMER RATINGS">
-          <p className="radio__input">
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-            <label for="vehicle1" className="radio__label"> 4* Rating</label><br></br>
-          </p>
-          <p className="radio__input">
-            <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"></input>
-            <label for="vehicle1" className="radio__label"> 3* Rating</label><br></br>
-          </p>
-        </SubMenu>
-
-      </Menu>
+          <RadioGroup  {...this.props} />
     );
   }
 }
