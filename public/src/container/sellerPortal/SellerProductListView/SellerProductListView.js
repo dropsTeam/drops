@@ -34,7 +34,11 @@ class SellerProductListView extends React.Component {
     render() {
         return (
             <div className='px-5 mt-3'>
-                <ProductListView data={this.state.data} isEditable={true} loadMore={this.fetch} />
+                <ProductListView
+                    data={this.state.data}
+                    isEditable={true}
+                    onEdit={this.props.onEdit}
+                    loadMore={this.fetch} />
             </div>
         );
     }

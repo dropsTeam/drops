@@ -92,10 +92,23 @@ class SellerPortal extends React.Component {
         }
     }
 
+    onProductEditClick = async (index) => {
+        this.setState((preState) => {
+            return {
+                ...preState,
+                editProductIndex: index,
+                view: { 
+                    ...preState.view,
+                    EditProduct: true
+                }
+            }
+        });
+    }
+
     editProduct = async (data) => {
         try {
-            const product = await axios.post('/products', { ...data });
-            console.log(product.data);
+            
+            const product = await axios.put('/products', { ...data, _id: this.state.products[this.state.editProductIndex]._id });
             this.toggleModal('AddProduct', false);
 
         } catch (err) {
@@ -142,7 +155,7 @@ class SellerPortal extends React.Component {
                         $toggleModal={(visible) => this.toggleModal('EditProduct', visible)}
                         submit={(data) => this.editProduct(data)} />
 
-        
+
                     <PageHeader
                         className={styles.sitePageHeader + ' mb-2'}
                         onBack={() => null}
@@ -201,7 +214,9 @@ class SellerPortal extends React.Component {
 
                     <div>
                         <p className='h2' style={{ padding: '30px 0 0 20px' }}>Your Products</p>
-                        <SellerProductListView />
+
+                        <SellerProductListView onEdit={(index) => this.onProductEditClick(index)} />
+
                         <div className={styles.results__block} >
                             {(this.state.products.length === 0) ? <Empty /> : <ResultsBlock numbers={this.state.products} />}
                         </div>

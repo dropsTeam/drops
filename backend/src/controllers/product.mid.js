@@ -65,7 +65,7 @@ const getSellerProducts = async (req, res) => {
         const { user } = req.app.locals;
         const { page } = req.params;
 
-        const products = await productModel.find({ seller: user.gId }).skip(page * 10).limit(10).lean();
+        const products = await productModel.find({ seller: user.gId }).sort('timeStamp').skip(page * 10).limit(10).lean();
         console.log(products);
         res.status(200).send(products);
 
@@ -105,8 +105,8 @@ const postProduct = async (req, res, next) => {
 const editProduct = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
-        const { productId, title, description, highlights, details, media, dropdown, varients, price, category } = req.body;
-
+        const { _id, title, description, highlights, details, media, dropdown, varients, price, category } = req.body;
+        console.log(req.body);
         if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10) throw 'Validation Error.';
 
 
@@ -116,8 +116,8 @@ const editProduct = async (req, res, next) => {
             details, media, dropdown, highlights, varients, price, category
         };
 
-        const product = await productModel.findByIdAndUpdate({ _id: productId, seller: user.gId }, payload);
-        req.status(200).send(product);
+        const product = await productModel.findByIdAndUpdate({ _id, seller: user.gId }, payload);
+        res.status(200).send(product);
 
     } catch (err) {
         console.log(err);

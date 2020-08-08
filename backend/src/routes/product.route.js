@@ -13,7 +13,7 @@ route
     .get('/seller/:page', authC.googleVerify(true, true), authC.isSeller(false), productC.getSellerProducts)
     .get('/p/:productId', authC.googleVerify(true, false), productC.basicProductInfo, productC.get)
     .post('/', authC.googleVerify(true, true), authC.isSeller(false), productC.postProduct)
-    .put('/p/:productId', authC.googleVerify(true, true), authC.isSeller(true), productC.editProduct)
+    .put('/', authC.googleVerify(true, true), authC.isSeller(true), productC.editProduct)
 
 
 route

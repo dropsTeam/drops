@@ -1,41 +1,49 @@
 import React from 'react';
 import { List, Avatar, Button, Skeleton } from 'antd';
-
+import { withRouter } from 'react-router-dom';
 
 class ProductListView extends React.PureComponent {
 
+    redirect = (location) => {
+        this.props.history.push(location);
+    }
+
     render() {
+
 
         const { isEditable } = this.props;
         const loadMore = (
-                <div
-                    style={{
-                        textAlign: 'center',
-                        marginTop: 12,
-                        height: 32,
-                        lineHeight: '32px',
-                    }}>
-                    <Button onClick={this.props.loadMore}>loading more</Button>
-                </div>
-            );
+            <div
+                style={{
+                    textAlign: 'center',
+                    marginTop: 12,
+                    height: 32,
+                    lineHeight: '32px',
+                }}>
+                <Button onClick={this.props.loadMore}>loading more</Button>
+            </div>
+        );
 
         return (
             <List
-                style ={{ minHeight: '350px'}}
+                style={{ minHeight: '350px' }}
                 itemLayout="horizontal"
                 loadMore={loadMore}
                 dataSource={this.props.data}
-                renderItem={item => (
-                    <List.Item actions={[ isEditable && <a key="list-loadmore-edit">edit</a>, <a key="list-loadmore-more">View Product</a>]}>
+                renderItem={(item, index) => (
+                    <List.Item actions={[isEditable && <a key="list-loadmore-edit" onClick={() => this.props.onEdit(index)} >edit</a>, <a key="list-loadmore-more">Delete</a>]}>
                         <Skeleton avatar title={false} loading={item.loading} active>
                             <List.Item.Meta
                                 avatar={
-                                    <Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+                                    <Avatar src={item.media[0]} />
                                 }
-                                title={<a href="https://ant.design">{item.title}</a>}
-                                description="Ant Design, a design language for background applications, is refined by Ant UED Team"
+                                title={<a onClick={() => this.redirect(`/view/${item._id}`)} >{item.title}</a>}
+                                description={item.description.slice(0, 50) + ' ...'}
                             />
-                            <div>content</div>
+                            <div>
+                                <span class="badge badge-pill badge-warning">{item.aveageRaing} &#9733;</span>
+                                <span class="badge badge-pill badge-primary ml-2">{item.totalReview + ' Reviews'}</span>
+                            </div>
                         </Skeleton>
                     </List.Item>
                 )}
@@ -45,4 +53,4 @@ class ProductListView extends React.PureComponent {
     }
 }
 
-export default ProductListView;
+export default withRouter(ProductListView);
