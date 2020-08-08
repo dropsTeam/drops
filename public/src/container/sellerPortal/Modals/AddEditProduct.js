@@ -5,15 +5,13 @@ import Highlights from './DynamicForms/Highlights';
 import DropdownForm from './DynamicForms/Dropdown.Form';
 
 import { Drawer, Form, Button, Col, Row, Input } from 'antd';
-import { mainHttp } from '../../../Axios/Axios';
 
-
-
-class AddProduct extends React.PureComponent {
+class AddEditProduct extends React.PureComponent {
 
 
     constructor(props) {
         super(props);
+
 
         this.state = {
             highlights: [''],
@@ -34,6 +32,31 @@ class AddProduct extends React.PureComponent {
         this.HLsHandler = this.HLsHandler.bind(this);
 
     }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (!!this.props.defaultValues) {
+            if (this.props.defaultValues.title !== prevState.title) {
+                this.setState({
+                    ...this.state,
+                    highlights: [...this.props.defaultValues.highlights],
+                    description: this.props.defaultValues.description,
+                    title: this.props.defaultValues.title,
+                    price: this.props.defaultValues.price,
+                    category: this.props.defaultValues.category,
+                    details: [...this.props.defaultValues.details],
+                    media: [...this.props.defaultValues.media],
+                    varients: [...this.props.defaultValues.varients],
+                    dropdown: {
+                        ...this.props.defaultValues.dropdown,
+                        title: this.props.defaultValues.dropdown.title,
+                        options: [...this.props.defaultValues.dropdown.options]
+                    }
+                });
+            }
+
+        }
+    }
+
 
     addHLs = () => {
         const newArr = [...this.state.highlights];
@@ -94,8 +117,13 @@ class AddProduct extends React.PureComponent {
 
 
     handleTitle = (e) => {
-        const newState = { ...this.state, ...this.state.dropdown };
-        newState.dropdown.title = e.target.value;
+        const newState = {
+            ...this.state,
+            dropdown: {
+                ...this.state.dropdown,
+                title: e.target.value
+            }
+        };
         this.setState(newState);
     }
     addDropdownOption = () => {
@@ -127,17 +155,6 @@ class AddProduct extends React.PureComponent {
         this.setState({ ...this.state, media: [...newArr] });
     }
 
-    submit = async () => {
-        try {
-
-            const product = await mainHttp.post('/products', { ...this.state });
-            console.log(product.data);
-            this.props.$toggleModal('AddProduct', false);
-
-        } catch (err) {
-            console.log(err);
-        }
-    }
 
     render() {
 
@@ -146,7 +163,7 @@ class AddProduct extends React.PureComponent {
             <Drawer
                 title="Create a new account"
                 width={720}
-                onClose={() => this.props.$toggleModal('AddProduct', false)}
+                onClose={() => this.props.$toggleModal(false)}
                 visible={this.props.isVisible}
                 bodyStyle={{ paddingBottom: 80 }}
                 footer={
@@ -154,10 +171,10 @@ class AddProduct extends React.PureComponent {
                         style={{
                             textAlign: 'right',
                         }}>
-                        <Button onClick={() => this.props.$toggleModal('AddProduct', false)} style={{ marginRight: 8 }}>
+                        <Button onClick={() => this.props.$toggleModal(false)} style={{ marginRight: 8 }}>
                             Cancel
                         </Button>
-                        <Button onClick={this.submit} type="primary">
+                        <Button onClick={() => this.props.submit({ ...this.state })} type="primary">
                             Submit
                         </Button>
                     </div>
@@ -166,7 +183,6 @@ class AddProduct extends React.PureComponent {
                     <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item
-                                name="name"
                                 label="Title"
                                 rules={[{ required: true, message: 'Please enter title' }]}>
 
@@ -175,7 +191,6 @@ class AddProduct extends React.PureComponent {
                         </Col>
                         <Col span={12}>
                             <Form.Item
-                                name="url"
                                 label="Price"
                                 rules={[{ required: true, message: 'Please enter url' }]}>
 
@@ -186,8 +201,8 @@ class AddProduct extends React.PureComponent {
                                     placeholder="Price"
                                     min={0}
                                     value={this.state.price}
-                                    onChange={(event) => this.twoWayBind(event, 'price')}
-                                />
+                                    onChange={(event) => this.twoWayBind(event, 'price')} />
+
                             </Form.Item>
                         </Col>
                     </Row>
@@ -196,7 +211,7 @@ class AddProduct extends React.PureComponent {
 
 
                     <Form.Item
-                        name="Category"
+
                         label="Category"
                         rules={[{ required: true, message: 'Please enter category' }]}>
                         <Input onChange={(e) => this.twoWayBind(e, 'category')} value={this.state.category} placeholder="Please enter product category" />
@@ -217,7 +232,7 @@ class AddProduct extends React.PureComponent {
 
                     <Col span={24}>
                         <Form.Item
-                            name="dwdd"
+
                             label="Media"
                             rules={[{ required: true, message: 'Please choose all the media ' }]}>
 
@@ -245,7 +260,7 @@ class AddProduct extends React.PureComponent {
                     <Row gutter={16}>
                         <Col span={24}>
                             <Form.Item
-                                name="description"
+
                                 label="Description"
                                 rules={[
                                     {
@@ -290,4 +305,4 @@ class AddProduct extends React.PureComponent {
     }
 }
 
-export default AddProduct;
+export default AddEditProduct;

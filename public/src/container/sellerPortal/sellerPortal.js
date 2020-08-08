@@ -5,11 +5,11 @@ import { UserOutlined } from '@ant-design/icons';
 import styles from './sellerPortal.module.css';
 
 import ResultsBlock from "../../components/ProductsResults/ResultsBlock/ResultsBlock.js"
-import AddProduct from './Modals/AddProduct';
+import AddEditProduct from './Modals/AddEditProduct';
 import EditSellerProfile from './Modals/EditSellerProfile';
+import OrderViewModal from './Modals/orderViewModal';
 import AnswerQuestionModal from './Modals/answerQuestions';
 
-import OrderViewModal from './Modals/orderViewModal';
 import { connect } from 'react-redux';
 import { editSellerAccount, logout } from '../../Redux/Actions/AuthActions';
 
@@ -25,9 +25,11 @@ class SellerPortal extends React.Component {
                 AddProduct: false,
                 EditSellerProfile: false,
                 AnswerQuestions: false,
-                orderView: false
+                orderView: false,
+                EditProduct: false
             },
             products: [],
+            editProductIndex: 0,
             stats: {
                 totalOrders: 0,
                 totalSaleAmount: 0,
@@ -78,10 +80,30 @@ class SellerPortal extends React.Component {
         this.setState(newState);
     }
 
+    postProduct = async (data) => {
+        try {
+            const product = await axios.post('/products', { ...data });
+            console.log(product.data);
+            this.toggleModal('AddProduct', false);
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    editProduct = async (data) => {
+        try {
+            const product = await axios.post('/products', { ...data });
+            console.log(product.data);
+            this.toggleModal('AddProduct', false);
+
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
 
     render() {
-
-        console.log(this.state)
 
         const menu = (
             <Menu>
@@ -107,8 +129,22 @@ class SellerPortal extends React.Component {
             return (
 
                 <div>
-                    <AddProduct isVisible={this.state.view.AddProduct} $toggleModal={(modalName, visible) => this.toggleModal(modalName, visible)} />
-                    <EditSellerProfile isVisible={this.state.view.EditSellerProfile} $toggleModal={(modalName, visible) => this.toggleModal(modalName, visible)} />
+
+                    <AddEditProduct
+                        isVisible={this.state.view.AddProduct}
+                        $toggleModal={(visible) => this.toggleModal('AddProduct', visible)}
+                        submit={(data) => this.postProduct(data)} />
+
+                    <AddEditProduct
+                        isVisible={this.state.view.EditProduct}
+                        defaultValues={this.state.products[this.state.editProductIndex]}
+                        $toggleModal={(visible) => this.toggleModal('EditProduct', visible)}
+                        submit={(data) => this.editProduct(data)} />
+
+                    <EditSellerProfile
+                        isVisible={this.state.view.EditSellerProfile}
+                        $toggleModal={(modalName, visible) => this.toggleModal(modalName, visible)} />
+
                     <PageHeader
                         className={styles.sitePageHeader + ' mb-2'}
                         onBack={() => null}
@@ -168,7 +204,7 @@ class SellerPortal extends React.Component {
                     <div>
                         <p className='h2' style={{ padding: '30px 0 0 20px' }}>Your Products</p>
                         <div className={styles.results__block} >
-                            {(this.state.products.length === 0)? <Empty /> : <ResultsBlock numbers={this.state.products} />}
+                            {(this.state.products.length === 0) ? <Empty /> : <ResultsBlock numbers={this.state.products} />}
                         </div>
                     </div>
 
