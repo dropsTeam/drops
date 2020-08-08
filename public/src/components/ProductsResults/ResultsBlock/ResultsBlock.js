@@ -1,4 +1,4 @@
-import React,{Component,componentDidMount} from 'react';
+import React,{Component} from 'react';
 import  "../ProductResults.css";
 import ResultsCard from "../ResultsCard/ResultsCard";
 
@@ -17,7 +17,7 @@ class ResultsBlock extends Component{
 
    return (
 
-      <Spin spinning={this.props.loading}> 
+    <Spin spinning={this.props.loading}  size="large"> 
      {this.props.numbers ? 
        <>
        <div className={`d-flex bd-highlight flex-row flex-wrap  .align-content-sm-around align-content-around `}>
