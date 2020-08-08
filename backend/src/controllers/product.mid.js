@@ -48,7 +48,7 @@ const get = async (req, res, next) => {
             const userr = await userModel.findOne({ gId: req.app.locals.user.gId }).select('recommendations').lean();
 
             await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $addToSet: { recommendations: productId } });
-            
+
         }
 
         res.status(200).send(product);
@@ -63,8 +63,10 @@ const get = async (req, res, next) => {
 const getSellerProducts = async (req, res) => {
     try {
         const { user } = req.app.locals;
+        const { page } = req.params;
 
-        const products = await productModel.find({ seller: user.gId }).lean();
+        const products = await productModel.find({ seller: user.gId }).skip(page * 10).limit(10).lean();
+        console.log(products);
         res.status(200).send(products);
 
     } catch (err) {
@@ -157,7 +159,7 @@ const search = async (req, res, next) => {
                 ['INC', 'DEC'].includes(req.query.sortorder)
             ) {
                 sortby = req.query.sortby;
-                sortorder = (req.query.sortorder === 'INC')? -1 : 1;
+                sortorder = (req.query.sortorder === 'INC') ? -1 : 1;
             }
         }
 

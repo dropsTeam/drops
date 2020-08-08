@@ -9,6 +9,7 @@ import AddEditProduct from './Modals/AddEditProduct';
 import EditSellerProfile from './Modals/EditSellerProfile';
 import OrderViewModal from './Modals/orderViewModal';
 import AnswerQuestionModal from './Modals/answerQuestions';
+import SellerProductListView from './SellerProductListView/SellerProductListView';
 
 import { connect } from 'react-redux';
 import { editSellerAccount, logout } from '../../Redux/Actions/AuthActions';
@@ -50,7 +51,7 @@ class SellerPortal extends React.Component {
     async fetch() {
         try {
 
-            const products = await axios.get("/products/seller")
+            const products = await axios.get("/products/seller/0");
             const stats = await axios.get('/user/seller/stats');
 
             this.setState({
@@ -141,10 +142,7 @@ class SellerPortal extends React.Component {
                         $toggleModal={(visible) => this.toggleModal('EditProduct', visible)}
                         submit={(data) => this.editProduct(data)} />
 
-                    <EditSellerProfile
-                        isVisible={this.state.view.EditSellerProfile}
-                        $toggleModal={(modalName, visible) => this.toggleModal(modalName, visible)} />
-
+        
                     <PageHeader
                         className={styles.sitePageHeader + ' mb-2'}
                         onBack={() => null}
@@ -203,6 +201,7 @@ class SellerPortal extends React.Component {
 
                     <div>
                         <p className='h2' style={{ padding: '30px 0 0 20px' }}>Your Products</p>
+                        <SellerProductListView />
                         <div className={styles.results__block} >
                             {(this.state.products.length === 0) ? <Empty /> : <ResultsBlock numbers={this.state.products} />}
                         </div>

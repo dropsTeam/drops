@@ -10,10 +10,10 @@ route
     .get('/search', authC.googleVerify(true, false), productC.search)
 
 route
+    .get('/seller/:page', authC.googleVerify(true, true), authC.isSeller(false), productC.getSellerProducts)
+    .get('/p/:productId', authC.googleVerify(true, false), productC.basicProductInfo, productC.get)
     .post('/', authC.googleVerify(true, true), authC.isSeller(false), productC.postProduct)
-    .get('/seller', authC.googleVerify(true, true), authC.isSeller(false), productC.getSellerProducts)
     .put('/p/:productId', authC.googleVerify(true, true), authC.isSeller(true), productC.editProduct)
-    .get('/p/:productId', authC.googleVerify(true, false), productC.basicProductInfo, productC.get);
 
 
 route
