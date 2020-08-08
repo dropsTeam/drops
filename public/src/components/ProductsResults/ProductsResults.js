@@ -79,7 +79,7 @@ class ProductResults extends React.PureComponent {
       category : '',
       priceMin :10,
       priceMax :4000,
-      page :1,
+      page :0,
       range : "0-2000"
     }
 
@@ -143,7 +143,7 @@ class ProductResults extends React.PureComponent {
     let arr = url.split("/");
     let arrLen = arr.length;
     let range = `${this.state.priceMin}`+"-"+`${this.state.priceMax}`;
-    await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${sortby}&sortorder=${this.state.sortorder}&range=${range}`)
+    await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${sortby}&sortorder=${this.state.sortorder}&range=${range}&page=${this.state.page}`)
         .then(res=>{
           this.setState({results : res.data})
           this.props.$loading(false)
@@ -158,7 +158,7 @@ class ProductResults extends React.PureComponent {
     let arr = url.split("/");
     let arrLen = arr.length;
     let range = `${this.state.priceMin}`+"-"+`${this.state.priceMax}`;
-    await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${sortorder}&range=${range}`)
+    await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${sortorder}&range=${range}&page=${this.state.page}`)
       .then(res=>{
         this.setState({results : res.data})
         this.props.$loading(false)
@@ -176,10 +176,10 @@ class ProductResults extends React.PureComponent {
 
       let query;
       if(category){
-         query = `/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}&category=${category}`;
+         query = `/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}&category=${category}&page=${this.state.page}`;
       }
       else{
-        query = `/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}`;
+        query = `/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}&page=${this.state.page}`;
       }
       // finally query---------------------------------------------
       await axios.get(query)
@@ -197,7 +197,7 @@ class ProductResults extends React.PureComponent {
     let arr = url.split("/");
     let arrLen = arr.length;
     let range = `${range1}`+"-"+`${range2}`;
-    await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}`)
+    await axios.get(`/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}&page=${this.state.page}`)
         .then(res=>{
           this.setState({results : res.data})
           this.props.$loading(false)
