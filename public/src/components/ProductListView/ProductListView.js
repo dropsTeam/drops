@@ -6,7 +6,7 @@ class ProductListView extends React.PureComponent {
 
     render() {
 
-        const { initLoading, loading, list, isEditable } = this.props;
+        const { isEditable } = this.props;
         const loadMore = (
                 <div
                     style={{
