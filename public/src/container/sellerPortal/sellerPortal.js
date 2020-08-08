@@ -203,7 +203,7 @@ class SellerPortal extends React.Component {
                         <p className='h2' style={{ padding: '30px 0 0 20px' }}>Your Products</p>
                         <SellerProductListView />
                         <div className={styles.results__block} >
-                            {(this.state.products.length === 0) ? <Empty /> : <ResultsBlock numbers={this.state.products} />}
+                            {(this.state.products.length === 0) ? <Empty /> : <ResultsBlock numbers={this.state.products} loading={this.props.isloading} />}
                         </div>
                     </div>
 

@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import "./ProductResults.css";
 
 import { connect } from 'react-redux';
-import * as authActions from "../../Redux/Actions/ViewActions.js"
+import * as viewActions from "../../Redux/Actions/ViewActions.js"
 // import ResultsCard from "../ProductsResults/ResultsCard/ResultsCard.js";
 import ResultsBlock from "./ResultsBlock/ResultsBlock.js"
 import { mainHttp } from '../../Axios/Axios';
@@ -126,7 +126,7 @@ class ProductResults extends React.PureComponent {
         this.props.$loading(false)
       }
       const newArr = [...results.data];
-      this.setState({ ...this.state, results: [...newArr] });
+      this.setState({ ...this.state, results: [...newArr] ,priceMax : 4000,priceMin :0});
       
       // console.log(results)
     } catch (err) {
@@ -167,16 +167,16 @@ class ProductResults extends React.PureComponent {
 
 
     // for fetching by Category
-    fetchCategory = async(category) =>{
-      this.props.$loading(true)
-      let url = window.location.href;
-      let arr = url.split("/");
-      let arrLen = arr.length;
-      let range = `${this.state.priceMin}`+"-"+`${this.state.priceMax}`;
+  fetchCategory = async(category) =>{
+    this.props.$loading(true)
+    let url = window.location.href;
+    let arr = url.split("/");
+    let arrLen = arr.length;
+    let range = `${this.state.priceMin}`+"-"+`${this.state.priceMax}`;
 
-      let query;
-      if(category){
-         query = `/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}&category=${category}&page=${this.state.page}`;
+    let query;
+    if(category){
+        query = `/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}&category=${category}&page=${this.state.page}`;
       }
       else{
         query = `/products/search?text=${arr[arrLen-1]}&sortby=${this.state.sortby}&sortorder=${this.state.sortorder}&range=${range}&page=${this.state.page}`;
@@ -223,6 +223,7 @@ class ProductResults extends React.PureComponent {
   };
 
 
+// fetches new data when sort order changes
   onChangeSortOrder = e => {
       this.setState({
         sortorder: e.target.value,
@@ -230,6 +231,8 @@ class ProductResults extends React.PureComponent {
       this.fetchOrder(e.target.value)
     };
 
+
+// fetches new data when category changes
   onChangeCategory = e => {
       this.setState({
         category: e.target.value,
@@ -240,41 +243,43 @@ class ProductResults extends React.PureComponent {
     }; 
 
 
+// this function only changes the state of price min and max when they change
   onPriceChange = (values) => {
-    console.log([values[0],values[1]])
+    // console.log([values[0],values[1]])
     this.setState({
       priceMin: values[0],
       priceMax: values[1],
     });
-    setTimeout(()=>console.log("2s"),2000)
-    setTimeout(()=>this.fetchRange(values[0],values[1]),2000)
   }
 
+
+// runs only when user has stopped changing the slider---
+  onPriceAfterChange =(values) =>{
+    setTimeout(()=>this.fetchRange(values[0],values[1]))
+  }
+
+
+// when the user changes the min price set
   onChangeMin = value => {
     this.setState({
       priceMin: value,
     });
-    // this.fetchRange(value,this.state.priceMax)
-    setTimeout(()=>this.fetchRange(value,this.state.priceMax),2000)
+    this.fetchRange(value,this.state.priceMax)
   };
 
+//  when user changes the max price set
   onChangeMax = value => {
     this.setState({
       priceMax: value,
     });
-    // this.fetchRange(this.state.priceMin,value)
-    setTimeout(()=>this.fetchRange(this.state.priceMin,value),2000)
+    this.fetchRange(this.state.priceMin,value)
   };
-
 
 
   
 
 
   render() {
-
-
-    console.log(this.props)
 
     return (
       <div className="resultsView__container">
@@ -284,6 +289,7 @@ class ProductResults extends React.PureComponent {
              onChangeSortBy={this.onChangeSortBy} 
              onChangeSortOrder={this.onChangeSortOrder}
              onPriceChange={this.onPriceChange}
+             onPriceAfterChange={this.onPriceAfterChange}
              onChangeCategory={this.onChangeCategory}
              onChangeMax={this.onChangeMax}
              onChangeMin={this.onChangeMin}
@@ -311,7 +317,7 @@ const mapStateToProps = (store) => {
 
 const mapDispachToProps = (dispatch) => {
   return {
-    $loading : (bool) => dispatch(authActions.loading(bool))
+    $loading : (bool) => dispatch(viewActions.loading(bool))
   }
 }
 
