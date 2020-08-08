@@ -6,7 +6,6 @@ import { message } from 'antd';
 
 class SellerProductListView extends React.Component {
 
-
     state = {
         data: [],
         page: 0
@@ -29,7 +28,6 @@ class SellerProductListView extends React.Component {
                 page: prevState.page + 1
             }
         });
-
     }
 
 
@@ -40,7 +38,7 @@ class SellerProductListView extends React.Component {
             </div>
         );
     }
-    
+
 }
 
 export default SellerProductListView;
