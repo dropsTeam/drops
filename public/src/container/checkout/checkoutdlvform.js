@@ -68,6 +68,7 @@ const ModalForm = ({ visible, onCancel }) => {
       phoneNumber: data.Phone
     }
 
+    
     this.props.$editProfile(payload);
 
     // form.submit();
