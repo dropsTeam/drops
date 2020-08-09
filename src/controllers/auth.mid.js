@@ -34,7 +34,7 @@ const log = async (req, res, next) => {
 
 
     } catch (err) {
-        console.log(err)
+
         errorHandler(res, 400, 'Cannot Log In');
     }
 }
@@ -81,7 +81,7 @@ function googleVerify(fromCookie, terminateIfError = true) {
 
         }
         catch (err) {
-            console.log(err);
+
             if (terminateIfError) {
                 errorHandler(res, 400, 'Token Unverified');
             } else {
