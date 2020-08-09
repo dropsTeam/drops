@@ -41,8 +41,8 @@ class ProductListView extends React.PureComponent {
                                 description={item.description.slice(0, 50) + ' ...'}
                             />
                             <div>
-                                <span class="badge badge-pill badge-warning">{item.aveageRaing} &#9733;</span>
-                                <span class="badge badge-pill badge-primary ml-2">{item.totalReview + ' Reviews'}</span>
+                                <span className="badge badge-pill badge-warning">{item.aveageRaing} &#9733;</span>
+                                <span className="badge badge-pill badge-primary ml-2">{item.totalReview + ' Reviews'}</span>
                             </div>
                         </Skeleton>
                     </List.Item>

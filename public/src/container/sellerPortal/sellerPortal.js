@@ -4,7 +4,6 @@ import { PageHeader, Button, Menu, Dropdown, Avatar, Empty } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import styles from './sellerPortal.module.css';
 
-import ResultsBlock from "../../components/ProductsResults/ResultsBlock/ResultsBlock.js"
 import AddEditProduct from './Modals/AddEditProduct';
 import EditSellerProfile from './Modals/EditSellerProfile';
 import OrderViewModal from './Modals/orderViewModal';
@@ -30,7 +29,7 @@ class SellerPortal extends React.Component {
                 EditProduct: false
             },
             products: [],
-            editProductIndex: 0,
+            editProductIndex: -1,
             stats: {
                 totalOrders: 0,
                 totalSaleAmount: 0,
@@ -109,7 +108,7 @@ class SellerPortal extends React.Component {
         try {
             
             const product = await axios.put('/products', { ...data, _id: this.state.products[this.state.editProductIndex]._id });
-            this.toggleModal('AddProduct', false);
+            this.toggleModal('EditProduct', false);
 
         } catch (err) {
             console.log(err);
@@ -151,7 +150,7 @@ class SellerPortal extends React.Component {
 
                     <AddEditProduct
                         isVisible={this.state.view.EditProduct}
-                        defaultValues={this.state.products[this.state.editProductIndex]}
+                        defaultValues={(this.state.editProductIndex !== 0) && this.state.products[this.state.editProductIndex]}
                         $toggleModal={(visible) => this.toggleModal('EditProduct', visible)}
                         submit={(data) => this.editProduct(data)} />
 
@@ -168,8 +167,7 @@ class SellerPortal extends React.Component {
                             <Button key="3" onClick={() => this.toggleModal('orderView', true)}>Orders</Button>,
                             <Button key="2" onClick={() => this.toggleModal('AnswerQuestions', true)} >Pending Questions</Button>,
 
-                        ]}
-                    />
+                        ]}/>
 
                     <div style={{ color: 'white', margin: '0px', background: '#0099ff' }}>
                         <p className='m-0 h2 p-4'>
@@ -215,10 +213,10 @@ class SellerPortal extends React.Component {
                     <div>
                         <p className='h2' style={{ padding: '30px 0 0 20px' }}>Your Products</p>
 
-                        <SellerProductListView onEdit={(index) => this.onProductEditClick(index)} />
+                        
 
                         <div className={styles.results__block} >
-                            {(this.state.products.length === 0) ? <Empty /> : <ResultsBlock numbers={this.state.products} loading={this.props.isloading} />}
+                            {(this.state.products.length === 0) ? <Empty /> : <SellerProductListView onEdit={(index) => this.onProductEditClick(index)} />}
                         </div>
                     </div>
 

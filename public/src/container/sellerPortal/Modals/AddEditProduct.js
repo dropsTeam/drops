@@ -24,17 +24,20 @@ class AddEditProduct extends React.PureComponent {
             dropdown: {
                 title: '',
                 options: ['']
-            }
+            },
+            isModified: false
         }
 
+        
         this.addHLs = this.addHLs.bind(this);
         this.HLsHandler = this.HLsHandler.bind(this);
-
+        
     }
-
+    
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (!!this.props.defaultValues) {
-            if (this.props.defaultValues.title !== prevState.title) {
+
+            if (this.state.isModified === false) {
                 this.setState({
                     ...this.state,
                     highlights: [...this.props.defaultValues.highlights],
@@ -49,7 +52,8 @@ class AddEditProduct extends React.PureComponent {
                         ...this.props.defaultValues.dropdown,
                         title: this.props.defaultValues.dropdown.title,
                         options: [...this.props.defaultValues.dropdown.options]
-                    }
+                    },
+                    isModified: true
                 });
             }
 
