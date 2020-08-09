@@ -19,10 +19,6 @@ app.disable('x-powered-by')
 config.connectMongo();
 
 
-// var accessLogStream = rfs.createStream('access.log', {
-//     interval: '1d', // rotate daily
-//     path: path.join(__dirname, 'log')
-// })
 
 // var corsOptions = {
 //     origin: 'http://localhost:3000',
@@ -38,8 +34,7 @@ app.use(helmet());
 app.use(cors())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use(morgan('combined', { stream: accessLogStream }));
-app.use(morgan('dev'));
+
 app.use(cookie());
 
 
@@ -57,22 +52,27 @@ app.use('/api/orders', require('./src/routes/order.route'));
 
 // ************ Listen **************
 
-// const cluster = require('cluster');
-// const numCPU = require('os').cpus().length;
+
+
+if (process.env.NODE_ENV === 'production') {
+
+    var accessLogStream = rfs.createStream('access.log', {
+        interval: '1d', // rotate daily
+        path: path.join(__dirname, 'log')
+    });
+    app.use(morgan('combined', { stream: accessLogStream }));
+
+    app.use(express.static('Drops/public/build'));
+    app.get('*', (req, res, next) => {
+        res.sendFile(path.resolve(__dirname, 'Drops', 'public', 'build', 'index.html'));
+    });
+
+} else {
+    app.use(morgan('dev'));
+}
+
 const PORT = process.env.PORT || 8080;
 
-// if (cluster.isMaster) {
-//     console.log('this is a master process: ', process.pid);
-//     for (let i = 0; i < numCPU; i++) {
-//         cluster.fork();
-//     }
-//     cluster.on('exit', worker => {
-//         console.log(`worker ${process.pid} had died`);
-//         cluster.fork();
-//     })
-// } else {
-//     console.log('this is a worker process: ', process.pid);
-// }
 
 app.listen(PORT, () => {
     console.log(`listening to the port ${PORT}`);
