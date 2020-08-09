@@ -38,7 +38,7 @@ class ProductListView extends React.PureComponent {
                                     <Avatar src={item.media[0]} />
                                 }
                                 title={<a onClick={() => this.redirect(`/view/${item._id}`)} >{item.title}</a>}
-                                description={item.description.slice(0, 50) + ' ...'}
+                                description={item.description.slice(0, 50) + ` $${item.price} ...` }
                             />
                             <div>
                                 <span className="badge badge-pill badge-warning">{item.aveageRaing} &#9733;</span>
