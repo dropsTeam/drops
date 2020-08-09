@@ -1,0 +1,5 @@
+127.0.0.1 - - [16/Jul/2020:12:20:23 +0000] "GET /api/user HTTP/1.1" 401 26 "http://localhost:3000/cart" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"
+127.0.0.1 - - [16/Jul/2020:12:20:52 +0000] "GET /api/user HTTP/1.1" 401 26 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"
+127.0.0.1 - - [16/Jul/2020:12:21:34 +0000] "GET /api/user HTTP/1.1" 401 26 "http://localhost:3000/cart" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"
+127.0.0.1 - - [16/Jul/2020:12:23:42 +0000] "GET /api/user HTTP/1.1" 401 26 "http://localhost:3000/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"
+127.0.0.1 - - [16/Jul/2020:12:23:52 +0000] "GET /api/user HTTP/1.1" 401 26 "http://localhost:3000/cart" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.89 Safari/537.36"
