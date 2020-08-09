@@ -19,15 +19,6 @@ app.disable('x-powered-by')
 config.connectMongo();
 
 
-
-// var corsOptions = {
-//     origin: 'http://localhost:3000',
-//     optionsSuccessStatus: 200
-// }
-
-
-
-
 // ********** Middlewares ***********
 
 app.use(helmet());
