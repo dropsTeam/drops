@@ -53,6 +53,7 @@ const ModalForm = ({ visible, onCancel }) => {
       </Select>
     </Form.Item>
   );
+  
 
 
   const onOk = () => {
@@ -65,15 +66,12 @@ const ModalForm = ({ visible, onCancel }) => {
         zipCode: data.ZipCode,
         address: data.Address
       },
-      phoneNumber: data.Phone
+      phoneNumber: data.Phone  
     }
-
     
-    this.props.$editProfile(payload);
-
     // form.submit();
   };
-
+  
   return (
     <Modal title="DELIVERY ADDRESS" visible={visible} onOk={onOk} onCancel={onCancel} headStyle={{ color: 'grey', height: 48 }}>
       <Form form={form} layout="vertical" name="userForm">
@@ -182,7 +180,7 @@ const DeliverForm = () => {
 
 const mapPropsToDispatch = dispatch => {
   return {
-    $editProfile: (data) => dispatch(editProfile(data))
+    $editProfile: (details) => dispatch(editProfile(details))
   }
 }
 
