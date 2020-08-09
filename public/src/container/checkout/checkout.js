@@ -93,9 +93,9 @@ class Cartcheckout extends Component {
                             <Card title="DELIVERY ADDRESS" className="cart-right-check" headStyle={{ color: 'grey', height: 48 }}>
                                 <DeliverForm $editProfile={(details) => this.editProfile(details)} isAuthorised={this.props.isAuthorised} />
                             </Card>
-                            {/* {
+                            {
                                 (this.props.user.userAddress.address.trim() !== '') && (
-                            */}
+                           
                                     <React.Fragment>
 
 
@@ -121,8 +121,8 @@ class Cartcheckout extends Component {
                                            PLACE ORDER
                                         </Button>
                                     </React.Fragment>
-                                {/* ) 
-                            } */}
+                                ) 
+                            }
 
                             
 

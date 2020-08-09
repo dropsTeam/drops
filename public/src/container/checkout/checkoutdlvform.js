@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Form, Input, InputNumber, Modal, Button, Avatar, Typography,Select,Space } from 'antd';
-import { SmileOutlined, UserOutlined, MinusCircleOutlined} from '@ant-design/icons';
+import { Form, Input, Modal, Button, Typography, Select, Space } from 'antd';
+import { connect } from 'react-redux';
+import { editProfile } from '../../Redux/Actions/AuthActions';
+
 
 const layout = {
   labelCol: {
@@ -32,6 +34,8 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
 };
 
 const ModalForm = ({ visible, onCancel }) => {
+
+
   const [form] = Form.useForm();
   useResetFormOnCloseModal({
     form,
@@ -52,42 +56,48 @@ const ModalForm = ({ visible, onCancel }) => {
 
 
   const onOk = () => {
-    form.submit();
+    const data = form.getFieldsValue();
+    const payload = {
+      address: {
+        city: data.City,
+        landmark: data.Landmark,
+        state: data.State,
+        zipCode: data.ZipCode,
+        address: data.Address
+      },
+      phoneNumber: data.Phone
+    }
+
+    this.props.$editProfile(payload);
+
+    // form.submit();
   };
 
   return (
-    <Modal title="DELIVERY ADDRESS" visible={visible} onOk={onOk} onCancel={onCancel} headStyle={{ color:'grey', height:48}}>
+    <Modal title="DELIVERY ADDRESS" visible={visible} onOk={onOk} onCancel={onCancel} headStyle={{ color: 'grey', height: 48 }}>
       <Form form={form} layout="vertical" name="userForm">
-            <Space  style={{ display: 'flex', marginBottom: 8 }} align="start">
-                <Form.Item name="FirstName" label="First Name" rules={[{required: true}]}>
-                    <Input />
-                </Form.Item>
-                <Form.Item name="LastName" label="Last Name" >
-                    <Input />
-                </Form.Item>
-                
-            </Space>
-            <Form.Item name="Phone" label="Phone Number" rules={[{ required: true, message: 'Please input your phone number!' }]}>
-                    <Input addonBefore={prefixSelector} style={{ width: '80%' }} />
-            </Form.Item>
-            <Form.Item name="Address" label="Address" rules={[{required: true}]}>
-                <Input />
-            </Form.Item>
-            <Space  style={{ display: 'flex', marginBottom: 8 }} align="start">
-                <Form.Item name="City" label="City" rules={[ { required: true, },]}>
-                    <Input />
-                </Form.Item>
-                <Form.Item name="State" label="State" rules={[{required: true,},]}>
-                    <Input />
-                </Form.Item> 
-                <Form.Item name="ZipCode" label="Zip Code" rules={[   {     required: true,   }, ]}>
-                    <Input />
-                </Form.Item>
-            </Space>
-            <Form.Item name="Landmark" label="Landmark" rules={[   {     required: true,   }, ]}>
-                <Input />
-            </Form.Item>
-        </Form>
+
+        <Form.Item name="Phone" label="Phone Number" rules={[{ required: true, message: 'Please input your phone number!' }]}>
+          <Input addonBefore={prefixSelector} style={{ width: '80%' }} />
+        </Form.Item>
+        <Form.Item name="Address" label="Address" rules={[{ required: true }]}>
+          <Input />
+        </Form.Item>
+        <Space style={{ display: 'flex', marginBottom: 8 }} align="start">
+          <Form.Item name="City" label="City" rules={[{ required: true, },]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="State" label="State" rules={[{ required: true, },]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="ZipCode" label="Zip Code" rules={[{ required: true, },]}>
+            <Input />
+          </Form.Item>
+        </Space>
+        <Form.Item name="Landmark" label="Landmark" rules={[{ required: true, },]}>
+          <Input />
+        </Form.Item>
+      </Form>
     </Modal>
   );
 };
@@ -122,29 +132,29 @@ const DeliverForm = () => {
         }}
       >
         <Form {...layout} name="basicForm" onFinish={onFinish}>
-        
+
           <Form.Item
             label="Delivery Address"
             shouldUpdate={(prevValues, curValues) => prevValues.users !== curValues.users}
           >
-            {({getFieldValue}) => {
+            {({ getFieldValue }) => {
               const users = getFieldValue('users') || [];
               return users.length ? (
                 <ul>
                   {users.map((user, index) => (
                     <li key={index} className="user">
-                      
-                      {user.FirstName} - {user.LastName} - {user.Phone} - {user.Address} - {user.City} - {user.State} - {user.ZipCode} -- {user.Landmark} 
+
+                      {user.FirstName} - {user.LastName} - {user.Phone} - {user.Address} - {user.City} - {user.State} - {user.ZipCode} -- {user.Landmark}
                     </li>
-                    
-                    
+
+
                   ))}
                 </ul>
               ) : (
-                <Typography.Text className="ant-form-text" type="secondary">
-                  ( No address yet. )
-                </Typography.Text>
-              );
+                  <Typography.Text className="ant-form-text" type="secondary">
+                    ( No address yet. )
+                  </Typography.Text>
+                );
             }}
           </Form.Item>
           <Form.Item {...tailLayout}>
@@ -156,8 +166,7 @@ const DeliverForm = () => {
               style={{
                 margin: '0 8px',
               }}
-              onClick={showUserModal}
-            >
+              onClick={showUserModal}>
               Add New Address
             </Button>
           </Form.Item>
@@ -169,4 +178,11 @@ const DeliverForm = () => {
   );
 };
 
-export default (DeliverForm);
+
+const mapPropsToDispatch = dispatch => {
+  return {
+    $editProfile: (data) => dispatch(editProfile(data))
+  }
+}
+
+export default connect(null, mapPropsToDispatch)(DeliverForm);
