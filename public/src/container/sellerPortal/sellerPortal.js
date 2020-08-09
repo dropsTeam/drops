@@ -110,8 +110,8 @@ class SellerPortal extends React.Component {
 
     deleteProduct = async (index) => {
         try {
-            // await axios.delete(`/products/${this.state.products[index]._id}`);
 
+            await axios.delete(`/products/p/${this.state.products[index]._id}`);
             let newArr = [...this.state.products];
             newArr.splice(index, 1);
             this.setState({ ...this.state, products: [...newArr] });

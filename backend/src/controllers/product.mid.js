@@ -1,5 +1,6 @@
 const productModel = require('../models/products.model');
 const userModel = require('../models/user.model');
+const orderModal = require('../models/orders.model');
 const { errorHandler } = require('../utils/ErrorHandler');
 
 
@@ -26,10 +27,11 @@ const basicProductInfo = async (req, res, next) => {
 }
 
 
-const deleteProduct = async (rea, res) => {
+const deleteProduct = async (req, res) => {
     try {
         const { productId } = req.params;
         await productModel.remove({ _id: productId });
+        await orderModal.remove({ productId, confirmed: false });
         res.status(200).send('ok');
 
     } catch (err) {
