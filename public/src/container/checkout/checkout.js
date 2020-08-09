@@ -33,7 +33,7 @@ class Cartcheckout extends Component {
     }
 
     state = {
-        value: 1,
+        value: 1
     };
 
     onChange = e => {
