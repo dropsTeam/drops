@@ -53,9 +53,9 @@ if (process.env.NODE_ENV === 'production') {
     });
     app.use(morgan('combined', { stream: accessLogStream }));
 
-    app.use(express.static('Drops/public/build'));
+    app.use(express.static('public/build'));
     app.get('*', (req, res, next) => {
-        res.sendFile(path.resolve(__dirname, 'Drops', 'public', 'build', 'index.html'));
+        res.sendFile(path.resolve(__dirname, 'public', 'build', 'index.html'));
     });
 
 } else {
