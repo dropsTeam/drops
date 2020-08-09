@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react';
-import { Row, Col, Card, List, Radio, Input } from 'antd';
+import { Row, Col, Card, List, Radio, Button } from 'antd';
 import { Collapse } from 'antd';
 import GoogleBtn from '../GoogleBtn/GoogleBtn';
 import { CarOutlined, BellOutlined, StarOutlined } from '@ant-design/icons';
@@ -93,9 +93,9 @@ class Cartcheckout extends Component {
                             <Card title="DELIVERY ADDRESS" className="cart-right-check" headStyle={{ color: 'grey', height: 48 }}>
                                 <DeliverForm $editProfile={(details) => this.editProfile(details)} isAuthorised={this.props.isAuthorised} />
                             </Card>
-                            {
+                            {/* {
                                 (this.props.user.userAddress.address.trim() !== '') && (
-                           
+                            */}
                                     <React.Fragment>
 
 
@@ -117,9 +117,12 @@ class Cartcheckout extends Component {
                                                 </Radio>
                                             </Radio.Group>
                                         </Card>
+                                        <Button type="primary" block style={{margin:20, height:60, width:820, fontSize:16, fontWeight:'bold', color:'white', letterSpacing:2}}>
+                                           PLACE ORDER
+                                        </Button>
                                     </React.Fragment>
-                                ) 
-                            }
+                                {/* ) 
+                            } */}
 
                             
 
@@ -127,6 +130,8 @@ class Cartcheckout extends Component {
 
 
                     )}
+
+            
 
                 </Col>
                 { this.props.isAuthorised  && (
@@ -137,6 +142,9 @@ class Cartcheckout extends Component {
                     </Col>
                 )}
             </Row>
+            
+
+          
         );
     }
 }
