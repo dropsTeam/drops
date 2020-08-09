@@ -27,7 +27,7 @@ class Navbar extends Component {
     return (
         <nav className="menuBar" >
         	<div className="logo">
-        		<a><Avatar style={{ width: 130, height: 40, top:-10, left:30 }} shape="square" src={flipkart}></Avatar></a>
+        		<a href="/"><Avatar style={{ width: 130, height: 40, top:-10, left:30 }} shape="square" src={flipkart}></Avatar></a>
           
         	</div>
 

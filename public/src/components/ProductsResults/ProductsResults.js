@@ -6,7 +6,7 @@ import * as viewActions from "../../Redux/Actions/ViewActions.js"
 // import ResultsCard from "../ProductsResults/ResultsCard/ResultsCard.js";
 import ResultsBlock from "./ResultsBlock/ResultsBlock.js"
 import { mainHttp } from '../../Axios/Axios';
-import { App, Sider } from "./FiltersMenu/FiltersMenu"
+import { Sider } from "./FiltersMenu/FiltersMenu"
 // importing axios
 import { mainHttp as axios } from "../../Axios/Axios.js";
 
@@ -24,12 +24,8 @@ class Filters extends PureComponent {
             <h6>Filters</h6>
           </div>
           <div className="filters__block">
-            <div className="filters__block--vertical">
+            <div className="filters__block--inner">
               <Sider {...this.props} />
-            </div>
-            {/* mobile */}
-            <div className="filters__block--horizontal">
-              <App />
             </div>
           </div>
         </div>
