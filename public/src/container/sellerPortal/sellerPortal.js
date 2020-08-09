@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PageHeader, Button, Menu, Dropdown, Avatar, Empty } from 'antd';
+import { PageHeader, Button, Menu, Dropdown, Avatar, Empty, message } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import styles from './sellerPortal.module.css';
 
@@ -34,7 +34,8 @@ class SellerPortal extends React.Component {
                 totalOrders: 0,
                 totalSaleAmount: 0,
                 totalProducts: 0
-            }
+            },
+            page: 0
         }
 
         this.toggleModal.bind(this);
@@ -50,12 +51,11 @@ class SellerPortal extends React.Component {
     async fetch() {
         try {
 
-            const products = await axios.get("/products/seller/0");
+            this.fetchProducts();
             const stats = await axios.get('/user/seller/stats');
 
             this.setState({
                 ...this.state,
-                products: [...products.data],
                 stats: {
                     ...this.state.stats,
                     totalOrders: stats.data.totalOrders,
@@ -68,6 +68,23 @@ class SellerPortal extends React.Component {
         } catch (err) {
             console.log(err)
         }
+    }
+
+    fetchProducts = async () => {
+
+        const products = await axios.get(`/products/seller/${this.state.page}`);
+
+        if (products.data.length === 0) { message.error('No more elements found'); return; }
+
+        const newData = [...this.state.products].concat(products.data);
+
+        this.setState((prevState) => {
+            return {
+                products: [...newData],
+                page: prevState.page + 1
+            }
+        });
+
     }
 
 
@@ -91,12 +108,26 @@ class SellerPortal extends React.Component {
         }
     }
 
+    deleteProduct = async (index) => {
+        try {
+            // await axios.delete(`/products/${this.state.products[index]._id}`);
+
+            let newArr = [...this.state.products];
+            newArr.splice(index, 1);
+            this.setState({ ...this.state, products: [...newArr] });
+
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     onProductEditClick = async (index) => {
         this.setState((preState) => {
             return {
                 ...preState,
                 editProductIndex: index,
-                view: { 
+                view: {
                     ...preState.view,
                     EditProduct: true
                 }
@@ -106,8 +137,14 @@ class SellerPortal extends React.Component {
 
     editProduct = async (data) => {
         try {
-            
+
             const product = await axios.put('/products', { ...data, _id: this.state.products[this.state.editProductIndex]._id });
+            let newArr = [...this.state.products];
+            newArr[this.state.editProductIndex] = { ...this.state.products[this.state.editProductIndex], ...data };
+            this.setState({
+                ...this.state,
+                products: [...newArr]
+            })
             this.toggleModal('EditProduct', false);
 
         } catch (err) {
@@ -150,7 +187,7 @@ class SellerPortal extends React.Component {
 
                     <AddEditProduct
                         isVisible={this.state.view.EditProduct}
-                        defaultValues={(this.state.editProductIndex !== 0) && this.state.products[this.state.editProductIndex]}
+                        defaultValues={(this.state.editProductIndex !== -1) && this.state.products[this.state.editProductIndex]}
                         $toggleModal={(visible) => this.toggleModal('EditProduct', visible)}
                         submit={(data) => this.editProduct(data)} />
 
@@ -167,7 +204,7 @@ class SellerPortal extends React.Component {
                             <Button key="3" onClick={() => this.toggleModal('orderView', true)}>Orders</Button>,
                             <Button key="2" onClick={() => this.toggleModal('AnswerQuestions', true)} >Pending Questions</Button>,
 
-                        ]}/>
+                        ]} />
 
                     <div style={{ color: 'white', margin: '0px', background: '#0099ff' }}>
                         <p className='m-0 h2 p-4'>
@@ -177,7 +214,7 @@ class SellerPortal extends React.Component {
                         <pre className='m-0 p-4 h6' style={{ color: 'white', paddingLeft: '30px', whiteSpace: 'pre-wrap' }}>{this.props.user.seller.bio}</pre>
 
                     </div>
-                    <svg style={{ margin: '0px' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,128L48,128C96,128,192,128,288,138.7C384,149,480,171,576,170.7C672,171,768,149,864,160C960,171,1056,213,1152,197.3C1248,181,1344,107,1392,69.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
+                    <svg style={{ margin: '0px' }} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fillOpacity="1" d="M0,128L48,128C96,128,192,128,288,138.7C384,149,480,171,576,170.7C672,171,768,149,864,160C960,171,1056,213,1152,197.3C1248,181,1344,107,1392,69.3L1440,32L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>
 
 
                     <div className="row" style={{ padding: '0 20px' }}>
@@ -213,10 +250,10 @@ class SellerPortal extends React.Component {
                     <div>
                         <p className='h2' style={{ padding: '30px 0 0 20px' }}>Your Products</p>
 
-                        
+
 
                         <div className={styles.results__block} >
-                            {(this.state.products.length === 0) ? <Empty /> : <SellerProductListView onEdit={(index) => this.onProductEditClick(index)} />}
+                            {(this.state.products.length === 0) ? <Empty /> : <SellerProductListView loadMore={this.fetchProducts} deleteProduct={index => this.deleteProduct(index)} products={this.state.products} onEdit={(index) => this.onProductEditClick(index)} />}
                         </div>
                     </div>
 

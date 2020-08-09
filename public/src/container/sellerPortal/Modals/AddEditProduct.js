@@ -13,6 +13,7 @@ class AddEditProduct extends React.PureComponent {
         super(props);
 
         this.state = {
+            _id: 0,
             highlights: [''],
             description: '',
             title: '',
@@ -36,10 +37,10 @@ class AddEditProduct extends React.PureComponent {
     
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (!!this.props.defaultValues) {
-
-            if (this.state.isModified === false) {
+            if (this.props.defaultValues._id !== this.state._id) {
                 this.setState({
                     ...this.state,
+                    _id: this.props.defaultValues._id,
                     highlights: [...this.props.defaultValues.highlights],
                     description: this.props.defaultValues.description,
                     title: this.props.defaultValues.title,
@@ -276,7 +277,7 @@ class AddEditProduct extends React.PureComponent {
                         </Col>
                     </Row>
 
-                    <hr />
+                    <hr/>
 
 
 

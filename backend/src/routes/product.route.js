@@ -12,6 +12,7 @@ route
 route
     .get('/seller/:page', authC.googleVerify(true, true), authC.isSeller(false), productC.getSellerProducts)
     .get('/p/:productId', authC.googleVerify(true, false), productC.basicProductInfo, productC.get)
+    .delete('/p/:productId', authC.googleVerify(true,true), authC.isSeller(true),  productC.deleteProduct)
     .post('/', authC.googleVerify(true, true), authC.isSeller(false), productC.postProduct)
     .put('/', authC.googleVerify(true, true), authC.isSeller(true), productC.editProduct)
 

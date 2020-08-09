@@ -6,39 +6,15 @@ import { message } from 'antd';
 
 class SellerProductListView extends React.Component {
 
-    state = {
-        data: [],
-        page: 0
-    };
-
-    componentDidMount() {
-        this.fetch();
-    }
-
-    fetch = async () => {
-        const products = await mainHttp.get(`/products/seller/${this.state.page}`);
-
-        if (products.data.length === 0) { message.error('No more elements found'); return; }
-
-        const newData = [...this.state.data].concat(products.data);
-
-        this.setState((prevState) => {
-            return {
-                data: [...newData],
-                page: prevState.page + 1
-            }
-        });
-    }
-
-
     render() {
         return (
             <div className='px-5 mt-3'>
                 <ProductListView
-                    data={this.state.data}
+                    data={this.props.products}
                     isEditable={true}
-                    onEdit={this.props.onEdit}
-                    loadMore={this.fetch} />
+                    onEdit={(index) => this.props.onEdit(index)}
+                    deleteProduct={this.props.deleteProduct}
+                    loadMore={this.props.fetchProducts} />
             </div>
         );
     }

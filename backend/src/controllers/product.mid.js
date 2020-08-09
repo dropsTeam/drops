@@ -26,6 +26,18 @@ const basicProductInfo = async (req, res, next) => {
 }
 
 
+const deleteProduct = async (rea, res) => {
+    try {
+        const { productId } = req.params;
+        await productModel.remove({ _id: productId });
+        res.status(200).send('ok');
+
+    } catch (err) {
+        console.log(err);
+        errorHandler(res, 400, 'Error Occured deleting the product');
+    }
+}
+
 
 const getbasicProductInfo = async (req, res, next) => {
     try {
@@ -204,4 +216,4 @@ const search = async (req, res, next) => {
 }
 
 
-module.exports = { basicProductInfo, getbasicProductInfo, postProduct, editProduct, search, get, getSellerProducts };
+module.exports = { basicProductInfo, getbasicProductInfo, postProduct, editProduct, search, get, getSellerProducts, deleteProduct };
