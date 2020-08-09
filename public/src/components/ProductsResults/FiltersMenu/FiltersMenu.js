@@ -183,28 +183,7 @@ class Sider extends React.Component {
 
 
 
-// MOBILE 
-// smaller screen sizes
-class App extends React.Component {
-  state = {
-    current: 'mail',
-  };
-
-  handleClick = e => {
-    console.log('click ', e);
-    this.setState({ current: e.key });
-  };
-
-  render() {
-    const { current } = this.state;
-    return (
-          <RadioGroup  {...this.props} />
-    );
-  }
-}
-
-
-export { Sider, App };
+export { Sider };
 
 
 
