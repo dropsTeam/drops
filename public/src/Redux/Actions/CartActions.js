@@ -1,6 +1,6 @@
 import ActionType from './ActionType';
 import { mainHttp } from '../../Axios/Axios';
-import {message} from 'antd';
+import { message } from 'antd';
 
 function addToCart(item, isAuthorised) {
 
@@ -154,7 +154,7 @@ function checkout(cartId) {
     return async dispatch => {
         try {
             await mainHttp.post('/orders', { cartId });
-            dispatch({ type: ActionType.DELETE_CART_ITEM, index: cartId });
+            dispatch({ type: ActionType.DELETE_CART_ITEM, payload: { index: cartId } });
         } catch (err) {
             message.error('Error Occured checking out.')
         }

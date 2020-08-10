@@ -1,20 +1,17 @@
 import React, { Component, useState } from 'react';
-import { Row, Col, Card, List, Radio, Button} from 'antd';
+import { Row, Col, Card, List, Radio, Button } from 'antd';
 import { Collapse } from 'antd';
 import GoogleBtn from '../GoogleBtn/GoogleBtn';
 import { CarOutlined, BellOutlined, StarOutlined } from '@ant-design/icons';
 import DeliverForm from './checkoutdlvform';
 import PaymentForm from './payment';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import PriceList from '../../components/cartComponents/PriceList/PriceList';
 import OrderList from '../../components/cartComponents/OrderList/OrderList';
-import { editCart, deleteCartItem, checkout, clearCart } from '../../Redux/Actions/CartActions';
+import { editCart, deleteCartItem, checkout } from '../../Redux/Actions/CartActions';
 import { editProfile } from '../../Redux/Actions/AuthActions';
 
 const { Panel } = Collapse;
-
-
 
 
 
@@ -37,8 +34,10 @@ class Cartcheckout extends Component {
         this.props.$editProfile(details, this.props.isAuthorised);
     }
 
-    checkout = (cartId) => {
-        this.props.$checkout(cartId, this.props.isAuthorised);
+    checkout = () => {
+        for (let cartItem of this.props.cartItems) {
+            this.props.$checkout(cartItem._id);
+        }
     }
 
 
@@ -63,7 +62,7 @@ class Cartcheckout extends Component {
             lineHeight: '30px',
         };
 
-           
+
 
         const { value } = this.state;
 
@@ -109,7 +108,7 @@ class Cartcheckout extends Component {
                             </Card>
                             {
                                 (this.props.user.userAddress.address.trim() !== '') && (
-                           
+
                                     <React.Fragment>
 
 
@@ -117,7 +116,7 @@ class Cartcheckout extends Component {
                                             <OrderList $editCart={(quantity, index) => this.editCart(quantity, index)} $deleteCartItem={(index) => this.deleteCartItem(index)} isAuthorised={this.props.isAuthorised} cartItems={this.props.cartItems} />
                                         </Card>
 
-                                        <Card title="PAYMENT OPTION"  className="cart-right-check" headStyle={{ color: 'grey', height: 48 }}>
+                                        <Card title="PAYMENT OPTION" className="cart-right-check" headStyle={{ color: 'grey', height: 48 }}>
                                             <Radio.Group onChange={this.onChange} value={value}>
                                                 <Radio style={radioStyle} value={1}>
                                                     Paypal
@@ -131,30 +130,23 @@ class Cartcheckout extends Component {
                                                 </Radio>
                                             </Radio.Group>
                                         </Card>
-                                        <NavLink  to='/orders'>
-                                            <div>
-                                                <Button type="primary" onClick={(cartId) => this.props.$checkout(cartId)} block style={{margin:20, height:60, width:820, fontSize:16, fontWeight:'bold', color:'white', letterSpacing:2}} >
-                                                    PLACE ORDER 
-                                                </Button>
-                                            </div>
-                                        </NavLink>
-                                        
-                                        
+
+                                        <div>
+                                            <Button type="primary" onClick={this.checkout} block style={{ margin: 20, height: 60, width: 820, fontSize: 16, fontWeight: 'bold', color: 'white', letterSpacing: 2 }} >
+                                                PLACE ORDER
+                                            </Button>
+                                        </div>
+
+
                                     </React.Fragment>
-                                ) 
+                                )
                             }
 
-                            
-
                         </div>
-
-
                     )}
 
-            
-
                 </Col>
-                { this.props.isAuthorised  && (
+                {this.props.isAuthorised && (
                     <Col className="col-right-cart" xl={8}>
                         <Card title="PRICE DETAILS" className="cart-left" headStyle={{ color: '#878787' }} >
                             <PriceList $editCart={(quantity, productId) => this.editCart(quantity, productId)} isAuthorised={this.props.isAuthorised} cartItems={this.props.cartItems} />
@@ -162,20 +154,17 @@ class Cartcheckout extends Component {
                     </Col>
                 )}
             </Row>
-            
 
-          
+
         );
     }
 }
 
 const mapPropsToState = (store) => {
     return {
-        user: store.user,
         cartItems: store.cartItems,
         isAuthorised: store.isAuthorised,
-        
-
+        user: store.user
     }
 }
 

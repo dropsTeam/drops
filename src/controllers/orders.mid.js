@@ -8,7 +8,7 @@ const post = async (req, res) => {
         const { user } = req.app.locals;
         const { cartId } = req.body;
 
-        await orderModel.findOneAndUpdate({ user: user.gId, _id: cartId }, { confirmed: true, timeStamp: Date.now });
+        await orderModel.findOneAndUpdate({ user: user.gId, _id: cartId }, { confirmed: true, timeStamp: Date.now() });
         res.status(200).send('ok');
 
     } catch (err) {
