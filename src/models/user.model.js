@@ -9,7 +9,7 @@ const schema = mongo.Schema({
         type: types.Date,
         default: Date.now
     },
-    searchHistory: [String],
+    searchHistory: [{type: types.String, default: ['iPhone', 'Mobile'] }],
     recommendations: [{ type: types.ObjectId, ref: 'products' }],
     gId: { type: types.String },
     profilePic: { type: types.String },
