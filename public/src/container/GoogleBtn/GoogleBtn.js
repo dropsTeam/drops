@@ -51,7 +51,7 @@ class GoogleBtn extends React.Component {
     }
 
     handleLoginFailure(response) {
-        console.log('Failed to log in')
+        console.log(response);
     }
 
     handleLogoutFailure(response) {
@@ -59,7 +59,7 @@ class GoogleBtn extends React.Component {
     }
 
     componentDidMount() {
-        console.log(window.sessionStorage.getItem('oauth2_cs::http://localhost:3000::1092942175302-0ibod3kvsqd9861k4q88epeaa2q2t587.apps.googleusercontent.com'))
+        // console.log(window.sessionStorage.getItem('oauth2_cs::http://localhost:3000::1092942175302-0ibod3kvsqd9861k4q88epeaa2q2t587.apps.googleusercontent.com'))
     }
 
     render() {
