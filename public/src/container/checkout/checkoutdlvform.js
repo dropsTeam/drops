@@ -33,7 +33,7 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
   }, [visible]);
 };
 
-const ModalForm = ({ visible, onCancel }) => {
+const ModalForm = ({ visible, onCancel, editProfile }) => {
 
 
   const [form] = Form.useForm();
@@ -59,17 +59,18 @@ const ModalForm = ({ visible, onCancel }) => {
   const onOk = () => {
     const data = form.getFieldsValue();
     const payload = {
-      address: {
-        city: data.City,
-        landmark: data.Landmark,
-        state: data.State,
-        zipCode: data.ZipCode,
-        address: data.Address
-      },
+   
+      city: data.City,
+      landmark: data.Landmark,
+      state: data.State,
+      zipCode: data.ZipCode,
+      address: data.Address,
       phoneNumber: data.Phone  
     }
+
+    editProfile(payload);
     
-    // form.submit();
+    form.submit();
   };
   
   return (
@@ -101,7 +102,7 @@ const ModalForm = ({ visible, onCancel }) => {
   );
 };
 
-const DeliverForm = () => {
+const DeliverForm = (props) => {
   const [visible, setVisible] = useState(false);
 
   const showUserModal = () => {
@@ -171,7 +172,7 @@ const DeliverForm = () => {
           </Form.Item>
         </Form>
 
-        <ModalForm visible={visible} onCancel={hideUserModal} />
+        <ModalForm editProfile={(data) => props.$editProfile(data)} visible={visible} onCancel={hideUserModal} />
       </Form.Provider>
     </>
   );

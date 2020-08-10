@@ -15,13 +15,13 @@ const get = async (req, res, next) => {
     }
 };
 
-const editProfile = async (req, res, next) => {
+const editProfile = async (req, res) => {
     try {
         const { details } = req.body;
         const { user } = req.app.locals;
 
         const update = {
-            address: {
+            userAddress: {
                 city: details.city,
                 state: details.state,
                 zipCode: details.zipCode,
@@ -30,6 +30,7 @@ const editProfile = async (req, res, next) => {
             },
             phoneNumber: details.phoneNumber
         }
+
 
         await userModel.findOneAndUpdate({ gId: user.gId }, update);
 
@@ -252,7 +253,7 @@ const editSeller = async (req, res, next) => {
         errorHandler(res, 400, 'Error Occured while editing the profile.');
     }
 }
-
+ 
 
 
 module.exports = { get, editProfile, getCart, postCart, deleteCartItem, editCart, getSearchHistory, getRecommendedItems, getSellerStats, editSeller };

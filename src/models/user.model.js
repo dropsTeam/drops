@@ -40,12 +40,12 @@ const schema = mongo.Schema({
             type: types.String,
             maxlength: 300,
             default: ''
-        }
+        },
 
     },
     phoneNumber: {
         type: types.Number,
-        required: false
+        default: 0
     },
     isSeller: {
         type: types.Boolean,

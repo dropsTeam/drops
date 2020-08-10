@@ -25,12 +25,11 @@ function editProfile(details) {
     return async dispatch => {
         try {
 
-            await mainHttp.put('/user', details);
+            await mainHttp.put('/user', { details: { ...details } });
             dispatch({ type: ActionType.EDIT_PROFILE, payload: details })
 
         } catch (err) {
             console.log(err);
-            alert('Error Occured editing the user.')
         }
     }
 }
@@ -39,14 +38,14 @@ function editSellerAccount(data) {
     return async dispatch => {
 
         try {
-            
-            await mainHttp.put('/user/seller', {sellerData: data});
-            dispatch({type: ActionType.EDIT_SELLER_ACCOUNT, payload: data});
+
+            await mainHttp.put('/user/seller', { sellerData: data });
+            dispatch({ type: ActionType.EDIT_SELLER_ACCOUNT, payload: data });
 
         } catch (err) {
             console.log(err);
         }
-    } 
+    }
 }
 
 function setSeller(sellerinfo) {
