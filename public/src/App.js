@@ -15,14 +15,14 @@ import { Skeleton, BackTop } from 'antd';
 import { ArrowUpOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 
-import ProductBlock from "./components/ProductsBlock/ProductsBlock.js";
-import ProductResults from "./components/ProductsResults/ProductsResults.js"
 
 import NavBar from './components/Navbar/Navigationbar';
 import SubNav from './components/Navbar/subnav';
 
 import Loading from './components/Loading/Loading';
 
+const ProductResults = React.lazy(() => import("./components/ProductsResults/ProductsResults.js"));
+const ProductBlock = React.lazy( () => import("./components/ProductsBlock/ProductsBlock.js"));
 const ProductView = React.lazy(() => import('./container/ProductView/ProductView'));
 const Cart = React.lazy(() => import('./container/cart/cart'));
 const Checkout = React.lazy(() => import('./container/checkout/checkout'));
@@ -69,7 +69,7 @@ class App extends React.Component {
 
               <Route path="/view/:id" exact component={ProductView} />
 
-              <PrivateRoute access={true} path='/s/seller' exact component={SellerPortal} />
+              <PrivateRoute access={this.props.user.isSeller} path='/s/seller' exact component={SellerPortal} />
 
 
             </Switch>
@@ -85,7 +85,8 @@ class App extends React.Component {
 const mapStateToProps = store => {
   return {
     isAuthorised: store.isAuthorised,
-    view: store.view
+    view: store.view,
+    user: store.user
   }
 }
 
