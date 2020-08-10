@@ -33,6 +33,8 @@ const useResetFormOnCloseModal = ({ form, visible }) => {
   }, [visible]);
 };
 
+
+
 const ModalForm = ({ visible, onCancel }) => {
 
 
@@ -54,6 +56,7 @@ const ModalForm = ({ visible, onCancel }) => {
     </Form.Item>
   );
   
+  
 
 
   const onOk = () => {
@@ -69,6 +72,7 @@ const ModalForm = ({ visible, onCancel }) => {
       phoneNumber: data.Phone  
     }
     
+    this.props.editProfile(payload);
     // form.submit();
   };
   
@@ -115,6 +119,8 @@ const DeliverForm = () => {
   const onFinish = values => {
     console.log('Finish:', values);
   };
+
+ 
 
   return (
     <>
@@ -180,7 +186,7 @@ const DeliverForm = () => {
 
 const mapPropsToDispatch = dispatch => {
   return {
-    $editProfile: (details) => dispatch(editProfile(details))
+    $editProfile:(payload) => dispatch(editProfile(payload))
   }
 }
 
