@@ -3,7 +3,9 @@ import { Menu, Dropdown, Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import * as authActions from '../../Redux/Actions/AuthActions';
+
 import OrderViewModal from '../OrderViewModal/OrderViewModal';
+import EditProfileModal from '../editProfileModal/editProfileModal';
 
 import { useState } from 'react';
 import { Modal, Form, Input } from 'antd';
@@ -110,7 +112,8 @@ class DropDown extends React.PureComponent {
 
   state = {
     view: {
-      ordersModal: false
+      ordersModal: false,
+      editProfile: false
     },
   }
 
@@ -138,9 +141,9 @@ class DropDown extends React.PureComponent {
 
       <Menu>
         <Menu.Item>
-          <a target="_blank" rel="noopener noreferrer" href="http://www.alipay.com/">
+          <a target="_blank" rel="noopener noreferrer" onClick={() => this.toggleModal('editProfile', true)}>
             Edit Profile
-            </a>
+          </a>
         </Menu.Item>
         <Menu.Item>
           {
@@ -175,7 +178,7 @@ class DropDown extends React.PureComponent {
           </Dropdown>
 
           <OrderViewModal isVisible={this.state.view.ordersModal} $toggleModal={(a) => this.toggleModal('ordersModal', a)} />
-
+          <EditProfileModal onSave={(data) => this.props.$editProfile(data)} user={this.props.user} isVisible={this.state.view.editProfile} $toggleModal={(a) => this.toggleModal('editProfile',a) } ></EditProfileModal>
         </React.Fragment>
       )
     );
@@ -192,7 +195,8 @@ const mapPropsToState = (store) => {
 const mapPropsToDispatch = dispatch => {
   return {
     setSeller: (sellerInfo) => dispatch(authActions.setSeller(sellerInfo)),
-    $logout: () => dispatch(authActions.logout())
+    $logout: () => dispatch(authActions.logout()),
+    $editProfile: (data) => dispatch(authActions.editProfile(data))
   }
 }
 

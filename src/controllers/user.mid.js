@@ -6,7 +6,7 @@ const { errorHandler } = require('../utils/ErrorHandler');
 const get = async (req, res, next) => {
     try {
         const { user } = req.app.locals;
-        const userData = await userModel.findOne({ gId: user.gId }).select('gId profilePic email fullName isSeller seller userAddress timeStamp').lean();
+        const userData = await userModel.findOne({ gId: user.gId }).select('gId profilePic phoneNumber email fullName isSeller seller userAddress timeStamp').lean();
         res.status(200).send(userData);
     }
     catch (err) {
