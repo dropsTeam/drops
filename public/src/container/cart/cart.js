@@ -37,7 +37,7 @@ class Cart extends Component {
                         <Row className="row-desc-2">
                             <Form>
                                 <NavLink  to='/checkout'>
-                                    <Button className="fitem00" onClick={checkout} disabled={this.props.cartItems.length === 0}> <a>PLACE ORDER</a></Button>
+                                    <Button className="fitem00" onClick={checkout} disabled={this.props.cartItems.length === 0}><span>PLACE ORDER</span></Button>
                                 </NavLink>
                             </Form>
                         </Row>

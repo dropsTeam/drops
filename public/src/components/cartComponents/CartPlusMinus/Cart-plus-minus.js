@@ -37,8 +37,7 @@ class PlusMinusCart extends React.Component {
             <a>SAVE FOR LATER</a>
           </div>
           <div className="rbsvu">
-            <a onClick={() => this.props.$deleteCartItem(reduxIndex)}> REMOVE</a>
-
+            <a onClick={() => this.props.$deleteCartItem(reduxIndex)}>REMOVE</a>
           </div>
         </div>
       </Row>

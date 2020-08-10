@@ -1,14 +1,15 @@
 import React, { Component, useState } from 'react';
-import { Row, Col, Card, List, Radio, Button } from 'antd';
+import { Row, Col, Card, List, Radio, Button} from 'antd';
 import { Collapse } from 'antd';
 import GoogleBtn from '../GoogleBtn/GoogleBtn';
 import { CarOutlined, BellOutlined, StarOutlined } from '@ant-design/icons';
 import DeliverForm from './checkoutdlvform';
 import PaymentForm from './payment';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import PriceList from '../../components/cartComponents/PriceList/PriceList';
 import OrderList from '../../components/cartComponents/OrderList/OrderList';
-import { editCart, deleteCartItem } from '../../Redux/Actions/CartActions';
+import { editCart, deleteCartItem, checkout, clearCart } from '../../Redux/Actions/CartActions';
 import { editProfile } from '../../Redux/Actions/AuthActions';
 
 const { Panel } = Collapse;
@@ -24,6 +25,10 @@ class Cartcheckout extends Component {
         this.props.$editCart(quantity, index, this.props.isAuthorised);
     }
 
+    addToCart = (item) => {
+        this.props.$addToCart(item, this.props.isAuthorised);
+    }
+
     deleteCartItem = (index) => {
         this.props.$deleteCartItem(index, this.props.isAuthorised);
     }
@@ -31,6 +36,12 @@ class Cartcheckout extends Component {
     editProfile = (details) => {
         this.props.$editProfile(details, this.props.isAuthorised);
     }
+
+    checkout = (cartId) => {
+        this.props.$checkout(cartId, this.props.isAuthorised);
+    }
+
+
 
     state = {
         value: 1
@@ -52,7 +63,10 @@ class Cartcheckout extends Component {
             lineHeight: '30px',
         };
 
+           
+
         const { value } = this.state;
+
 
         return (
             <Row style={{ backgroundColor: '#F1F3F6' }}>
@@ -103,7 +117,7 @@ class Cartcheckout extends Component {
                                             <OrderList $editCart={(quantity, index) => this.editCart(quantity, index)} $deleteCartItem={(index) => this.deleteCartItem(index)} isAuthorised={this.props.isAuthorised} cartItems={this.props.cartItems} />
                                         </Card>
 
-                                        <Card title="PAYMENT OPTION" visible={false} className="cart-right-check" headStyle={{ color: 'grey', height: 48 }}>
+                                        <Card title="PAYMENT OPTION"  className="cart-right-check" headStyle={{ color: 'grey', height: 48 }}>
                                             <Radio.Group onChange={this.onChange} value={value}>
                                                 <Radio style={radioStyle} value={1}>
                                                     Paypal
@@ -117,9 +131,15 @@ class Cartcheckout extends Component {
                                                 </Radio>
                                             </Radio.Group>
                                         </Card>
-                                        <Button type="primary" block style={{margin:20, height:60, width:820, fontSize:16, fontWeight:'bold', color:'white', letterSpacing:2}}>
-                                           PLACE ORDER
-                                        </Button>
+                                        <NavLink  to='/orders'>
+                                            <div>
+                                                <Button type="primary" onClick={(cartId) => this.props.$checkout(cartId)} block style={{margin:20, height:60, width:820, fontSize:16, fontWeight:'bold', color:'white', letterSpacing:2}} >
+                                                    PLACE ORDER 
+                                                </Button>
+                                            </div>
+                                        </NavLink>
+                                        
+                                        
                                     </React.Fragment>
                                 ) 
                             }
@@ -163,7 +183,9 @@ const mapDispatchToProps = dispatch => {
     return {
         $editCart: (quantity, index, isAuthorised) => dispatch(editCart(quantity, index, isAuthorised)),
         $deleteCartItem: (index, isAuthorised) => dispatch(deleteCartItem(index, isAuthorised)),
-        $editProfile: (details, isAuthorised) => dispatch(editProfile(details, isAuthorised))
+        $editProfile: (details, isAuthorised) => dispatch(editProfile(details, isAuthorised)),
+        $checkout: (cartId, isAuthorised) => dispatch(checkout(cartId, isAuthorised))
+
     }
 }
 
