@@ -112,7 +112,7 @@ const schema = mongo.Schema({
 
 });
 
-schema.index({ title: 'text', description: 'text'  });
+schema.index({ title: 'text' });
 
 schema.index({ aveageRaing: 1, price: 1, timeStamp: 1 });
 

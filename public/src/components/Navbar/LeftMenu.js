@@ -9,7 +9,6 @@ const { Search } = Input;
 
 
 
-
 //  the autocomplete component for searching  the products----
 class AutoCompletedText extends React.Component {
   constructor(props) {
@@ -117,6 +116,7 @@ class AutoCompletedText extends React.Component {
           enterButton
           size="medium"
           value={text}
+          placeholder='Search For Products, Brands and more'
           onSearch={value => this.handleSearch(value)}
           onChange={this.onTextChange}
           onFocus={this.handleFocus}
