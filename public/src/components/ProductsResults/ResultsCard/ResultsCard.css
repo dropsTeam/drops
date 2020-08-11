@@ -1,5 +1,6 @@
 .resultsImage__container a img {
-  width: 100px;
+  width: 110px;
+  height:180px;
 }
 
 @media screen and (min-width: 1200px) {
