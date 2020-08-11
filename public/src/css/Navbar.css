@@ -9,6 +9,14 @@
   box-shadow: 0 0 30px #f3f1f1;
   background-color: #2874F0;
 }
+
+
+@media(max-width:1000px){
+ 
+
+ 
+}
+
 .logo{
   width: 150px;
   float: left;

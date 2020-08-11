@@ -16,7 +16,7 @@ import { ArrowUpOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 
 
-import NavBar from './components/Navbar/Navigationbar';
+import  NavBar from './components/Navbar/Navigationbar';
 import SubNav from './components/Navbar/subnav';
 
 import Loading from './components/Loading/Loading';
@@ -57,6 +57,7 @@ class App extends React.Component {
           <Router>
 
             <NavBar />
+           
             <SubNav />
 
             <Switch>
