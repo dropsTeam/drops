@@ -1,3 +1,7 @@
+.resultsImage__container a img {
+  width: 100px;
+}
+
 @media screen and (min-width: 1200px) {
   .resultsCard__container {
     margin: 0.5rem;
@@ -11,6 +15,21 @@
     -webkit-box-shadow: 0px 0px 5px #dadada;
             box-shadow: 0px 0px 5px #dadada;
     padding: 0 0.1rem;
+  }
+  .resultsImage__container {
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+    height: 200px;
+    width: 120px;
+  }
+  .resultsImage__container .resultsImage__wrapper {
+    padding: 0 0.5rem;
+  }
+  .resultsImage__container .resultsImage__wrapper img {
+    height: 240px;
+  }
+  .resultsImage__container a img {
+    width: 100px;
   }
 }
 
@@ -41,6 +60,7 @@
 
 .resultsImage__container .resultsImage__wrapper img {
   height: 240px;
+  width: 120px;
 }
 
 @media screen and (max-width: 900px) {
@@ -66,6 +86,9 @@
   }
   .resultsImage__container .resultsImage__wrapper img {
     height: 240px;
+  }
+  .resultsImage__container a img {
+    width: 100px;
   }
   .resultsCard__content {
     margin: 0.5rem 5rem;

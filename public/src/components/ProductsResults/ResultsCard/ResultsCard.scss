@@ -1,4 +1,7 @@
 
+ .resultsImage__container a img{
+  width:100px;
+}
 
 
 
@@ -14,6 +17,24 @@
     }
    }
    
+
+   .resultsImage__container{
+    margin:0 auto;
+     margin-bottom:0.5rem;
+     height: 200px;
+     width:120px;
+     .resultsImage__wrapper{
+      padding:0 0.5rem;
+      img{
+       height:240px;
+      }
+     }
+    }
+
+
+    .resultsImage__container a img{
+      width:100px;
+    }
 }
 
 
@@ -41,6 +62,7 @@ margin:0 auto;
   padding:0 0.5rem;
   img{
    height:240px;
+   width:120px;
   }
  }
 }
@@ -73,6 +95,11 @@ margin:0 auto;
      height:240px;
     }
    }
+  }
+
+
+  .resultsImage__container a img{
+    width:100px;
   }
 
 
