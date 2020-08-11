@@ -155,7 +155,7 @@ const getSearchHistory = async (req, res, next) => {
         const { user } = req.app.locals;
 
         const history = await userModel.findOne({ gId: user.gId }).select('searchHistory').slice('searchHistory', -10).lean();
-        res.status(200).send(history.searchHistory);
+        res.status(200).send(history.searchHistory.reverse());
 
     } catch (err) {
         console.log(err);

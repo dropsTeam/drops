@@ -146,7 +146,7 @@ const search = async (req, res, next) => {
 
         let page = 0;
         let sortby = 'aveageRaing';
-        let sortorder = 1;
+        let sortorder = -1;
 
         const payload = {
             $text: {
@@ -204,7 +204,7 @@ const search = async (req, res, next) => {
 
         if (Object.prototype.hasOwnProperty.call(req.app.locals, 'user') && search.length !== 0) {
             const history = await userModel.findOne({ gId: req.app.locals.user.gId }).select('searchHistory').lean();
-            if (history.searchHistory[-1] !== req.query.text) {
+            if (history.searchHistory.pop() !== req.query.text) {
                 await userModel.findOneAndUpdate({ gId: req.app.locals.user.gId }, { $push: { searchHistory: req.query.text } });
             }
         }
