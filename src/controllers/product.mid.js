@@ -78,9 +78,10 @@ const getSellerProducts = async (req, res) => {
     try {
         const { user } = req.app.locals;
         const { page } = req.params;
+        console.log(page)
 
         const products = await productModel.find({ seller: user.gId }).sort('timeStamp').skip(page * 10).limit(10).lean();
-        console.log(products);
+
         res.status(200).send(products);
 
     } catch (err) {
@@ -95,7 +96,7 @@ const postProduct = async (req, res, next) => {
         const { user } = req.app.locals;
         const { title, description, details, highlights, media, dropdown, varients, price, category } = req.body;
 
-        if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10 || highlights.length > 10) throw 'Validation Error.';
+        if (details.length > 20 || media.length != 5 || dropdown.options.length > 10 || varients.length > 10 || highlights.length > 10 || varients.length === 0 || dropdown.options.length === 0) throw 'Validation Error.';
 
 
         const payload = {

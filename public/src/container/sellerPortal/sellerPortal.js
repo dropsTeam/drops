@@ -72,18 +72,23 @@ class SellerPortal extends React.Component {
 
     fetchProducts = async () => {
 
-        const products = await axios.get(`/products/seller/${this.state.page}`);
+        try {
 
-        if (products.data.length === 0) { message.error('No more elements found'); return; }
+            const products = await axios.get(`/products/seller/${this.state.page}`);
 
-        const newData = [...this.state.products].concat(products.data);
+            if (products.data.length === 0) { message.error('No more elements found'); return; }
 
-        this.setState((prevState) => {
-            return {
-                products: [...newData],
-                page: prevState.page + 1
-            }
-        });
+            const newData = [...this.state.products].concat(products.data);
+
+            this.setState((prevState, prevprops) => {
+                return {
+                    products: [...newData],
+                    page: prevState.page + 1
+                }
+            });
+        } catch (err) {
+            console.log(err);
+        }
 
     }
 

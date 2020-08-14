@@ -1,8 +1,7 @@
 import React from 'react';
 
 import ProductListView from '../../../components/ProductListView/ProductListView';
-import { mainHttp } from '../../../Axios/Axios';
-import { message } from 'antd';
+
 
 class SellerProductListView extends React.Component {
 
@@ -14,7 +13,7 @@ class SellerProductListView extends React.Component {
                     isEditable={true}
                     onEdit={(index) => this.props.onEdit(index)}
                     deleteProduct={this.props.deleteProduct}
-                    loadMore={this.props.fetchProducts} />
+                    loadMore={this.props.loadMore} />
             </div>
         );
     }
