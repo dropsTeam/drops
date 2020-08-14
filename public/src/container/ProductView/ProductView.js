@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Form, Input } from 'antd';
+import { Modal, Form, Input, message } from 'antd';
 import { connect } from 'react-redux';
 import * as cartActions from '../../Redux/Actions/CartActions'
 
@@ -48,7 +48,9 @@ class ProductView extends React.Component {
     async fetch() {
         try {
             const product = await mainHttp.get(`/products/p/${this.props.match.params.id}`);
-            console.log(product.data);
+            
+            if(!!!product.data.title) { this.props.history.goBack(); }
+
             this.setState({
                 ...this.state,
                 data: { ...product.data },
@@ -69,7 +71,7 @@ class ProductView extends React.Component {
 
 
         } catch (err) {
-            this.props.history.goBack();
+            message.error('Error Occured !');
         }
     }
 
