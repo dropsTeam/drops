@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import "./ProductAds.css";
+import { withRouter } from 'react-router';
 
 
 
@@ -14,7 +15,7 @@ render() {
     <div className="ads__container">
        <div className="ads__wrapper">
         {this.props.arr.map((item,index)=>
-           <a className="ads__link" key={index}>
+           <a className="ads__link" key={index}  onClick={()=> this.props.history.push(`/results/tv`)}>
              <div className="ads__content">
                <img src={item.img} ></img>
              </div>
@@ -26,5 +27,5 @@ render() {
  }
 }
 
-export default ProductAds;
+export default withRouter(ProductAds);
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import "./ProductCategories.css";
+import { withRouter } from 'react-router';
 
 
 class ProductCategories extends React.Component {
@@ -10,10 +11,11 @@ class ProductCategories extends React.Component {
 
 
  render() {
+
    return  (
  
      <div className="categories__container">
-       <a className="categories__link">
+       <a className="categories__link"  onClick={()=> this.props.history.push(`/results/${this.props.item.title}`)}>
         <div className="categories__wrapper">
           <h1 className="categories__title">{this.props.item.title}</h1>
           <div className="imageCategories__container">
@@ -28,4 +30,4 @@ class ProductCategories extends React.Component {
   }
 }
 
-export default ProductCategories;
+export default withRouter(ProductCategories);

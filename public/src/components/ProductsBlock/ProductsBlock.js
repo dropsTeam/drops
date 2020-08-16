@@ -24,7 +24,10 @@ class ProductBlock extends Component {
   constructor(props) {
     super(props);
     this.state={
-      recommendedProducts : []
+      recommendedProducts : [],
+      electronicsArr :[],
+      homeArr :[],
+      newArr :[]
     }
   }
 
@@ -44,7 +47,37 @@ class ProductBlock extends Component {
         this.setState({recommendedProducts : res})
        })
   //  }
+
+    axios.get(`/products/search?text=electronics&page=0`)
+      .then(res=>{
+        console.log({electronicsArr : res.data});  
+        return res.data
+      })
+      .then(res=>{
+        this.setState({electronicsArr : res})
+      })
+
+    axios.get(`/products/search?text=home&page=0`)
+      .then(res=>{
+        console.log({homeArr : res.data});  
+        return res.data
+      })
+      .then(res=>{
+        this.setState({homeArr : res})
+      })
+
+    axios.get(`/products/search?text="tv"&page=`)
+      .then(res=>{
+        console.log({newArr : res.data});  
+        return res.data
+      })
+      .then(res=>{
+        this.setState({newArr : res})
+      })
+    
   }
+
+
 
 
   render() {
@@ -66,7 +99,7 @@ class ProductBlock extends Component {
         </div>
 
         {/* product scroll bars */}
-        <ProductScrollBars title={"Deals of the Day"} arr={this.state.recommendedProducts} /> 
+        <ProductScrollBars title={"Deals of the Day"} arr={this.state.electronicsArr} /> 
 
         {/* product scroll bars for the recommended products */}
 
@@ -79,9 +112,9 @@ class ProductBlock extends Component {
         <ProductAds arr={adsArr1} />
 
          {/* product scroll bars */}
-        <ProductScrollBars title={"Electronics"} arr={this.state.recommendedProducts} /> 
-        <ProductScrollBars title={"Home"} arr={this.state.recommendedProducts} /> 
-        <ProductScrollBars title={"New offers"} arr={this.state.recommendedProducts} />
+        <ProductScrollBars title={"Electronics"} arr={this.state.electronicsArr} /> 
+        <ProductScrollBars title={"Home"} arr={this.state.homeArr} /> 
+        <ProductScrollBars title={"New offers"} arr={this.state.newArr} />
 
         {/* product ads */}
         <ProductAds arr={adsArr2} />

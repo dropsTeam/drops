@@ -23,6 +23,11 @@ render() {
   const emiArr = ["EMI avalaible","No EMI avalaible"];
   let emi = emiArr[Math.floor(Math.random() *2) ];
 
+  // parsing title
+  const itemTitle = this.props.title;
+  let parsedTitle = itemTitle.split("").slice(0,20);
+
+
   return  (
      <div className={`p-2  bd-highlight resultsCard__container `} >
       <div className="resultsImage__container">
@@ -30,7 +35,7 @@ render() {
       </div>
       <div className="resultsCard__content">
        <div className="resultsCard__title">
-        <span className="resultsCard__heading" >{this.props.title}</span>
+        <span className="resultsCard__heading" >{parsedTitle}</span>
         <p>
           <span style={{ textAlign: 'center' }} > <span className="badge badge-success">{this.props.rating} &#9734;</span> </span>
           <span className="review__count">({this.props.totalReviews > 0 ? this.props.totalReviews : "No Reviews"})</span>

@@ -18,7 +18,10 @@ class ProductCard extends React.PureComponent {
   let discountPercent = 0.2;
   let aPrice = this.props.item.price;
   let dPrice = aPrice+this.multiply(discountPercent,aPrice);
-  console.log(this.props)
+
+    // parsing title
+    const itemTitle = this.props.item.title;
+    let parsedTitle = itemTitle.split("").slice(0,20);
 
    return  (
      <li className="nav-item">
@@ -31,7 +34,7 @@ class ProductCard extends React.PureComponent {
                 </div>
               </div>
               <div className="product__title">
-                {this.props.item.title}
+                {parsedTitle}
               </div>
               <div className="product__price">
                 {/* <p>{this.props.item.price}</p> */}
