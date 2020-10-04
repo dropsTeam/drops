@@ -263,6 +263,7 @@ class SellerPortal extends React.Component {
                     </div>
 
 
+
                     <AnswerQuestionModal $toggleModal={(a, b) => this.toggleModal(a, b)} isVisible={this.state.view.AnswerQuestions} />
                     <OrderViewModal $toggleModal={(a, b) => this.toggleModal('orderView', b)} isVisible={this.state.view.orderView} />
                     <EditSellerProfile
